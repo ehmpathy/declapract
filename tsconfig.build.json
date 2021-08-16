@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "declaration": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "lib": [
+      "dom",
+      "es7",
+      "es2019"
+    ],
+  },
+  "include": [
+    "src/**/*.ts",
+    "nontyped_modules"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.integration.ts",
+    "src/**/__test_assets__/*"
+  ],
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}
