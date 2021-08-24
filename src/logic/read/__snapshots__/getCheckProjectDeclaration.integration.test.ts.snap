@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getCheckProjectDeclarationFromDirectory should define correctly for a bad practice 1`] = `
+CheckProjectDeclaration {
+  "checks": Array [
+    CheckFileDeclaration {
+      "check": [Function],
+      "fix": null,
+      "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/dates-and-times/bad-practices/moment/package.json",
+      "required": true,
+      "type": "CUSTOM",
+    },
+  ],
+  "dir": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/dates-and-times/bad-practices/moment",
+  "name": "moment",
+  "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+
+for example:
+\`\`\`ts
+const a = moment();
+const b = a.addHours(7);
+expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since moment actually both returns \`b\` _and_ mutates \`a\`...
+\`\`\`
+
+",
+  "test": null,
+}
+`;
+
+exports[`getCheckProjectDeclarationFromDirectory should define correctly when many files in many levels 1`] = `
+CheckProjectDeclaration {
+  "checks": Array [
+    CheckFileDeclaration {
+      "check": [Function],
+      "fix": null,
+      "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/terraform/best-practice/.gitignore",
+      "required": true,
+      "type": "CONTAINS",
+    },
+    CheckFileDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/terraform/best-practice/.terraform-version",
+      "required": true,
+      "type": "EQUALS",
+    },
+    CheckFileDeclaration {
+      "check": [Function],
+      "fix": null,
+      "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/terraform/best-practice/provision/terraform/environments/dev/main.tf",
+      "required": true,
+      "type": "CONTAINS",
+    },
+    CheckFileDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/terraform/best-practice/provision/terraform/environments/dev/versions.tf",
+      "required": true,
+      "type": "EQUALS",
+    },
+    CheckFileDeclaration {
+      "check": [Function],
+      "fix": null,
+      "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/terraform/best-practice/provision/terraform/environments/prod/main.tf",
+      "required": true,
+      "type": "CONTAINS",
+    },
+    CheckFileDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/terraform/best-practice/provision/terraform/environments/prod/versions.tf",
+      "required": true,
+      "type": "EQUALS",
+    },
+    CheckFileDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/terraform/best-practice/provision/terraform/product/variables.tf",
+      "required": true,
+      "type": "EQUALS",
+    },
+  ],
+  "dir": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/terraform/best-practice",
+  "name": "terraform",
+  "readme": "best pattern found for terraform so far is to put different environments into their own directory - and just have them reference a shared product dir
+",
+  "test": TestSuiteReference {
+    "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/terraform/best-practice/.declapract.test.ts",
+  },
+}
+`;
+
+exports[`getCheckProjectDeclarationFromDirectory should define correctly when only one root level file check and a readme 1`] = `
+CheckProjectDeclaration {
+  "checks": Array [
+    CheckFileDeclaration {
+      "check": [Function],
+      "fix": null,
+      "path": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/dates-and-times/best-practice/package.json",
+      "required": true,
+      "type": "CUSTOM",
+    },
+  ],
+  "dir": "/home/uladkasach/git/more/declapract/src/logic/read/../__test_assets__/exampleDeclarations/practices/dates-and-times/best-practice",
+  "name": "dates-and-times",
+  "readme": "\`date-fns\` is a great library for manipulating dates and times in a functional, immutable, declarative pattern
+",
+  "test": null,
+}
+`;

@@ -1,0 +1,6 @@
+# define the different types of combinations of the best practices that we support
+use-cases:
+  lambda-service:
+    - practice:dates-and-times
+    - practice:prettier
+    - practice:serverless
