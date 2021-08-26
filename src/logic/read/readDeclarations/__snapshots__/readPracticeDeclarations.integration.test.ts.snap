@@ -1,0 +1,296 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`readPracticeDeclarations should get the declarations correctly 1`] = `
+Array [
+  PracticeDeclaration {
+    "badPractices": Array [
+      CheckProjectDeclaration {
+        "checks": Array [
+          CheckFileDeclaration {
+            "check": [Function],
+            "fix": null,
+            "path": "package.json",
+            "required": true,
+            "type": "CUSTOM",
+          },
+        ],
+        "name": "moment",
+        "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+
+for example:
+\`\`\`ts
+const a = moment();
+const b = a.addHours(7);
+expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since moment actually both returns \`b\` _and_ mutates \`a\`...
+\`\`\`
+
+",
+      },
+    ],
+    "bestPractice": CheckProjectDeclaration {
+      "checks": Array [
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "package.json",
+          "required": true,
+          "type": "CUSTOM",
+        },
+      ],
+      "name": "dates-and-times",
+      "readme": "\`date-fns\` is a great library for manipulating dates and times in a functional, immutable, declarative pattern
+",
+    },
+    "name": "dates-and-times",
+  },
+  PracticeDeclaration {
+    "badPractices": Array [
+      CheckProjectDeclaration {
+        "checks": Array [
+          CheckFileDeclaration {
+            "check": [Function],
+            "fix": null,
+            "path": "src/model/**/*",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "model-dir",
+        "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+      },
+      CheckProjectDeclaration {
+        "checks": Array [
+          CheckFileDeclaration {
+            "check": [Function],
+            "fix": null,
+            "path": "src/services/**/*",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "services-dir",
+        "readme": null,
+      },
+    ],
+    "bestPractice": CheckProjectDeclaration {
+      "checks": Array [
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "src/contract/**/*",
+          "required": true,
+          "type": "EXISTS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "src/data/clients/**/*.ts",
+          "required": false,
+          "type": "CONTAINS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "src/data/dao/**/*.ts",
+          "required": false,
+          "type": "EXISTS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "src/domain/constants",
+          "required": false,
+          "type": "EXISTS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "src/domain/index",
+          "required": true,
+          "type": "EXISTS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "src/domain/objects/index",
+          "required": true,
+          "type": "EXISTS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "src/logic/**/*.ts",
+          "required": true,
+          "type": "EXISTS",
+        },
+      ],
+      "name": "directory-structure-src",
+      "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+    },
+    "name": "directory-structure-src",
+  },
+  PracticeDeclaration {
+    "badPractices": Array [],
+    "bestPractice": CheckProjectDeclaration {
+      "checks": Array [
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": [Function],
+          "path": ".prettierignore",
+          "required": true,
+          "type": "EQUALS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "package.json",
+          "required": true,
+          "type": "CUSTOM",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": [Function],
+          "path": "prettier.config.js",
+          "required": true,
+          "type": "EQUALS",
+        },
+      ],
+      "name": "prettier",
+      "readme": null,
+    },
+    "name": "prettier",
+  },
+  PracticeDeclaration {
+    "badPractices": Array [],
+    "bestPractice": CheckProjectDeclaration {
+      "checks": Array [
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "package.json",
+          "required": true,
+          "type": "CUSTOM",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "serverless.yml",
+          "required": true,
+          "type": "CONTAINS",
+        },
+      ],
+      "name": "serverless",
+      "readme": null,
+    },
+    "name": "serverless",
+  },
+  PracticeDeclaration {
+    "badPractices": Array [],
+    "bestPractice": CheckProjectDeclaration {
+      "checks": Array [
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": ".gitignore",
+          "required": true,
+          "type": "CONTAINS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": [Function],
+          "path": ".terraform-version",
+          "required": true,
+          "type": "EQUALS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "provision/terraform/environments/dev/main.tf",
+          "required": true,
+          "type": "CONTAINS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": [Function],
+          "path": "provision/terraform/environments/dev/versions.tf",
+          "required": true,
+          "type": "EQUALS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": null,
+          "path": "provision/terraform/environments/prod/main.tf",
+          "required": true,
+          "type": "CONTAINS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": [Function],
+          "path": "provision/terraform/environments/prod/versions.tf",
+          "required": true,
+          "type": "EQUALS",
+        },
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": [Function],
+          "path": "provision/terraform/product/variables.tf",
+          "required": true,
+          "type": "EQUALS",
+        },
+      ],
+      "name": "terraform",
+      "readme": "best pattern found for terraform so far is to put different environments into their own directory - and just have them reference a shared product dir
+",
+    },
+    "name": "terraform",
+  },
+  PracticeDeclaration {
+    "badPractices": Array [],
+    "bestPractice": CheckProjectDeclaration {
+      "checks": Array [
+        CheckFileDeclaration {
+          "check": [Function],
+          "fix": [Function],
+          "path": "src/**/sleep.ts",
+          "required": false,
+          "type": "EQUALS",
+        },
+      ],
+      "name": "util-sleep",
+      "readme": "checks that if a file named \`sleep.ts\` exists, then it must match the proper definition for our sleep utility, defined as a best practice
+
+optional check => if you dont need \`sleep.ts\`, dont define the file
+
+helpful in that:
+- it makes sure your definition of sleep is correct
+- you can just define an empty file called \`sleep.ts\` and then run \`declapract fix --practice:util-sleep\` and it will fill it out for you
+",
+    },
+    "name": "util-sleep",
+  },
+]
+`;

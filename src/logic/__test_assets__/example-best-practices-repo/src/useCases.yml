@@ -1,0 +1,13 @@
+# define the different types of combinations of the best practices that we support
+use-cases:
+  typescript:
+    practices:
+      - prettier
+      - util-sleep
+  lambda-service:
+    example: lambda-service
+    extends: typescript
+    practices:
+      - dates-and-times
+      - serverless
+      - terraform

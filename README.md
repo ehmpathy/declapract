@@ -3,7 +3,7 @@ declapract
 
 Declarative best practices: define, maintain, enforce, and scale.
 
-> A tool to declaratively define best practices, maintainable evolve them, and scalably enforce them.
+> Declaratively define best practices, maintainably evolve them, and scalably enforce them.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/declapract.svg)](https://npmjs.org/package/declapract)

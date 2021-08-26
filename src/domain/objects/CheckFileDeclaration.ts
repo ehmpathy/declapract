@@ -1,4 +1,5 @@
 import { DomainObject } from 'domain-objects';
+import Joi from 'joi';
 import { createIsOfEnum } from 'simple-type-guards';
 
 export enum FileCheckType {
@@ -23,6 +24,18 @@ export const isOfFileCheckType = createIsOfEnum(FileCheckType);
 export type FileCheckFunction = (contents: string | null) => Promise<void> | void;
 export type FileFixFunction = (contents: string | null) => string | null;
 
+const schema = Joi.object().keys({
+  path: Joi.string().required(),
+  type: Joi.string()
+    .valid(...Object.values(FileCheckType))
+    .required(),
+  required: Joi.boolean().required(),
+  check: Joi.function().required(),
+  fix: Joi.function()
+    .required()
+    .allow(null),
+});
+
 /**
  * a file check declaration is an object that defines how to check whether a file meets the declared criteria
  *
@@ -35,4 +48,6 @@ export interface CheckFileDeclaration {
   check: FileCheckFunction;
   fix: FileFixFunction | null; // may not have a fix function possible for this check declaration
 }
-export class CheckFileDeclaration extends DomainObject<CheckFileDeclaration> implements CheckFileDeclaration {}
+export class CheckFileDeclaration extends DomainObject<CheckFileDeclaration> implements CheckFileDeclaration {
+  public static schema = schema;
+}
