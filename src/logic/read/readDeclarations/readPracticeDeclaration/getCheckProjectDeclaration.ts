@@ -1,3 +1,4 @@
+import { CheckFileDeclaration } from '../../../../domain';
 import { CheckProjectDeclaration } from '../../../../domain/objects/CheckProjectDeclaration';
 import { readFileAsync } from '../../../../utils/fileio/readFileAsync';
 import { listFilesInDirectory } from '../../../../utils/filepaths/listFilesInDirectory';
@@ -32,11 +33,14 @@ export const getCheckProjectDeclaration = async ({
   ];
 
   // for each "main file", get the CheckFileDefinition, now that we have all the files defined for it
-  const checks = await Promise.all(
+  const checksAndErrors = await Promise.all(
     projectFilePaths.map((declaredFileCorePath) =>
-      getCheckFileDeclaration({ declaredProjectDirectory, declaredFileCorePath }),
+      getCheckFileDeclaration({ declaredProjectDirectory, declaredFileCorePath }).catch((error) => error),
     ),
   );
+  const anError = checksAndErrors.find((checkOrError) => checkOrError instanceof Error);
+  if (anError) throw anError;
+  const checks: CheckFileDeclaration[] = checksAndErrors.filter((checkOrError) => !(checkOrError instanceof Error));
 
   // get readme contents, if readme defined
   const readme = metaFilePaths.includes('.declapract.readme.md')

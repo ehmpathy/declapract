@@ -2,7 +2,6 @@ import { CheckFileDeclaration, FileCheckType } from '../../../../../domain';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync } from '../../../../../utils/fileio/readFileAsync';
 import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
-import { UserInputError } from '../../../../UserInputError';
 import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
 
 export const getCheckFileDeclaration = async ({
@@ -91,10 +90,6 @@ export const getCheckFileDeclaration = async ({
 
   // handle "type = exists"
   if (declaredCheckInputs.type === FileCheckType.EXISTS) {
-    if (!required)
-      throw new UserInputError(
-        'file check type was specified as EXISTS but the check was also marked as optional. this combination is not valid',
-      );
     return new CheckFileDeclaration({
       path,
       required,

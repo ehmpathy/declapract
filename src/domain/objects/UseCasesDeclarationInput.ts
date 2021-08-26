@@ -6,7 +6,9 @@ const schema = Joi.object().keys({
     /.*/,
     Joi.object().keys({
       example: Joi.string().optional(),
-      extends: Joi.string().optional(),
+      extends: Joi.array()
+        .items(Joi.string().required())
+        .optional(),
       practices: Joi.array()
         .items(Joi.string().required())
         .min(1),
@@ -19,7 +21,7 @@ export interface UseCasesDeclarationInput {
     string,
     {
       example?: string;
-      extends?: string;
+      extends?: string[];
       practices: string[];
     }
   >;

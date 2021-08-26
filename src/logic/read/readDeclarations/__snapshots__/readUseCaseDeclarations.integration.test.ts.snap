@@ -70,61 +70,6 @@ helpful in that:
     "name": "lambda-service",
     "practices": Array [
       PracticeDeclaration {
-        "badPractices": Array [],
-        "bestPractice": CheckProjectDeclaration {
-          "checks": Array [
-            CheckFileDeclaration {
-              "check": [Function],
-              "fix": [Function],
-              "path": ".prettierignore",
-              "required": true,
-              "type": "EQUALS",
-            },
-            CheckFileDeclaration {
-              "check": [Function],
-              "fix": null,
-              "path": "package.json",
-              "required": true,
-              "type": "CUSTOM",
-            },
-            CheckFileDeclaration {
-              "check": [Function],
-              "fix": [Function],
-              "path": "prettier.config.js",
-              "required": true,
-              "type": "EQUALS",
-            },
-          ],
-          "name": "prettier",
-          "readme": null,
-        },
-        "name": "prettier",
-      },
-      PracticeDeclaration {
-        "badPractices": Array [],
-        "bestPractice": CheckProjectDeclaration {
-          "checks": Array [
-            CheckFileDeclaration {
-              "check": [Function],
-              "fix": [Function],
-              "path": "src/**/sleep.ts",
-              "required": false,
-              "type": "EQUALS",
-            },
-          ],
-          "name": "util-sleep",
-          "readme": "checks that if a file named \`sleep.ts\` exists, then it must match the proper definition for our sleep utility, defined as a best practice
-
-optional check => if you dont need \`sleep.ts\`, dont define the file
-
-helpful in that:
-- it makes sure your definition of sleep is correct
-- you can just define an empty file called \`sleep.ts\` and then run \`declapract fix --practice:util-sleep\` and it will fill it out for you
-",
-        },
-        "name": "util-sleep",
-      },
-      PracticeDeclaration {
         "badPractices": Array [
           CheckProjectDeclaration {
             "checks": Array [
@@ -248,6 +193,61 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 ",
         },
         "name": "terraform",
+      },
+      PracticeDeclaration {
+        "badPractices": Array [],
+        "bestPractice": CheckProjectDeclaration {
+          "checks": Array [
+            CheckFileDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "path": ".prettierignore",
+              "required": true,
+              "type": "EQUALS",
+            },
+            CheckFileDeclaration {
+              "check": [Function],
+              "fix": null,
+              "path": "package.json",
+              "required": true,
+              "type": "CUSTOM",
+            },
+            CheckFileDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "path": "prettier.config.js",
+              "required": true,
+              "type": "EQUALS",
+            },
+          ],
+          "name": "prettier",
+          "readme": null,
+        },
+        "name": "prettier",
+      },
+      PracticeDeclaration {
+        "badPractices": Array [],
+        "bestPractice": CheckProjectDeclaration {
+          "checks": Array [
+            CheckFileDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "path": "src/**/sleep.ts",
+              "required": false,
+              "type": "EQUALS",
+            },
+          ],
+          "name": "util-sleep",
+          "readme": "checks that if a file named \`sleep.ts\` exists, then it must match the proper definition for our sleep utility, defined as a best practice
+
+optional check => if you dont need \`sleep.ts\`, dont define the file
+
+helpful in that:
+- it makes sure your definition of sleep is correct
+- you can just define an empty file called \`sleep.ts\` and then run \`declapract fix --practice:util-sleep\` and it will fill it out for you
+",
+        },
+        "name": "util-sleep",
       },
     ],
   },

@@ -3,10 +3,33 @@ import Joi from 'joi';
 import { createIsOfEnum } from 'simple-type-guards';
 
 export enum FileCheckType {
-  EXISTS = 'EXISTS', // checks file existence (may be modified with an "optional" flag not reflected here)
-  EQUALS = 'EQUALS', // checks that the file contents equal the declared contents (default when file specified in config)
-  CONTAINS = 'CONTAINS', // checks that the file contents include the declared contents
-  CUSTOM = 'CUSTOM', // checks that the file contents satisfy the custom check fn (default when the `.declapract.ts` file exports a `check` function)
+  /**
+   * simply checks that the file exists, without considering contents
+   */
+  EXISTS = 'EXISTS',
+
+  /**
+   * checks that the file contents equal the declared contents
+   *
+   * e.g., `expect(foundContents).toEqual(declaredContents)`
+   *
+   * (default when file contents are declared)
+   */
+  EQUALS = 'EQUALS',
+
+  /**
+   * check that the file contents contain the declared contents
+   *
+   * e.g., `expect(foundContents).toContain(declaredContents)`
+   */
+  CONTAINS = 'CONTAINS',
+
+  /**
+   * check that the file contents satisfy a custom check function
+   *
+   * (default when the `.declapract.ts` file exports a `check` function)
+   */
+  CUSTOM = 'CUSTOM',
 }
 export const isOfFileCheckType = createIsOfEnum(FileCheckType);
 

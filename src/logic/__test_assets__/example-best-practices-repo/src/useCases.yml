@@ -6,7 +6,8 @@ use-cases:
       - util-sleep
   lambda-service:
     example: lambda-service
-    extends: typescript
+    extends:
+      - typescript
     practices:
       - dates-and-times
       - serverless
