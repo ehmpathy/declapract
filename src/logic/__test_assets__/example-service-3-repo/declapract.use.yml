@@ -1,4 +1,4 @@
-declarations: ../../../../../best-practices-typescript # git@github.com:uladkasach/best-practices-typescript.git
+declarations: git@github.com:uladkasach/best-practices-typescript.git
 useCase: lambda-service
 variables:
   organizationName: 'awesome-org'

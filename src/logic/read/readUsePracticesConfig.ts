@@ -1,3 +1,4 @@
+import shell from 'shelljs';
 import { promises as fs } from 'fs';
 
 import { ActionUsePracticesConfig } from '../../domain/objects/ActionUsePracticesConfig';
@@ -6,6 +7,8 @@ import { readYmlFile } from '../../utils/fileio/readYmlFile';
 import { getDirOfPath } from '../../utils/filepaths/getDirOfPath';
 import { UserInputError } from '../UserInputError';
 import { readDeclarePracticesConfig } from './readDeclarePracticesConfig';
+import { doesDirectoryExist } from '../../utils/fileio/doesDirectoryExist';
+import { UnexpectedCodePathError } from '../UnexpectedCodePathError';
 
 export const readUsePracticesConfig = async ({
   configPath,
@@ -30,7 +33,36 @@ export const readUsePracticesConfig = async ({
   // lookup the declared practices using the path specified
   const declaredPractices = await (async () => {
     // support ssh loading of a git repo
-    // TODO
+    if (configInput.declarations.startsWith('git@github.com')) {
+      const [_, repoName] = new RegExp(/git@github.com:\w+\/([\w-\d]+).git$/).exec(configInput.declarations) ?? [];
+      if (!repoName)
+        throw new UnexpectedCodePathError(`could not extract repo name from git path ${configInput.declarations}`);
+      const outputDir = getAbsolutePathFromRelativeToConfigPath(`.declapract/${repoName}`);
+      const directoryAlreadyExists = await doesDirectoryExist({ directory: outputDir });
+      if (!directoryAlreadyExists) {
+        // if dir not already exists, then clone it
+        const cloneResult = await shell.exec(`git clone ${configInput.declarations} ${outputDir}`);
+        if (cloneResult.code !== 0)
+          throw new UserInputError(
+            `could not clone declarations repo '${configInput.declarations}'. ${cloneResult.stderr ??
+              cloneResult.stdout}`,
+            {
+              potentialSolution: `are you able to run 'git clone ${configInput.declarations}'?`,
+            },
+          );
+      }
+      await shell.cd(outputDir);
+      await shell.exec('git checkout $(git tag --contains | tail -1)', { silent: true });
+      const installResult = await shell.exec('npm install', { silent: true });
+      if (installResult.code !== 0)
+        throw new UserInputError(
+          `could not npm install in repo in '${outputDir}'. ${installResult.stderr ?? installResult.stdout}`,
+          {
+            potentialSolution: `are you able to run 'npm install' inside of '${outputDir}'?`,
+          },
+        );
+      return readDeclarePracticesConfig({ configPath: `${outputDir}/declapract.declare.yml` });
+    }
 
     // support specifying a relative path
     const specifiedPath = getAbsolutePathFromRelativeToConfigPath(configInput.declarations);

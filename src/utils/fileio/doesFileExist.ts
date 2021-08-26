@@ -1,9 +1,9 @@
-import fs from 'fs';
+import { promises as fs } from 'fs';
 
 export const doesFileExist = async ({ filePath }: { filePath: string }) => {
   try {
-    await fs.promises.access(filePath);
-    return true;
+    const stat = await fs.lstat(filePath);
+    return stat.isFile();
   } catch (error) {
     return false;
   }

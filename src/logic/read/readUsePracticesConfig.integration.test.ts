@@ -26,7 +26,7 @@ describe('readUsePracticesConfig', () => {
       declared: expect.objectContaining({ rootDir: expect.any(String) }),
     });
   });
-  it.only('should read usage config specifying remote git repo', async () => {
+  it('should read usage config specifying remote git repo', async () => {
     const config = await readUsePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-service-3-repo/declapract.use.yml`,
     });
@@ -36,7 +36,9 @@ describe('readUsePracticesConfig', () => {
     expect(config.declared.practices.length);
     expect(config).toMatchSnapshot({
       rootDir: expect.any(String),
-      declared: expect.objectContaining({ rootDir: expect.any(String) }),
+      declared: expect.objectContaining({
+        rootDir: expect.stringContaining('example-service-3-repo/.declapract/best-practices-typescript'), // should reference the `.declapract` dir of the example project (since that's where we clone git repos into)
+      }),
     });
   });
 });

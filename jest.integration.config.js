@@ -27,7 +27,8 @@ module.exports = {
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: ['/node_modules/', '/dist/', '/acceptance-tests/'],
 
-  verbose: true, // Indicates whether each individual test should be reported during the run; also, rquired for TTY output to always be displayed
+  verbose: true, // Indicates whether each individual test should be reported during the run
 
-  setupFiles: ['core-js'], // .flat() undefined otherwise; https://stackoverflow.com/a/59285424/3068233
+  setupFiles: ['core-js'],
+  setupFilesAfterEnv: ['./jest.integration.env.js'],
 };
