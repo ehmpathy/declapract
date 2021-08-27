@@ -20,7 +20,7 @@ export const getCheckFileDeclaration = async ({
   const declaredCheckInputs = await getHydratedCheckInputsForFile({ declaredFileCorePath, declaredProjectDirectory });
 
   // define the common attributes
-  const path = declaredFileCorePath; // its the path relative to the project root
+  const pathGlob = declaredFileCorePath; // its the path relative to the project root (note that this path can be a glob (e.g., `src/**/*.ts`))
   const required = !declaredCheckInputs?.optional; // if not explicitly opted-in to be optional, then its required
 
   // define the check fns
@@ -50,7 +50,7 @@ export const getCheckFileDeclaration = async ({
         'no hydrated input but also no contents. why are we even evaluating this file then?',
       );
     return new CheckFileDeclaration({
-      path,
+      pathGlob,
       required,
       type: FileCheckType.EQUALS, // default when input not specified is exact equals
       check: strictEqualsCheck,
@@ -61,7 +61,7 @@ export const getCheckFileDeclaration = async ({
   // handle custom check functions
   if (declaredCheckInputs.function)
     return new CheckFileDeclaration({
-      path,
+      pathGlob,
       required,
       type: FileCheckType.CUSTOM,
       check: declaredCheckInputs.function,
@@ -71,7 +71,7 @@ export const getCheckFileDeclaration = async ({
   // handle "type = equals"
   if (declaredCheckInputs.type === FileCheckType.EQUALS)
     return new CheckFileDeclaration({
-      path,
+      pathGlob,
       required,
       type: FileCheckType.EQUALS,
       check: strictEqualsCheck,
@@ -81,7 +81,7 @@ export const getCheckFileDeclaration = async ({
   // handle "type = contains"
   if (declaredCheckInputs.type === FileCheckType.CONTAINS)
     return new CheckFileDeclaration({
-      path,
+      pathGlob,
       required,
       type: FileCheckType.CONTAINS,
       check: containsCheck,
@@ -91,7 +91,7 @@ export const getCheckFileDeclaration = async ({
   // handle "type = exists"
   if (declaredCheckInputs.type === FileCheckType.EXISTS) {
     return new CheckFileDeclaration({
-      path,
+      pathGlob,
       required,
       type: FileCheckType.EXISTS,
       check: existsCheck,
@@ -102,7 +102,7 @@ export const getCheckFileDeclaration = async ({
   // handle type not explicitly specified
   if (contentsFileExists) {
     return new CheckFileDeclaration({
-      path,
+      pathGlob,
       required,
       type: FileCheckType.EQUALS,
       check: strictEqualsCheck,
@@ -110,7 +110,7 @@ export const getCheckFileDeclaration = async ({
     });
   }
   return new CheckFileDeclaration({
-    path,
+    pathGlob,
     required,
     type: FileCheckType.EXISTS,
     check: existsCheck,

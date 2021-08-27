@@ -48,7 +48,7 @@ export type FileCheckFunction = (contents: string | null) => Promise<void> | voi
 export type FileFixFunction = (contents: string | null) => string | null;
 
 const schema = Joi.object().keys({
-  path: Joi.string().required(),
+  pathGlob: Joi.string().required(),
   type: Joi.string()
     .valid(...Object.values(FileCheckType))
     .required(),
@@ -65,7 +65,7 @@ const schema = Joi.object().keys({
  * specifies which file and what to check for
  */
 export interface CheckFileDeclaration {
-  path: string;
+  pathGlob: string;
   type: FileCheckType;
   required: boolean;
   check: FileCheckFunction;

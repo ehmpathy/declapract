@@ -34,7 +34,7 @@ export const readUsePracticesConfig = async ({
   const declaredPractices = await (async () => {
     // support ssh loading of a git repo
     if (configInput.declarations.startsWith('git@github.com')) {
-      const [_, repoName] = new RegExp(/git@github.com:\w+\/([\w-\d]+).git$/).exec(configInput.declarations) ?? [];
+      const [_, repoName] = new RegExp(/git@github.com:\w+\/([\w-\d]+).git$/).exec(configInput.declarations) ?? []; // tslint:disable-line: no-unused
       if (!repoName)
         throw new UnexpectedCodePathError(`could not extract repo name from git path ${configInput.declarations}`);
       const outputDir = getAbsolutePathFromRelativeToConfigPath(`.declapract/${repoName}`);

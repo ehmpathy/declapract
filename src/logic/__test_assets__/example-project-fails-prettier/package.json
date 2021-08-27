@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "prettier": "8.21.0"
+  },
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
+  }
+}

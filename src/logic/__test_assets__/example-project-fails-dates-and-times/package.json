@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "moment": "5.21.0",
+    "date-fns": "8.21.0"
+  }
+}

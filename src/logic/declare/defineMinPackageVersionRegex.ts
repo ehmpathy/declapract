@@ -11,12 +11,17 @@ export const defineRegexPartForNumberGreaterThan = (greaterThan: string) => {
   if (validationResult.error) throw new Error(`not a positive integer: '${greaterThan}'`);
 
   // build the regex string
-  return [...greaterThan]
+  const sameNumberOfDigitsPart = [...greaterThan]
     .map((digitChar) => {
       if (digitChar === '9') return '9';
       return `[${digitChar}-9]`;
     })
     .join('');
+  const moreDigitsPart = [
+    Array.from({ length: greaterThan.length + 1 }, () => '[0-9]').join(''),
+    '+', // + to say ("or more" digits)
+  ].join('');
+  return `(${moreDigitsPart}|${sameNumberOfDigitsPart})`;
 };
 
 export const defineMinPackageVersionRegex = (minVersion: string) => {
