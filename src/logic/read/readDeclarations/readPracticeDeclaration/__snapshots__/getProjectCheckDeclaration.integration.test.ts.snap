@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getProjectCheckDeclarationFromDirectory should define correctly for a bad practice 1`] = `
+ProjectCheckDeclaration {
+  "checks": Array [
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": null,
+      "pathGlob": "package.json",
+      "required": true,
+      "type": "CUSTOM",
+    },
+  ],
+  "name": "moment",
+  "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+
+for example:
+\`\`\`ts
+const a = moment();
+const b = a.addHours(7);
+expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since moment actually both returns \`b\` _and_ mutates \`a\`...
+\`\`\`
+
+",
+}
+`;
+
+exports[`getProjectCheckDeclarationFromDirectory should define correctly when many files in many levels 1`] = `
+ProjectCheckDeclaration {
+  "checks": Array [
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": null,
+      "pathGlob": ".gitignore",
+      "required": true,
+      "type": "CONTAINS",
+    },
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "pathGlob": ".terraform-version",
+      "required": true,
+      "type": "EQUALS",
+    },
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": null,
+      "pathGlob": "provision/terraform/environments/dev/main.tf",
+      "required": true,
+      "type": "CONTAINS",
+    },
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "pathGlob": "provision/terraform/environments/dev/versions.tf",
+      "required": true,
+      "type": "EQUALS",
+    },
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": null,
+      "pathGlob": "provision/terraform/environments/prod/main.tf",
+      "required": true,
+      "type": "CONTAINS",
+    },
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "pathGlob": "provision/terraform/environments/prod/versions.tf",
+      "required": true,
+      "type": "EQUALS",
+    },
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "pathGlob": "provision/terraform/product/variables.tf",
+      "required": true,
+      "type": "EQUALS",
+    },
+  ],
+  "name": "terraform",
+  "readme": "best pattern found for terraform so far is to put different environments into their own directory - and just have them reference a shared product dir
+",
+}
+`;
+
+exports[`getProjectCheckDeclarationFromDirectory should define correctly when only one root level file check and a readme 1`] = `
+ProjectCheckDeclaration {
+  "checks": Array [
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": null,
+      "pathGlob": "package.json",
+      "required": true,
+      "type": "CUSTOM",
+    },
+  ],
+  "name": "dates-and-times",
+  "readme": "\`date-fns\` is a great library for manipulating dates and times in a functional, immutable, declarative pattern
+",
+}
+`;
+
+exports[`getProjectCheckDeclarationFromDirectory should still have the fix functions defined on the file checks 1`] = `
+ProjectCheckDeclaration {
+  "checks": Array [
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "pathGlob": ".prettierignore",
+      "required": true,
+      "type": "EQUALS",
+    },
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": null,
+      "pathGlob": "package.json",
+      "required": true,
+      "type": "CUSTOM",
+    },
+    FileCheckDeclaration {
+      "check": [Function],
+      "fix": [Function],
+      "pathGlob": "prettier.config.js",
+      "required": true,
+      "type": "EQUALS",
+    },
+  ],
+  "name": "prettier",
+  "readme": null,
+}
+`;

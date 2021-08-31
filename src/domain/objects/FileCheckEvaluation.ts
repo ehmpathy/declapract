@@ -1,0 +1,42 @@
+import { DomainObject } from 'domain-objects';
+import Joi from 'joi';
+import { FileCheckDeclaration } from '.';
+
+export enum FileEvaluationResult {
+  PASS = 'PASS',
+  FAIL = 'FAIL',
+}
+export const hasFailed = (evaluation: { result: FileEvaluationResult }): boolean =>
+  evaluation.result === FileEvaluationResult.FAIL;
+export const hasPassed = (evaluation: { result: FileEvaluationResult }): boolean =>
+  evaluation.result === FileEvaluationResult.PASS;
+
+// check is fixable if it has a fix function
+export const isFixableCheck = (evaluation: FileCheckEvaluation): boolean => !!evaluation.check.fix;
+
+const schema = Joi.object().keys({
+  practiceRef: Joi.string().required(),
+  check: FileCheckDeclaration.schema.required(),
+  path: Joi.string().required(),
+  result: Joi.string()
+    .valid(...Object.values(FileEvaluationResult))
+    .required(),
+  reason: Joi.string()
+    .required()
+    .allow(null),
+});
+
+/**
+ * the result of evaluating a check on a file
+ */
+export interface FileCheckEvaluation {
+  practiceRef: string; // a reference string that identifies which practice this evaluation was for (e.g., "${practice.name}.best" | "${practice.name}.bad.${project.name}")
+  check: FileCheckDeclaration;
+  path: string; // relative path to the file that was checked (may differ from declaration.path, since declaration.path is generically a glob pattern)
+  result: FileEvaluationResult;
+  reason: string | null; // the reason for this conclusion
+}
+
+export class FileCheckEvaluation extends DomainObject<FileCheckEvaluation> implements FileCheckEvaluation {
+  public static schema = schema;
+}

@@ -1,13 +1,13 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
 
-import { CheckProjectDeclaration } from './CheckProjectDeclaration';
+import { ProjectCheckDeclaration } from './ProjectCheckDeclaration';
 
 const schema = Joi.object().keys({
   name: Joi.string().required(),
-  bestPractice: CheckProjectDeclaration.schema.allow(null).required(),
+  bestPractice: ProjectCheckDeclaration.schema.allow(null).required(),
   badPractices: Joi.array()
-    .items(CheckProjectDeclaration.schema)
+    .items(ProjectCheckDeclaration.schema)
     .required(),
 });
 
@@ -18,8 +18,8 @@ const schema = Joi.object().keys({
  */
 export interface PracticeDeclaration {
   name: string;
-  bestPractice: CheckProjectDeclaration | null;
-  badPractices: CheckProjectDeclaration[];
+  bestPractice: ProjectCheckDeclaration | null;
+  badPractices: ProjectCheckDeclaration[];
 }
 export class PracticeDeclaration extends DomainObject<PracticeDeclaration> implements PracticeDeclaration {
   public static schema = schema;

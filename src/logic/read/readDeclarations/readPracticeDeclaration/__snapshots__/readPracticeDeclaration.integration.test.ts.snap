@@ -3,12 +3,12 @@
 exports[`readPracticeDeclarationFromDirectory should define correctly when a bad-practice is defined 1`] = `
 PracticeDeclaration {
   "badPractices": Array [
-    CheckProjectDeclaration {
+    ProjectCheckDeclaration {
       "checks": Array [
-        CheckFileDeclaration {
+        FileCheckDeclaration {
           "check": [Function],
           "fix": null,
-          "path": "package.json",
+          "pathGlob": "package.json",
           "required": true,
           "type": "CUSTOM",
         },
@@ -26,12 +26,12 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 ",
     },
   ],
-  "bestPractice": CheckProjectDeclaration {
+  "bestPractice": ProjectCheckDeclaration {
     "checks": Array [
-      CheckFileDeclaration {
+      FileCheckDeclaration {
         "check": [Function],
         "fix": null,
-        "path": "package.json",
+        "pathGlob": "package.json",
         "required": true,
         "type": "CUSTOM",
       },
@@ -47,12 +47,12 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 exports[`readPracticeDeclarationFromDirectory should define correctly when best and bad practices are defined 1`] = `
 PracticeDeclaration {
   "badPractices": Array [
-    CheckProjectDeclaration {
+    ProjectCheckDeclaration {
       "checks": Array [
-        CheckFileDeclaration {
+        FileCheckDeclaration {
           "check": [Function],
           "fix": null,
-          "path": "src/model/**/*",
+          "pathGlob": "src/model/**/*",
           "required": true,
           "type": "EXISTS",
         },
@@ -62,12 +62,12 @@ PracticeDeclaration {
 - model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
 ",
     },
-    CheckProjectDeclaration {
+    ProjectCheckDeclaration {
       "checks": Array [
-        CheckFileDeclaration {
+        FileCheckDeclaration {
           "check": [Function],
           "fix": null,
-          "path": "src/services/**/*",
+          "pathGlob": "src/services/**/*",
           "required": true,
           "type": "EXISTS",
         },
@@ -76,54 +76,54 @@ PracticeDeclaration {
       "readme": null,
     },
   ],
-  "bestPractice": CheckProjectDeclaration {
+  "bestPractice": ProjectCheckDeclaration {
     "checks": Array [
-      CheckFileDeclaration {
+      FileCheckDeclaration {
         "check": [Function],
         "fix": null,
-        "path": "src/contract/**/*",
+        "pathGlob": "src/contract/**/*.ts",
         "required": true,
         "type": "EXISTS",
       },
-      CheckFileDeclaration {
+      FileCheckDeclaration {
         "check": [Function],
         "fix": null,
-        "path": "src/data/clients/**/*.ts",
+        "pathGlob": "src/data/clients/**/*.ts",
         "required": false,
         "type": "CONTAINS",
       },
-      CheckFileDeclaration {
+      FileCheckDeclaration {
         "check": [Function],
         "fix": null,
-        "path": "src/data/dao/**/*.ts",
+        "pathGlob": "src/data/dao/**/*.ts",
         "required": false,
         "type": "EXISTS",
       },
-      CheckFileDeclaration {
+      FileCheckDeclaration {
         "check": [Function],
         "fix": null,
-        "path": "src/domain/constants",
+        "pathGlob": "src/domain/constants.ts",
         "required": false,
         "type": "EXISTS",
       },
-      CheckFileDeclaration {
+      FileCheckDeclaration {
         "check": [Function],
         "fix": null,
-        "path": "src/domain/index",
+        "pathGlob": "src/domain/index.ts",
         "required": true,
         "type": "EXISTS",
       },
-      CheckFileDeclaration {
+      FileCheckDeclaration {
         "check": [Function],
         "fix": null,
-        "path": "src/domain/objects/index",
+        "pathGlob": "src/domain/objects/index.ts",
         "required": true,
         "type": "EXISTS",
       },
-      CheckFileDeclaration {
+      FileCheckDeclaration {
         "check": [Function],
         "fix": null,
-        "path": "src/logic/**/*.ts",
+        "pathGlob": "src/logic/**/*.ts",
         "required": true,
         "type": "EXISTS",
       },
@@ -160,12 +160,12 @@ PracticeDeclaration {
 exports[`readPracticeDeclarationFromDirectory should define correctly when only the best-practice is defined 1`] = `
 PracticeDeclaration {
   "badPractices": Array [],
-  "bestPractice": CheckProjectDeclaration {
+  "bestPractice": ProjectCheckDeclaration {
     "checks": Array [
-      CheckFileDeclaration {
+      FileCheckDeclaration {
         "check": [Function],
         "fix": [Function],
-        "path": "src/**/sleep.ts",
+        "pathGlob": "src/**/sleep.ts",
         "required": false,
         "type": "EQUALS",
       },
@@ -181,5 +181,39 @@ helpful in that:
 ",
   },
   "name": "util-sleep",
+}
+`;
+
+exports[`readPracticeDeclarationFromDirectory should still have the fix functions defined on the file checks 1`] = `
+PracticeDeclaration {
+  "badPractices": Array [],
+  "bestPractice": ProjectCheckDeclaration {
+    "checks": Array [
+      FileCheckDeclaration {
+        "check": [Function],
+        "fix": [Function],
+        "pathGlob": ".prettierignore",
+        "required": true,
+        "type": "EQUALS",
+      },
+      FileCheckDeclaration {
+        "check": [Function],
+        "fix": null,
+        "pathGlob": "package.json",
+        "required": true,
+        "type": "CUSTOM",
+      },
+      FileCheckDeclaration {
+        "check": [Function],
+        "fix": [Function],
+        "pathGlob": "prettier.config.js",
+        "required": true,
+        "type": "EQUALS",
+      },
+    ],
+    "name": "prettier",
+    "readme": null,
+  },
+  "name": "prettier",
 }
 `;

@@ -10,9 +10,9 @@ DeclaredPractices {
   "practices": Array [
     PracticeDeclaration {
       "badPractices": Array [
-        CheckProjectDeclaration {
+        ProjectCheckDeclaration {
           "checks": Array [
-            CheckFileDeclaration {
+            FileCheckDeclaration {
               "check": [Function],
               "fix": null,
               "path": "package.json",
@@ -33,9 +33,9 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 ",
         },
       ],
-      "bestPractice": CheckProjectDeclaration {
+      "bestPractice": ProjectCheckDeclaration {
         "checks": Array [
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "package.json",
@@ -51,9 +51,9 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
     },
     PracticeDeclaration {
       "badPractices": Array [
-        CheckProjectDeclaration {
+        ProjectCheckDeclaration {
           "checks": Array [
-            CheckFileDeclaration {
+            FileCheckDeclaration {
               "check": [Function],
               "fix": null,
               "path": "src/model/**/*",
@@ -66,9 +66,9 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 - model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
 ",
         },
-        CheckProjectDeclaration {
+        ProjectCheckDeclaration {
           "checks": Array [
-            CheckFileDeclaration {
+            FileCheckDeclaration {
               "check": [Function],
               "fix": null,
               "path": "src/services/**/*",
@@ -80,51 +80,51 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
           "readme": null,
         },
       ],
-      "bestPractice": CheckProjectDeclaration {
+      "bestPractice": ProjectCheckDeclaration {
         "checks": Array [
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "src/contract/**/*",
             "required": true,
             "type": "EXISTS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "src/data/clients/**/*.ts",
             "required": false,
             "type": "CONTAINS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "src/data/dao/**/*.ts",
             "required": false,
             "type": "EXISTS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "src/domain/constants",
             "required": false,
             "type": "EXISTS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "src/domain/index",
             "required": true,
             "type": "EXISTS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "src/domain/objects/index",
             "required": true,
             "type": "EXISTS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "src/logic/**/*.ts",
@@ -161,23 +161,23 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
     },
     PracticeDeclaration {
       "badPractices": Array [],
-      "bestPractice": CheckProjectDeclaration {
+      "bestPractice": ProjectCheckDeclaration {
         "checks": Array [
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": [Function],
             "path": ".prettierignore",
             "required": true,
             "type": "EQUALS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "package.json",
             "required": true,
             "type": "CUSTOM",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": [Function],
             "path": "prettier.config.js",
@@ -192,16 +192,16 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
     },
     PracticeDeclaration {
       "badPractices": Array [],
-      "bestPractice": CheckProjectDeclaration {
+      "bestPractice": ProjectCheckDeclaration {
         "checks": Array [
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "package.json",
             "required": true,
             "type": "CUSTOM",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "serverless.yml",
@@ -216,51 +216,51 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
     },
     PracticeDeclaration {
       "badPractices": Array [],
-      "bestPractice": CheckProjectDeclaration {
+      "bestPractice": ProjectCheckDeclaration {
         "checks": Array [
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": ".gitignore",
             "required": true,
             "type": "CONTAINS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": [Function],
             "path": ".terraform-version",
             "required": true,
             "type": "EQUALS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "provision/terraform/environments/dev/main.tf",
             "required": true,
             "type": "CONTAINS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": [Function],
             "path": "provision/terraform/environments/dev/versions.tf",
             "required": true,
             "type": "EQUALS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": null,
             "path": "provision/terraform/environments/prod/main.tf",
             "required": true,
             "type": "CONTAINS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": [Function],
             "path": "provision/terraform/environments/prod/versions.tf",
             "required": true,
             "type": "EQUALS",
           },
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": [Function],
             "path": "provision/terraform/product/variables.tf",
@@ -276,9 +276,9 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
     },
     PracticeDeclaration {
       "badPractices": Array [],
-      "bestPractice": CheckProjectDeclaration {
+      "bestPractice": ProjectCheckDeclaration {
         "checks": Array [
-          CheckFileDeclaration {
+          FileCheckDeclaration {
             "check": [Function],
             "fix": [Function],
             "path": "src/**/sleep.ts",
@@ -307,23 +307,23 @@ helpful in that:
       "practices": Array [
         PracticeDeclaration {
           "badPractices": Array [],
-          "bestPractice": CheckProjectDeclaration {
+          "bestPractice": ProjectCheckDeclaration {
             "checks": Array [
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": ".prettierignore",
                 "required": true,
                 "type": "EQUALS",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": null,
                 "path": "package.json",
                 "required": true,
                 "type": "CUSTOM",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": "prettier.config.js",
@@ -338,9 +338,9 @@ helpful in that:
         },
         PracticeDeclaration {
           "badPractices": Array [],
-          "bestPractice": CheckProjectDeclaration {
+          "bestPractice": ProjectCheckDeclaration {
             "checks": Array [
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": "src/**/sleep.ts",
@@ -370,23 +370,23 @@ helpful in that:
       "practices": Array [
         PracticeDeclaration {
           "badPractices": Array [],
-          "bestPractice": CheckProjectDeclaration {
+          "bestPractice": ProjectCheckDeclaration {
             "checks": Array [
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": ".prettierignore",
                 "required": true,
                 "type": "EQUALS",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": null,
                 "path": "package.json",
                 "required": true,
                 "type": "CUSTOM",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": "prettier.config.js",
@@ -401,9 +401,9 @@ helpful in that:
         },
         PracticeDeclaration {
           "badPractices": Array [],
-          "bestPractice": CheckProjectDeclaration {
+          "bestPractice": ProjectCheckDeclaration {
             "checks": Array [
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": "src/**/sleep.ts",
@@ -425,9 +425,9 @@ helpful in that:
         },
         PracticeDeclaration {
           "badPractices": Array [
-            CheckProjectDeclaration {
+            ProjectCheckDeclaration {
               "checks": Array [
-                CheckFileDeclaration {
+                FileCheckDeclaration {
                   "check": [Function],
                   "fix": null,
                   "path": "package.json",
@@ -448,9 +448,9 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 ",
             },
           ],
-          "bestPractice": CheckProjectDeclaration {
+          "bestPractice": ProjectCheckDeclaration {
             "checks": Array [
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": null,
                 "path": "package.json",
@@ -466,16 +466,16 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
         },
         PracticeDeclaration {
           "badPractices": Array [],
-          "bestPractice": CheckProjectDeclaration {
+          "bestPractice": ProjectCheckDeclaration {
             "checks": Array [
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": null,
                 "path": "package.json",
                 "required": true,
                 "type": "CUSTOM",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": null,
                 "path": "serverless.yml",
@@ -490,51 +490,51 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
         },
         PracticeDeclaration {
           "badPractices": Array [],
-          "bestPractice": CheckProjectDeclaration {
+          "bestPractice": ProjectCheckDeclaration {
             "checks": Array [
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": null,
                 "path": ".gitignore",
                 "required": true,
                 "type": "CONTAINS",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": ".terraform-version",
                 "required": true,
                 "type": "EQUALS",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": null,
                 "path": "provision/terraform/environments/dev/main.tf",
                 "required": true,
                 "type": "CONTAINS",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": "provision/terraform/environments/dev/versions.tf",
                 "required": true,
                 "type": "EQUALS",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": null,
                 "path": "provision/terraform/environments/prod/main.tf",
                 "required": true,
                 "type": "CONTAINS",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": "provision/terraform/environments/prod/versions.tf",
                 "required": true,
                 "type": "EQUALS",
               },
-              CheckFileDeclaration {
+              FileCheckDeclaration {
                 "check": [Function],
                 "fix": [Function],
                 "path": "provision/terraform/product/variables.tf",

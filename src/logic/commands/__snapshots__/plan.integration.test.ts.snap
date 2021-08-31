@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`plan should be able to plan for an example project 1`] = `
+Array [
+  Array [
+    "  * [1m[1m[31m[FIX_MANUAL][39m[1m .gitignore[22m",
+  ],
+  Array [
+    "    [31m✕[39m practice:terraform.best-practice ",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+      [1mMatcher error[22m: [31mreceived[39m value must not be null nor undefined
+
+      Received has value: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .prettierignore[22m",
+  ],
+  Array [
+    "    [33m✕[39m practice:prettier.best-practice [90m(automatically fixable)[39m",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+      Expected: [32m\\"*.md[39m
+      [32m\\"[39m
+      Received: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .terraform-version[22m",
+  ],
+  Array [
+    "    [33m✕[39m practice:terraform.best-practice [90m(automatically fixable)[39m",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+      Expected: [32m\\"0.14.11[39m
+      [32m\\"[39m
+      Received: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
+  ],
+  Array [
+    "    [31m✕[39m practice:dates-and-times.best-practice ",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+      Expected: [32mObjectContaining {\\"dependencies\\": ObjectContaining {\\"date-fns\\": Any<String>}}[39m
+      Received: [31m{\\"dependencies\\": {\\"@middy/core\\": \\"1.0.0\\", \\"aws-lambda\\": \\"1.0.5\\", \\"aws-sdk\\": \\"2.658.0\\", \\"joi\\": \\"17.4.0\\", \\"uuid\\": \\"3.4.0\\"}, \\"devDependencies\\": {\\"@types/aws-lambda\\": \\"8.10.40\\", \\"@types/jest\\": \\"27.0.1\\", \\"@types/uuid\\": \\"3.4.7\\", \\"@types/yesql\\": \\"3.2.2\\", \\"@typescript-eslint/eslint-plugin\\": \\"2.19.0\\", \\"@typescript-eslint/parser\\": \\"2.19.0\\", \\"core-js\\": \\"3.6.4\\", \\"eslint\\": \\"6.1.0\\", \\"eslint-config-airbnb-base\\": \\"14.0.0\\", \\"eslint-config-airbnb-typescript\\": \\"7.0.0\\", \\"eslint-config-prettier\\": \\"6.10.0\\", \\"eslint-plugin-import\\": \\"2.20.1\\", \\"eslint-plugin-prettier\\": \\"3.1.2\\", \\"jest\\": \\"27.0.6\\", \\"prettier\\": \\"2.0.2\\", \\"serverless\\": \\"1.66.0\\", \\"serverless-offline\\": \\"5.12.1\\", \\"serverless-pseudo-parameters\\": \\"2.5.0\\", \\"ts-jest\\": \\"27.0.4\\", \\"typescript\\": \\"3.8.3\\"}, \\"name\\": \\"@declapract{variable.serviceName}\\", \\"private\\": true, \\"scripts\\": {\\"build\\": \\"npm run build:clean && npm run build:compile\\", \\"build:clean\\": \\"rm dist/ -rf\\", \\"build:compile\\": \\"tsc -p ./tsconfig.build.json\\", \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\", \\"postversion\\": \\"git push origin HEAD --tags --no-verify\\", \\"prepush\\": \\"npm run test && npm run build\\", \\"preversion\\": \\"npm run prepush\\", \\"test\\": \\"npm run test:types && npm run test:lint && npm run test:unit && npm run test:integration && npm run test:acceptance:locally\\", \\"test:acceptance\\": \\"npm run build && jest -c ./jest.acceptance.config.js --forceExit --verbose --runInBand\\", \\"test:acceptance:locally\\": \\"npm run build && LOCALLY=true jest -c ./jest.acceptance.config.js\\", \\"test:integration\\": \\"jest -c ./jest.integration.config.js --forceExit --coverage --verbose --passWithNoTests\\", \\"test:lint\\": \\"eslint -c ./.eslintrc.js src/**/*.ts\\", \\"test:types\\": \\"tsc -p ./tsconfig.build.json --noEmit\\", \\"test:unit\\": \\"jest -c ./jest.unit.config.js --forceExit --coverage --verbose --passWithNoTests\\"}, \\"version\\": \\"0.0.0\\"}[39m",
+  ],
+  Array [
+    "    [31m✕[39m practice:serverless.best-practice ",
+  ],
+  Array [
+    "      getVariables_1.getServiceVariables is not a function",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m prettier.config.js[22m",
+  ],
+  Array [
+    "    [33m✕[39m practice:prettier.best-practice [90m(automatically fixable)[39m",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+      Expected: [32m\\"// ref: http://json.schemastore.org/prettierrc·[39m
+      [32mmodule.exports = {[39m
+      [32m  trailingComma: 'all',[39m
+      [32m  tabWidth: 2,[39m
+      [32m  singleQuote: true,[39m
+      [32m  printWidth: 150,[39m
+      [32m};[39m
+      [32m\\"[39m
+      Received: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[31m[FIX_MANUAL][39m[1m provision/terraform/environments/dev/main.tf[22m",
+  ],
+  Array [
+    "    [31m✕[39m practice:terraform.best-practice ",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+      [1mMatcher error[22m: [31mreceived[39m value must not be null nor undefined
+
+      Received has value: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/dev/versions.tf[22m",
+  ],
+  Array [
+    "    [33m✕[39m practice:terraform.best-practice [90m(automatically fixable)[39m",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+      Expected: [32m\\"terraform {[39m
+      [32m  required_version = \\\\\\">= 0.14\\\\\\"[39m
+      [32m  required_providers {[39m
+      [32m    aws = {[39m
+      [32m      source = \\\\\\"hashicorp/aws\\\\\\"[39m
+      [32m      version = \\\\\\"3.53.0\\\\\\"[39m
+      [32m    }[39m
+      [32m  }[39m
+      [32m}[39m
+      [32m\\"[39m
+      Received: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[31m[FIX_MANUAL][39m[1m provision/terraform/environments/prod/main.tf[22m",
+  ],
+  Array [
+    "    [31m✕[39m practice:terraform.best-practice ",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+      [1mMatcher error[22m: [31mreceived[39m value must not be null nor undefined
+
+      Received has value: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/prod/versions.tf[22m",
+  ],
+  Array [
+    "    [33m✕[39m practice:terraform.best-practice [90m(automatically fixable)[39m",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+      Expected: [32m\\"terraform {[39m
+      [32m  required_version = \\\\\\">= 0.14\\\\\\"[39m
+      [32m  required_providers {[39m
+      [32m    aws = {[39m
+      [32m      source = \\\\\\"hashicorp/aws\\\\\\"[39m
+      [32m      version = \\\\\\"3.53.0\\\\\\"[39m
+      [32m    }[39m
+      [32m  }[39m
+      [32m}[39m
+      [32m\\"[39m
+      Received: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/product/variables.tf[22m",
+  ],
+  Array [
+    "    [33m✕[39m practice:terraform.best-practice [90m(automatically fixable)[39m",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+      Expected: [32m\\"variable \\\\\\"environment\\\\\\" {}·[39m
+      [32mlocals {[39m
+      [32m  service = \\\\\\"@declapract{variable.serviceName}\\\\\\"[39m
+      [32m}·[39m
+      [32mlocals {[39m
+      [32m  tags = {[39m
+      [32m    app         = \\\\\\"@declapract{variable.organizationName}\\\\\\"[39m
+      [32m    environment = var.environment[39m
+      [32m    product     = local.service[39m
+      [32m  }[39m
+      [32m}[39m
+      [32m\\"[39m
+      Received: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[31m[FIX_MANUAL][39m[1m serverless.yml[22m",
+  ],
+  Array [
+    "    [31m✕[39m practice:serverless.best-practice ",
+  ],
+  Array [
+    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+      [1mMatcher error[22m: [31mreceived[39m value must not be null nor undefined
+
+      Received has value: [31mnull[39m",
+  ],
+  Array [
+    "  * [1m[1m[32m[NO_CHANGE][39m[1m src/**/sleep.ts[22m",
+  ],
+]
+`;

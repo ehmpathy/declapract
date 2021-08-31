@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getFileCheckDeclaration should get file declaration correctly for a prettier config file exact equals definition 1`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+[32m- Expected  - 2[39m
+[31m+ Received  + 1[39m
+
+[2m  // ref: http://json.schemastore.org/prettierrc[22m
+
+[2m  module.exports = {[22m
+[2m    trailingComma: 'all',[22m
+[2m    tabWidth: 2,[22m
+[32m-   singleQuote: [7mtru[27me,[39m
+[31m+   singleQuote: [7mfals[27me,[39m
+[2m    printWidth: 150,[22m
+[2m  };[22m
+[32m-[39m"
+`;

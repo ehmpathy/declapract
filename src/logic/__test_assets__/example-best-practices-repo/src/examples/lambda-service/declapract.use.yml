@@ -1,0 +1,7 @@
+declarations: ../../../
+useCase: lambda-service
+variables:
+  organizationName: '@declapract{variable.organizationName}'
+  serviceName: '@declapract{variable.serviceName}'
+  infrastructureNamespaceId: '@declapract{variable.infrastructureNamespaceId}'
+  slackReleaseWebHook: '@declapract{variable.slackReleaseWebHook}'

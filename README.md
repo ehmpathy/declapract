@@ -1,9 +1,7 @@
 declapract
 ==============
 
-Declarative best practices: define, maintain, enforce, and scale.
-
-> Declaratively define best practices, maintainably evolve them, and scalably enforce them.
+Scalable software best practices. Declare, plan, and apply software practices across code bases.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/declapract.svg)](https://npmjs.org/package/declapract)
@@ -21,34 +19,109 @@ Declarative best practices: define, maintain, enforce, and scale.
 - [Contribution](#contribution)
 <!-- tocstop -->
 
-# Goals
+# Purpose
 
-The purpose of `declapract` is to provide a declarative way to define best practices, a maintainable way to evolve them and your code bases, and a scalable way to use and enforce them.
+Scaling software best practices across an organization is difficult - but when done right, is a super power.
 
-Features:
-- `declare`: define your software best practices declaratively, collaboratively, and informatively.
-  - declarative: you specify _what_ they are, not _how_ to check
-  - collaborative: anyone can easily propose new ideas, get feedback, and update practices for continuos refinement of best practices
-  - informatively: everyone can reference _why_ best practices were chosen, naturally creating a knowledge base and learning resource
-- `check`: scalably monitor and enforce best practices across all code bases
-  - scalable: no extra work required per additional code base
-  - monitor: see which code bases fail to adhere to which practices
-  - enforce: fail builds for decreasing adherence to best practices
-- `fix`: automatically fix or easily upgrade code bases that fall out of date
-  - fix: when practices have an automatic fix that can be applied, your engineers can run `declapract fix --practice:${practiceName}`
-  - upgrade: when there's no automatic fix, your engineers can easily see why their project is failing and what to do to resolve it
-- `clone`: stand-up new projects using the best practices in a snap
-  - by declaring a demonstration of a project with declapract, your engineers can run `declapract clone ${useCaseName}` for a shiny new repository with all of your best practices built in.
+`declapract` provides a declarative, scalable, and maintainable way to define, enforce, and evolve software best practices to unlock:
+- **systematic knowledge synthesis**
+  - practices are declaratively defined with code and explained with readmes
+  - so that
+    - future travelers can read exactly why a practice was deemed "best" or "bad"
+    - future travelers can collaborate on, debate, improve, and manage software practices like code (e.g., with pull requests, issues, etc)
+- **automatic knowledge transfer**
+  - developers in your org are alerted any time they don't follow a best practice - or use a bad practice!
+  - so that
+    - knowledge is not siloed to people that have learned through tribal knowledge already what practices are best or bad
+    - knowledge can be transferred automatically as part of the automated software development lifecycle (e.g., as part of your cicd-pipeline, exposed in pull-requests)
+- **effortless code base monitoring**
+  - determine for any code base whether and which software practices it is not adhering to with one command
+  - so that
+    - you can automatically block code changes that introduce bad practices / don't follow best practices
+    - you can easily get check each code base in your organization to get an overview of technical debt
+- **scalable technical debt elimination**
+  - automatically fix code bases, upgrading them to your best practices and removing bad practices
+  - so that
+    - you can scale keeping your code bases up to date
+    - your developers can get back to adding business value instead of upgrading old project
+
+Software practices are an infrastructure of their own. Its time we manage them like it.
 
 # Usage
 
-## Declare
+There are a few cases for using `declapract`. We'll go over each.
 
-## Check
+## Case 1: Create a new code base from declared best practices
 
-## Fix
+Similar to `git clone`, but leveraging explicitly declared best practices to create an entirely new project instead.
 
-## Clone
+Example:
+```sh
+npx declapract clone --declarations=ssh:github.com/path/to-declarations-repo --use-case=your-use-case
+```
+
+## Case 2: Add best practice management to a code base
+
+Sets up a code base to follow a set of [declared best practices](#declare-best-practices).
+
+install
+```sh
+npm install --save-dev declapract
+```
+
+configure
+```sh
+touch ./declapract.use.yml;
+echo "
+declarations: git@github.com:path/to-declarations.git
+useCase: your-use-case
+variables:
+  variableName: 'variableValue' # the variables required by the  practices
+  ...
+" >> ./declapract.use.yml;
+```
+
+## Case 3: Declare best practices
+
+create a new repository, based on best practices for declaring best practices
+```sh
+npx declapract --declarations=ssh:github.com/uladkasach/best-practices-declarations --use-case=declarations
+```
+
+## practices
+
+### exact
+
+### contains
+
+### exists
+
+### custom
+
+### readme
+
+### tests
+
+## use cases
+
+### basic
+### extends
+### examples
+
+# Commands (todo, move these descriptions into the oclif def)
+
+### `declapract validate`
+
+Validate that your declared practices don't have any syntax errors and do what you expect.
+
+See [declaring-best-practices](#declaring-best-practices) for docs on how to declare best practices.
+
+### `declapract plan [--practice=name]`
+
+Check a code base / software repository against a declared use-case and report whether there are any actions that need to be taken to make it adhere to the declared practices of that use-case.
+
+### `declapract apply [--practice=name]`
+
 
 # Commands
 <!-- commands -->
@@ -66,7 +139,7 @@ ARGUMENTS
   COMMAND  command to show help for
 
 OPTIONS
-  --all  see all commands in CLI
+  --all see all commands in CLI
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
