@@ -1,9 +1,10 @@
 import { Command, flags } from '@oclif/command';
-import { plan } from '../../logic/commands/plan';
+import { apply } from '../../logic/commands/apply';
 
-export default class Plan extends Command {
+export default class Apply extends Command {
   public static description =
-    'plan and display what actions need to be taken in order to make a software project adhere to its declared practices.';
+    "apply fixes to all files which have failed to adhere to any of the project's declared practices and have an automatic fix available.";
+
   public static flags = {
     help: flags.help({ char: 'h' }),
     config: flags.string({
@@ -19,12 +20,12 @@ export default class Plan extends Command {
   };
 
   public async run() {
-    const { flags } = this.parse(Plan);
+    const { flags } = this.parse(Apply);
     const config = flags.config!;
 
     // generate the code
     const configPath = config.slice(0, 1) === '/' ? config : `${process.cwd()}/${config}`; // if starts with /, consider it as an absolute path
-    await plan({
+    await apply({
       usePracticesConfigPath: configPath,
       filter: flags.practice ? { practiceNames: [flags.practice] } : undefined,
     });

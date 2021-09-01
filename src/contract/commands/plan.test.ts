@@ -1,5 +1,5 @@
 import { plan } from '../../logic/commands/plan';
-import Declapract from './Plan';
+import Declapract from './plan';
 
 jest.mock('../../logic/commands/plan');
 const planMock = plan as jest.Mock;

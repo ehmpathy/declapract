@@ -1,10 +1,11 @@
-import { readUsePracticesConfig } from '../config/readUsePracticesConfig';
-import { displayPlans } from '../plan/display/displayPlans';
-import { filterPracticeEvaluationsFromPlans } from '../plan/filterPracticeEvaluationsFromPlans';
 import { getPlansForProject } from '../plan/get/getPlansForProject';
+import { readUsePracticesConfig } from '../config/readUsePracticesConfig';
 import { UnexpectedCodePathError } from '../UnexpectedCodePathError';
+import { filterPracticeEvaluationsFromPlans } from '../plan/filterPracticeEvaluationsFromPlans';
+import { applyPlans } from '../plan/apply/applyPlans';
+import { RequiredAction } from '../../domain';
 
-export const plan = async ({
+export const apply = async ({
   usePracticesConfigPath,
   filter,
 }: {
@@ -23,15 +24,17 @@ export const plan = async ({
       'requested use case was not defined on config. should have thrown an error when processing the config by now',
     );
 
-  // get the plans
+  // get plans for this project
   const plans = await getPlansForProject({ practices: useCase.practices, projectRootDirectory: config.rootDir });
 
-  // filter the plans
-  const plansToDisplay = await filterPracticeEvaluationsFromPlans({
-    plans,
-    filter: { byPracticeNames: filter?.practiceNames ?? undefined },
-  });
+  // filter out the practices to the ones that can be automatically applied + for the practices specified
+  const plansToApply = (
+    await filterPracticeEvaluationsFromPlans({
+      plans,
+      filter: { byFixable: true, byPracticeNames: filter?.practiceNames ?? undefined },
+    })
+  ).filter((plan) => plan.action === RequiredAction.FIX_AUTOMATIC);
 
   // display the plans
-  await displayPlans({ plans: plansToDisplay });
+  await applyPlans({ plans: plansToApply, projectRootDirectory: config.rootDir });
 };

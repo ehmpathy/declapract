@@ -118,7 +118,7 @@ See [declaring-best-practices](#declaring-best-practices) for docs on how to dec
 
 ### `declapract plan [--practice=name]`
 
-Check a code base / software repository against a declared use-case and report whether there are any actions that need to be taken to make it adhere to the declared practices of that use-case.
+Check a software project against a declared use-case and report whether there are any actions that need to be taken to make it adhere to the declared practices of that use-case.
 
 ### `declapract apply [--practice=name]`
 

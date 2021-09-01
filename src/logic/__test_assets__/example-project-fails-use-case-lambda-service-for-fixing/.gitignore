@@ -1,0 +1,5 @@
+# all contents of dir are ignored since tests provision and fix the contents in here
+*
+!.gitignore
+!declapract.use.yml
+
