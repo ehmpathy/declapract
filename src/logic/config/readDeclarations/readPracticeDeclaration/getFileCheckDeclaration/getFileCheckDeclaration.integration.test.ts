@@ -1,10 +1,11 @@
-import { FileCheckType } from '../../../../../domain';
+import { FileCheckContext, FileCheckType } from '../../../../../domain';
 import { testAssetsDirectoryPath } from '../../../../__test_assets__/dirPath';
 import { getFileCheckDeclaration } from './getFileCheckDeclaration';
 
 describe('getFileCheckDeclaration', () => {
   it('should get file declaration correctly for a prettier config file exact equals definition', async () => {
     const declaration = await getFileCheckDeclaration({
+      context: FileCheckContext.BEST_PRACTICE,
       declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/prettier/best-practice`,
       declaredFileCorePath: 'prettier.config.js',
     });
@@ -65,6 +66,7 @@ module.exports = {
   });
   it('should get file declaration correctly for a terraform file with a contains check', async () => {
     const declaration = await getFileCheckDeclaration({
+      context: FileCheckContext.BEST_PRACTICE,
       declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/terraform/best-practice`,
       declaredFileCorePath: 'provision/terraform/environments/dev/main.tf',
     });
@@ -138,6 +140,7 @@ provider "aws" {
   });
   it('should get file declaration correctly for an optional file existence declaration (e.g., user wants to specify directory structure)', async () => {
     const declaration = await getFileCheckDeclaration({
+      context: FileCheckContext.BEST_PRACTICE,
       declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/directory-structure-src/best-practice`,
       declaredFileCorePath: 'src/data/dao/**/*.ts',
     });
@@ -153,6 +156,7 @@ provider "aws" {
   });
   it('should get file declaration correctly for an optional file contains check declaration', async () => {
     const declaration = await getFileCheckDeclaration({
+      context: FileCheckContext.BEST_PRACTICE,
       declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/directory-structure-src/best-practice`,
       declaredFileCorePath: 'src/data/clients/**/*.ts',
     });
@@ -188,6 +192,7 @@ import { AWS } from 'aws-sdk';
   });
   it('should get file declaration correctly for an optional file equals check declaration', async () => {
     const declaration = await getFileCheckDeclaration({
+      context: FileCheckContext.BEST_PRACTICE,
       declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/util-sleep/best-practice`,
       declaredFileCorePath: 'src/**/sleep.ts',
     });
@@ -220,6 +225,7 @@ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout
   });
   it('should get file declaration correctly for a package json file with a custom check', async () => {
     const declaration = await getFileCheckDeclaration({
+      context: FileCheckContext.BEST_PRACTICE,
       declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/prettier/best-practice`,
       declaredFileCorePath: 'package.json',
     });
@@ -272,5 +278,38 @@ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout
       expect(error.message).toContain('toMatchObject');
       expect(error.message).toMatchSnapshot();
     }
+  });
+  it('should get file declaration correctly for a bad practice file exists check', async () => {
+    const declaration = await getFileCheckDeclaration({
+      context: FileCheckContext.BAD_PRACTICE,
+      declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/directory-structure-src/bad-practices/services-dir`,
+      declaredFileCorePath: 'src/services/**/*.ts',
+    });
+
+    // check that the properties look right
+    expect(declaration.required).toEqual(true);
+    expect(declaration.type).toEqual(FileCheckType.EXISTS);
+    expect(declaration.pathGlob).toMatch(/src\/services\/\*\*\/\*\.ts$/);
+
+    // check that the check function works
+    await declaration.check(
+      // should match anything existing
+      `
+export const anything = 'should not exist';
+    `.trim(),
+    );
+    try {
+      await declaration.check(null); // should not match file not existing, since file is required
+      fail('should not reach here');
+    } catch (error) {
+      expect(error.message).toContain('toBeNull');
+      expect(error.message).toMatchSnapshot();
+    }
+
+    // check that the fix function works correctly
+    const fixResultNoFile = declaration.fix!(null);
+    expect(fixResultNoFile).toEqual(null); // should do nothing if file is not defined
+    const fixResultWithFile = declaration.fix!('some contents');
+    expect(fixResultWithFile).toEqual(null); // should say to delete the file if exists
   });
 });

@@ -6,7 +6,7 @@ Array [
     "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .prettierignore[22m",
   ],
   Array [
-    "    [33m✕[39m practice:prettier.best-practice [90m(automatically fixable)[39m",
+    "    [33m✕[39m practice:prettier.best-practice [90m(fix:appliable)[39m",
   ],
   Array [
     "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
@@ -17,6 +17,8 @@ Array [
       [32m- *.md[39m
       [31m+ .js[39m
       [2m  ↵[22m",
+    "
+",
   ],
 ]
 `;
@@ -60,6 +62,8 @@ Array [
       [31m+     \\"moment\\": \\"5.21.0\\",[39m
       [2m    },[22m
       [2m  }[22m",
+    "
+",
   ],
 ]
 `;
@@ -77,12 +81,14 @@ Array [
 
       Expected: [32mObjectContaining {\\"dependencies\\": ObjectContaining {\\"date-fns\\": Any<String>}}[39m
       Received: [31m{\\"devDependencies\\": {\\"prettier\\": \\"8.21.0\\"}, \\"scripts\\": {\\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"}}[39m",
+    "
+",
   ],
 ]
 `;
 
 exports[`displayPlan should show no change plans correctly 1`] = `
 Array [
-  "  * [1m[1m[32m[NO_CHANGE][39m[1m package.json[22m",
+  "  * [1m[1m[90m[NO_CHANGE][39m[1m package.json[22m",
 ]
 `;

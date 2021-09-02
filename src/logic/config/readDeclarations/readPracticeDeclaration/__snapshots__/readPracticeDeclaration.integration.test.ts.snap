@@ -7,6 +7,7 @@ PracticeDeclaration {
       "checks": Array [
         FileCheckDeclaration {
           "check": [Function],
+          "context": "BAD_PRACTICE",
           "fix": null,
           "pathGlob": "package.json",
           "required": true,
@@ -30,6 +31,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
     "checks": Array [
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": null,
         "pathGlob": "package.json",
         "required": true,
@@ -51,7 +53,8 @@ PracticeDeclaration {
       "checks": Array [
         FileCheckDeclaration {
           "check": [Function],
-          "fix": null,
+          "context": "BAD_PRACTICE",
+          "fix": [Function],
           "pathGlob": "src/model/**/*",
           "required": true,
           "type": "EXISTS",
@@ -66,8 +69,9 @@ PracticeDeclaration {
       "checks": Array [
         FileCheckDeclaration {
           "check": [Function],
-          "fix": null,
-          "pathGlob": "src/services/**/*",
+          "context": "BAD_PRACTICE",
+          "fix": [Function],
+          "pathGlob": "src/services/**/*.ts",
           "required": true,
           "type": "EXISTS",
         },
@@ -80,6 +84,7 @@ PracticeDeclaration {
     "checks": Array [
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": null,
         "pathGlob": "src/contract/**/*.ts",
         "required": true,
@@ -87,13 +92,15 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
-        "fix": null,
+        "context": "BEST_PRACTICE",
+        "fix": [Function],
         "pathGlob": "src/data/clients/**/*.ts",
         "required": false,
         "type": "CONTAINS",
       },
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": null,
         "pathGlob": "src/data/dao/**/*.ts",
         "required": false,
@@ -101,6 +108,7 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": null,
         "pathGlob": "src/domain/constants.ts",
         "required": false,
@@ -108,6 +116,7 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": null,
         "pathGlob": "src/domain/index.ts",
         "required": true,
@@ -115,6 +124,7 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": null,
         "pathGlob": "src/domain/objects/index.ts",
         "required": true,
@@ -122,6 +132,7 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": null,
         "pathGlob": "src/logic/**/*.ts",
         "required": true,
@@ -164,6 +175,7 @@ PracticeDeclaration {
     "checks": Array [
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": [Function],
         "pathGlob": "src/**/sleep.ts",
         "required": false,
@@ -191,6 +203,7 @@ PracticeDeclaration {
     "checks": Array [
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": [Function],
         "pathGlob": ".prettierignore",
         "required": true,
@@ -198,6 +211,7 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": null,
         "pathGlob": "package.json",
         "required": true,
@@ -205,6 +219,7 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
+        "context": "BEST_PRACTICE",
         "fix": [Function],
         "pathGlob": "prettier.config.js",
         "required": true,

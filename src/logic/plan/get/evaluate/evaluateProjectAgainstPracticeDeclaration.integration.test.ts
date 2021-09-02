@@ -1,4 +1,4 @@
-import { FileEvaluationResult, FileCheckType } from '../../../../domain';
+import { FileEvaluationResult, FileCheckType, FileCheckContext } from '../../../../domain';
 import { readDeclarePracticesConfig } from '../../../config/readDeclarePracticesConfig';
 import { testAssetsDirectoryPath } from '../../../__test_assets__/dirPath';
 import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgainstPracticeDeclaration';
@@ -24,7 +24,7 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     expect(evaluations.filter((file) => file.result === FileEvaluationResult.PASS).length).toEqual(1); // 1 out of 3 pass
     expect(evaluations).toMatchSnapshot();
   });
-  it('should be able to evaluate a practice with both a best practice and bad practices - and consider passing bad practice checks as failing the practice', async () => {
+  it('should be able to evaluate a practice with both a best practice and bad practices', async () => {
     // lookup a practice
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
@@ -42,11 +42,15 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     // check that the evaluation matches what we expect
     expect(evaluations.filter((file) => file.result === FileEvaluationResult.FAIL).length).toEqual(1);
     expect(evaluations.filter((file) => file.result === FileEvaluationResult.PASS).length).toEqual(0);
-    expect(evaluations[0].checked.bestPractice[0].result).toEqual(FileEvaluationResult.PASS);
-    expect(evaluations[0].checked.badPractices[0].result).toEqual(FileEvaluationResult.PASS);
+    expect(evaluations[0].checks.filter((check) => check.context === FileCheckContext.BEST_PRACTICE)[0].result).toEqual(
+      FileEvaluationResult.PASS,
+    );
+    expect(evaluations[0].checks.filter((check) => check.context === FileCheckContext.BAD_PRACTICE)[0].result).toEqual(
+      FileEvaluationResult.FAIL,
+    );
     expect(evaluations).toMatchSnapshot();
   });
-  it('should be able to evaluate a practice with wildcard glob pattern path file checks - fails best practices and passes bad practices', async () => {
+  it('should be able to evaluate a practice with wildcard glob pattern path file checks - fails best and bad practices', async () => {
     // lookup a practice
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
@@ -71,38 +75,36 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     ).toMatchObject({
       // should have found this file by wildcard _and_ failed it due to the contains check
       result: FileEvaluationResult.FAIL,
-      checked: expect.objectContaining({
-        bestPractice: expect.arrayContaining([
-          expect.objectContaining({
-            check: expect.objectContaining({ type: FileCheckType.EXISTS }),
-          }),
-        ]),
-      }),
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.FAIL,
+          context: FileCheckContext.BEST_PRACTICE,
+          type: FileCheckType.EXISTS,
+        }),
+      ]),
     });
     expect(evaluations.find((file) => file.path === 'src/data/clients/coolServiceClient.ts')).toMatchObject({
       // should have found this file by wildcard _and_ failed it due to the contains check not being satisfied correctly
       result: FileEvaluationResult.FAIL,
-      checked: expect.objectContaining({
-        bestPractice: expect.arrayContaining([
-          expect.objectContaining({
-            check: expect.objectContaining({ type: FileCheckType.CONTAINS }),
-          }),
-        ]),
-      }),
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.FAIL,
+          context: FileCheckContext.BEST_PRACTICE,
+          type: FileCheckType.CONTAINS,
+        }),
+      ]),
     });
     expect(
       evaluations.find((file) => file.path === 'src/services/someFile.ts'), // shold have found this file from the bad-practices wildcard glob path
     ).toMatchObject({
       result: FileEvaluationResult.FAIL, // it failed,
-      checked: expect.objectContaining({
-        bestPractice: [], // no failed best practices
-        badPractices: expect.arrayContaining([
-          expect.objectContaining({
-            result: FileEvaluationResult.PASS, // the fact that it passed bad practice is why it failed
-            check: expect.objectContaining({ type: FileCheckType.EXISTS }),
-          }),
-        ]),
-      }),
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.FAIL,
+          context: FileCheckContext.BAD_PRACTICE,
+          type: FileCheckType.EXISTS,
+        }),
+      ]),
     });
 
     // now just save an example of the results
@@ -133,43 +135,38 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
       evaluations.find((file) => file.path === 'src/contract/handlers/doSomething.ts'), // found this file by wildcard glob path
     ).toMatchObject({
       result: FileEvaluationResult.PASS, // passed, due to existance
-      checked: expect.objectContaining({
-        bestPractice: expect.arrayContaining([
-          expect.objectContaining({
-            check: expect.objectContaining({ type: FileCheckType.EXISTS }),
-          }),
-        ]),
-        badPractices: [],
-      }),
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.PASS,
+          context: FileCheckContext.BEST_PRACTICE,
+          type: FileCheckType.EXISTS,
+        }),
+      ]),
     });
     expect(
       evaluations.find((file) => file.path === 'src/data/clients/**/*.ts'), // did not find any files for this glob path -> glob path is kept
     ).toMatchObject({
       result: FileEvaluationResult.PASS,
-      checked: expect.objectContaining({
-        bestPractice: expect.arrayContaining([
-          expect.objectContaining({
-            check: expect.objectContaining({
-              required: false, // optional file -> that's why it passed
-              type: FileCheckType.CONTAINS,
-            }),
-          }),
-        ]),
-      }),
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.PASS,
+          context: FileCheckContext.BEST_PRACTICE,
+          type: FileCheckType.CONTAINS,
+          required: false, // optional file -> that's why it passed
+        }),
+      ]),
     });
     expect(
       evaluations.find((file) => file.path === 'src/model/**/*'), // should not have found any files in the model dir -> glob path is kept in the check
     ).toMatchObject({
       result: FileEvaluationResult.PASS, // it passed, because the bad practice check failed
-      checked: expect.objectContaining({
-        bestPractice: [], // no failed best practices
-        badPractices: expect.arrayContaining([
-          expect.objectContaining({
-            result: FileEvaluationResult.FAIL, // the fact that it failed bad practice is why it passed
-            check: expect.objectContaining({ type: FileCheckType.EXISTS }),
-          }),
-        ]),
-      }),
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.PASS,
+          type: FileCheckType.EXISTS,
+          context: FileCheckContext.BAD_PRACTICE,
+        }),
+      ]),
     });
 
     // now just save an example of the results
@@ -200,43 +197,37 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
       evaluations.find((file) => file.path === 'src/data/clients/svcAwesomeStuff.ts'), // did not find any files for this glob path -> glob path is kept
     ).toMatchObject({
       result: FileEvaluationResult.PASS,
-      checked: expect.objectContaining({
-        bestPractice: expect.arrayContaining([
-          expect.objectContaining({
-            check: expect.objectContaining({
-              required: false, // optional file -> that's why it passed
-              type: FileCheckType.CONTAINS,
-            }),
-          }),
-        ]),
-      }),
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.PASS,
+          context: FileCheckContext.BEST_PRACTICE,
+          type: FileCheckType.CONTAINS,
+        }),
+      ]),
     });
     expect(
       evaluations.find((file) => file.path === 'src/data/dao/superCoolThingDao/index.ts'), // found this file by wildcard glob path
     ).toMatchObject({
       result: FileEvaluationResult.PASS, // passed, due to existance
-      checked: expect.objectContaining({
-        bestPractice: expect.arrayContaining([
-          expect.objectContaining({
-            check: expect.objectContaining({ type: FileCheckType.EXISTS }),
-          }),
-        ]),
-        badPractices: [],
-      }),
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.PASS,
+          context: FileCheckContext.BEST_PRACTICE,
+          type: FileCheckType.EXISTS,
+        }),
+      ]),
     });
     expect(
       evaluations.find((file) => file.path === 'src/model/**/*'), // should not have found any files in the model dir -> glob path is kept in the check
     ).toMatchObject({
-      result: FileEvaluationResult.PASS, // it passed, because the bad practice check failed
-      checked: expect.objectContaining({
-        bestPractice: [], // no failed best practices
-        badPractices: expect.arrayContaining([
-          expect.objectContaining({
-            result: FileEvaluationResult.FAIL, // the fact that it failed bad practice is why it passed
-            check: expect.objectContaining({ type: FileCheckType.EXISTS }),
-          }),
-        ]),
-      }),
+      result: FileEvaluationResult.PASS,
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.PASS,
+          context: FileCheckContext.BAD_PRACTICE,
+          type: FileCheckType.EXISTS,
+        }),
+      ]),
     });
 
     // now just save an example of the results

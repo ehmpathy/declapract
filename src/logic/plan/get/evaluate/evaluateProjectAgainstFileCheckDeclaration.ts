@@ -1,17 +1,20 @@
 import glob from 'glob';
 import { promisify } from 'util';
 
-import { FileCheckDeclaration, FileCheckEvaluation, FileEvaluationResult } from '../../../../domain';
+import { FileCheckDeclaration, FileCheckEvaluation, FileCheckContext, FileEvaluationResult } from '../../../../domain';
 import { readFileIfExistsAsync } from '../../../../utils/fileio/readFileIfExistsAsync';
+import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
 
 const promisifiedGlob = promisify(glob);
 
 export const evaluateProjectAgainstFileCheckDeclaration = async ({
   practiceRef,
+  context,
   projectRootDirectory,
   check,
 }: {
   practiceRef: string;
+  context: FileCheckContext;
   projectRootDirectory: string;
   check: FileCheckDeclaration;
 }): Promise<FileCheckEvaluation[]> => {
@@ -33,22 +36,47 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
         // run the check
         await check.check(fileContents);
 
-        // if it succeeds, then the file passed
+        // determine the result of the check based on the context
+        const result = (() => {
+          if (context === FileCheckContext.BEST_PRACTICE) return FileEvaluationResult.PASS;
+          if (context === FileCheckContext.BAD_PRACTICE) return FileEvaluationResult.FAIL; // if it matches a bad practice, then it failed the check
+          throw new UnexpectedCodePathError('context was not bet practice or bad practice');
+        })();
+
+        // determine whether can fix, if failed
+        const canFix = result === FileEvaluationResult.FAIL && check.fix && check.fix(fileContents) !== fileContents; // fixable only if the fix function is defined AND it would return a different result
+
+        // build the evaluation
         return new FileCheckEvaluation({
           practiceRef,
-          fix: null, // no fix possible, since nothing to fix
+          context,
+          type: check.type,
+          required: check.required,
+          fix: canFix ? check.fix : null,
           path: relativePath,
-          result: FileEvaluationResult.PASS,
+          result,
           reason: null,
         });
       } catch (error) {
-        // if it threw an error, it failed
-        const canFix = check.fix && check.fix(fileContents) !== fileContents; // fixable only if the fix function is defined AND it would return a different result
+        // determine the result of the check based on the context
+        const result = (() => {
+          if (context === FileCheckContext.BEST_PRACTICE) return FileEvaluationResult.FAIL;
+          if (context === FileCheckContext.BAD_PRACTICE) return FileEvaluationResult.PASS; // if it throws an error (i.e., does not match) a bad practice, then it passes the check
+          throw new UnexpectedCodePathError('context was not bet practice or bad practice');
+        })();
+
+        // determine whether can fix, if failed
+        const canFix = result === FileEvaluationResult.FAIL && check.fix && check.fix(fileContents) !== fileContents; // fixable only if the fix function is defined AND it would return a different result
+
+        // build the evaluation
         return new FileCheckEvaluation({
           practiceRef,
+          context,
+          type: check.type,
+          required: check.required,
           fix: canFix ? check.fix : null,
           path: relativePath,
-          result: FileEvaluationResult.FAIL,
+          result,
           reason: error.message,
         });
       }

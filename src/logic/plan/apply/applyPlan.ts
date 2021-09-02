@@ -31,10 +31,10 @@ export const applyPlan = async ({
   // for each failed evaluation check, output that we're applying it
   for (const evaluation of plan.evaluations.sort(sortFilePracticeEvaluationsByPracticeName)) {
     // grab the failed, fixable checks
-    const failedFixableChecks = [
-      ...evaluation.checked.bestPractice.filter(hasFailed).sort(sortFileCheckEvaluationsByPracticeRef),
-      ...evaluation.checked.badPractices.filter(withNot(hasFailed)).sort(sortFileCheckEvaluationsByPracticeRef),
-    ].filter(isFixableCheck);
+    const failedFixableChecks = evaluation.checks
+      .filter(hasFailed)
+      .filter(isFixableCheck)
+      .sort(sortFileCheckEvaluationsByPracticeRef);
 
     // apply each of them
     await Promise.all(

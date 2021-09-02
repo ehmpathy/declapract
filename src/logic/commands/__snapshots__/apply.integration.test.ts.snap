@@ -1,3 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply should be able to apply for an example project 1`] = `Array []`;
+exports[`apply should be able to apply for an example project 1`] = `
+Array [
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .prettierignore[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .terraform-version[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m prettier.config.js[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/dev/main.tf[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/dev/versions.tf[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/prod/main.tf[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/prod/versions.tf[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/product/variables.tf[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m serverless.yml[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:serverless.best-practice [90m(fix:applied)[39m",
+  ],
+]
+`;

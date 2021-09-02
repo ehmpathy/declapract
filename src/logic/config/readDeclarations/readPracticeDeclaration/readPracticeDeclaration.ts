@@ -1,4 +1,4 @@
-import { ProjectCheckDeclaration, PracticeDeclaration } from '../../../../domain';
+import { ProjectCheckDeclaration, PracticeDeclaration, FileCheckContext } from '../../../../domain';
 import { listPathsInDirectory } from '../../../../utils/filepaths/listPathsInDirectory';
 import { UserInputError } from '../../../UserInputError';
 import { getProjectCheckDeclaration } from './getProjectCheckDeclaration';
@@ -12,7 +12,10 @@ export const readPracticeDeclaration = async ({ declaredPracticeDirectory }: { d
 
   // find the "best-practice" dir, if one was defined
   const bestPracticeProjectCheck: ProjectCheckDeclaration | null = paths.includes('best-practice')
-    ? await getProjectCheckDeclaration({ declaredProjectDirectory: `${declaredPracticeDirectory}/best-practice` })
+    ? await getProjectCheckDeclaration({
+        context: FileCheckContext.BEST_PRACTICE,
+        declaredProjectDirectory: `${declaredPracticeDirectory}/best-practice`,
+      })
     : null;
 
   // find the "bad-practice" dirs, if any were defined
@@ -21,7 +24,10 @@ export const readPracticeDeclaration = async ({ declaredPracticeDirectory }: { d
     const badPracticesPaths = await listPathsInDirectory(`${declaredPracticeDirectory}/bad-practices`);
     return Promise.all(
       badPracticesPaths.map((path) =>
-        getProjectCheckDeclaration({ declaredProjectDirectory: `${declaredPracticeDirectory}/bad-practices/${path}` }),
+        getProjectCheckDeclaration({
+          context: FileCheckContext.BAD_PRACTICE,
+          declaredProjectDirectory: `${declaredPracticeDirectory}/bad-practices/${path}`,
+        }),
       ),
     );
   })();

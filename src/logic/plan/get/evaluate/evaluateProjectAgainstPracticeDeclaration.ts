@@ -1,4 +1,4 @@
-import { FileEvaluationResult, PracticeDeclaration } from '../../../../domain';
+import { FileCheckContext, FileEvaluationResult, hasPassed, PracticeDeclaration } from '../../../../domain';
 import { FilePracticeEvaluation } from '../../../../domain/objects/FilePracticeEvaluation';
 import { evaluteProjectAgainstProjectCheckDeclaration } from './evaluateProjectAgainstProjectCheckDeclaration';
 
@@ -13,6 +13,7 @@ export const evaluteProjectAgainstPracticeDeclaration = async ({
   const bestPracticeFileCheckEvaluations = practice.bestPractice
     ? await evaluteProjectAgainstProjectCheckDeclaration({
         practiceRef: `${practice.name}.best-practice`,
+        context: FileCheckContext.BEST_PRACTICE,
         projectRootDirectory,
         declaration: practice.bestPractice,
       })
@@ -22,6 +23,7 @@ export const evaluteProjectAgainstPracticeDeclaration = async ({
       practice.badPractices.map((badPractice) =>
         evaluteProjectAgainstProjectCheckDeclaration({
           practiceRef: `${practice.name}.bad-practice.${badPractice.name}`,
+          context: FileCheckContext.BAD_PRACTICE,
           projectRootDirectory,
           declaration: badPractice,
         }),
@@ -36,20 +38,14 @@ export const evaluteProjectAgainstPracticeDeclaration = async ({
     ),
   ].sort();
   const evaluations = pathsEvaluated.map((path) => {
-    const checked = {
-      bestPractice: bestPracticeFileCheckEvaluations.filter((check) => check.path === path),
-      badPractices: badPracticeFileCheckEvaluations.filter((check) => check.path === path),
-    };
-    const failedABestPracticeCheck = checked.bestPractice.some((check) => check.result === FileEvaluationResult.FAIL);
-    const passedABadPracticeCheck = checked.badPractices.some((check) => check.result === FileEvaluationResult.PASS);
-    const result =
-      failedABestPracticeCheck || passedABadPracticeCheck // if failed a best practice, failed overall; if passed a bad practice, failed overall
-        ? FileEvaluationResult.FAIL
-        : FileEvaluationResult.PASS;
+    const checks = [...bestPracticeFileCheckEvaluations, ...badPracticeFileCheckEvaluations].filter(
+      (check) => check.path === path,
+    );
+    const result = checks.every(hasPassed) ? FileEvaluationResult.PASS : FileEvaluationResult.FAIL;
     return new FilePracticeEvaluation({
       path,
       result,
-      checked,
+      checks,
       practice,
     });
   });

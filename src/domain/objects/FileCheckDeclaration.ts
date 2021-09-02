@@ -47,8 +47,16 @@ export const isOfFileCheckType = createIsOfEnum(FileCheckType);
 export type FileCheckFunction = (contents: string | null) => Promise<void> | void;
 export type FileFixFunction = (contents: string | null) => string | null;
 
+export enum FileCheckContext {
+  BAD_PRACTICE = 'BAD_PRACTICE',
+  BEST_PRACTICE = 'BEST_PRACTICE',
+}
+
 const schema = Joi.object().keys({
   pathGlob: Joi.string().required(),
+  context: Joi.string()
+    .valid(...Object.values(FileCheckContext))
+    .required(),
   type: Joi.string()
     .valid(...Object.values(FileCheckType))
     .required(),
@@ -66,6 +74,7 @@ const schema = Joi.object().keys({
  */
 export interface FileCheckDeclaration {
   pathGlob: string;
+  context: FileCheckContext;
   type: FileCheckType;
   required: boolean;
   check: FileCheckFunction;

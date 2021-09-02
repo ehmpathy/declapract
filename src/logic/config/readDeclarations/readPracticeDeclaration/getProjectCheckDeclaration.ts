@@ -1,4 +1,4 @@
-import { FileCheckDeclaration } from '../../../../domain';
+import { FileCheckContext, FileCheckDeclaration } from '../../../../domain';
 import { ProjectCheckDeclaration } from '../../../../domain/objects/ProjectCheckDeclaration';
 import { readFileAsync } from '../../../../utils/fileio/readFileAsync';
 import { listFilesInDirectory } from '../../../../utils/filepaths/listFilesInDirectory';
@@ -6,14 +6,19 @@ import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
 import { getFileCheckDeclaration } from './getFileCheckDeclaration/getFileCheckDeclaration';
 
 export const getProjectCheckDeclaration = async ({
+  context,
   declaredProjectDirectory,
 }: {
+  context: FileCheckContext;
   declaredProjectDirectory: string;
 }): Promise<ProjectCheckDeclaration> => {
   // grab name from the directory
-  const bestPracticeName = (new RegExp(/\/([\w-]+)\/best-practice$/).exec(declaredProjectDirectory) ?? [])[1] ?? null;
-  const badPracticeName = (new RegExp(/bad-practices\/([\w-]+)$/).exec(declaredProjectDirectory) ?? [])[1] ?? null;
-  const name = bestPracticeName ?? badPracticeName;
+  const name = (() => {
+    if (context === FileCheckContext.BEST_PRACTICE)
+      return (new RegExp(/\/([\w-]+)\/best-practice$/).exec(declaredProjectDirectory) ?? [])[1] ?? null;
+    if (context === FileCheckContext.BAD_PRACTICE)
+      return (new RegExp(/bad-practices\/([\w-]+)$/).exec(declaredProjectDirectory) ?? [])[1] ?? null;
+  })();
   if (!name)
     throw new UnexpectedCodePathError(
       `neither best-practice name nor bad-practice name was extractable from the declared project directory '${declaredProjectDirectory}'`,
@@ -35,7 +40,7 @@ export const getProjectCheckDeclaration = async ({
   // for each "main file", get the FileCheckDefinition, now that we have all the files defined for it
   const checksAndErrors = await Promise.all(
     projectFilePaths.map((declaredFileCorePath) =>
-      getFileCheckDeclaration({ declaredProjectDirectory, declaredFileCorePath }).catch((error) => error),
+      getFileCheckDeclaration({ context, declaredProjectDirectory, declaredFileCorePath }).catch((error) => error),
     ),
   );
   const anError = checksAndErrors.find((checkOrError) => checkOrError instanceof Error);
