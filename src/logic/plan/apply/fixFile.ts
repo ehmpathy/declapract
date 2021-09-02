@@ -19,10 +19,10 @@ export const fixFile = async ({
   evaluation: FileCheckEvaluation;
   projectRootDirectory: string;
 }) => {
-  if (!evaluation.check.fix) throw new UnexpectedCodePathError('fixFile called on a check without a fix function');
+  if (!evaluation.fix) throw new UnexpectedCodePathError('fixFile called on an eval that doesnt have a fix defined');
   const filePath = `${projectRootDirectory}/${evaluation.path}`;
   const fileContents = await readFileIfExistsAsync({ filePath });
-  const desiredContents = await evaluation.check.fix(fileContents);
+  const desiredContents = await evaluation.fix(fileContents);
   desiredContents
     ? await writeFileAsync({ path: filePath, content: desiredContents })
     : await removeFileAsync({ path: filePath });

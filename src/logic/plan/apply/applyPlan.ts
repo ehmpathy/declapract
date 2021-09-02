@@ -41,7 +41,7 @@ export const applyPlan = async ({
       failedFixableChecks.map(async (evaluation) => {
         await fixFile({ evaluation, projectRootDirectory });
         const statusToken = chalk.green('✓');
-        const fixabilityToken = chalk.gray('(applied)');
+        const fixabilityToken = chalk.gray('(fix:applied)');
         console.log(indentString(`${statusToken} practice:${evaluation.practiceRef} ${fixabilityToken}`, 4)); // tslint:disable-line: no-console
       }),
     );

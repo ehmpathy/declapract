@@ -22,7 +22,7 @@ export const displayPlan = async ({ plan }: { plan: FileActionPlan }) => {
       ...evaluation.checked.badPractices.filter(withNot(hasFailed)).sort(sortFileCheckEvaluationsByPracticeRef),
     ].forEach((failedCheck) => {
       const statusToken = isFixableCheck(failedCheck) ? chalk.yellow('✕') : chalk.red('✕');
-      const fixabilityToken = isFixableCheck(failedCheck) ? chalk.gray('(can fix with apply)') : '';
+      const fixabilityToken = isFixableCheck(failedCheck) ? chalk.gray('(fix:appliable)') : '';
       console.log(indentString(`${statusToken} practice:${failedCheck.practiceRef} ${fixabilityToken}`, 4)); // tslint:disable-line: no-console
       if (failedCheck.reason) console.log(indentString(failedCheck.reason, 6), '\n'); // tslint:disable-line: no-console
     });

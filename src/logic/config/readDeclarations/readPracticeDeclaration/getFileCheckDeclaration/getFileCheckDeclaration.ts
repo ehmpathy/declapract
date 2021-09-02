@@ -45,6 +45,10 @@ export const getFileCheckDeclaration = async ({
 
   // define the fix fns
   const strictEqualsFix = () => declaredBestPracticeContents; // i.e., replace the file with the expected contents
+  const containsFix = (foundContents: string | null) => {
+    if (foundContents) return foundContents; // if it already has contents, do nothing; we can't actually fix it
+    return declaredBestPracticeContents; // i.e., ;
+  };
 
   // if check inputs were not explicitly declared, then the check is an exact equals
   if (!declaredCheckInputs) {
@@ -88,7 +92,7 @@ export const getFileCheckDeclaration = async ({
       required,
       type: FileCheckType.CONTAINS,
       check: containsCheck,
-      fix: null, // TODO: define a fix for "contains"
+      fix: containsFix,
     });
 
   // handle "type = exists"

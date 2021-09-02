@@ -36,16 +36,17 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
         // if it succeeds, then the file passed
         return new FileCheckEvaluation({
           practiceRef,
-          check,
+          fix: null, // no fix possible, since nothing to fix
           path: relativePath,
           result: FileEvaluationResult.PASS,
           reason: null,
         });
       } catch (error) {
         // if it threw an error, it failed
+        const canFix = check.fix && check.fix(fileContents) !== fileContents; // fixable only if the fix function is defined AND it would return a different result
         return new FileCheckEvaluation({
           practiceRef,
-          check,
+          fix: canFix ? check.fix : null,
           path: relativePath,
           result: FileEvaluationResult.FAIL,
           reason: error.message,

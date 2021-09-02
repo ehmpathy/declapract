@@ -5,10 +5,10 @@ import { importExportsFromFile } from '../../../../../utils/fileio/importExports
 import { UserInputError } from '../../../../UserInputError';
 import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
 
-jest.mock('../../../utils/fileio/doesFileExist');
+jest.mock('../../../../../utils/fileio/doesFileExist');
 const doesFileExistMock = doesFileExist as jest.Mock;
 
-jest.mock('../../../utils/fileio/importExportsFromFile');
+jest.mock('../../../../../utils/fileio/importExportsFromFile');
 const importExportsFromFileMock = importExportsFromFile as jest.Mock;
 
 describe('getHydratedCheckInputsForFile', () => {
@@ -65,7 +65,7 @@ describe('getHydratedCheckInputsForFile', () => {
         fail('should not reach here');
       } catch (error) {
         expect(error).toBeInstanceOf(UserInputError);
-        expect(error.message).toContain('file check type can not be CUSTOM without the function being specified');
+        expect(error.message).toContain('File check type can not be CUSTOM without the function being specified');
       }
     });
     it('should define correctly when function shorthand is used', async () => {
@@ -118,7 +118,7 @@ describe('getHydratedCheckInputsForFile', () => {
       } catch (error) {
         expect(error).toBeInstanceOf(UserInputError);
         expect(error.message).toContain(
-          'if check.function is defined then the type can not be defined as anything but FileCheckType.CUSTOM',
+          'If check.function is defined then the type can not be defined as anything but FileCheckType.CUSTOM',
         );
       }
     });

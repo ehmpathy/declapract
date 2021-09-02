@@ -1,6 +1,7 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
 import { FileCheckDeclaration } from '.';
+import { FileFixFunction } from './FileCheckDeclaration';
 
 export enum FileEvaluationResult {
   PASS = 'PASS',
@@ -12,11 +13,10 @@ export const hasPassed = (evaluation: { result: FileEvaluationResult }): boolean
   evaluation.result === FileEvaluationResult.PASS;
 
 // check is fixable if it has a fix function
-export const isFixableCheck = (evaluation: FileCheckEvaluation): boolean => !!evaluation.check.fix;
+export const isFixableCheck = (evaluation: FileCheckEvaluation): boolean => !!evaluation.fix;
 
 const schema = Joi.object().keys({
   practiceRef: Joi.string().required(),
-  check: FileCheckDeclaration.schema.required(),
   path: Joi.string().required(),
   result: Joi.string()
     .valid(...Object.values(FileEvaluationResult))
@@ -24,6 +24,9 @@ const schema = Joi.object().keys({
   reason: Joi.string()
     .required()
     .allow(null),
+  fix: Joi.function()
+    .allow(null)
+    .required(),
 });
 
 /**
@@ -31,10 +34,10 @@ const schema = Joi.object().keys({
  */
 export interface FileCheckEvaluation {
   practiceRef: string; // a reference string that identifies which practice this evaluation was for (e.g., "${practice.name}.best" | "${practice.name}.bad.${project.name}")
-  check: FileCheckDeclaration;
   path: string; // relative path to the file that was checked (may differ from declaration.path, since declaration.path is generically a glob pattern)
   result: FileEvaluationResult;
   reason: string | null; // the reason for this conclusion
+  fix: FileFixFunction | null;
 }
 
 export class FileCheckEvaluation extends DomainObject<FileCheckEvaluation> implements FileCheckEvaluation {

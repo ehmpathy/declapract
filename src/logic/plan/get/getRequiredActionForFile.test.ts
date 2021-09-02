@@ -1,8 +1,7 @@
 import {
-  FileCheckDeclaration,
   FileCheckEvaluation,
-  FileCheckType,
   FileEvaluationResult,
+  FileFixFunction,
   FilePracticeEvaluation,
   PracticeDeclaration,
   RequiredAction,
@@ -29,13 +28,7 @@ describe('getRequiredActionForFile', () => {
               {
                 result: FileEvaluationResult.FAIL,
                 path: '__path__',
-                check: {
-                  pathGlob: '__path_glob__',
-                  type: FileCheckType.EQUALS,
-                  required: true,
-                  check: () => {},
-                  fix: () => '__new_contents__', // fix is defined for the only check it has
-                } as FileCheckDeclaration,
+                fix: (() => '__new_contents__') as FileFixFunction, // fix is defined for the only check it has
               } as FileCheckEvaluation,
             ],
           },
@@ -57,13 +50,7 @@ describe('getRequiredActionForFile', () => {
               {
                 result: FileEvaluationResult.FAIL,
                 path: '__path__',
-                check: {
-                  pathGlob: '__path_glob__',
-                  type: FileCheckType.EQUALS,
-                  required: true,
-                  check: () => {},
-                  fix: null, // fix is NOT defined for the only check it has
-                } as FileCheckDeclaration,
+                fix: null, // fix is NOT defined for the only check it has
               } as FileCheckEvaluation,
             ],
           },

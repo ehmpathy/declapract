@@ -1,0 +1,238 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with both a best practice and bad practices - and consider passing bad practice checks as failing the practice 1`] = `
+Array [
+  FilePracticeEvaluation {
+    "checked": Object {
+      "badPractices": Array [
+        FileCheckEvaluation {
+          "fix": null,
+          "path": "package.json",
+          "practiceRef": "dates-and-times.bad-practice.moment",
+          "reason": null,
+          "result": "PASS",
+        },
+      ],
+      "bestPractice": Array [
+        FileCheckEvaluation {
+          "fix": null,
+          "path": "package.json",
+          "practiceRef": "dates-and-times.best-practice",
+          "reason": null,
+          "result": "PASS",
+        },
+      ],
+    },
+    "path": "package.json",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": null,
+              "pathGlob": "package.json",
+              "required": true,
+              "type": "CUSTOM",
+            },
+          ],
+          "name": "moment",
+          "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+
+for example:
+\`\`\`ts
+const a = moment();
+const b = a.addHours(7);
+expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since moment actually both returns \`b\` _and_ mutates \`a\`...
+\`\`\`
+
+",
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "required": true,
+            "type": "CUSTOM",
+          },
+        ],
+        "name": "dates-and-times",
+        "readme": "\`date-fns\` is a great library for manipulating dates and times in a functional, immutable, declarative pattern
+",
+      },
+      "name": "dates-and-times",
+    },
+    "result": "FAIL",
+  },
+]
+`;
+
+exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with only a best practice 1`] = `
+Array [
+  FilePracticeEvaluation {
+    "checked": Object {
+      "badPractices": Array [],
+      "bestPractice": Array [
+        FileCheckEvaluation {
+          "fix": [Function],
+          "path": ".prettierignore",
+          "practiceRef": "prettier.best-practice",
+          "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+[32m- Expected  - 1[39m
+[31m+ Received  + 1[39m
+
+[32m- *.md[39m
+[31m+ .js[39m
+[2m  ↵[22m",
+          "result": "FAIL",
+        },
+      ],
+    },
+    "path": ".prettierignore",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": ".prettierignore",
+            "required": true,
+            "type": "EQUALS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "required": true,
+            "type": "CUSTOM",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "prettier.config.js",
+            "required": true,
+            "type": "EQUALS",
+          },
+        ],
+        "name": "prettier",
+        "readme": null,
+      },
+      "name": "prettier",
+    },
+    "result": "FAIL",
+  },
+  FilePracticeEvaluation {
+    "checked": Object {
+      "badPractices": Array [],
+      "bestPractice": Array [
+        FileCheckEvaluation {
+          "fix": null,
+          "path": "package.json",
+          "practiceRef": "prettier.best-practice",
+          "reason": null,
+          "result": "PASS",
+        },
+      ],
+    },
+    "path": "package.json",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": ".prettierignore",
+            "required": true,
+            "type": "EQUALS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "required": true,
+            "type": "CUSTOM",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "prettier.config.js",
+            "required": true,
+            "type": "EQUALS",
+          },
+        ],
+        "name": "prettier",
+        "readme": null,
+      },
+      "name": "prettier",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checked": Object {
+      "badPractices": Array [],
+      "bestPractice": Array [
+        FileCheckEvaluation {
+          "fix": [Function],
+          "path": "prettier.config.js",
+          "practiceRef": "prettier.best-practice",
+          "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+[32m- Expected  - 1[39m
+[31m+ Received  + 1[39m
+
+[2m  // ref: http://json.schemastore.org/prettierrc[22m
+
+[2m  module.exports = {[22m
+[2m    trailingComma: 'all',[22m
+[32m-   tabWidth: [7m2[27m,[39m
+[31m+   tabWidth: [7m4[27m,[39m
+[2m    singleQuote: true,[22m
+[2m    printWidth: 150,[22m
+[2m  };[22m
+[2m  ↵[22m",
+          "result": "FAIL",
+        },
+      ],
+    },
+    "path": "prettier.config.js",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": ".prettierignore",
+            "required": true,
+            "type": "EQUALS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "required": true,
+            "type": "CUSTOM",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "prettier.config.js",
+            "required": true,
+            "type": "EQUALS",
+          },
+        ],
+        "name": "prettier",
+        "readme": null,
+      },
+      "name": "prettier",
+    },
+    "result": "FAIL",
+  },
+]
+`;

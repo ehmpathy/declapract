@@ -3,7 +3,7 @@ import { testAssetsDirectoryPath } from '../../../../__test_assets__/dirPath';
 import { getFileCheckDeclaration } from './getFileCheckDeclaration';
 
 describe('getFileCheckDeclaration', () => {
-  it.only('should get file declaration correctly for a prettier config file exact equals definition', async () => {
+  it('should get file declaration correctly for a prettier config file exact equals definition', async () => {
     const declaration = await getFileCheckDeclaration({
       declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/prettier/best-practice`,
       declaredFileCorePath: 'prettier.config.js',
@@ -47,6 +47,21 @@ module.exports = {
       expect(error.message).toContain('toEqual');
       expect(error.message).toMatchSnapshot();
     }
+
+    // check that the fix function works correctly
+    const fixResult = declaration.fix!(null);
+    expect(fixResult).toEqual(
+      `${`
+// ref: http://json.schemastore.org/prettierrc
+
+module.exports = {
+  trailingComma: 'all',
+  tabWidth: 2,
+  singleQuote: true,
+  printWidth: 150,
+};
+          `.trim()}\n`,
+    );
   });
   it('should get file declaration correctly for a terraform file with a contains check', async () => {
     const declaration = await getFileCheckDeclaration({
@@ -108,6 +123,18 @@ module "product" {
       expect(error.message).toContain('toContain');
       expect(error.message).toMatchSnapshot();
     }
+
+    // check that the fix function works correctly
+    const fixResultFileNotDefined = declaration.fix!(null);
+    expect(fixResultFileNotDefined!.trim()).toEqual(
+      `
+provider "aws" {
+  region = "us-east-1"
+}
+      `.trim(),
+    );
+    const fixResultFileDefined = declaration.fix!('anything else');
+    expect(fixResultFileDefined).toEqual('anything else'); // should not change it. fix only changes the file when file does not exist
   });
   it('should get file declaration correctly for an optional file existence declaration (e.g., user wants to specify directory structure)', async () => {
     const declaration = await getFileCheckDeclaration({
