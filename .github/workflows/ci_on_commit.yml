@@ -101,8 +101,5 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-node-${{ github.sha }}
 
-      - name: provision:integration-test-db
-        run: npm run provision:integration-test-db
-
       - name: test:integration
         run: npm run test:integration

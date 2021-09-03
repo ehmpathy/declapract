@@ -9,14 +9,12 @@ Array [
     "    [33m✕[39m practice:prettier.best-practice [90m(fix:appliable)[39m",
   ],
   Array [
-    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
-
-      [32m- Expected  - 1[39m
-      [31m+ Received  + 1[39m
+    "      [32m- Expected toEqual[39m
+      [31m+ Received[39m
 
       [32m- *.md[39m
       [31m+ .js[39m
-      [2m  ↵[22m",
+",
     "
 ",
   ],

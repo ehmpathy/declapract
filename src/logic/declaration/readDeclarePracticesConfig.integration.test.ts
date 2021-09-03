@@ -7,7 +7,7 @@ describe('readDeclarePracticesConfig', () => {
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
     });
     // console.log(config);
-    expect(config.practices.length).toEqual(6);
+    expect(config.practices.length).toEqual(7);
     expect(config.useCases.length).toEqual(2);
     expect(config).toMatchSnapshot({ rootDir: expect.any(String) }); // log an example
   });

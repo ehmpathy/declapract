@@ -6,7 +6,7 @@ import {
   FilePracticeEvaluation,
   PracticeDeclaration,
   RequiredAction,
-} from '../../../../domain';
+} from '../../../domain';
 import { getRequiredActionForFile } from './getRequiredActionForFile';
 
 describe('getRequiredActionForFile', () => {

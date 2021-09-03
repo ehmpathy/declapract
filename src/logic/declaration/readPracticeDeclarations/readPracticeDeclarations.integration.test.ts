@@ -6,7 +6,7 @@ describe('readPracticeDeclarations', () => {
     const practices = await readPracticeDeclarations({
       declaredPracticesDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices`,
     });
-    expect(practices.length).toEqual(6);
+    expect(practices.length).toEqual(7);
     expect(practices).toMatchSnapshot();
   });
 });

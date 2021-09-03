@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`readUsePracticesConfig should read usage config specifying locally declared practices, by custom config path 1`] = `
+Object {
+  "declared": ObjectContaining {
+    "rootDir": Any<String>,
+  },
+  "rootDir": Any<String>,
+  "useCase": "lambda-service",
+  "variables": Object {
+    "infrastructureNamespaceId": "abcde12345",
+    "organizationName": "awesome-org",
+    "serviceName": "svc-awesome-thing",
+    "slackReleaseWebHook": "https://...",
+  },
+}
+`;
+
+exports[`readUsePracticesConfig should read usage config specifying locally declared practices, by directory 1`] = `
+Object {
+  "declared": ObjectContaining {
+    "rootDir": Any<String>,
+  },
+  "rootDir": Any<String>,
+  "useCase": "lambda-service",
+  "variables": Object {
+    "infrastructureNamespaceId": "abcde12345",
+    "organizationName": "awesome-org",
+    "serviceName": "svc-awesome-thing",
+    "slackReleaseWebHook": "https://...",
+  },
+}
+`;
+
+exports[`readUsePracticesConfig should read usage config specifying remote git repo 1`] = `
+Object {
+  "declared": ObjectContaining {
+    "rootDir": StringContaining "example-service-3-repo/.declapract/best-practices-typescript",
+  },
+  "rootDir": Any<String>,
+  "useCase": "lambda-service",
+  "variables": Object {
+    "infrastructureNamespaceId": "abcde12345",
+    "organizationName": "awesome-org",
+    "serviceName": "svc-awesome-thing",
+    "slackReleaseWebHook": "https://...",
+  },
+}
+`;

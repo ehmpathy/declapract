@@ -1,6 +1,6 @@
 import { isPresent } from 'simple-type-guards';
 import { FileActionPlan, isFixablePractice } from '../../../domain';
-import { getRequiredActionForFile } from './get/getRequiredActionForFile';
+import { getRequiredActionForFile } from './getRequiredActionForFile';
 
 export const filterPracticeEvaluationsFromPlans = async ({
   plans,
