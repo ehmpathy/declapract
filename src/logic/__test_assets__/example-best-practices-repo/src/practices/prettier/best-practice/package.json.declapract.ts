@@ -1,7 +1,7 @@
 import expect from 'expect';
-import { FileCheckFunction } from '../../../../../../../domain';
 
-import { defineMinPackageVersionRegex } from '../../../../../../declare/defineMinPackageVersionRegex';
+import { defineMinPackageVersionRegex } from '../../../../../../../contract';
+import { FileCheckFunction } from '../../../../../../../domain';
 
 export const check: FileCheckFunction = (contents: string | null) => {
   expect(JSON.parse(contents ?? '')).toMatchObject({

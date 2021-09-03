@@ -1,0 +1,7 @@
+declarations: ../example-best-practices-repo
+useCase: lambda-service
+variables:
+  organizationName: 'awesome-org'
+  serviceName: 'svc-awesome-thing'
+  infrastructureNamespaceId: 'abcde12345'
+  slackReleaseWebHook: 'https://...'

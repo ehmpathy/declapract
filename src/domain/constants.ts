@@ -3,3 +3,5 @@ export enum RequiredAction {
   FIX_AUTOMATIC = 'FIX_AUTOMATIC',
   FIX_MANUAL = 'FIX_MANUAL',
 }
+
+export type ProjectVariablesImplementation = Record<string, any>;

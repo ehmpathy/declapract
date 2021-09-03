@@ -1,0 +1,4017 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice which reference project variables in the declared contents and custom checks 1`] = `
+Array [
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "package.json",
+        "practiceRef": "serverless.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "CUSTOM",
+      },
+    ],
+    "path": "package.json",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "CUSTOM",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "serverless.yml",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "CONTAINS",
+          },
+        ],
+        "name": "serverless",
+        "readme": null,
+      },
+      "name": "serverless",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "serverless.yml",
+        "practiceRef": "serverless.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "CONTAINS",
+      },
+    ],
+    "path": "serverless.yml",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "CUSTOM",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "serverless.yml",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "CONTAINS",
+          },
+        ],
+        "name": "serverless",
+        "readme": null,
+      },
+      "name": "serverless",
+    },
+    "result": "PASS",
+  },
+]
+`;
+
+exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with both a best practice and bad practices 1`] = `
+Array [
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "package.json",
+        "practiceRef": "dates-and-times.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "CUSTOM",
+      },
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "package.json",
+        "practiceRef": "dates-and-times.bad-practice.moment",
+        "purpose": "BAD_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "FAIL",
+        "type": "CUSTOM",
+      },
+    ],
+    "path": "package.json",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": null,
+              "pathGlob": "package.json",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "CUSTOM",
+            },
+          ],
+          "name": "moment",
+          "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+
+for example:
+\`\`\`ts
+const a = moment();
+const b = a.addHours(7);
+expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since moment actually both returns \`b\` _and_ mutates \`a\`...
+\`\`\`
+
+",
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "CUSTOM",
+          },
+        ],
+        "name": "dates-and-times",
+        "readme": "\`date-fns\` is a great library for manipulating dates and times in a functional, immutable, declarative pattern
+",
+      },
+      "name": "dates-and-times",
+    },
+    "result": "FAIL",
+  },
+]
+`;
+
+exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with only a best practice 1`] = `
+Array [
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": [Function],
+        "path": ".prettierignore",
+        "practiceRef": "prettier.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": "[32m- Expected toEqual[39m
+[31m+ Received[39m
+
+[32m- *.md[39m
+[31m+ .js[39m
+",
+        "required": true,
+        "result": "FAIL",
+        "type": "EQUALS",
+      },
+    ],
+    "path": ".prettierignore",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": ".prettierignore",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EQUALS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "CUSTOM",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "prettier.config.js",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EQUALS",
+          },
+        ],
+        "name": "prettier",
+        "readme": null,
+      },
+      "name": "prettier",
+    },
+    "result": "FAIL",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "package.json",
+        "practiceRef": "prettier.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "CUSTOM",
+      },
+    ],
+    "path": "package.json",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": ".prettierignore",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EQUALS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "CUSTOM",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "prettier.config.js",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EQUALS",
+          },
+        ],
+        "name": "prettier",
+        "readme": null,
+      },
+      "name": "prettier",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": [Function],
+        "path": "prettier.config.js",
+        "practiceRef": "prettier.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": "[32m- Expected toEqual[39m
+[31m+ Received[39m
+
+[2m  // ref: http://json.schemastore.org/prettierrc[22m
+
+[2m  module.exports = {[22m
+[2m    trailingComma: 'all',[22m
+[32m-   tabWidth: 2,[39m
+[31m+   tabWidth: 4,[39m
+[2m    singleQuote: true,[22m
+[2m    printWidth: 150,[22m
+[2m  };[22m
+",
+        "required": true,
+        "result": "FAIL",
+        "type": "EQUALS",
+      },
+    ],
+    "path": "prettier.config.js",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": ".prettierignore",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EQUALS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "package.json",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "CUSTOM",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "prettier.config.js",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EQUALS",
+          },
+        ],
+        "name": "prettier",
+        "readme": null,
+      },
+      "name": "prettier",
+    },
+    "result": "FAIL",
+  },
+]
+`;
+
+exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with wildcard glob pattern path file checks - fails best and bad practices 1`] = `
+Array [
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/contract/**/*.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m",
+        "required": true,
+        "result": "FAIL",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/contract/**/*.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "FAIL",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/data/clients/coolServiceClient.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": "[32m- Expected toContain[39m
+[31m+ Received[39m
+
+[32m- import { invokeLambdaFunction } from 'simple-lambda-client';[39m
+[31m+ // does not have the import that the check says it wants[39m
+",
+        "required": false,
+        "result": "FAIL",
+        "type": "CONTAINS",
+      },
+    ],
+    "path": "src/data/clients/coolServiceClient.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "FAIL",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/data/dao/**/*.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": false,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/data/dao/**/*.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/domain/constants.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": false,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/domain/constants.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/domain/index.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m",
+        "required": true,
+        "result": "FAIL",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/domain/index.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "FAIL",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/domain/objects/index.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m",
+        "required": true,
+        "result": "FAIL",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/domain/objects/index.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "FAIL",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/logic/**/*.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m",
+        "required": true,
+        "result": "FAIL",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/logic/**/*.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "FAIL",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": [Function],
+        "path": "src/model/someFile.ts",
+        "practiceRef": "directory-structure-src.bad-practice.model-dir",
+        "purpose": "BAD_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "FAIL",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/model/someFile.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "FAIL",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": [Function],
+        "path": "src/services/someFile.ts",
+        "practiceRef": "directory-structure-src.bad-practice.services-dir",
+        "purpose": "BAD_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "FAIL",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/services/someFile.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "FAIL",
+  },
+]
+`;
+
+exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with wildcard glob pattern path file checks - passes with optionals 1`] = `
+Array [
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/contract/handlers/doSomething.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/contract/handlers/doSomething.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/data/clients/svcAwesomeStuff.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": false,
+        "result": "PASS",
+        "type": "CONTAINS",
+      },
+    ],
+    "path": "src/data/clients/svcAwesomeStuff.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/data/dao/superCoolThingDao/index.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": false,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/data/dao/superCoolThingDao/index.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/domain/constants.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": false,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/domain/constants.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/domain/index.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/domain/index.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/domain/objects/index.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/domain/objects/index.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/logic/doSomething.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/logic/doSomething.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/model/**/*.ts",
+        "practiceRef": "directory-structure-src.bad-practice.model-dir",
+        "purpose": "BAD_PRACTICE",
+        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m",
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/model/**/*.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/services/**/*.ts",
+        "practiceRef": "directory-structure-src.bad-practice.services-dir",
+        "purpose": "BAD_PRACTICE",
+        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m",
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/services/**/*.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+]
+`;
+
+exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with wildcard glob pattern path file checks - passes without optionals 1`] = `
+Array [
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/contract/handlers/doSomething.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/contract/handlers/doSomething.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/data/clients/**/*.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": false,
+        "result": "PASS",
+        "type": "CONTAINS",
+      },
+    ],
+    "path": "src/data/clients/**/*.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/data/dao/**/*.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": false,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/data/dao/**/*.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/domain/constants.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": false,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/domain/constants.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/domain/index.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/domain/index.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/domain/objects/index.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/domain/objects/index.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/logic/doSomething.ts",
+        "practiceRef": "directory-structure-src.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": null,
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/logic/doSomething.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/model/**/*.ts",
+        "practiceRef": "directory-structure-src.bad-practice.model-dir",
+        "purpose": "BAD_PRACTICE",
+        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m",
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/model/**/*.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "src/services/**/*.ts",
+        "practiceRef": "directory-structure-src.bad-practice.services-dir",
+        "purpose": "BAD_PRACTICE",
+        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m",
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "src/services/**/*.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/model/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "model-dir",
+          "readme": "we use \`domain\` directory instead of \`model\` directory
+- model directory was what we originally went with, but realized \`domain\` was more explicit and better represented what we were going after
+",
+        },
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "src/services/**/*.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "services-dir",
+          "readme": null,
+        },
+      ],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/contract/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "src/data/clients/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "CONTAINS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/data/dao/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/constants.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": false,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/domain/objects/index.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": null,
+            "pathGlob": "src/logic/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "directory-structure-src",
+        "readme": "layers to a project:
+- contract layer
+  - summary: responsible for strictly exposing the logic/domain defined in the service
+  - responsibilities:
+    - specifies the inputs and outputs
+    - normalizes inputs on behalf of user
+    - validates the inputs
+    - normalizes outputs on behalf of service
+- domain layer
+  - summary: defines the domain which this service masters
+  - responsibilities:
+    - specify domain objects
+    - specify constants
+- logic layer
+  - summary: defines the business logic that this service manages
+  - responsibilities:
+    - define the business logic of the domain in an organized and maintainable way
+- data layer:
+  - summary: defines how to persist data / leverage third party clients
+  - responsibilities:
+    - daos
+    - clients
+",
+      },
+      "name": "directory-structure-src",
+    },
+    "result": "PASS",
+  },
+]
+`;

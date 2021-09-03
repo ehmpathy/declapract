@@ -1,5 +1,6 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
+import { ProjectVariablesImplementation } from '../constants';
 import { DeclaredPractices } from './DeclaredPractices';
 
 const schema = Joi.object().keys({
@@ -13,7 +14,7 @@ export interface ActionUsePracticesConfig {
   rootDir: string;
   declared: DeclaredPractices;
   useCase: string;
-  variables: Record<string, any>;
+  variables: ProjectVariablesImplementation;
 }
 export class ActionUsePracticesConfig extends DomainObject<ActionUsePracticesConfig>
   implements ActionUsePracticesConfig {

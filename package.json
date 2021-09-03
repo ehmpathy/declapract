@@ -89,6 +89,7 @@
     "fast-glob": "3.2.2",
     "glob": "7.1.7",
     "indent-string": "4.0.0",
+    "jest-diff": "27.1.0",
     "joi": "17.4.0",
     "lodash.omit": "4.5.0",
     "lodash.uniqby": "4.7.0",

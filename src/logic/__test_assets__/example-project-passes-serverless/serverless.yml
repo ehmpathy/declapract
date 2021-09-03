@@ -1,4 +1,4 @@
-service: @declapract{variable.serviceName}
+service: svc-awesome-thing
 
 provider:
   name: aws
@@ -7,13 +7,13 @@ provider:
   timeout: 10
   stage: ${opt:stage}
   stackTags:
-    app: @declapract{variable.organizationName}
+    app: awesome-org
     environment: ${self:provider.stage}
     product: ${self:service}
   environment:
     SERVERLESS_STAGE: ${self:provider.stage}
     NODE_ENV: ${self:custom.stageToNodeEnvMapping.${self:provider.stage}}
-  deploymentBucket: serverless-deployment-@declapract{variable.infrastructureNamespaceId}-${self:provider.stage}
+  deploymentBucket: serverless-deployment-abcde12345-${self:provider.stage}
   vpc:
     securityGroupIds:
       - ${ssm:/tf/infrastructure/vpc/main/lambdaSecurityGroupId}

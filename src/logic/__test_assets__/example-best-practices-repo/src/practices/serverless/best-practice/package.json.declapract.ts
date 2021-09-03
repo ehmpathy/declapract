@@ -1,10 +1,11 @@
 import expect from 'expect';
+import { defineMinPackageVersionRegex } from '../../../../../../../contract';
+import { FileCheckContext } from '../../../../../../../domain/objects/FileCheckContext';
 
-import { defineMinPackageVersionRegex } from '../../../../../../declare/defineMinPackageVersionRegex';
-import { getServiceVariables } from '../../../getVariables';
+import { getProjectVariables } from '../../../getVariables';
 
-export const check = async (contents: string | null) => {
-  const { organizationName, slackReleaseWebHook } = await getServiceVariables();
+export const check = async (contents: string | null, context: FileCheckContext) => {
+  const { organizationName, slackReleaseWebHook } = getProjectVariables(context);
   expect(JSON.parse(contents ?? '')).toEqual(
     expect.objectContaining({
       devDependencies: expect.objectContaining({

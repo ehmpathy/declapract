@@ -1,6 +1,7 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
 import { createIsOfEnum } from 'simple-type-guards';
+import { FileCheckContext } from './FileCheckContext';
 
 export enum FileCheckType {
   /**
@@ -44,18 +45,18 @@ export const isOfFileCheckType = createIsOfEnum(FileCheckType);
  * ```
  * _note: the above check function is the default when the expected file contents are declared on their own_
  */
-export type FileCheckFunction = (contents: string | null) => Promise<void> | void;
-export type FileFixFunction = (contents: string | null) => string | null;
+export type FileCheckFunction = (contents: string | null, context: FileCheckContext) => Promise<void> | void;
+export type FileFixFunction = (contents: string | null, context: FileCheckContext) => string | null;
 
-export enum FileCheckContext {
+export enum FileCheckPurpose {
   BAD_PRACTICE = 'BAD_PRACTICE',
   BEST_PRACTICE = 'BEST_PRACTICE',
 }
 
 const schema = Joi.object().keys({
   pathGlob: Joi.string().required(),
-  context: Joi.string()
-    .valid(...Object.values(FileCheckContext))
+  purpose: Joi.string()
+    .valid(...Object.values(FileCheckPurpose))
     .required(),
   type: Joi.string()
     .valid(...Object.values(FileCheckType))
@@ -74,7 +75,7 @@ const schema = Joi.object().keys({
  */
 export interface FileCheckDeclaration {
   pathGlob: string;
-  context: FileCheckContext;
+  purpose: FileCheckPurpose;
   type: FileCheckType;
   required: boolean;
   check: FileCheckFunction;

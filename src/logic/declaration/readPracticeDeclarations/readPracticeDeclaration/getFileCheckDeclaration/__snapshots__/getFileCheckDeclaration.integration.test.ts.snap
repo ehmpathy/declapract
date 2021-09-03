@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getFileCheckDeclaration should declare the check function correctly when the declared file has variables that need dereferenced 1`] = `
+"[32m- Expected toEqual[39m
+[31m+ Received[39m
+
+[32m- renamed-package[39m
+[31m+ awesome-package[39m
+[2m  ==============[22m
+
+[2m  this is a super awesome package that you should definitely use[22m
+
+[2m  [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)[22m
+[32m- [![Version](https://img.shields.io/npm/v/renamed-package.svg)](https://npmjs.org/package/renamed-package)[39m
+[32m- [![Codecov](https://codecov.io/gh/org-of-awesomeness/renamed-package/branch/master/graph/badge.svg)](https://codecov.io/gh/org-of-awesomeness/renamed-package)[39m
+[32m- [![Downloads/week](https://img.shields.io/npm/dw/renamed-package.svg)](https://npmjs.org/package/renamed-package)[39m
+[32m- [![License](https://img.shields.io/npm/l/renamed-package.svg)](https://github.com/org-of-awesomeness/renamed-package/blob/master/package.json)[39m
+[31m+ [![Version](https://img.shields.io/npm/v/awesome-package.svg)](https://npmjs.org/package/awesome-package)[39m
+[31m+ [![Codecov](https://codecov.io/gh/org-of-awesomeness/awesome-package/branch/master/graph/badge.svg)](https://codecov.io/gh/org-of-awesomeness/awesome-package)[39m
+[31m+ [![Downloads/week](https://img.shields.io/npm/dw/awesome-package.svg)](https://npmjs.org/package/awesome-package)[39m
+[31m+ [![License](https://img.shields.io/npm/l/awesome-package.svg)](https://github.com/org-of-awesomeness/awesome-package/blob/master/package.json)[39m
+"
+`;
+
+exports[`getFileCheckDeclaration should get file declaration correctly for a bad practice file exists check 1`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m"
+`;
+
+exports[`getFileCheckDeclaration should get file declaration correctly for a package json file with a custom check 1`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mtoMatchObject[2m([22m[32mexpected[39m[2m)[22m
+
+[32m- Expected  - 2[39m
+[31m+ Received  + 2[39m
+
+[2m  Object {[22m
+[32m-   \\"devDependencies\\": ObjectContaining {[39m
+[32m-     \\"prettier\\": StringMatching /^(([0-9][0-9]+|[3-9]).([0-9][0-9]+|[0-9]).([0-9][0-9]+|[0-9])|([0-9][0-9]+|[2-9]).([0-9][0-9]+|[1-9]).([0-9][0-9]+|[0-9])|([0-9][0-9]+|[2-9]).([0-9][0-9]+|[0-9]).([0-9][0-9]+|[0-9]))$/,[39m
+[31m+   \\"devDependencies\\": Object {[39m
+[31m+     \\"prettier\\": \\"1.7.21\\",[39m
+[2m    },[22m
+[2m    \\"scripts\\": ObjectContaining {[22m
+[2m      \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\",[22m
+[2m    },[22m
+[2m  }[22m"
+`;
+
+exports[`getFileCheckDeclaration should get file declaration correctly for a package json file with a custom check 2`] = `
+"[2mexpect([22m[31mreceived[39m[2m).[22mtoMatchObject[2m([22m[32mexpected[39m[2m)[22m
+
+[32m- Expected  - 2[39m
+[31m+ Received  + 2[39m
+
+[2m  Object {[22m
+[2m    \\"devDependencies\\": ObjectContaining {[22m
+[2m      \\"prettier\\": StringMatching /^(([0-9][0-9]+|[3-9]).([0-9][0-9]+|[0-9]).([0-9][0-9]+|[0-9])|([0-9][0-9]+|[2-9]).([0-9][0-9]+|[1-9]).([0-9][0-9]+|[0-9])|([0-9][0-9]+|[2-9]).([0-9][0-9]+|[0-9]).([0-9][0-9]+|[0-9]))$/,[22m
+[2m    },[22m
+[32m-   \\"scripts\\": ObjectContaining {[39m
+[32m-     \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\",[39m
+[31m+   \\"scripts\\": Object {[39m
+[31m+     \\"format\\": \\"prettier --write '**/*.ts\\",[39m
+[2m    },[22m
+[2m  }[22m"
+`;
+
+exports[`getFileCheckDeclaration should get file declaration correctly for a prettier config file exact equals definition 1`] = `
+"[32m- Expected toEqual[39m
+[31m+ Received[39m
+
+[2m  // ref: http://json.schemastore.org/prettierrc[22m
+
+[2m  module.exports = {[22m
+[2m    trailingComma: 'all',[22m
+[2m    tabWidth: 2,[22m
+[32m-   singleQuote: true,[39m
+[31m+   singleQuote: false,[39m
+[2m    printWidth: 150,[22m
+[2m  };[22m
+[32m-[39m"
+`;
+
+exports[`getFileCheckDeclaration should get file declaration correctly for a terraform file with a contains check 1`] = `
+"[32m- Expected toContain[39m
+[31m+ Received[39m
+
+[2m  provider \\"aws\\" {[22m
+[32m-   region = \\"us-east-1\\"[39m
+[31m+   region  = \\"us-west-1\\"[39m
+[31m+ }[39m
+[31m+[39m
+[31m+ terraform {[39m
+[31m+   required_version = \\">= 0.14\\"[39m
+[31m+   backend \\"s3\\" {[39m
+[31m+     bucket = \\"terraform-state-someidentifier-dev\\"[39m
+[31m+     key    = \\"svc-cool-stuff\\"[39m
+[31m+     region = \\"us-east-1\\"[39m
+[31m+   }[39m
+[2m  }[22m
+
+[31m+ module \\"product\\" {[39m
+[31m+   source      = \\"../../product\\"[39m
+[31m+   environment = \\"dev\\"[39m
+[31m+ }[39m"
+`;
+
+exports[`getFileCheckDeclaration should get file declaration correctly for an optional file contains check declaration 1`] = `
+"[32m- Expected toContain[39m
+[31m+ Received[39m
+
+[32m- import { invokeLambdaFunction } from 'simple-lambda-client';[39m
+[32m-[39m
+[31m+ import { AWS } from 'aws-sdk';[39m"
+`;
+
+exports[`getFileCheckDeclaration should get file declaration correctly for an optional file equals check declaration 1`] = `
+"[32m- Expected toEqual[39m
+[31m+ Received[39m
+
+[32m- export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));[39m
+[32m-[39m
+[31m+ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout(reject, ms));[39m"
+`;

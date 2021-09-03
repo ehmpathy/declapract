@@ -1,8 +1,8 @@
-import { readUsePracticesConfig } from '../config/readUsePracticesConfig';
-import { displayPlans } from '../plan/display/displayPlans';
-import { filterPracticeEvaluationsFromPlans } from '../plan/filterPracticeEvaluationsFromPlans';
-import { getPlansForProject } from '../plan/get/getPlansForProject';
+import { displayPlans } from '../usage/plan/display/displayPlans';
+import { filterPracticeEvaluationsFromPlans } from '../usage/plan/filterPracticeEvaluationsFromPlans';
+import { getPlansForProject } from '../usage/plan/getPlansForProject';
 import { UnexpectedCodePathError } from '../UnexpectedCodePathError';
+import { readUsePracticesConfig } from '../usage/readUsePracticesConfig';
 
 export const plan = async ({
   usePracticesConfigPath,
@@ -24,7 +24,11 @@ export const plan = async ({
     );
 
   // get the plans
-  const plans = await getPlansForProject({ practices: useCase.practices, projectRootDirectory: config.rootDir });
+  const plans = await getPlansForProject({
+    practices: useCase.practices,
+    projectRootDirectory: config.rootDir,
+    projectVariables: config.variables,
+  });
 
   // filter the plans
   const plansToDisplay = await filterPracticeEvaluationsFromPlans({

@@ -1,9 +1,9 @@
-import { getPlansForProject } from '../plan/get/getPlansForProject';
-import { readUsePracticesConfig } from '../config/readUsePracticesConfig';
-import { UnexpectedCodePathError } from '../UnexpectedCodePathError';
-import { filterPracticeEvaluationsFromPlans } from '../plan/filterPracticeEvaluationsFromPlans';
-import { applyPlans } from '../plan/apply/applyPlans';
 import { RequiredAction } from '../../domain';
+import { UnexpectedCodePathError } from '../UnexpectedCodePathError';
+import { applyPlans } from '../usage/plan/apply/applyPlans';
+import { filterPracticeEvaluationsFromPlans } from '../usage/plan/filterPracticeEvaluationsFromPlans';
+import { getPlansForProject } from '../usage/plan/getPlansForProject';
+import { readUsePracticesConfig } from '../usage/readUsePracticesConfig';
 
 export const apply = async ({
   usePracticesConfigPath,
@@ -25,7 +25,11 @@ export const apply = async ({
     );
 
   // get plans for this project
-  const plans = await getPlansForProject({ practices: useCase.practices, projectRootDirectory: config.rootDir });
+  const plans = await getPlansForProject({
+    practices: useCase.practices,
+    projectRootDirectory: config.rootDir,
+    projectVariables: config.variables,
+  });
 
   // filter out the practices to the ones that can be automatically applied + for the practices specified
   const plansToApply = (
@@ -36,5 +40,5 @@ export const apply = async ({
   ).filter((plan) => plan.action === RequiredAction.FIX_AUTOMATIC);
 
   // display the plans
-  await applyPlans({ plans: plansToApply, projectRootDirectory: config.rootDir });
+  await applyPlans({ plans: plansToApply, projectRootDirectory: config.rootDir, projectVariables: config.variables });
 };
