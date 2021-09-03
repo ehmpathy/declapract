@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`plan should be able to plan for an example declarations directory 1`] = `
+Array [
+  Array [
+    "Declarations have validated successfully 🎉",
+  ],
+]
+`;

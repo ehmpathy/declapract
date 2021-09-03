@@ -8,9 +8,11 @@ import { UserInputError } from '../../UserInputError';
 export const readUseCaseDeclarations = async ({
   declaredUseCasesPath,
   practices,
+  examples,
 }: {
   declaredUseCasesPath: string;
   practices: PracticeDeclaration[];
+  examples: ExampleDeclaration[];
 }) => {
   // try to read the file
   const useCasesYml = await readYmlFile({ filePath: declaredUseCasesPath });
@@ -42,7 +44,16 @@ export const readUseCaseDeclarations = async ({
             );
           return foundPractice;
         }),
-        example: definition.example ? new ExampleDeclaration({ name: definition.example }) : null,
+        example: definition.example
+          ? (() => {
+              const example = examples.find((example) => example.name === definition.example);
+              if (!example)
+                throw new UserInputError(
+                  `example declared for use case but no example with this name was declared: '${definition.example}'`,
+                );
+              return example;
+            })()
+          : null,
       }),
   );
 

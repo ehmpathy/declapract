@@ -32,18 +32,19 @@ export const readDeclarePracticesConfig = async ({
     declaredPracticesDirectory: getAbsolutePathFromRelativeToConfigPath(configInput.declare.practices),
   });
 
-  // define the use cases based on the input
-  const useCases = await readUseCaseDeclarations({
-    declaredUseCasesPath: getAbsolutePathFromRelativeToConfigPath(configInput.declare['use-cases']),
-    practices,
-  });
-
   // define the examples based on the input
   const examples = configInput.declare.examples
     ? await readExampleDeclarations({
         declaredExamplesDirectory: getAbsolutePathFromRelativeToConfigPath(configInput.declare.examples),
       })
     : [];
+
+  // define the use cases based on the input
+  const useCases = await readUseCaseDeclarations({
+    declaredUseCasesPath: getAbsolutePathFromRelativeToConfigPath(configInput.declare['use-cases']),
+    practices,
+    examples,
+  });
 
   // return the config
   return new DeclaredPractices({

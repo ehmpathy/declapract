@@ -32,7 +32,7 @@ export const readUsePracticesConfig = async ({
 
   // lookup the declared practices using the path specified
   const declaredPractices = await (async () => {
-    // support ssh loading of a git repo
+    // support ssh loading of a git repo containing declarations
     if (configInput.declarations.startsWith('git@github.com')) {
       const [_, repoName] = new RegExp(/git@github.com:\w+\/([\w-\d]+).git$/).exec(configInput.declarations) ?? []; // tslint:disable-line: no-unused
       if (!repoName)

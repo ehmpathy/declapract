@@ -4,7 +4,7 @@ import {
   PracticeDeclaration,
   ProjectVariablesImplementation,
 } from '../../../domain';
-import { evaluteProjectAgainstPracticeDeclarations } from '../evaluate/evaluateProjectAgainstPracticeDeclarations';
+import { evaluateProjectAgainstPracticeDeclarations } from '../evaluate/evaluateProjectAgainstPracticeDeclarations';
 import { getRequiredActionForFile } from './getRequiredActionForFile';
 
 /**
@@ -20,7 +20,7 @@ export const getPlansForProject = async ({
   projectVariables: ProjectVariablesImplementation;
 }) => {
   // evaluate the project against the practices
-  const evaluations = await evaluteProjectAgainstPracticeDeclarations({
+  const evaluations = await evaluateProjectAgainstPracticeDeclarations({
     practices,
     projectRootDirectory,
     projectVariables,

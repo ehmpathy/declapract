@@ -7,6 +7,7 @@ export const readExampleDeclarations = async ({ declaredExamplesDirectory }: { d
     const name = directory;
     return new ExampleDeclaration({
       name,
+      projectRootDirectory: `${declaredExamplesDirectory}/${directory}`,
     });
   });
   return examples;

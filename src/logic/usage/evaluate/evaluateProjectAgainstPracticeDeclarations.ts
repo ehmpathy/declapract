@@ -12,7 +12,7 @@ import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgain
  *
  * note: not checking against use case specifically because we may be asked to apply multiple use cases to the same project
  */
-export const evaluteProjectAgainstPracticeDeclarations = async ({
+export const evaluateProjectAgainstPracticeDeclarations = async ({
   practices,
   projectRootDirectory,
   projectVariables,
