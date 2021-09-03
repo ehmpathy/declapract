@@ -4,6 +4,7 @@ exports[`readDeclarePracticesConfig should be able to read a declared practices 
 Object {
   "examples": Array [
     ExampleDeclaration {
+      "exampleRootDirectory": "src/examples/lambda-service",
       "name": "lambda-service",
     },
   ],
@@ -410,6 +411,7 @@ helpful in that:
     },
     UseCaseDeclaration {
       "example": ExampleDeclaration {
+        "exampleRootDirectory": "src/examples/lambda-service",
         "name": "lambda-service",
       },
       "name": "lambda-service",

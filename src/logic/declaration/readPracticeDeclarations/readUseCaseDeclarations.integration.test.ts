@@ -9,6 +9,7 @@ describe('readUseCaseDeclarations', () => {
       declaredPracticesDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices`,
     });
     const examples = await readExampleDeclarations({
+      declarationsRootDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo`,
       declaredExamplesDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/examples`,
     });
     const useCases = await readUseCaseDeclarations({

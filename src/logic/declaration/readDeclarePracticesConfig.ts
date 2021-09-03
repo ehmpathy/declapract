@@ -1,3 +1,4 @@
+import { config } from 'shelljs';
 import { ActionDeclarePracticesConfigInput } from '../../domain/objects/ActionDeclarePracticesConfigInput';
 import { DeclaredPractices } from '../../domain/objects/DeclaredPractices';
 import { readYmlFile } from '../../utils/fileio/readYmlFile';
@@ -35,6 +36,7 @@ export const readDeclarePracticesConfig = async ({
   // define the examples based on the input
   const examples = configInput.declare.examples
     ? await readExampleDeclarations({
+        declarationsRootDirectory: configDir,
         declaredExamplesDirectory: getAbsolutePathFromRelativeToConfigPath(configInput.declare.examples),
       })
     : [];

@@ -3,7 +3,7 @@ import Joi from 'joi';
 
 const schema = Joi.object().keys({
   name: Joi.string().required(),
-  projectRootDirectory: Joi.string().required(),
+  exampleRootDirectory: Joi.string().required(),
 });
 
 /**
@@ -11,7 +11,7 @@ const schema = Joi.object().keys({
  */
 export interface ExampleDeclaration {
   name: string;
-  projectRootDirectory: string;
+  exampleRootDirectory: string;
 }
 export class ExampleDeclaration extends DomainObject<ExampleDeclaration> implements ExampleDeclaration {
   public static schema = schema;

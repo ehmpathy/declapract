@@ -69,6 +69,7 @@ helpful in that:
   },
   UseCaseDeclaration {
     "example": ExampleDeclaration {
+      "exampleRootDirectory": "src/examples/lambda-service",
       "name": "lambda-service",
     },
     "name": "lambda-service",

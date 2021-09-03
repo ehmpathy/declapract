@@ -1,13 +1,19 @@
 import { ExampleDeclaration } from '../../../domain/objects/ExampleDeclaration';
 import { listPathsInDirectory } from '../../../utils/filepaths/listPathsInDirectory';
 
-export const readExampleDeclarations = async ({ declaredExamplesDirectory }: { declaredExamplesDirectory: string }) => {
+export const readExampleDeclarations = async ({
+  declarationsRootDirectory,
+  declaredExamplesDirectory,
+}: {
+  declarationsRootDirectory: string;
+  declaredExamplesDirectory: string;
+}) => {
   const exampleDirectories = await listPathsInDirectory(declaredExamplesDirectory);
   const examples = exampleDirectories.map((directory) => {
     const name = directory;
     return new ExampleDeclaration({
       name,
-      projectRootDirectory: `${declaredExamplesDirectory}/${directory}`,
+      exampleRootDirectory: `${declaredExamplesDirectory}/${directory}`.replace(`${declarationsRootDirectory}/`, ''),
     });
   });
   return examples;
