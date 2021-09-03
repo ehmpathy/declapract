@@ -11,12 +11,12 @@ Scalable software best practices. Declare, plan, and apply software practices ac
 
 # Table of Contents
 <!-- toc -->
-- [Goals](#goals)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`declapract help [COMMAND]`](#declapract-help-command)
-- [Contribution](#contribution)
+* [Table of Contents](#table-of-contents)
+* [Purpose](#purpose)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Declarations](#declarations)
+* [Contribution](#contribution)
 <!-- tocstop -->
 
 # Purpose
@@ -92,7 +92,26 @@ Next, you'll need to declare your practices, use-cases, and examples. See the do
 
 # Commands
 <!-- commands -->
+* [`declapract apply`](#declapract-apply)
 * [`declapract help [COMMAND]`](#declapract-help-command)
+* [`declapract plan`](#declapract-plan)
+* [`declapract validate`](#declapract-validate)
+
+## `declapract apply`
+
+apply fixes to all files which have failed to adhere to any of the project's declared practices and have an automatic fix available.
+
+```
+USAGE
+  $ declapract apply
+
+OPTIONS
+  -c, --config=config      (required) [default: declapract.use.yml] path to the declapract usage config yml
+  -h, --help               show CLI help
+  -p, --practice=practice  the name of a specific practice you want to scope checking for
+```
+
+_See code: [dist/contract/commands/apply.ts](https://github.com/uladkasach/declapract/blob/v0.0.4/dist/contract/commands/apply.ts)_
 
 ## `declapract help [COMMAND]`
 
@@ -106,10 +125,41 @@ ARGUMENTS
   COMMAND  command to show help for
 
 OPTIONS
-  --all see all commands in CLI
+  --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
+
+## `declapract plan`
+
+plan and display what actions need to be taken in order to make a software project adhere to its declared practices.
+
+```
+USAGE
+  $ declapract plan
+
+OPTIONS
+  -c, --config=config      (required) [default: declapract.use.yml] path to the declapract usage config yml
+  -h, --help               show CLI help
+  -p, --practice=practice  the name of a specific practice you want to scope checking for
+```
+
+_See code: [dist/contract/commands/plan.ts](https://github.com/uladkasach/declapract/blob/v0.0.4/dist/contract/commands/plan.ts)_
+
+## `declapract validate`
+
+validate the declared practices, use cases, and examples; checks that these declarations are usable and don't contain declaration errors
+
+```
+USAGE
+  $ declapract validate
+
+OPTIONS
+  -c, --config=config  (required) [default: declapract.declare.yml] path to the declapract declarations config yml
+  -h, --help           show CLI help
+```
+
+_See code: [dist/contract/commands/validate.ts](https://github.com/uladkasach/declapract/blob/v0.0.4/dist/contract/commands/validate.ts)_
 <!-- commandsstop -->
 
 
