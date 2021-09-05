@@ -4015,3 +4015,46 @@ Received: [31mnull[39m",
   },
 ]
 `;
+
+exports[`evaluteProjectAgainstPracticeDeclaration should ignore the "node_modules" and ".declapract" directory when evaluating glob paths 1`] = `
+Array [
+  FilePracticeEvaluation {
+    "checks": Array [
+      FileCheckEvaluation {
+        "fix": null,
+        "path": "**/*.test.integration.ts",
+        "practiceRef": "testing.bad-practice.old-extension-pattern",
+        "purpose": "BAD_PRACTICE",
+        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
+
+Received: [31mnull[39m",
+        "required": true,
+        "result": "PASS",
+        "type": "EXISTS",
+      },
+    ],
+    "path": "**/*.test.integration.ts",
+    "practice": PracticeDeclaration {
+      "badPractices": Array [
+        ProjectCheckDeclaration {
+          "checks": Array [
+            FileCheckDeclaration {
+              "check": [Function],
+              "fix": [Function],
+              "pathGlob": "**/*.test.integration.ts",
+              "purpose": "BAD_PRACTICE",
+              "required": true,
+              "type": "EXISTS",
+            },
+          ],
+          "name": "old-extension-pattern",
+          "readme": null,
+        },
+      ],
+      "bestPractice": null,
+      "name": "testing",
+    },
+    "result": "PASS",
+  },
+]
+`;

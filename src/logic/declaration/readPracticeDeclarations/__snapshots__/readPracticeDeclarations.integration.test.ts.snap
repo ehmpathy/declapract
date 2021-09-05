@@ -310,6 +310,26 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
     "name": "terraform",
   },
   PracticeDeclaration {
+    "badPractices": Array [
+      ProjectCheckDeclaration {
+        "checks": Array [
+          FileCheckDeclaration {
+            "check": [Function],
+            "fix": [Function],
+            "pathGlob": "**/*.test.integration.ts",
+            "purpose": "BAD_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "old-extension-pattern",
+        "readme": null,
+      },
+    ],
+    "bestPractice": null,
+    "name": "testing",
+  },
+  PracticeDeclaration {
     "badPractices": Array [],
     "bestPractice": ProjectCheckDeclaration {
       "checks": Array [

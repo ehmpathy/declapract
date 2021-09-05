@@ -28,7 +28,12 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
   projectVariables: ProjectVariablesImplementation;
 }): Promise<FileCheckEvaluation[]> => {
   // define the absolute file paths to check, dereferencing the check.path glob pattern
-  const pathsFoundByGlob = await promisifiedGlob(check.pathGlob, { cwd: projectRootDirectory, dot: true, nodir: true }); // relative to project root,  include dot files, ignore directories (these are file checks, directories are not files)
+  const pathsFoundByGlob = await promisifiedGlob(check.pathGlob, {
+    cwd: projectRootDirectory,
+    dot: true,
+    nodir: true,
+    ignore: ['node_modules/*', '.declapract/*'],
+  }); // relative to project root,  include dot files, ignore directories (these are file checks, directories are not files)
   const pathsToCheck = pathsFoundByGlob.length ? pathsFoundByGlob : [check.pathGlob]; // if no paths found for the glob pattern, then just use the glob pattern and check against it (i.e., run the "exists" checks against that path)
 
   // for each file found by the glob pattern, evaluate it
