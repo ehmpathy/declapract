@@ -1,6 +1,6 @@
 {
   "name": "declapract",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A tool to declaratively define best practices, maintainable evolve them, and scalably enforce them.",
   "author": "UladKasach @uladkasach",
   "license": "MIT",
