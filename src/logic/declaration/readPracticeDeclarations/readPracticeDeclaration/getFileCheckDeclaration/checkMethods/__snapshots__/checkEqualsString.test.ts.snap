@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`checkEqualsString should throw an error with a good looking diff when not equal 1`] = `
+"[32m- Expected toEqual[39m
+[31m+ Received[39m
+
+[32m- a-string[39m
+[31m+ b-string[39m"
+`;

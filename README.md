@@ -293,6 +293,71 @@ export const check = FileCheckType.CONTAINS;
 
 When you check a project against this practice, declapract will make sure that a file named `.gitignore` is defined at path `<root>/.gitignore` and that its contents contain what is declared in `practices/git/best-practice/.gitignore`
 
+
+#### `@declapract{variable}`s in declaration files
+
+Declapract supports referencing project variables in declaration files.
+
+For example,
+- declare the variables for your project in your `declapract.use.yml` config
+```yml
+variables:
+  serviceName: 'svc-awesomeness'
+  organizationName: 'all-the-things-corp'
+```
+
+- declare a file check that references these variables, `practices/npm/best-practice/README.md`
+```md
+# @declapract{variable.serviceName}
+
+this is the repo for `@declapract{variable.serviceName}` of org `@declapract{variable.organizationName}`
+
+this readme contains all of the relevant details needed to be known about @declapract{variable.serviceName}
+```
+
+When you check a project against this practice with those project variables defined in the usage config, declapract will make sure taht a file named `README.md` is defined at path `<root>/README.md` and that it contains the contents of:
+```ms
+# svc-awesomeness
+
+this is the repo for `svc-awesomeness` of org `all-the-things-corp`
+
+this readme contains all of the relevant details that are needed to be known about svc-awesomeness
+```
+
+#### `FileCheckType.CONTAINS` on a `.json` file
+
+A more specific case of the "contains check" is when it applies to a JSON file. Declapract defaults to using a special contains check function which checks that each key-value pair of the found json object and the declared json objects match, instead of doing a simple "contains substring" check like normal.
+
+For example:
+- declare `practices/prettier/best-practice/package.json` as
+```json
+{
+  "name": "@declapract{variable.serviceName}",
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
+  },
+  "scripts": {
+    "format": "prettier --write 'src/**/*.ts'"
+  }
+}
+```
+- declare `practices/prettier/best-practice/package.json` as
+```ts
+import { FileCheckType } from 'declapract';
+
+export const check = FileCheckType.CONTAINS;
+```
+
+When you check a project against this practice, declapract will make sure that:
+- a file named `package.json` is defined at path `<root>/package.json`
+- that it contains a json object
+- that the json object has a key `name` defined as the `serviceName` declared in your project's variables
+  - note that this part employs the use of a declapract `variable`
+- that the json object has key `scripts.format` defined as `"prettier --write 'src/**/*.ts'`
+- that the json object has key `devDependencies.prettier` defined as a version which is greater than or equal to `2.0.0`
+  - note that this part employs the use of a declapract `check expression`
+
+
 #### `FileCheckType.EXISTS`
 
 Another common file check type is the "exists" file check. As you'd expect, its used to check whether a file exists.

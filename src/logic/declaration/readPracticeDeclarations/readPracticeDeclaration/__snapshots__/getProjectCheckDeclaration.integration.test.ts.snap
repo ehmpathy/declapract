@@ -123,11 +123,11 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "fix": null,
+      "fix": [Function],
       "pathGlob": "package.json",
       "purpose": "BEST_PRACTICE",
       "required": true,
-      "type": "CUSTOM",
+      "type": "CONTAINS",
     },
     FileCheckDeclaration {
       "check": [Function],

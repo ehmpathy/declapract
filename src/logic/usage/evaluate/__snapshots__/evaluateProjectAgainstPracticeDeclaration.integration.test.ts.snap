@@ -198,11 +198,11 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
-            "fix": null,
+            "fix": [Function],
             "pathGlob": "package.json",
             "purpose": "BEST_PRACTICE",
             "required": true,
-            "type": "CUSTOM",
+            "type": "CONTAINS",
           },
           FileCheckDeclaration {
             "check": [Function],
@@ -230,7 +230,7 @@ Array [
         "reason": null,
         "required": true,
         "result": "PASS",
-        "type": "CUSTOM",
+        "type": "CONTAINS",
       },
     ],
     "path": "package.json",
@@ -248,11 +248,11 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
-            "fix": null,
+            "fix": [Function],
             "pathGlob": "package.json",
             "purpose": "BEST_PRACTICE",
             "required": true,
-            "type": "CUSTOM",
+            "type": "CONTAINS",
           },
           FileCheckDeclaration {
             "check": [Function],
@@ -310,11 +310,11 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
-            "fix": null,
+            "fix": [Function],
             "pathGlob": "package.json",
             "purpose": "BEST_PRACTICE",
             "required": true,
-            "type": "CUSTOM",
+            "type": "CONTAINS",
           },
           FileCheckDeclaration {
             "check": [Function],

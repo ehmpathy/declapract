@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`checkContainsSubstring should throw an error with a good looking diff when not equal 1`] = `
+"[32m- Expected toContain[39m
+[31m+ Received[39m
+
+[32m- a-substring[39m
+[31m+ a-big-string with a-different-substring inside[39m"
+`;

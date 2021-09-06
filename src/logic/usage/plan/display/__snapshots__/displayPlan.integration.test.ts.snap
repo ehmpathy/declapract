@@ -44,22 +44,18 @@ Array [
     "    [31m✕[39m practice:prettier.best-practice ",
   ],
   Array [
-    "      [2mexpect([22m[31mreceived[39m[2m).[22mtoMatchObject[2m([22m[32mexpected[39m[2m)[22m
+    "      [32m- Expected toContain[39m
+      [31m+ Received relevantKeys[39m
 
-      [32m- Expected  - 5[39m
-      [31m+ Received  + 3[39m
-
-      [2m  Object {[22m
-      [32m-   \\"devDependencies\\": ObjectContaining {[39m
-      [32m-     \\"prettier\\": StringMatching /^(([0-9][0-9]+|[3-9]).([0-9][0-9]+|[0-9]).([0-9][0-9]+|[0-9])|([0-9][0-9]+|[2-9]).([0-9][0-9]+|[1-9]).([0-9][0-9]+|[0-9])|([0-9][0-9]+|[2-9]).([0-9][0-9]+|[0-9]).([0-9][0-9]+|[0-9]))$/,[39m
+      [32m- {[39m
+      [32m-   \\"devDependencies\\": {[39m
+      [32m-     \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"[39m
       [32m-   },[39m
-      [32m-   \\"scripts\\": ObjectContaining {[39m
-      [32m-     \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\",[39m
-      [31m+   \\"dependencies\\": Object {[39m
-      [31m+     \\"date-fns\\": \\"8.21.0\\",[39m
-      [31m+     \\"moment\\": \\"5.21.0\\",[39m
-      [2m    },[22m
-      [2m  }[22m",
+      [32m-   \\"scripts\\": {[39m
+      [32m-     \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"[39m
+      [32m-   }[39m
+      [32m- }[39m
+      [31m+ {}[39m",
     "
 ",
   ],

@@ -145,6 +145,69 @@ provider "aws" {
     const fixResultFileDefined = declaration.fix!('anything else', exampleContext);
     expect(fixResultFileDefined).toEqual('anything else'); // should not change it. fix only changes the file when file does not exist
   });
+  it('should get file declaration correctly for a json file with a contains check', async () => {
+    const declaration = await getFileCheckDeclaration({
+      purpose: FileCheckPurpose.BEST_PRACTICE,
+      declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/prettier/best-practice`,
+      declaredFileCorePath: 'package.json',
+    });
+
+    // check that the properties look right
+    expect(declaration.required).toEqual(true);
+    expect(declaration.type).toEqual(FileCheckType.CONTAINS);
+    expect(declaration.pathGlob).toMatch(/package\.json$/);
+
+    // check that the check function works correctly
+    await declaration.check(
+      JSON.stringify({
+        name: 'svc-of-awesomeness',
+        devDependencies: {
+          prettier: '3.2.1',
+        },
+        scripts: {
+          format: "prettier --write '**/*.ts' --config ./prettier.config.js",
+        },
+      }),
+      exampleContext,
+    );
+    try {
+      await declaration.check(
+        JSON.stringify({
+          name: 'svc-of-awesomeness',
+          devDependencies: {
+            prettier: '1.2.1',
+          },
+          scripts: {
+            format: "prettier --read '**/*.ts' --config ./prettier.config.js",
+          },
+        }),
+        exampleContext,
+      );
+      fail('should not reach here');
+    } catch (error) {
+      expect(error.message).toContain('toContain');
+      expect(error.message).toMatchSnapshot();
+    }
+
+    // check that the fix function works correctly
+    const fixResultFileNotDefined = declaration.fix!(null, exampleContext);
+    expect(fixResultFileNotDefined!.trim()).toEqual(
+      JSON.stringify(
+        {
+          devDependencies: {
+            prettier: "@declapract{check.minVersion('2.0.0')}", // TODO: figure out how to actually get this to be a real value after fix applied...
+          },
+          scripts: {
+            format: "prettier --write '**/*.ts' --config ./prettier.config.js",
+          },
+        },
+        null,
+        2,
+      ),
+    );
+    const fixResultFileDefined = declaration.fix!('anything else', exampleContext);
+    expect(fixResultFileDefined).toEqual('anything else'); // should not change it. fix only changes the file when file does not exist
+  });
   it('should get file declaration correctly for an optional file existence declaration (e.g., user wants to specify directory structure)', async () => {
     const declaration = await getFileCheckDeclaration({
       purpose: FileCheckPurpose.BEST_PRACTICE,
@@ -237,7 +300,7 @@ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout
   it('should get file declaration correctly for a package json file with a custom check', async () => {
     const declaration = await getFileCheckDeclaration({
       purpose: FileCheckPurpose.BEST_PRACTICE,
-      declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/prettier/best-practice`,
+      declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/dates-and-times/best-practice`,
       declaredFileCorePath: 'package.json',
     });
 
@@ -249,11 +312,8 @@ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout
     // check that the check function works
     await declaration.check(
       JSON.stringify({
-        devDependencies: {
-          prettier: '2.0.0',
-        },
-        scripts: {
-          format: "prettier --write '**/*.ts' --config ./prettier.config.js",
+        dependencies: {
+          'date-fns': '2.0.0',
         },
       }),
       exampleContext,
@@ -261,35 +321,15 @@ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout
     try {
       await declaration.check(
         JSON.stringify({
-          devDependencies: {
-            prettier: '1.7.21',
-          },
-          scripts: {
-            format: "prettier --write '**/*.ts' --config ./prettier.config.js",
+          dependencies: {
+            'time-fns': '2.0.0',
           },
         }),
         exampleContext,
       );
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toMatchObject');
-      expect(error.message).toMatchSnapshot();
-    }
-    try {
-      await declaration.check(
-        JSON.stringify({
-          devDependencies: {
-            prettier: '2.1.0',
-          },
-          scripts: {
-            format: "prettier --write '**/*.ts",
-          },
-        }),
-        exampleContext,
-      );
-      fail('should not reach here');
-    } catch (error) {
-      expect(error.message).toContain('toMatchObject');
+      expect(error.message).toContain('toEqual');
       expect(error.message).toMatchSnapshot();
     }
   });

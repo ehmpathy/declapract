@@ -1,18 +1,21 @@
-import { diff } from 'jest-diff';
 import expect from 'expect';
+
 import {
-  FileCheckPurpose,
   FileCheckDeclaration,
-  FileCheckType,
   FileCheckFunction,
+  FileCheckPurpose,
+  FileCheckType,
   FileFixFunction,
 } from '../../../../../domain';
 import { FileCheckContext } from '../../../../../domain/objects/FileCheckContext';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync } from '../../../../../utils/fileio/readFileAsync';
 import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
-import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
 import { replaceProjectVariablesInDeclaredFileContents } from '../../../replaceProjectVariablesInDeclaredFileContents';
+import { checkContainsJSON } from './checkMethods/checkContainsJSON';
+import { checkContainsSubstring } from './checkMethods/checkContainsSubstring';
+import { checkEqualsString } from './checkMethods/checkEqualsString';
+import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
 
 export const getFileCheckDeclaration = async ({
   purpose,
@@ -58,32 +61,16 @@ export const getFileCheckDeclaration = async ({
     (foundContents: string | null, context: FileCheckContext) => {
       expect(foundContents).not.toBeNull();
       const parsedDeclaredContents = getParsedDeclaredContents(context);
-      try {
-        expect(foundContents).toEqual(parsedDeclaredContents);
-      } catch (error) {
-        // if the above check failed, run diff on the string directly to show a better string diff message
-        const difference = diff(parsedDeclaredContents, foundContents, { aAnnotation: 'Expected toEqual' });
-        if (!difference)
-          throw new UnexpectedCodePathError(
-            'expect().toEqual() threw an error, but no difference was detected in the strings',
-          );
-        throw new Error(difference);
-      }
+      checkEqualsString({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
     },
   );
   const containsCheck = withOptionalityCheck(async (foundContents: string | null, context: FileCheckContext) => {
     expect(foundContents).not.toBeNull();
     const parsedDeclaredContents = getParsedDeclaredContents(context);
-    try {
-      expect(foundContents).toContain(parsedDeclaredContents);
-    } catch (error) {
-      // if the above check failed, run diff on the string directly to show a better string diff message
-      const difference = diff(parsedDeclaredContents, foundContents, { aAnnotation: 'Expected toContain' });
-      if (!difference)
-        throw new UnexpectedCodePathError(
-          'expect().toContain() threw an error, but no difference was detected in the strings',
-        );
-      throw new Error(difference);
+    if (declaredFileCorePath.endsWith('.json')) {
+      checkContainsJSON({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
+    } else {
+      checkContainsSubstring({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
     }
   });
   const existsCheck = withOptionalityCheck(async (contents: string | null) => {
