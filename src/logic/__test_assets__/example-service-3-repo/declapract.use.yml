@@ -1,4 +1,4 @@
-declarations: git@github.com:uladkasach/best-practices-typescript.git
+declarations: npm:best-practices-typescript
 useCase: lambda-service
 variables:
   organizationName: 'awesome-org'

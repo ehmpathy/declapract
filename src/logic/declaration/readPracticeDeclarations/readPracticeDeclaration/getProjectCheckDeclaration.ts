@@ -46,6 +46,15 @@ export const getProjectCheckDeclaration = async ({
   const anError = checksAndErrors.find((checkOrError) => checkOrError instanceof Error);
   if (anError) throw anError;
   const checks: FileCheckDeclaration[] = checksAndErrors.filter((checkOrError) => !(checkOrError instanceof Error));
+  if (!checks.length) {
+    console.log({ anError });
+    console.log({
+      declaredProjectDirectory,
+      projectFilePaths,
+      checksAndErrorsLength: checksAndErrors.length,
+      checksLength: checks.length,
+    });
+  }
 
   // get readme contents, if readme defined
   const readme = metaFilePaths.includes('.declapract.readme.md')

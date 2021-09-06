@@ -10,5 +10,6 @@ module.exports = {
   setupFiles: ['core-js'],
   setupFilesAfterEnv: ['./jest.integration.env.js'],
   preset: 'ts-jest/presets/js-with-babel',
+  transformIgnorePatterns: ['<rootDir>/node_modules/'],
   verbose: true,
 };

@@ -1,13 +1,13 @@
+import { findNearestPackageJson } from 'find-nearest-package-json';
 import { promises as fs } from 'fs';
-import shell from 'shelljs';
 
 import { ActionUsePracticesConfig } from '../../domain/objects/ActionUsePracticesConfig';
 import { ActionUsePracticesConfigInput } from '../../domain/objects/ActionUsePracticesConfigInput';
 import { doesDirectoryExist } from '../../utils/fileio/doesDirectoryExist';
+import { doesFileExist } from '../../utils/fileio/doesFileExist';
 import { readYmlFile } from '../../utils/fileio/readYmlFile';
 import { getDirOfPath } from '../../utils/filepaths/getDirOfPath';
 import { readDeclarePracticesConfig } from '../declaration/readDeclarePracticesConfig';
-import { UnexpectedCodePathError } from '../UnexpectedCodePathError';
 import { UserInputError } from '../UserInputError';
 
 export const readUsePracticesConfig = async ({
@@ -32,36 +32,40 @@ export const readUsePracticesConfig = async ({
 
   // lookup the declared practices using the path specified
   const declaredPractices = await (async () => {
-    // support ssh loading of a git repo containing declarations
-    if (configInput.declarations.startsWith('git@github.com')) {
-      const [_, repoName] = new RegExp(/git@github.com:\w+\/([\w-\d]+).git$/).exec(configInput.declarations) ?? []; // tslint:disable-line: no-unused
-      if (!repoName)
-        throw new UnexpectedCodePathError(`could not extract repo name from git path ${configInput.declarations}`);
-      const outputDir = getAbsolutePathFromRelativeToConfigPath(`.declapract/${repoName}`);
-      const directoryAlreadyExists = await doesDirectoryExist({ directory: outputDir });
-      if (!directoryAlreadyExists) {
-        // if dir not already exists, then clone it
-        const cloneResult = await shell.exec(`git clone ${configInput.declarations} ${outputDir}`);
-        if (cloneResult.code !== 0)
-          throw new UserInputError(
-            `could not clone declarations repo '${configInput.declarations}'. ${cloneResult.stderr ??
-              cloneResult.stdout}`,
-            {
-              potentialSolution: `are you able to run 'git clone ${configInput.declarations}'?`,
-            },
-          );
-      }
-      await shell.cd(outputDir);
-      await shell.exec('git checkout $(git tag --contains | tail -1)', { silent: true });
-      const installResult = await shell.exec('npm install', { silent: true });
-      if (installResult.code !== 0)
+    // support npm module loading of declarations
+    if (configInput.declarations.startsWith('npm:')) {
+      // package name
+      const packageName = configInput.declarations.slice('npm:'.length);
+
+      // if it starts with npm, then make sure that it is installed in package.json
+      const { data: packageJsonContents } = await findNearestPackageJson(configDir); // nearest to the config
+      if (!(packageJsonContents.devDependencies ?? {})[packageName])
         throw new UserInputError(
-          `could not npm install in repo in '${outputDir}'. ${installResult.stderr ?? installResult.stdout}`,
-          {
-            potentialSolution: `are you able to run 'npm install' inside of '${outputDir}'?`,
-          },
+          `specified declarations in npm module, but module is not specified as a devDependency: '${configInput.declarations}'`,
+          { potentialSolution: `try installing the module, for example: 'npm install --save-dev ${packageName}'` },
         );
-      return readDeclarePracticesConfig({ configPath: `${outputDir}/declapract.declare.yml` });
+
+      // now check that it is actually in node_modules dir
+      const directoryExists = await doesDirectoryExist({ directory: `${configDir}/node_modules/${packageName}` });
+      if (!directoryExists)
+        throw new UserInputError(`declarations module not found in the node_modules directory: '${packageName}'`, {
+          potentialSolution: "make sure you've ran npm install in this project already. e.g., 'npm install'",
+        });
+
+      // now check that the file exists in the expected spot in that module
+      const expectedDeclarationsConfigRelativeFilePath = `node_modules/${packageName}/declapract.declare.yml`;
+      const declarationsConfigFileExists = await doesFileExist({
+        filePath: getAbsolutePathFromRelativeToConfigPath(expectedDeclarationsConfigRelativeFilePath),
+      });
+      if (!declarationsConfigFileExists)
+        throw new UserInputError(
+          `declarations module was found in node_modules directory, but it does not have a 'declapract.declare.yml' file inside of it: '${expectedDeclarationsConfigRelativeFilePath}'`,
+        );
+
+      // now read declarations from that file
+      return readDeclarePracticesConfig({
+        configPath: getAbsolutePathFromRelativeToConfigPath(expectedDeclarationsConfigRelativeFilePath),
+      });
     }
 
     // support specifying a relative path

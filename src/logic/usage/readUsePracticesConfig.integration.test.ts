@@ -1,3 +1,4 @@
+import shell from 'shelljs';
 import { testAssetsDirectoryPath } from '../__test_assets__/dirPath';
 import { readUsePracticesConfig } from './readUsePracticesConfig';
 
@@ -26,8 +27,13 @@ describe('readUsePracticesConfig', () => {
       declared: expect.objectContaining({ rootDir: expect.any(String) }),
     });
   });
-  it.skip('should read usage config specifying remote git repo', async () => {
-    // TODO: fix this test on github actions cicd machine; probably will need to ssh into the build instance to debug, not enough time right now
+  it('should read usage config specifying npm module with declarations', async () => {
+    // npm install the declarations module
+    await shell.cd(`${testAssetsDirectoryPath}/example-service-3-repo`);
+    const result = await shell.exec('npm install');
+    if (result.code !== 0) throw new Error(result.stderr ?? result.stdout);
+
+    // now read the config
     const config = await readUsePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-service-3-repo/declapract.use.yml`,
     });

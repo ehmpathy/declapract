@@ -21,7 +21,9 @@ Scalable software best practices. Declare, plan, and apply software practices ac
 
 # Purpose
 
-Scaling software best practices across an organization is difficult - but when done right, is a super power.
+Scaling software best practices across an organization is difficult - but when done right, is a super power!
+
+![Feel the Power!](./docs/elmo-fire.png)
 
 `declapract` provides a declarative, scalable, and maintainable way to define, enforce, and evolve software best practices to unlock:
 - **systematic knowledge synthesis**

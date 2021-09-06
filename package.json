@@ -87,6 +87,7 @@
     "domain-objects-metadata": "0.4.1",
     "expect": "27.1.0",
     "fast-glob": "3.2.2",
+    "find-nearest-package-json": "2.0.1",
     "glob": "7.1.7",
     "indent-string": "4.0.0",
     "jest-diff": "27.1.0",
