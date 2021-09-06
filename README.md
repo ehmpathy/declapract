@@ -23,7 +23,8 @@ Scalable software best practices. Declare, plan, and apply software practices ac
 
 Scaling software best practices across an organization is difficult - but when done right, is a super power!
 
-![Feel the Power!](./docs/elmo-fire.png)
+![Feel the Power!](./docs/elmo-rise.png)
+
 
 `declapract` provides a declarative, scalable, and maintainable way to define, enforce, and evolve software best practices to unlock:
 - **systematic knowledge synthesis**
@@ -49,6 +50,7 @@ Scaling software best practices across an organization is difficult - but when d
 
 Software practices are an infrastructure of their own. Its time we manage them like it.
 
+
 # Usage
 
 There are a few cases for using `declapract`. We'll go over each.
@@ -59,7 +61,7 @@ Similar to `git clone`, but leveraging explicitly declared best practices to cre
 
 Example:
 ```sh
-npx declapract clone --declarations=ssh:github.com/path/to-declarations-repo --use-case=your-use-case
+npx declapract clone --declarations=npm:module-with-your-declarations --use-case=your-use-case
 ```
 
 ## Case 2: Add best practice management to a code base
@@ -75,7 +77,7 @@ configure
 ```sh
 touch ./declapract.use.yml;
 echo "
-declarations: git@github.com:path/to-declarations.git
+declarations: npm:module-with-your-practices
 useCase: your-use-case
 variables:
   variableName: 'variableValue' # the variables required by the  practices
@@ -164,31 +166,31 @@ OPTIONS
 _See code: [dist/contract/commands/validate.ts](https://github.com/uladkasach/declapract/blob/v0.0.4/dist/contract/commands/validate.ts)_
 <!-- commandsstop -->
 
+# Philosophy
+
+## declarative > imperative
+
+define _what_ you want/dont-want to see, not _how_ to check it
+
+why? maintainability! declarative code is much easier to read, write, and collaborate on
+
+note:
+- although `declapract` still lets you imperatively define custom `check` functions, you should be writing your checks declaratively in most cases.
+- _if you find a common use case that you can't write declaratively, open up an issue so we can get it supported!_
+
+## automatic fixes for everything
+files failing checks should have a fix that can be automatically applied
+
+why? speed, quality, and happiness: computers are much better at, faster at, and happier to do repetitive tasks than humans
+
+note:
+- declapract automatically defines fixes for you on as many `FileCheckTypes` as possible, but you may still need to explicitly define the fix in some cases yourself
+- _if you find a common use case that you have to write custom fixes for, open up an issue so we can get it supported!_
+
 
 # Declarations
 
-## Declarative Syntax
-
-### Motivation
-
-The core philosophy of `declapract` is:
-- **declarative > imperative**:
-  - define _what_ you want/dont-want to see, not _how_ to check it
-  - why?
-    - declarative definitions are much easier to read, understand, and maintain - making it easier to use and collaborate on
-  - note:
-    - although `declapract` still lets you imperatively define custom `check` functions, you should be writing your checks declaratively in most cases.
-    - _if you find a common use case that you can't write declaratively, open up an issue so we can get it supported!_
-- **a automatic fix for everything**
-  - files that fail checks should have a fix that can easily be applied
-  - why?
-    - upgrading projects typically takes a lot of manual engineering work. automated fixes let you move faster by defining how to fix a failure once - and easily apply it across all code bases
-  - note
-    - declapract defines these fixes for you on as many of the declarations as often - but you may need to explicitly define the fix in some cases yourself
-
-### Implementation
-
-`declapract` enables you to define your best-practices and bad-practices by showing examples of what you want/dont-want the files in the projects you're checking to look like - with customizations added by metadata files.
+`declapract` enables you to define your best-practices and bad-practices by showing examples of what you want/dont-want files to be like in the projects you're checking.
 
 For example, a file structure such as this:
 ```
@@ -253,164 +255,166 @@ Practices can have up to one best-practice and any number of bad-practices decla
 
 Both `best-practice` and `bad-practice` declarations are defined in the same way, by declaring an example of a project that should be matched against. In other words, you'll define the files you want to check by defining them just like you would in a real project - and you'll define how to check them by declaring their contents, metadata, or a custom check function.
 
-### File Check Declaration Examples
+## File Check Declaration Examples
 
-#### `FileCheckType.EQUALS`
+### `FileCheckType.EQUALS`
 
 The most straight forward file check type is the "exact contents" file check. Its used to check that a file's contents exactly equal the contents you declare.
 
 To define one of these, simply declare the contents of the file you want to check.
 
-For example,
+**For example:**
 - declare `practices/terraform/best-practice/.terraform-version` as:
-```
-0.14.11
-```
+    ```
+    0.14.11
+    ```
+- to check that:
+  - a file named `.terraform-version` is defined at path `<root>/.terraform-version` and that
+  - its contents exactly equal what is declared in that file: `0.14.11`.
 
-When you check a project against this practice, declapract will make sure that a file named `.terraform-version` is defined at path `<root>/.terraform-version` and that its contents exactly equal what is declared in that file: `0.14.11`.
-
-#### `FileCheckType.CONTAINS`
+### `FileCheckType.CONTAINS`
 
 Another common file check type is the "contains contents" file check. Its used to check that a file's contents contain the contents you declare.
 
 To define one of these, declare the contents that you want to see contained in the file matching the file path - and then additionally define a file-check-metadata file for that file's path and use it to specify that the check type should be `CONTAINS`.
 
-For example:
+**For example**:
 - declare `practices/git/best-practice/.gitignore` as
-```
-dist
-node_modules
-coverage
-.serverless
-.env
-.terraform
-.terraform.lock
-```
-- declare `practices/git/best-practice/.gitignore.declapract.ts` as
-```ts
-import { FileCheckType } from 'declapract';
+    ```
+    dist
+    node_modules
+    coverage
+    .serverless
+    .env
+    .terraform
+    .terraform.lock
+    ```
+- and declare `practices/git/best-practice/.gitignore.declapract.ts` as
+    ```ts
+    import { FileCheckType } from 'declapract';
 
-export const check = FileCheckType.CONTAINS;
-```
+    export const check = FileCheckType.CONTAINS;
+    ```
+- to check that:
+  - a file named `.gitignore` is defined at path `<root>/.gitignore`
+  - its contents contain what is declared in `practices/git/best-practice/.gitignore`
 
-When you check a project against this practice, declapract will make sure that a file named `.gitignore` is defined at path `<root>/.gitignore` and that its contents contain what is declared in `practices/git/best-practice/.gitignore`
 
-
-#### `@declapract{variable}`s in declaration files
+### `@declapract{variable}`s in declaration files
 
 Declapract supports referencing project variables in declaration files.
 
-For example,
+**For example:**
 - declare the variables for your project in your `declapract.use.yml` config
-```yml
-variables:
-  serviceName: 'svc-awesomeness'
-  organizationName: 'all-the-things-corp'
-```
+    ```yml
+    variables:
+      serviceName: 'svc-awesomeness'
+      organizationName: 'all-the-things-corp'
+    ```
 
-- declare a file check that references these variables, `practices/npm/best-practice/README.md`
-```md
-# @declapract{variable.serviceName}
+- and declare a file check that references these variables, `practices/npm/best-practice/README.md`
 
-this is the repo for `@declapract{variable.serviceName}` of org `@declapract{variable.organizationName}`
+    ```md
+    # @declapract{variable.serviceName}
 
-this readme contains all of the relevant details needed to be known about @declapract{variable.serviceName}
-```
+    this is the repo for `@declapract{variable.serviceName}` of org `@declapract{variable.organizationName}`
 
-When you check a project against this practice with those project variables defined in the usage config, declapract will make sure taht a file named `README.md` is defined at path `<root>/README.md` and that it contains the contents of:
-```ms
-# svc-awesomeness
+    this readme contains all of the relevant details needed to be known about @declapract{variable.serviceName}
+    ```
 
-this is the repo for `svc-awesomeness` of org `all-the-things-corp`
+- to check that:
+  - a file named `README.md` is defined at path `<root>/README.md` and that
+  - it contains the contents of:
+    ```md
+    # svc-awesomeness
 
-this readme contains all of the relevant details that are needed to be known about svc-awesomeness
-```
+    this is the repo for `svc-awesomeness` of org `all-the-things-corp`
 
-#### `FileCheckType.CONTAINS` on a `.json` file
+    this readme contains all of the relevant details that are needed to be known about svc-awesomeness
+    ```
+
+### `FileCheckType.CONTAINS` on a `.json` file
 
 A more specific case of the "contains check" is when it applies to a JSON file. Declapract defaults to using a special contains check function which checks that each key-value pair of the found json object and the declared json objects match, instead of doing a simple "contains substring" check like normal.
 
-For example:
+**For example:**
 - declare `practices/prettier/best-practice/package.json` as
-```json
-{
-  "name": "@declapract{variable.serviceName}",
-  "devDependencies": {
-    "prettier": "@declapract{check.minVersion('2.0.0')}"
-  },
-  "scripts": {
-    "format": "prettier --write 'src/**/*.ts'"
-  }
-}
-```
-- declare `practices/prettier/best-practice/package.json` as
-```ts
-import { FileCheckType } from 'declapract';
+    ```json
+    {
+      "name": "@declapract{variable.serviceName}",
+      "devDependencies": {
+        "prettier": "@declapract{check.minVersion('2.0.0')}"
+      },
+      "scripts": {
+        "format": "prettier --write 'src/**/*.ts'"
+      }
+    }
+    ```
+- and declare `practices/prettier/best-practice/package.json` as
+    ```ts
+    import { FileCheckType } from 'declapract';
 
-export const check = FileCheckType.CONTAINS;
-```
+    export const check = FileCheckType.CONTAINS;
+    ```
+- to check that:
+  - a file named `package.json` is defined at path `<root>/package.json`
+  - that it contains a json object
+  - that the json object has a key `name` defined as the `serviceName` declared in your project's variables
+    - note that this part employs the use of a declapract `variable`
+  - that the json object has key `scripts.format` defined as `"prettier --write 'src/**/*.ts'`
+  - that the json object has key `devDependencies.prettier` defined as a version which is greater than or equal to `2.0.0`
+    - note that this part employs the use of a declapract `check expression`
 
-When you check a project against this practice, declapract will make sure that:
-- a file named `package.json` is defined at path `<root>/package.json`
-- that it contains a json object
-- that the json object has a key `name` defined as the `serviceName` declared in your project's variables
-  - note that this part employs the use of a declapract `variable`
-- that the json object has key `scripts.format` defined as `"prettier --write 'src/**/*.ts'`
-- that the json object has key `devDependencies.prettier` defined as a version which is greater than or equal to `2.0.0`
-  - note that this part employs the use of a declapract `check expression`
 
-
-#### `FileCheckType.EXISTS`
+### `FileCheckType.EXISTS`
 
 Another common file check type is the "exists" file check. As you'd expect, its used to check whether a file exists.
 
 To define one of these, simply define a file-check-metadata file for that file's path and specify that the check type should be `EXISTS`.
 
-**for defining a best practice**
-
-For example:
+**For example, for defining a best practice**:
 - declare `practices/npm/best-practice/package-lock.json.declapract.ts` as:
-```ts
-import { FileCheckType } from 'declapract';
+    ```ts
+    import { FileCheckType } from 'declapract';
 
-export const check = FileCheckType.EXISTS;
-```
+    export const check = FileCheckType.EXISTS;
+    ```
+- to check that:
+  - a file with path `practices/npm/best-practice/package-lock.json` exists
 
-**for defining a bad practice**
-A more common use case for this is to define a `bad-practice` and check that a file does not exist.
-
-For example:
+**For example, for defining a bad practice**:
 - declare `practices/directory-structure/bad-practices/models-dir/src/models/**/*.ts.declapract.ts` as:
-```ts
-import { FileCheckType } from 'declapract';
+    ```ts
+    import { FileCheckType } from 'declapract';
 
-export const check = FileCheckType.EXISTS;
-```
+    export const check = FileCheckType.EXISTS;
+    ```
+- to check that:
+  - no files match the path `<root>/src/models/**/*.ts`
+  - note that in this example we specified a `bad-practice`, which is why declapract will make sure that files which match the `EXISTS` check for this path do _not_ exist.
 
-When you check a project against this practice, declapract will make sure that no files match the path `<root>/src/models/**/*.ts`. Note that in this example we specified a `bad-practice`, which is why declapract will make sure that files which match the `EXISTS` check for this path do _not_ exist.
+### `FileCheckType.CUSTOM`
 
-#### custom
-
-When the above checks dont meet your needs, you are able to declare a custom check for files that match a file path.
+When the above checks don't meet your needs, you are able to declare a custom check for files that match a file path.
 
 To define one of these, simply define a file-check-metadata file for that file's path and specify a custom check function.
 
+Throw an error if the file does not pass the check - or return nothing if it does.
+
 For example:
 - declare `practices/npm/best-practice/package.json.declapract.ts`
-```ts
-import { FileCheckFunction, FileCheckContext } from 'declapract';
+    ```ts
+    import { FileCheckFunction, FileCheckContext } from 'declapract';
 
-export const check: FileCheckFunction = (contents: string | null, context: FileCheckContext) => {
-  expect(contents).not.toEqual(null);
-  expect(JSON.parse(contents)).toMatchObject({ private: true }); // check that all package.json files say "private: true"
-}
-```
+    export const check: FileCheckFunction = (contents: string | null, context: FileCheckContext) => {
+      // anything way you want to check
+    }
+    ```
 
 
 # To Do
 
 Todo: update the readme to better document how to define FileCheckDeclarations and PracticeDeclarations
-- variables
 - fixes
 - more clear examples
 - best practice -vs- bad practices
