@@ -1,7 +1,9 @@
 import { FileCheckPurpose, FileCheckType } from '../../../../../domain';
 import { createExampleFileCheckContext } from '../../../../__test_assets__/createExampleFileCheckContext';
 import { testAssetsDirectoryPath } from '../../../../__test_assets__/dirPath';
+import { compile } from '../../../../commands/compile';
 import { getFileCheckDeclaration } from './getFileCheckDeclaration';
+import { doesDirectoryExist } from '../../../../../utils/fileio/doesDirectoryExist';
 
 const exampleContext = createExampleFileCheckContext();
 
@@ -357,7 +359,7 @@ export const anything = 'should not exist';
       await declaration.check(null, exampleContext); // should not match file not existing, since file is required
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toBeNull');
+      expect(error.message).toContain('Expected file to exist');
       expect(error.message).toMatchSnapshot();
     }
 
@@ -447,5 +449,27 @@ this is a super awesome package that you should definitely use
     expect(fixResult).toContain(
       '[![License](https://img.shields.io/npm/l/awesome-package.svg)](https://github.com/org-of-awesomeness/awesome-package/blob/master/package.json)',
     ); // should also dereference the variables when fixing
+  });
+  it("should get file declaration with wildcard character, '*', serialized as '<star>', correctly", async () => {
+    if (
+      !(await doesDirectoryExist({
+        directory: `${testAssetsDirectoryPath}/example-best-practices-compile-for-package-repo/dist`,
+      }))
+    )
+      await compile({
+        sourceDirectory: `${testAssetsDirectoryPath}/example-best-practices-compile-for-package-repo/src`,
+        distributionDirectory: `${testAssetsDirectoryPath}/example-best-practices-compile-for-package-repo/dist`,
+      });
+
+    const declaration = await getFileCheckDeclaration({
+      purpose: FileCheckPurpose.BEST_PRACTICE,
+      declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-compile-for-package-repo/dist/practices/directory-structure-src/best-practice`,
+      declaredFileCorePath: 'src/data/dao/<star><star>/<star>.ts',
+    });
+
+    // check that the properties look right
+    expect(declaration.required).toEqual(false);
+    expect(declaration.type).toEqual(FileCheckType.EXISTS);
+    expect(declaration.pathGlob).toMatch(/src\/data\/dao\/\*\*\/\*\.ts$/); // should have deserialized the wildcard character
   });
 });

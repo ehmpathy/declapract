@@ -1,0 +1,50 @@
+{
+  "private": true,
+  "name": "@declapract{variable.serviceName}",
+  "version": "0.0.0",
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js",
+    "build:clean": "rm dist/ -rf",
+    "build:compile": "tsc -p ./tsconfig.build.json",
+    "build": "npm run build:clean && npm run build:compile",
+    "test:types": "tsc -p ./tsconfig.build.json --noEmit",
+    "test:lint": "eslint -c ./.eslintrc.js src/**/*.ts",
+    "test:unit": "jest -c ./jest.unit.config.js --forceExit --coverage --verbose --passWithNoTests",
+    "test:integration": "jest -c ./jest.integration.config.js --forceExit --coverage --verbose --passWithNoTests",
+    "test:acceptance:locally": "npm run build && LOCALLY=true jest -c ./jest.acceptance.config.js",
+    "test": "npm run test:types && npm run test:lint && npm run test:unit && npm run test:integration && npm run test:acceptance:locally",
+    "test:acceptance": "npm run build && jest -c ./jest.acceptance.config.js --forceExit --verbose --runInBand",
+    "prepush": "npm run test && npm run build",
+    "preversion": "npm run prepush",
+    "postversion": "git push origin HEAD --tags --no-verify"
+  },
+  "dependencies": {
+    "@middy/core": "1.0.0",
+    "aws-lambda": "1.0.5",
+    "aws-sdk": "2.658.0",
+    "joi": "17.4.0",
+    "uuid": "3.4.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "8.10.40",
+    "@types/jest": "27.0.1",
+    "@types/uuid": "3.4.7",
+    "@types/yesql": "3.2.2",
+    "@typescript-eslint/eslint-plugin": "2.19.0",
+    "@typescript-eslint/parser": "2.19.0",
+    "core-js": "3.6.4",
+    "eslint": "6.1.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-config-airbnb-typescript": "7.0.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-prettier": "3.1.2",
+    "jest": "27.0.6",
+    "prettier": "2.0.2",
+    "serverless": "1.66.0",
+    "serverless-offline": "5.12.1",
+    "serverless-pseudo-parameters": "2.5.0",
+    "ts-jest": "27.0.4",
+    "typescript": "3.8.3"
+  }
+}

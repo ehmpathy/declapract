@@ -1,0 +1,5 @@
+use-cases:
+  typescript:
+    practices:
+      - prettier
+      - directory-structure-src

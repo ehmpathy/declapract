@@ -1,5 +1,3 @@
-import expect from 'expect';
-
 import {
   FileCheckDeclaration,
   FileCheckFunction,
@@ -10,6 +8,7 @@ import {
 import { FileCheckContext } from '../../../../../domain/objects/FileCheckContext';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync } from '../../../../../utils/fileio/readFileAsync';
+import { deserializeGlobPathFromNpmPackaging } from '../../../../commands/compile';
 import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
 import { replaceProjectVariablesInDeclaredFileContents } from '../../../replaceProjectVariablesInDeclaredFileContents';
 import { checkContainsJSON } from './checkMethods/checkContainsJSON';
@@ -36,7 +35,7 @@ export const getFileCheckDeclaration = async ({
   const declaredCheckInputs = await getHydratedCheckInputsForFile({ declaredFileCorePath, declaredProjectDirectory });
 
   // define the common attributes
-  const pathGlob = declaredFileCorePath; // its the path relative to the project root (note that this path can be a glob (e.g., `src/**/*.ts`))
+  const pathGlob = deserializeGlobPathFromNpmPackaging(declaredFileCorePath); // its the path relative to the project root (note that this path can is technically a glob (e.g., can be `src/**/*.ts`))
   const required = !declaredCheckInputs?.optional; // if not explicitly opted-in to be optional, then its required
 
   // define how to get the parsed declared contents

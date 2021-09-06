@@ -5,7 +5,7 @@ import { getProjectCheckDeclaration } from './getProjectCheckDeclaration';
 
 export const readPracticeDeclaration = async ({ declaredPracticeDirectory }: { declaredPracticeDirectory: string }) => {
   // grab the file paths in this dir
-  const paths = await listPathsInDirectory(declaredPracticeDirectory);
+  const paths = await listPathsInDirectory({ directory: declaredPracticeDirectory });
 
   // grab the name of the practice
   const practiceName = declaredPracticeDirectory.split('/').slice(-1)[0];
@@ -21,7 +21,7 @@ export const readPracticeDeclaration = async ({ declaredPracticeDirectory }: { d
   // find the "bad-practice" dirs, if any were defined
   const badPracticeProjectChecks: ProjectCheckDeclaration[] = await (async () => {
     if (!paths.includes('bad-practices')) return [];
-    const badPracticesPaths = await listPathsInDirectory(`${declaredPracticeDirectory}/bad-practices`);
+    const badPracticesPaths = await listPathsInDirectory({ directory: `${declaredPracticeDirectory}/bad-practices` });
     return Promise.all(
       badPracticesPaths.map((path) =>
         getProjectCheckDeclaration({

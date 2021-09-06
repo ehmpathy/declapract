@@ -23,9 +23,8 @@ exports[`getFileCheckDeclaration should declare the check function correctly whe
 `;
 
 exports[`getFileCheckDeclaration should get file declaration correctly for a bad practice file exists check 1`] = `
-"[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m"
+"[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m"
 `;
 
 exports[`getFileCheckDeclaration should get file declaration correctly for a json file with a contains check 1`] = `

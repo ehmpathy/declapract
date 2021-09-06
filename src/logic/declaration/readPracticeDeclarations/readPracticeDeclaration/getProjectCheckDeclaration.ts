@@ -25,7 +25,7 @@ export const getProjectCheckDeclaration = async ({
     );
 
   // grab paths to _all_ files in this dir (not just at root level)
-  const paths = await listFilesInDirectory(declaredProjectDirectory);
+  const paths = await listFilesInDirectory({ directory: declaredProjectDirectory });
 
   // grab the meta files (i.e., path matches `${projectRoot}/.declapract.*`)
   const metaFilePaths = paths.filter((path) => new RegExp(/^\.declapract\./).test(path));

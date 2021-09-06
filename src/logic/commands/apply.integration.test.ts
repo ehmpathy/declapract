@@ -12,13 +12,13 @@ describe('apply', () => {
 
     // delete the generated files to get the testing environment to the expected state
     const expectedFilesInDirectory = ['.gitignore', 'declapract.use.yml'];
-    const filesInDirectory = await listFilesInDirectory(targetDir);
+    const filesInDirectory = await listFilesInDirectory({ directory: targetDir });
     await Promise.all(
       filesInDirectory
         .filter((path) => !expectedFilesInDirectory.includes(path))
         .map((path) => removeFileAsync({ path: `${targetDir}/${path}` })),
     );
-    const filesInDirectoryNow = await listFilesInDirectory(targetDir);
+    const filesInDirectoryNow = await listFilesInDirectory({ directory: targetDir });
     expect(filesInDirectoryNow).toEqual(expectedFilesInDirectory); // fail if the test environment is not correct
 
     // now apply
