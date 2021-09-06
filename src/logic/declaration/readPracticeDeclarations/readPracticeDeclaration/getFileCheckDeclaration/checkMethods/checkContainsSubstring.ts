@@ -1,3 +1,4 @@
+import expect from 'expect';
 import { diff } from 'jest-diff';
 
 import { UnexpectedCodePathError } from '../../../../../UnexpectedCodePathError';

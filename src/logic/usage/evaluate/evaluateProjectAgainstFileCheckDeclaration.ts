@@ -32,7 +32,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
     cwd: projectRootDirectory,
     dot: true,
     nodir: true,
-    ignore: ['node_modules/*', '.declapract/*'],
+    ignore: ['node_modules/**/*', '.declapract/**/*'],
   }); // relative to project root,  include dot files, ignore directories (these are file checks, directories are not files)
   const pathsToCheck = pathsFoundByGlob.length ? pathsFoundByGlob : [check.pathGlob]; // if no paths found for the glob pattern, then just use the glob pattern and check against it (i.e., run the "exists" checks against that path)
 

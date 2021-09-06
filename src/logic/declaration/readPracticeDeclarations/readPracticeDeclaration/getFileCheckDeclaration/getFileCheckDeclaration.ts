@@ -15,6 +15,7 @@ import { replaceProjectVariablesInDeclaredFileContents } from '../../../replaceP
 import { checkContainsJSON } from './checkMethods/checkContainsJSON';
 import { checkContainsSubstring } from './checkMethods/checkContainsSubstring';
 import { checkEqualsString } from './checkMethods/checkEqualsString';
+import { checkExists } from './checkMethods/checkExists';
 import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
 
 export const getFileCheckDeclaration = async ({
@@ -59,13 +60,13 @@ export const getFileCheckDeclaration = async ({
   };
   const strictEqualsCheck: FileCheckFunction = withOptionalityCheck(
     (foundContents: string | null, context: FileCheckContext) => {
-      expect(foundContents).not.toBeNull();
+      checkExists(foundContents);
       const parsedDeclaredContents = getParsedDeclaredContents(context);
       checkEqualsString({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
     },
   );
   const containsCheck = withOptionalityCheck(async (foundContents: string | null, context: FileCheckContext) => {
-    expect(foundContents).not.toBeNull();
+    checkExists(foundContents);
     const parsedDeclaredContents = getParsedDeclaredContents(context);
     if (declaredFileCorePath.endsWith('.json')) {
       checkContainsJSON({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
@@ -73,8 +74,8 @@ export const getFileCheckDeclaration = async ({
       checkContainsSubstring({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
     }
   });
-  const existsCheck = withOptionalityCheck(async (contents: string | null) => {
-    expect(contents).not.toBeNull();
+  const existsCheck = withOptionalityCheck(async (foundContents: string | null) => {
+    checkExists(foundContents);
   });
 
   // define the fix fns
