@@ -344,9 +344,8 @@ Array [
         "path": "src/contract/**/*.ts",
         "practiceRef": "directory-structure-src.best-practice",
         "purpose": "BEST_PRACTICE",
-        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
         "required": true,
         "result": "FAIL",
         "type": "EXISTS",
@@ -891,9 +890,8 @@ Received: [31mnull[39m",
         "path": "src/domain/index.ts",
         "practiceRef": "directory-structure-src.best-practice",
         "purpose": "BEST_PRACTICE",
-        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
         "required": true,
         "result": "FAIL",
         "type": "EXISTS",
@@ -1028,9 +1026,8 @@ Received: [31mnull[39m",
         "path": "src/domain/objects/index.ts",
         "practiceRef": "directory-structure-src.best-practice",
         "purpose": "BEST_PRACTICE",
-        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
         "required": true,
         "result": "FAIL",
         "type": "EXISTS",
@@ -1165,9 +1162,8 @@ Received: [31mnull[39m",
         "path": "src/logic/**/*.ts",
         "practiceRef": "directory-structure-src.best-practice",
         "purpose": "BEST_PRACTICE",
-        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
         "required": true,
         "result": "FAIL",
         "type": "EXISTS",
@@ -2522,9 +2518,8 @@ Array [
         "path": "src/model/**/*.ts",
         "practiceRef": "directory-structure-src.bad-practice.model-dir",
         "purpose": "BAD_PRACTICE",
-        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
         "required": true,
         "result": "PASS",
         "type": "EXISTS",
@@ -2659,9 +2654,8 @@ Received: [31mnull[39m",
         "path": "src/services/**/*.ts",
         "practiceRef": "directory-structure-src.bad-practice.services-dir",
         "purpose": "BAD_PRACTICE",
-        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
         "required": true,
         "result": "PASS",
         "type": "EXISTS",
@@ -3746,9 +3740,8 @@ Array [
         "path": "src/model/**/*.ts",
         "practiceRef": "directory-structure-src.bad-practice.model-dir",
         "purpose": "BAD_PRACTICE",
-        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
         "required": true,
         "result": "PASS",
         "type": "EXISTS",
@@ -3883,9 +3876,8 @@ Received: [31mnull[39m",
         "path": "src/services/**/*.ts",
         "practiceRef": "directory-structure-src.bad-practice.services-dir",
         "purpose": "BAD_PRACTICE",
-        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
         "required": true,
         "result": "PASS",
         "type": "EXISTS",
@@ -4025,9 +4017,8 @@ Array [
         "path": "**/*.test.integration.ts",
         "practiceRef": "testing.bad-practice.old-extension-pattern",
         "purpose": "BAD_PRACTICE",
-        "reason": "[2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoBeNull[2m()[22m
-
-Received: [31mnull[39m",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
         "required": true,
         "result": "PASS",
         "type": "EXISTS",

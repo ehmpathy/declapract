@@ -6,7 +6,7 @@ module.exports = {
   },
   testEnvironment: 'node',
   moduleFileExtensions: ['js', 'ts'],
-  testMatch: ['!**/*.acceptance.test.ts', '!**/*.integration.test.ts', '!**/__test_assets__/**/*.ts', '**/*.test.ts'],
+  testMatch: ['**/*.test.ts', '!**/*.acceptance.test.ts', '!**/*.integration.test.ts', '!**/__test_assets__/**/*.ts'],
   setupFiles: ['core-js'],
   preset: 'ts-jest',
   verbose: true,

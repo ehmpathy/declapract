@@ -3,6 +3,15 @@
 exports[`plan should be able to plan for an example project 1`] = `
 Array [
   Array [
+    "🔎 reading configs and declarations...",
+  ],
+  Array [
+    "🔬️ evaluating project...",
+  ],
+  Array [
+    "📖 displaying results...",
+  ],
+  Array [
     "  * [1m[1m[90m[NO_CHANGE][39m[1m .gitignore[22m",
   ],
   Array [

@@ -18,7 +18,7 @@ export default class Compile extends Command {
       char: 'd',
       description: 'the distribution directory to which we will compile the declarations',
       required: true,
-      default: 'src',
+      default: 'dist',
     }),
   };
 

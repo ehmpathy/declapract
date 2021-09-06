@@ -24,6 +24,7 @@ export const compile = async ({
 }) => {
   // list all the files in the source dir
   const filePaths = await listFilesInDirectory({ directory: sourceDirectory });
+  console.log(`📝 compiling ${filePaths.length} files...`);
 
   // write each one to the distribution directory
   await Promise.all(
