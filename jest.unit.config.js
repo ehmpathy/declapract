@@ -1,15 +1,13 @@
 module.exports = {
   globals: {
     'ts-jest': {
-      tsConfig: 'tsconfig.json',
+      tsconfig: 'tsconfig.json',
     },
   },
-  moduleFileExtensions: ['ts', 'js'],
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
-  },
-  testMatch: ['**/*.test.ts', '!**/*.integration.test.ts', '!**/*.acceptance.test.ts', '!**/__test_assets__/**/*.ts'],
   testEnvironment: 'node',
-  setupFiles: ['core-js'], // .flat() undefined otherwise; https://stackoverflow.com/a/59285424/3068233
+  moduleFileExtensions: ['js', 'ts'],
+  testMatch: ['!**/*.acceptance.test.ts', '!**/*.integration.test.ts', '!**/__test_assets__/**/*.ts', '**/*.test.ts'],
+  setupFiles: ['core-js'],
+  preset: 'ts-jest',
   verbose: true,
 };
