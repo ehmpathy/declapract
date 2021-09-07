@@ -35,7 +35,7 @@ export const getProjectCheckDeclaration = async ({
     ...new Set(
       paths.filter((path) => !metaFilePaths.includes(path)).map((path) => path.replace(/\.declapract\.ts$/, '')),
     ),
-  ];
+  ].sort();
 
   // for each "main file", get the FileCheckDefinition, now that we have all the files defined for it
   const checksAndErrors = await Promise.all(

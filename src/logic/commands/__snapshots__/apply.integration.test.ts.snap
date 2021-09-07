@@ -27,30 +27,6 @@ Array [
     "🔧 applying fixes...",
   ],
   Array [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .prettierignore[22m",
-  ],
-  Array [
-    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
-  ],
-  Array [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .terraform-version[22m",
-  ],
-  Array [
-    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
-  ],
-  Array [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m package.json[22m",
-  ],
-  Array [
-    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
-  ],
-  Array [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m prettier.config.js[22m",
-  ],
-  Array [
-    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
-  ],
-  Array [
     "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/dev/main.tf[22m",
   ],
   Array [
@@ -79,6 +55,30 @@ Array [
   ],
   Array [
     "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .prettierignore[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .terraform-version[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m package.json[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
+  ],
+  Array [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m prettier.config.js[22m",
+  ],
+  Array [
+    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
   ],
   Array [
     "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m serverless.yml[22m",

@@ -27,7 +27,7 @@ describe('compile', () => {
     expect(filesInDistDir).toContain(
       'practices/directory-structure-src/best-practice/src/logic/<star><star>/<star>.ts.declapract.ts',
     );
-    expect(filesInDistDir).toMatchSnapshot();
+    expect(filesInDistDir.sort()).toMatchSnapshot();
 
     // and check display output
     expect(logSpy.mock.calls).toMatchSnapshot();

@@ -27,6 +27,24 @@ Array [
     "📖 displaying results...",
   ],
   Array [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/dev/main.tf[22m",
+  ],
+  Array [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/dev/versions.tf[22m",
+  ],
+  Array [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/prod/main.tf[22m",
+  ],
+  Array [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/prod/versions.tf[22m",
+  ],
+  Array [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/product/variables.tf[22m",
+  ],
+  Array [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m src/**/sleep.ts[22m",
+  ],
+  Array [
     "  * [1m[1m[90m[NO_CHANGE][39m[1m .gitignore[22m",
   ],
   Array [
@@ -63,21 +81,6 @@ Array [
   ],
   Array [
     "  * [1m[1m[90m[NO_CHANGE][39m[1m prettier.config.js[22m",
-  ],
-  Array [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/dev/main.tf[22m",
-  ],
-  Array [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/dev/versions.tf[22m",
-  ],
-  Array [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/prod/main.tf[22m",
-  ],
-  Array [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/prod/versions.tf[22m",
-  ],
-  Array [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/product/variables.tf[22m",
   ],
   Array [
     "  * [1m[1m[31m[FIX_MANUAL][39m[1m serverless.yml[22m",
@@ -141,9 +144,6 @@ Array [
 ",
     "
 ",
-  ],
-  Array [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m src/**/sleep.ts[22m",
   ],
 ]
 `;

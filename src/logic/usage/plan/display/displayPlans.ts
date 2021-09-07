@@ -1,8 +1,9 @@
 import { FileActionPlan } from '../../../../domain';
+import { sortFileActionPlansByPaths } from '../sortFileActionPlansByPaths';
 import { displayPlan } from './displayPlan';
 
 export const displayPlans = async ({ plans }: { plans: FileActionPlan[] }) => {
-  const sortedPlans = plans.sort((a, b) => (a.path < b.path ? -1 : 1));
+  const sortedPlans = sortFileActionPlansByPaths({ plans });
   for (const plan of sortedPlans) {
     await displayPlan({ plan }); // one at a time, sequentially
   }
