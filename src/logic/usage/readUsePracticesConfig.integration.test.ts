@@ -27,8 +27,7 @@ describe('readUsePracticesConfig', () => {
       declared: expect.objectContaining({ rootDir: expect.any(String) }),
     });
   });
-  it.skip('should read usage config specifying npm module with declarations', async () => {
-    // TODO: unskip after we publish the repo with compilation
+  it.only('should read usage config specifying npm module with declarations', async () => {
     // npm install the declarations module
     await shell.cd(`${testAssetsDirectoryPath}/example-service-3-repo`);
     const result = await shell.exec('npm install');
@@ -45,7 +44,7 @@ describe('readUsePracticesConfig', () => {
     expect(config).toMatchSnapshot({
       rootDir: expect.any(String),
       declared: expect.objectContaining({
-        rootDir: expect.stringContaining('example-service-3-repo/.declapract/best-practices-typescript'), // should reference the `.declapract` dir of the example project (since that's where we clone git repos into)
+        rootDir: expect.stringContaining('example-service-3-repo/node_modules/best-practices-typescript'), // should reference the `.declapract` dir of the example project (since that's where we clone git repos into)
       }),
     });
   });

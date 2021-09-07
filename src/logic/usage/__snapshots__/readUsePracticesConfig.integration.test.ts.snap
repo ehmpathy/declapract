@@ -31,3 +31,19 @@ Object {
   },
 }
 `;
+
+exports[`readUsePracticesConfig should read usage config specifying npm module with declarations 1`] = `
+Object {
+  "declared": ObjectContaining {
+    "rootDir": StringContaining "example-service-3-repo/node_modules/best-practices-typescript",
+  },
+  "rootDir": Any<String>,
+  "useCase": "lambda-service",
+  "variables": Object {
+    "infrastructureNamespaceId": "abcde12345",
+    "organizationName": "awesome-org",
+    "serviceName": "svc-awesome-thing",
+    "slackReleaseWebHook": "https://...",
+  },
+}
+`;
