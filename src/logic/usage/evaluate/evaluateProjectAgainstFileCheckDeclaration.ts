@@ -1,5 +1,4 @@
-import glob from 'glob';
-import { promisify } from 'util';
+import glob from 'fast-glob';
 
 import {
   FileCheckDeclaration,
@@ -10,9 +9,9 @@ import {
 } from '../../../domain';
 import { FileCheckContext } from '../../../domain/objects/FileCheckContext';
 import { readFileIfExistsAsync } from '../../../utils/fileio/readFileIfExistsAsync';
+import { log } from '../../../utils/logger';
+import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { UnexpectedCodePathError } from '../../UnexpectedCodePathError';
-
-const promisifiedGlob = promisify(glob);
 
 export const evaluateProjectAgainstFileCheckDeclaration = async ({
   practiceRef,
@@ -27,13 +26,17 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
   check: FileCheckDeclaration;
   projectVariables: ProjectVariablesImplementation;
 }): Promise<FileCheckEvaluation[]> => {
+  // lookup the gitignore file for the directory
+
   // define the absolute file paths to check, dereferencing the check.path glob pattern
-  const pathsFoundByGlob = await promisifiedGlob(check.pathGlob, {
-    cwd: projectRootDirectory,
-    dot: true,
-    nodir: true,
-    ignore: ['node_modules/**/*', '.declapract/**/*'],
-  }); // relative to project root,  include dot files, ignore directories (these are file checks, directories are not files)
+  const pathsFoundByGlob = await withDurationReporting(`glob:${check.pathGlob}`, () =>
+    glob(check.pathGlob, {
+      cwd: projectRootDirectory, // relative to project root,
+      dot: true, // include dot files,
+      onlyFiles: true, // only files, no directories (these are file checks, directories are not files)
+      ignore: ['node_modules'], // ignore all files in these specific directories, too
+    }),
+  )();
   const pathsToCheck = pathsFoundByGlob.length ? pathsFoundByGlob : [check.pathGlob]; // if no paths found for the glob pattern, then just use the glob pattern and check against it (i.e., run the "exists" checks against that path)
 
   // for each file found by the glob pattern, evaluate it

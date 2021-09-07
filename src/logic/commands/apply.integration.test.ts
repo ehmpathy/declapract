@@ -1,9 +1,10 @@
 import { removeFileAsync } from '../../utils/fileio/removeFileAsync';
 import { listFilesInDirectory } from '../../utils/filepaths/listFilesInDirectory';
+import { log } from '../../utils/logger';
 import { testAssetsDirectoryPath } from '../__test_assets__/dirPath';
 import { apply } from './apply';
 
-const logSpy = jest.spyOn(console, 'log');
+const logSpy = jest.spyOn(console, 'log').mockImplementation(() => log.debug); // swap to log debug so its not displaying during tests by default
 
 describe('apply', () => {
   beforeEach(() => jest.clearAllMocks());

@@ -1,7 +1,8 @@
+import { log } from '../../utils/logger';
 import { testAssetsDirectoryPath } from '../__test_assets__/dirPath';
 import { plan } from './plan';
 
-const logSpy = jest.spyOn(console, 'log');
+const logSpy = jest.spyOn(console, 'log').mockImplementation(() => log.debug); // swap to log debug so its not displaying during tests by default
 
 describe('plan', () => {
   beforeEach(() => jest.clearAllMocks());

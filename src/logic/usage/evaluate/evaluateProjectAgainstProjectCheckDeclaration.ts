@@ -4,6 +4,7 @@ import {
   ProjectCheckDeclaration,
   ProjectVariablesImplementation,
 } from '../../../domain';
+import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { evaluateProjectAgainstFileCheckDeclaration } from './evaluateProjectAgainstFileCheckDeclaration';
 
 export const evaluteProjectAgainstProjectCheckDeclaration = async ({
@@ -23,13 +24,15 @@ export const evaluteProjectAgainstProjectCheckDeclaration = async ({
   const results = (
     await Promise.all(
       declaration.checks.map((check) =>
-        evaluateProjectAgainstFileCheckDeclaration({
-          practiceRef,
-          purpose,
-          projectRootDirectory,
-          check,
-          projectVariables,
-        }),
+        withDurationReporting(`evaluateFileCheckDeclaration.${practiceRef}.${check.pathGlob}`, () =>
+          evaluateProjectAgainstFileCheckDeclaration({
+            practiceRef,
+            purpose,
+            projectRootDirectory,
+            check,
+            projectVariables,
+          }),
+        )(),
       ),
     )
   ).flat(); // flatten, since each "FileCheckDeclaration" may actually apply to more than one file (since the check declarations reference a pathGlob -> glob can specify more than one file)

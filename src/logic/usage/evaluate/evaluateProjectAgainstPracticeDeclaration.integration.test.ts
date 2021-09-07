@@ -342,7 +342,7 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
 
     // sanity check a couple of important examples
     expect(
-      evaluations.find((file) => file.path === '.declapract/old-syntax.test.integration.ts'), // should not have found this path
+      evaluations.find((file) => file.path === 'node_modules/old-syntax.test.integration.ts'), // should not have found this path
     ).not.toBeDefined(); // should have found it because `.declapract` directory should be ignored
     expect(
       evaluations.find((file) => file.path === 'node_modules/another-dir/old-syntax.test.integration.ts'), // should not have found this path

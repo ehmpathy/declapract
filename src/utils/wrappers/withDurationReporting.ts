@@ -1,5 +1,6 @@
 // tslint:disable no-console
 import { hrtime } from 'process';
+import { log } from '../logger';
 
 const roundToHundredths = (num: number) => Math.round(num * 100) / 100; // https://stackoverflow.com/a/14968691/3068233
 
@@ -24,11 +25,8 @@ export const withDurationReporting = <R extends any, T extends (...args: any[]) 
     log: (args: { title: string; durationInSeconds: number }) => void;
   } = {
     reportingThresholdSeconds: 1, // report on anything that takes more than 1 second, by default
-    log: ({ title, durationInSeconds }) => {
-      // by default, log to console log if in debug mode explicitly
-      if (process.env.LOG_LEVEL === 'debug')
-        console.log(`⏲️ ${title} took ${durationInSeconds} seconds to execute`, { title, durationInSeconds });
-    },
+    log: ({ title, durationInSeconds }) =>
+      log.debug(`⏲️  ${title} took ${durationInSeconds} seconds to execute`, { title, durationInSeconds }), // debug log by default
   },
 ) => {
   return (async (...args: Parameters<T>): Promise<R> => {

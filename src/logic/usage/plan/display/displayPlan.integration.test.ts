@@ -3,8 +3,9 @@ import { getPlansForProject } from '../getPlansForProject';
 import { readPracticeDeclaration } from '../../../declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
 import { testAssetsDirectoryPath } from '../../../__test_assets__/dirPath';
 import { displayPlan } from './displayPlan';
+import { log } from '../../../../utils/logger';
 
-const logSpy = jest.spyOn(console, 'log');
+const logSpy = jest.spyOn(console, 'log').mockImplementation(() => log.debug); // swap to log debug so its not displaying during tests by default
 
 describe('displayPlan', () => {
   beforeEach(() => jest.clearAllMocks());

@@ -1,10 +1,7 @@
-import glob from 'glob';
-import { promisify } from 'util';
-
-const promisifiedGlob = promisify(glob);
+import glob from 'fast-glob';
 
 /**
  * returns paths to all files inside this directory or its nested directories
  */
 export const listFilesInDirectory = async ({ directory }: { directory: string }) =>
-  promisifiedGlob('**/*', { cwd: directory, dot: true, nodir: true });
+  glob('**/*', { cwd: directory, dot: true, onlyFiles: true });
