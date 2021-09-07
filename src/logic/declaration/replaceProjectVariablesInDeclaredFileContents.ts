@@ -1,4 +1,5 @@
 import { ProjectVariablesImplementation } from '../../domain';
+import { replaceAll } from '../../utils/stringPolyfill/replaceAll';
 import { UnexpectedCodePathError } from '../UnexpectedCodePathError';
 import { UserInputError } from '../UserInputError';
 
@@ -30,7 +31,7 @@ export const replaceProjectVariablesInDeclaredFileContents = ({
             'Please either remove the reference to this variable or define its value in your projects variables (e.g., in `declapract.use.yml`)',
         },
       );
-    return contents.replaceAll(thisVariableExpression, variableValue);
+    return replaceAll(contents, thisVariableExpression, variableValue);
   }, fileContents);
 
   // and return the replaced contents

@@ -95,7 +95,7 @@ export const getFileCheckDeclaration = async ({
     // if (purpose === FileCheckPurpose.BAD_PRACTICE) {
     //   return (foundContents: string | null) => {
     //     if (!foundContents) return foundContents; // do nothing if the file doesn't exist; this should never have been called in this case (since it can't contain the bad practice content if theres no content)
-    //     return foundContents.replaceAll(declaredContents, ''); // remove each occurrence of the declared contents from the file
+    //     return replaceAll(foundContents, declaredContents, ''); // remove each occurrence of the declared contents from the file
     //   };
     // }
     return null; // otherwise, no fix
