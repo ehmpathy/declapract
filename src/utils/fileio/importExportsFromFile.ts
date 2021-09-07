@@ -18,6 +18,7 @@ const addNodeModuleToListOfModulesToAllowTranspilation = ({ nodeModuleName }: { 
     transpileOnly: true,
     files: true,
     ignore: nodeModulesToTSNodeTranspileOnImport.map((moduleName) => `/node_modules/(?!${moduleName})/`),
+    skipProject: true,
   });
 };
 

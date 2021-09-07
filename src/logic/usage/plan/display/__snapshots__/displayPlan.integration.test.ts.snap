@@ -3,6 +3,9 @@
 exports[`displayPlan should show automatically fixable plans correctly 1`] = `
 Array [
   Array [
+    "[90m  ✓ evaluated practice:prettier[39m",
+  ],
+  Array [
     "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .prettierignore[22m",
   ],
   Array [
@@ -24,6 +27,9 @@ Array [
 exports[`displayPlan should show failing bad practice correctly 1`] = `
 Array [
   Array [
+    "[90m  ✓ evaluated practice:dates-and-times[39m",
+  ],
+  Array [
     "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
   ],
   Array [
@@ -34,6 +40,12 @@ Array [
 
 exports[`displayPlan should show failing multiple practices on the same file correctly 1`] = `
 Array [
+  Array [
+    "[90m  ✓ evaluated practice:prettier[39m",
+  ],
+  Array [
+    "[90m  ✓ evaluated practice:dates-and-times[39m",
+  ],
   Array [
     "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
   ],
@@ -65,6 +77,9 @@ Array [
 exports[`displayPlan should show manually fixable plans correctly 1`] = `
 Array [
   Array [
+    "[90m  ✓ evaluated practice:dates-and-times[39m",
+  ],
+  Array [
     "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
   ],
   Array [
@@ -83,6 +98,6 @@ Array [
 
 exports[`displayPlan should show no change plans correctly 1`] = `
 Array [
-  "  * [1m[1m[90m[NO_CHANGE][39m[1m package.json[22m",
+  "[90m  ✓ evaluated practice:prettier[39m",
 ]
 `;

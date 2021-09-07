@@ -9,6 +9,21 @@ Array [
     "🔬️ evaluating project...",
   ],
   Array [
+    "[90m  ✓ evaluated practice:util-sleep[39m",
+  ],
+  Array [
+    "[90m  ✓ evaluated practice:serverless[39m",
+  ],
+  Array [
+    "[90m  ✓ evaluated practice:terraform[39m",
+  ],
+  Array [
+    "[90m  ✓ evaluated practice:prettier[39m",
+  ],
+  Array [
+    "[90m  ✓ evaluated practice:dates-and-times[39m",
+  ],
+  Array [
     "📖 displaying results...",
   ],
   Array [
