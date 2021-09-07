@@ -1,6 +1,15 @@
+import chalk from 'chalk';
 import { PracticeDeclaration, ProjectVariablesImplementation } from '../../../domain';
 import { FilePracticeEvaluation } from '../../../domain/objects/FilePracticeEvaluation';
+import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgainstPracticeDeclaration';
+
+const colorDurationInSeconds = (durationInSeconds: number) => {
+  const message = `${durationInSeconds} seconds`;
+  if (durationInSeconds < 3) return chalk.gray(message);
+  if (durationInSeconds < 7) return chalk.yellow(message);
+  return chalk.red(message);
+};
 
 /**
  * given:
@@ -24,7 +33,15 @@ export const evaluateProjectAgainstPracticeDeclarations = async ({
   return (
     await Promise.all(
       practices.map((practice) =>
-        evaluteProjectAgainstPracticeDeclaration({ practice, projectRootDirectory, projectVariables }),
+        withDurationReporting(
+          `practice:${practice.name}`,
+          () => evaluteProjectAgainstPracticeDeclaration({ practice, projectRootDirectory, projectVariables }),
+          {
+            reportingThresholdSeconds: 0.5,
+            log: ({ durationInSeconds }) =>
+              console.log(chalk.gray(`    > took ${colorDurationInSeconds(durationInSeconds)}`)), // tslint:disable-line: no-console
+          },
+        )(),
       ),
     )
   ).flat();

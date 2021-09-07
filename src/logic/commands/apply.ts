@@ -15,6 +15,7 @@ export const apply = async ({
   };
 }) => {
   // read the usage config
+  console.log('🔎 reading configs and declarations...'); // tslint:disable-line: no-console
   const config = await readUsePracticesConfig({ configPath: usePracticesConfigPath });
 
   // grab the selected use case's practices
@@ -25,6 +26,7 @@ export const apply = async ({
     );
 
   // get plans for this project
+  console.log('🔬️ evaluating project...'); // tslint:disable-line: no-console
   const plans = await getPlansForProject({
     practices: useCase.practices,
     projectRootDirectory: config.rootDir,
@@ -40,5 +42,6 @@ export const apply = async ({
   ).filter((plan) => plan.action === RequiredAction.FIX_AUTOMATIC);
 
   // display the plans
+  console.log('🔧 applying fixes...'); // tslint:disable-line: no-console
   await applyPlans({ plans: plansToApply, projectRootDirectory: config.rootDir, projectVariables: config.variables });
 };

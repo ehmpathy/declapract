@@ -27,7 +27,7 @@ describe('readUsePracticesConfig', () => {
       declared: expect.objectContaining({ rootDir: expect.any(String) }),
     });
   });
-  it.only('should read usage config specifying npm module with declarations', async () => {
+  it('should read usage config specifying npm module with declarations', async () => {
     // npm install the declarations module
     await shell.cd(`${testAssetsDirectoryPath}/example-service-3-repo`);
     const result = await shell.exec('npm install');

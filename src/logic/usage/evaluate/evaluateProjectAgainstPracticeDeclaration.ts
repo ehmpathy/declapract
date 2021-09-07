@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import {
   FileCheckPurpose,
   FileEvaluationResult,
@@ -59,5 +60,6 @@ export const evaluteProjectAgainstPracticeDeclaration = async ({
       practice,
     });
   });
+  console.log(chalk.gray(`  ✓ evaluated practice:${practice.name}`)); // tslint:disable-line: no-console
   return evaluations;
 };
