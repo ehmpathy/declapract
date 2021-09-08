@@ -32,6 +32,13 @@ export const readPracticeDeclaration = async ({ declaredPracticeDirectory }: { d
     );
   })();
 
+  // make sure that the `/bad-practices` dir was not typo'ed as `/bad-practice` on accident (happened on more than one occasion 😅)
+  if (paths.includes('bad-practice'))
+    throw new UserInputError(
+      `a 'bad-practice/' directory was defined for practice '${practiceName}'. this is probably a typo and should have been 'bad-practices/'`,
+      { potentialSolution: "rename 'bad-practice/' to 'bad-practices/'" },
+    );
+
   // ensure atleast one of best-practice or bad-practice is defined
   if (!bestPracticeProjectCheck && !badPracticeProjectChecks.length)
     throw new UserInputError(
