@@ -30,7 +30,7 @@ describe('getHydratedCheckInputsForFile', () => {
       declaredProjectDirectory: '__dir__',
       declaredFileCorePath: '__path__',
     });
-    expect(result).toEqual(null);
+    expect(result).toEqual({ declaredCheckInputs: null, declaredFixFunction: null });
   });
   it('should throw an error if file exists but check was not exported', async () => {
     doesFileExistMock.mockReturnValue(true);
@@ -52,7 +52,10 @@ describe('getHydratedCheckInputsForFile', () => {
         declaredProjectDirectory: '__dir__',
         declaredFileCorePath: '__path__',
       });
-      expect(result).toEqual(new FileCheckDeclarationInput({ type: FileCheckType.CONTAINS }));
+      expect(result).toEqual({
+        declaredCheckInputs: new FileCheckDeclarationInput({ type: FileCheckType.CONTAINS }),
+        declaredFixFunction: null,
+      });
     });
     it('should throw an error if CUSTOM was used as a type shorthand', async () => {
       doesFileExistMock.mockReturnValue(true);
@@ -75,7 +78,10 @@ describe('getHydratedCheckInputsForFile', () => {
         declaredProjectDirectory: '__dir__',
         declaredFileCorePath: '__path__',
       });
-      expect(result).toEqual({ type: FileCheckType.CUSTOM, function: expect.any(Function) });
+      expect(result).toEqual({
+        declaredCheckInputs: { type: FileCheckType.CUSTOM, function: expect.any(Function) },
+        declaredFixFunction: null,
+      });
     });
   });
   describe('full definitions', () => {
@@ -86,7 +92,7 @@ describe('getHydratedCheckInputsForFile', () => {
         declaredProjectDirectory: '__dir__',
         declaredFileCorePath: '__path__',
       });
-      expect(result).toEqual({ optional: true });
+      expect(result).toEqual({ declaredCheckInputs: { optional: true }, declaredFixFunction: null });
     });
     it('should allow user to specify an optional contains check', async () => {
       doesFileExistMock.mockReturnValue(true);
@@ -95,7 +101,10 @@ describe('getHydratedCheckInputsForFile', () => {
         declaredProjectDirectory: '__dir__',
         declaredFileCorePath: '__path__',
       });
-      expect(result).toEqual({ type: FileCheckType.CONTAINS, optional: true });
+      expect(result).toEqual({
+        declaredCheckInputs: { type: FileCheckType.CONTAINS, optional: true },
+        declaredFixFunction: null,
+      });
     });
     it('should allow user to specify an optional custom check', async () => {
       doesFileExistMock.mockReturnValue(true);
@@ -104,11 +113,17 @@ describe('getHydratedCheckInputsForFile', () => {
         declaredProjectDirectory: '__dir__',
         declaredFileCorePath: '__path__',
       });
-      expect(result).toEqual({ optional: true, function: expect.any(Function) });
+      expect(result).toEqual({
+        declaredCheckInputs: { optional: true, function: expect.any(Function) },
+        declaredFixFunction: null,
+      });
     });
     it('should throw an error if user tries to specify type other than CUSTOM and also provides a custom function', async () => {
       doesFileExistMock.mockReturnValue(true);
-      importExportsFromFileMock.mockResolvedValue({ check: { type: FileCheckType.EQUALS, function: () => {} } });
+      importExportsFromFileMock.mockResolvedValue({
+        check: { type: FileCheckType.EQUALS, function: () => {} },
+        declaredFixFunction: null,
+      });
       try {
         await getHydratedCheckInputsForFile({
           declaredProjectDirectory: '__dir__',

@@ -35,6 +35,8 @@ export enum FileCheckType {
 export const isOfFileCheckType = createIsOfEnum(FileCheckType);
 
 /**
+ * a file check function is used to evaluate whether a file fails or passes a declaration
+ *
  * a file check function either:
  * - returns successfully
  * - throws an error with the message containing the reason that the check failed
@@ -43,10 +45,25 @@ export const isOfFileCheckType = createIsOfEnum(FileCheckType);
  * ```ts
  *   export const check = (contents: string | null) => expect(contents).toEqual(bestPracticeContents);
  * ```
- * _note: the above check function is the default when the expected file contents are declared on their own_
  */
 export type FileCheckFunction = (contents: string | null, context: FileCheckContext) => Promise<void> | void;
-export type FileFixFunction = (contents: string | null, context: FileCheckContext) => string | null;
+
+/**
+ * a file fix function is used to automatically fix files that fail your declared practices
+ *
+ * a file fix function can declare:
+ * - what the "fixed" file contents would be (including `null` to delete the file)
+ * - what the "fixed" relative file path would be
+ * - a combination of the above
+ *
+ * _note: it is **critical** that this function runs without mutating anything, as this function is run when planning even before the user requests to apply it. it should only declare **what** the final state would be, not actually do anything_
+ */
+export type FileFixFunction = (
+  contents: string | null,
+  context: FileCheckContext,
+) =>
+  | { relativeFilePath?: string; contents?: string | null }
+  | Promise<{ relativeFilePath?: string; contents?: string | null }>;
 
 export enum FileCheckPurpose {
   BAD_PRACTICE = 'BAD_PRACTICE',

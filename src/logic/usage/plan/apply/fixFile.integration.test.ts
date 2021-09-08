@@ -6,6 +6,7 @@ import { testAssetsDirectoryPath } from '../../../__test_assets__/dirPath';
 import { readDeclarePracticesConfig } from '../../../declaration/readDeclarePracticesConfig';
 import { evaluteProjectAgainstPracticeDeclaration } from '../../evaluate/evaluateProjectAgainstPracticeDeclaration';
 import { fixFile } from './fixFile';
+import { readFileAsync } from '../../../../utils/fileio/readFileAsync';
 
 describe('fixFile', () => {
   it('should be able to fix by changing contents', async () => {
@@ -139,5 +140,61 @@ describe('fixFile', () => {
       .find((evaluation) => evaluation.path === fileToCheckRelativePath)
       ?.checks.find((check) => check.purpose === FileCheckPurpose.BAD_PRACTICE);
     expect(evaluationNow).toEqual(undefined); // should not be defined anymore, since that file should have been deleted
+  });
+  it('should be able to fix a file by renaming it, from a custom fix function', async () => {
+    const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-fails-testing-for-fixing`;
+    const fileToCheckRelativePath = 'src/old-syntax.test.integration.ts';
+    const fileToCreateRelativePath = 'src/old-syntax.integration.test.ts';
+
+    // overwrite the contents of the file we're planning on fixing in this test, to get it back to the failing state
+    await writeFileAsync({
+      path: `${projectRootDirectory}/${fileToCheckRelativePath}`,
+      content: "describe('some integration test', () => { test.todo('something') })", // any contents, really
+    });
+    if (await doesFileExist({ filePath: `${projectRootDirectory}/${fileToCreateRelativePath}` }))
+      await removeFileAsync({
+        path: `${projectRootDirectory}/${fileToCreateRelativePath}`,
+      });
+
+    // lookup a practice
+    const declarations = await readDeclarePracticesConfig({
+      configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
+    });
+    const practice = declarations.practices.find((practice) => practice.name === 'testing');
+    if (!practice) fail('should have found a practice');
+
+    // now evaluate it
+    const evaluations = await evaluteProjectAgainstPracticeDeclaration({
+      practice,
+      projectRootDirectory,
+      projectVariables: {},
+    });
+
+    // now find the file's evaluation against this practice
+    const evaluation = evaluations
+      .find((evaluation) => evaluation.path === fileToCheckRelativePath)
+      ?.checks.find((check) => check.purpose === FileCheckPurpose.BAD_PRACTICE);
+    if (!evaluation) throw new Error('should have found the evaluation');
+    expect(evaluation.result).toEqual(FileEvaluationResult.FAIL); // should have failed the bad practice check (i.e., file exists)
+
+    // run the fix on that evaluation
+    await fixFile({ evaluation, projectRootDirectory, projectVariables: {} });
+
+    // now evaluate it again and see whether it now passes
+    const evaluationsNow = await evaluteProjectAgainstPracticeDeclaration({
+      practice,
+      projectRootDirectory,
+      projectVariables: {},
+    });
+    const evaluationNow = evaluationsNow
+      .find((evaluation) => evaluation.path === fileToCheckRelativePath)
+      ?.checks.find((check) => check.purpose === FileCheckPurpose.BAD_PRACTICE);
+    expect(evaluationNow).toEqual(undefined); // should not be defined anymore, since that file should have been moved
+
+    // and check that the contents were unchanged
+    const createdFileContents = await readFileAsync({
+      filePath: `${projectRootDirectory}/${fileToCreateRelativePath}`,
+    });
+    expect(createdFileContents).toEqual("describe('some integration test', () => { test.todo('something') })");
   });
 });

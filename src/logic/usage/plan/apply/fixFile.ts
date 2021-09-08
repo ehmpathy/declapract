@@ -23,13 +23,27 @@ export const fixFile = async ({
   projectVariables: ProjectVariablesImplementation;
 }) => {
   if (!evaluation.fix) throw new UnexpectedCodePathError('fixFile called on an eval that doesnt have a fix defined');
+
+  // define the current state
+  const relativeFilePath = evaluation.path;
   const filePath = `${projectRootDirectory}/${evaluation.path}`;
   const fileContents = await readFileIfExistsAsync({ filePath });
-  const desiredContents = await evaluation.fix(
+
+  // define the desired, "fixed", state
+  const {
+    contents: desiredContents = fileContents, // if contents not returned from fix function, then desired contents = current contents
+    relativeFilePath: desiredRelativeFilePath = relativeFilePath, // if relative file path not returned from fix function, then desired relative file path = current relative file path
+  } = await evaluation.fix(
     fileContents,
-    new FileCheckContext({ projectRootDirectory, relativeFilePath: evaluation.path, projectVariables }),
+    new FileCheckContext({ projectRootDirectory, relativeFilePath, projectVariables }),
   );
-  desiredContents
-    ? await writeFileAsync({ path: filePath, content: desiredContents })
-    : await removeFileAsync({ path: filePath });
+  const desiredFilePath = `${projectRootDirectory}/${desiredRelativeFilePath}`;
+
+  // define what we need to do to get there
+  if (desiredContents)
+    // if they still desired contents, then write it to the desired path
+    await writeFileAsync({ path: desiredFilePath, content: desiredContents });
+  if (desiredFilePath !== filePath || !desiredContents)
+    // if the file path changed - or they no longer desire contents, then remove the orig file
+    await removeFileAsync({ path: filePath });
 };

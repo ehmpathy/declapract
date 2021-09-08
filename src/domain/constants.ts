@@ -5,3 +5,5 @@ export enum RequiredAction {
 }
 
 export type ProjectVariablesImplementation = Record<string, any>;
+
+export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;

@@ -1,17 +1,39 @@
 import glob from 'fast-glob';
+import { string } from 'joi';
+import { AwaitKeyword } from 'typescript';
 
 import {
+  Awaited,
   FileCheckDeclaration,
   FileCheckEvaluation,
   FileCheckPurpose,
   FileEvaluationResult,
+  FileFixFunction,
   ProjectVariablesImplementation,
 } from '../../../domain';
 import { FileCheckContext } from '../../../domain/objects/FileCheckContext';
 import { readFileIfExistsAsync } from '../../../utils/fileio/readFileIfExistsAsync';
-import { log } from '../../../utils/logger';
 import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { UnexpectedCodePathError } from '../../UnexpectedCodePathError';
+
+const checkApplyingFixWouldChangeSomething = ({
+  fixResults,
+  foundContents,
+  context,
+}: {
+  fixResults: Awaited<ReturnType<FileFixFunction>>;
+  foundContents: string | null;
+  context: FileCheckContext;
+}): boolean => {
+  // determine whether user declared a new value for each option - or whether they omitted them
+  const declaredNewContents = fixResults.contents !== undefined;
+  const declaredNewPath = fixResults.relativeFilePath !== undefined;
+
+  // now determine whether they changed anything with what they declared
+  if (declaredNewContents && fixResults.contents !== foundContents) return true; // if they declared new contents - and the contents are different than what they are now - then changed
+  if (declaredNewPath && fixResults.relativeFilePath !== context.relativeFilePath) return true; // if they declared a path - and the path is different than what it is now - then changed
+  return false; // otherwise, no change
+};
 
 export const evaluateProjectAgainstFileCheckDeclaration = async ({
   practiceRef,
@@ -46,7 +68,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
       const filePath = `${projectRootDirectory}/${relativePath}`;
 
       // grab the contents of the file
-      const fileContents = await readFileIfExistsAsync({ filePath });
+      const foundContents = await readFileIfExistsAsync({ filePath });
 
       // define the context of this file check
       const context = new FileCheckContext({ projectRootDirectory, relativeFilePath: relativePath, projectVariables });
@@ -54,7 +76,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
       // check the file contents against declared check
       try {
         // run the check
-        await check.check(fileContents, context);
+        await check.check(foundContents, context);
 
         // determine the result of the check based on the context
         const result = (() => {
@@ -65,7 +87,14 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
 
         // determine whether can fix, if failed
         const canFix =
-          result === FileEvaluationResult.FAIL && check.fix && check.fix(fileContents, context) !== fileContents; // fixable only if the fix function is defined AND it would return a different result
+          result === FileEvaluationResult.FAIL &&
+          // fixable only if fix fn is defined and it would have changed something
+          check.fix &&
+          checkApplyingFixWouldChangeSomething({
+            fixResults: await check.fix(foundContents, context),
+            foundContents,
+            context,
+          });
 
         // build the evaluation
         return new FileCheckEvaluation({
@@ -88,7 +117,14 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
 
         // determine whether can fix, if failed
         const canFix =
-          result === FileEvaluationResult.FAIL && check.fix && check.fix(fileContents, context) !== fileContents; // fixable only if the fix function is defined AND it would return a different result
+          result === FileEvaluationResult.FAIL &&
+          // fixable only if fix fn is defined and it would have changed something
+          check.fix &&
+          checkApplyingFixWouldChangeSomething({
+            fixResults: await check.fix(foundContents, context),
+            foundContents,
+            context,
+          });
 
         // build the evaluation
         return new FileCheckEvaluation({

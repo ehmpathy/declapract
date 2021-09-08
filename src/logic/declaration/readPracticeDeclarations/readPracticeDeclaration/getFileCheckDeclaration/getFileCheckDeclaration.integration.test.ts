@@ -57,8 +57,8 @@ module.exports = {
     }
 
     // check that the fix function works correctly
-    const fixResult = declaration.fix!(null, exampleContext);
-    expect(fixResult).toEqual(
+    const fixResult = await declaration.fix!(null, exampleContext);
+    expect(fixResult.contents).toEqual(
       `${`
 // ref: http://json.schemastore.org/prettierrc
 
@@ -136,16 +136,16 @@ module "product" {
     }
 
     // check that the fix function works correctly
-    const fixResultFileNotDefined = declaration.fix!(null, exampleContext);
-    expect(fixResultFileNotDefined!.trim()).toEqual(
+    const fixResultFileNotDefined = await declaration.fix!(null, exampleContext);
+    expect(fixResultFileNotDefined!.contents!.trim()).toEqual(
       `
 provider "aws" {
   region = "us-east-1"
 }
       `.trim(),
     );
-    const fixResultFileDefined = declaration.fix!('anything else', exampleContext);
-    expect(fixResultFileDefined).toEqual('anything else'); // should not change it. fix only changes the file when file does not exist
+    const fixResultFileDefined = await declaration.fix!('anything else', exampleContext);
+    expect(fixResultFileDefined).toEqual({ contents: 'anything else' }); // should not change it. fix only changes the file when file does not exist
   });
   it('should get file declaration correctly for a json file with a contains check', async () => {
     const declaration = await getFileCheckDeclaration({
@@ -192,8 +192,8 @@ provider "aws" {
     }
 
     // check that the fix function works correctly
-    const fixResultFileNotDefined = declaration.fix!(null, exampleContext);
-    expect(fixResultFileNotDefined!.trim()).toEqual(
+    const fixResultFileNotDefined = await declaration.fix!(null, exampleContext);
+    expect(fixResultFileNotDefined!.contents!.trim()).toEqual(
       JSON.stringify(
         {
           devDependencies: {
@@ -207,8 +207,8 @@ provider "aws" {
         2,
       ),
     );
-    const fixResultFileDefined = declaration.fix!('anything else', exampleContext);
-    expect(fixResultFileDefined).toEqual('anything else'); // should not change it. fix only changes the file when file does not exist
+    const fixResultFileDefined = await declaration.fix!('anything else', exampleContext);
+    expect(fixResultFileDefined.contents).toEqual('anything else'); // should not change it. fix only changes the file when file does not exist
   });
   it('should get file declaration correctly for an optional file existence declaration (e.g., user wants to specify directory structure)', async () => {
     const declaration = await getFileCheckDeclaration({
@@ -364,10 +364,10 @@ export const anything = 'should not exist';
     }
 
     // check that the fix function works correctly
-    const fixResultNoFile = declaration.fix!(null, exampleContext);
-    expect(fixResultNoFile).toEqual(null); // should do nothing if file is not defined
-    const fixResultWithFile = declaration.fix!('some contents', exampleContext);
-    expect(fixResultWithFile).toEqual(null); // should say to delete the file if exists
+    const fixResultNoFile = await declaration.fix!(null, exampleContext);
+    expect(fixResultNoFile).toEqual({ contents: null }); // should do nothing if file is not defined
+    const fixResultWithFile = await declaration.fix!('some contents', exampleContext);
+    expect(fixResultWithFile).toEqual({ contents: null }); // should say to delete the file if exists
   });
   it('should declare the check function correctly when the declared file has variables that need dereferenced', async () => {
     const declaration = await getFileCheckDeclaration({
@@ -438,7 +438,7 @@ this is a super awesome package that you should definitely use
     }
 
     // it should fix correctly
-    const fixResult = declaration.fix!(null, {
+    const fixResult = await declaration.fix!(null, {
       ...exampleContext,
       projectVariables: {
         packageName: 'awesome-package',
@@ -446,7 +446,7 @@ this is a super awesome package that you should definitely use
         packageDescription: 'this is a super awesome package that you should definitely use',
       },
     });
-    expect(fixResult).toContain(
+    expect(fixResult.contents).toContain(
       '[![License](https://img.shields.io/npm/l/awesome-package.svg)](https://github.com/org-of-awesomeness/awesome-package/blob/master/package.json)',
     ); // should also dereference the variables when fixing
   });
@@ -471,5 +471,45 @@ this is a super awesome package that you should definitely use
     expect(declaration.required).toEqual(false);
     expect(declaration.type).toEqual(FileCheckType.EXISTS);
     expect(declaration.pathGlob).toMatch(/src\/data\/dao\/\*\*\/\*\.ts$/); // should have deserialized the wildcard character
+  });
+  it('should use the custom fix function defined, if one is defined', async () => {
+    const declaration = await getFileCheckDeclaration({
+      purpose: FileCheckPurpose.BAD_PRACTICE,
+      declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/testing/bad-practices/old-extension-pattern`,
+      declaredFileCorePath: '**/*.test.integration.ts',
+    });
+
+    // check that the properties look right
+    expect(declaration.required).toEqual(true);
+    expect(declaration.type).toEqual(FileCheckType.EXISTS);
+    expect(declaration.pathGlob).toMatch(/\*\*\/\*\.test\.integration\.ts$/);
+
+    // check that the check function works
+    await declaration.check(
+      // should match anything existing
+      `
+export const anything = 'should not exist';
+    `.trim(),
+      exampleContext,
+    );
+    try {
+      await declaration.check(null, exampleContext); // should not match file not existing, since file is required
+      fail('should not reach here');
+    } catch (error) {
+      expect(error.message).toContain('Expected file to exist');
+      expect(error.message).toMatchSnapshot();
+    }
+
+    // check that the fix function works correctly
+    const fixResultNoFile = await declaration.fix!(null, exampleContext);
+    expect(fixResultNoFile).toEqual({ contents: null, relativeFilePath: 'some/file/path.ts' }); // should do nothing if file is not defined
+    const fixResultWithFile = await declaration.fix!('some contents', {
+      ...exampleContext,
+      relativeFilePath: 'some/file/path.test.integration.ts',
+    });
+    expect(fixResultWithFile).toEqual({
+      relativeFilePath: 'some/file/path.integration.test.ts', // should have moved this file to the correct extension
+      contents: 'some contents',
+    });
   });
 });

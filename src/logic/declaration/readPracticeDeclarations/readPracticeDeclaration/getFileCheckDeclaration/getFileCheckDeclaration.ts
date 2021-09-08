@@ -32,7 +32,10 @@ export const getFileCheckDeclaration = async ({
   const declaredContents = contentsFileExists ? await readFileAsync({ filePath: contentsFilePath }) : null;
 
   // get check inputs, if declared
-  const declaredCheckInputs = await getHydratedCheckInputsForFile({ declaredFileCorePath, declaredProjectDirectory });
+  const { declaredCheckInputs, declaredFixFunction } = await getHydratedCheckInputsForFile({
+    declaredFileCorePath,
+    declaredProjectDirectory,
+  });
 
   // define the common attributes
   const pathGlob = deserializeGlobPathFromNpmPackaging(declaredFileCorePath); // its the path relative to the project root (note that this path can is technically a glob (e.g., can be `src/**/*.ts`))
@@ -80,109 +83,72 @@ export const getFileCheckDeclaration = async ({
   // define the fix fns
   const strictEqualsFix: FileFixFunction | null =
     purpose === FileCheckPurpose.BEST_PRACTICE
-      ? (_, context) => getParsedDeclaredContents(context) // i.e., replace the file with the expected contents, to fix for best practice
+      ? (_, context) => ({
+          contents: getParsedDeclaredContents(context), // i.e., replace the file with the expected contents, to fix for best practice
+        })
       : null; // no fix defined for this check for badPractice
   const containsFix: FileFixFunction | null = (() => {
     if (!declaredContents) return null; // contains fixes can only be defined when declared contents are defined (side note: we shouldn't be needing a contains fix otherwise, since contains type only occurs if there is a file)
     if (purpose === FileCheckPurpose.BEST_PRACTICE) {
       return (foundContents: string | null, context: FileCheckContext) => {
-        if (foundContents) return foundContents; // do nothing if it already has contents; we can't actually fix it in this case
+        if (foundContents) return { contents: foundContents }; // do nothing if it already has contents; we can't actually fix it in this case
         const parsedDeclaredContents = getParsedDeclaredContents(context);
-        return parsedDeclaredContents; // i.e., create a file with that content when file doesn't exist
+        return { contents: parsedDeclaredContents }; // i.e., create a file with that content when file doesn't exist
       };
     }
-    // TODO: find a use case for the contains bad practice check fix:
-    // if (purpose === FileCheckPurpose.BAD_PRACTICE) {
-    //   return (foundContents: string | null) => {
-    //     if (!foundContents) return foundContents; // do nothing if the file doesn't exist; this should never have been called in this case (since it can't contain the bad practice content if theres no content)
-    //     return replaceAll(foundContents, declaredContents, ''); // remove each occurrence of the declared contents from the file
-    //   };
-    // }
     return null; // otherwise, no fix
   })();
-  const existsFix =
+  const existsFix: FileFixFunction | null =
     purpose === FileCheckPurpose.BAD_PRACTICE
-      ? () => null // to fix it for BAD_PRACTICE, just make the file not exist
+      ? () => ({ contents: null }) // to fix it for BAD_PRACTICE, just make the file not exist
       : null;
 
-  // if check inputs were not explicitly declared, then the check is an exact equals
-  if (!declaredCheckInputs) {
-    if (!declaredContents)
-      throw new UnexpectedCodePathError(
-        'no hydrated input but also no contents. why are we even evaluating this file then?',
-      );
-    return new FileCheckDeclaration({
-      pathGlob,
-      required,
-      purpose,
-      type: FileCheckType.EQUALS, // default when input not specified is exact equals
-      check: strictEqualsCheck,
-      fix: strictEqualsFix,
-    });
-  }
+  // define what check type it is, based on the inputs + defaults
+  const type: FileCheckType = (() => {
+    // if no input file, then default to equals check
+    if (!declaredCheckInputs) {
+      if (!declaredContents)
+        throw new UnexpectedCodePathError(
+          'no hydrated input but also no contents. why are we even evaluating this file then?',
+        );
+      return FileCheckType.EQUALS; // default to "equals";
+    }
 
-  // handle custom check functions
-  if (declaredCheckInputs.function)
-    return new FileCheckDeclaration({
-      pathGlob,
-      purpose,
-      required,
-      type: FileCheckType.CUSTOM,
-      check: declaredCheckInputs.function,
-      fix: null, // TODO: allow custom fixes
-    });
+    // if a custom check fn was defined, then check type = custom
+    if (declaredCheckInputs.function) return FileCheckType.CUSTOM;
 
-  // handle "type = equals"
-  if (declaredCheckInputs.type === FileCheckType.EQUALS)
-    return new FileCheckDeclaration({
-      pathGlob,
-      required,
-      purpose,
-      type: FileCheckType.EQUALS,
-      check: strictEqualsCheck,
-      fix: strictEqualsFix,
-    });
+    // if user specified a type, use it
+    if (declaredCheckInputs.type) return declaredCheckInputs.type;
 
-  // handle "type = contains"
-  if (declaredCheckInputs.type === FileCheckType.CONTAINS)
-    return new FileCheckDeclaration({
-      pathGlob,
-      required,
-      purpose,
-      type: FileCheckType.CONTAINS,
-      check: containsCheck,
-      fix: containsFix,
-    });
+    // since user did not specify a type, see if we can default to equals
+    if (declaredContents) return FileCheckType.EQUALS;
 
-  // handle "type = exists"
-  if (declaredCheckInputs.type === FileCheckType.EXISTS) {
-    return new FileCheckDeclaration({
-      pathGlob,
-      required,
-      purpose,
-      type: FileCheckType.EXISTS,
-      check: existsCheck,
-      fix: existsFix,
-    });
-  }
+    // otherwise, default to an existence check
+    return FileCheckType.EXISTS;
+  })();
 
-  // handle type not explicitly specified
-  if (contentsFileExists) {
-    return new FileCheckDeclaration({
-      pathGlob,
-      required,
-      purpose,
-      type: FileCheckType.EQUALS,
-      check: strictEqualsCheck,
-      fix: strictEqualsFix,
-    });
-  }
+  // define the check and fix based on the type
+  const checkForType: FileCheckFunction = (() => {
+    if (type === FileCheckType.EQUALS) return strictEqualsCheck;
+    if (type === FileCheckType.CUSTOM) return declaredCheckInputs!.function!;
+    if (type === FileCheckType.CONTAINS) return containsCheck;
+    if (type === FileCheckType.EXISTS) return existsCheck;
+    throw new UnexpectedCodePathError('should have a check for each type defined');
+  })();
+  const fixForType: FileFixFunction | null = (() => {
+    if (type === FileCheckType.EQUALS) return strictEqualsFix;
+    if (type === FileCheckType.CONTAINS) return containsFix;
+    if (type === FileCheckType.EXISTS) return existsFix;
+    return null;
+  })();
+
+  // return the check based on what we've found for it
   return new FileCheckDeclaration({
     pathGlob,
     required,
     purpose,
-    type: FileCheckType.EXISTS,
-    check: existsCheck,
-    fix: existsFix,
+    type,
+    check: checkForType,
+    fix: declaredFixFunction ?? fixForType,
   });
 };

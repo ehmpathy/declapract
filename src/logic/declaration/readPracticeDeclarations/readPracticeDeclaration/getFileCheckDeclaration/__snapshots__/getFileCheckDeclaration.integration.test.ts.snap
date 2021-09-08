@@ -107,3 +107,8 @@ exports[`getFileCheckDeclaration should get file declaration correctly for an op
 [32m-[39m
 [31m+ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout(reject, ms));[39m"
 `;
+
+exports[`getFileCheckDeclaration should use the custom fix function defined, if one is defined 1`] = `
+"[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m"
+`;
