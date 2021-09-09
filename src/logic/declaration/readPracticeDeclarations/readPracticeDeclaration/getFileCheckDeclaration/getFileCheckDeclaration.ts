@@ -15,6 +15,7 @@ import { checkContainsJSON } from './checkMethods/checkContainsJSON';
 import { checkContainsSubstring } from './checkMethods/checkContainsSubstring';
 import { checkEqualsString } from './checkMethods/checkEqualsString';
 import { checkExists } from './checkMethods/checkExists';
+import { fixContainsJSONByReplacingKeyValues } from './fixMethods/fixContainsJSONByReplacingKeyValues';
 import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
 
 export const getFileCheckDeclaration = async ({
@@ -90,6 +91,7 @@ export const getFileCheckDeclaration = async ({
   const containsFix: FileFixFunction | null = (() => {
     if (!declaredContents) return null; // contains fixes can only be defined when declared contents are defined (side note: we shouldn't be needing a contains fix otherwise, since contains type only occurs if there is a file)
     if (purpose === FileCheckPurpose.BEST_PRACTICE) {
+      if (pathGlob.endsWith('.json')) return fixContainsJSONByReplacingKeyValues;
       return (foundContents: string | null, context: FileCheckContext) => {
         if (foundContents) return { contents: foundContents }; // do nothing if it already has contents; we can't actually fix it in this case
         const parsedDeclaredContents = getParsedDeclaredContents(context);
@@ -150,5 +152,6 @@ export const getFileCheckDeclaration = async ({
     type,
     check: checkForType,
     fix: declaredFixFunction ?? fixForType,
+    contents: declaredContents,
   });
 };

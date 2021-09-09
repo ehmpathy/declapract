@@ -1,13 +1,7 @@
 import chalk from 'chalk';
 import indentString from 'indent-string';
 
-import {
-  FileActionPlan,
-  hasFailed,
-  isFixableCheck,
-  ProjectVariablesImplementation,
-  RequiredAction,
-} from '../../../../domain';
+import { FileActionPlan, hasFailed, isFixableCheck, RequiredAction } from '../../../../domain';
 import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
 import { getColoredPlanTitle } from '../display/color/getColoredPlanTitle';
 import { sortFileCheckEvaluationsByPracticeRef } from '../sortFileCheckEvaluationsByPracticeRef';
@@ -20,11 +14,9 @@ import { fixFile } from './fixFile';
 export const applyPlan = async ({
   plan,
   projectRootDirectory,
-  projectVariables,
 }: {
   plan: FileActionPlan;
   projectRootDirectory: string;
-  projectVariables: ProjectVariablesImplementation;
 }) => {
   // sanity check that the plan has fixable actions
   if (plan.action !== RequiredAction.FIX_AUTOMATIC)
@@ -47,7 +39,7 @@ export const applyPlan = async ({
     // apply each of them
     await Promise.all(
       failedFixableChecks.map(async (evaluation) => {
-        await fixFile({ evaluation, projectRootDirectory, projectVariables });
+        await fixFile({ evaluation, projectRootDirectory });
         const statusToken = chalk.green('✓');
         const fixabilityToken = chalk.gray('(fix:applied)');
         console.log(indentString(`${statusToken} practice:${evaluation.practiceRef} ${fixabilityToken}`, 4)); // tslint:disable-line: no-console

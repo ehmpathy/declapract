@@ -38,7 +38,7 @@ describe('fixFile', () => {
     expect(evaluation.result).toEqual(FileEvaluationResult.FAIL);
 
     // run the fix on that evaluation
-    await fixFile({ evaluation, projectRootDirectory, projectVariables: {} });
+    await fixFile({ evaluation, projectRootDirectory });
 
     // now evaluate it again and see whether it now passes
     const evaluationsNow = await evaluteProjectAgainstPracticeDeclaration({
@@ -82,7 +82,7 @@ describe('fixFile', () => {
     expect(evaluation.result).toEqual(FileEvaluationResult.FAIL);
 
     // run the fix on that evaluation
-    await fixFile({ evaluation, projectRootDirectory, projectVariables: {} });
+    await fixFile({ evaluation, projectRootDirectory });
 
     // now evaluate it again and see whether it now passes
     const evaluationsNow = await evaluteProjectAgainstPracticeDeclaration({
@@ -128,7 +128,7 @@ describe('fixFile', () => {
     expect(evaluation.result).toEqual(FileEvaluationResult.FAIL); // should have failed the bad practice check (i.e., file exists)
 
     // run the fix on that evaluation
-    await fixFile({ evaluation, projectRootDirectory, projectVariables: {} });
+    await fixFile({ evaluation, projectRootDirectory });
 
     // now evaluate it again and see whether it now passes
     const evaluationsNow = await evaluteProjectAgainstPracticeDeclaration({
@@ -178,7 +178,7 @@ describe('fixFile', () => {
     expect(evaluation.result).toEqual(FileEvaluationResult.FAIL); // should have failed the bad practice check (i.e., file exists)
 
     // run the fix on that evaluation
-    await fixFile({ evaluation, projectRootDirectory, projectVariables: {} });
+    await fixFile({ evaluation, projectRootDirectory });
 
     // now evaluate it again and see whether it now passes
     const evaluationsNow = await evaluteProjectAgainstPracticeDeclaration({

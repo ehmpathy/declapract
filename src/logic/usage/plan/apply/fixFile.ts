@@ -16,11 +16,9 @@ import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
 export const fixFile = async ({
   evaluation,
   projectRootDirectory,
-  projectVariables,
 }: {
   evaluation: FileCheckEvaluation;
   projectRootDirectory: string;
-  projectVariables: ProjectVariablesImplementation;
 }) => {
   if (!evaluation.fix) throw new UnexpectedCodePathError('fixFile called on an eval that doesnt have a fix defined');
 
@@ -33,10 +31,7 @@ export const fixFile = async ({
   const {
     contents: desiredContents = fileContents, // if contents not returned from fix function, then desired contents = current contents
     relativeFilePath: desiredRelativeFilePath = relativeFilePath, // if relative file path not returned from fix function, then desired relative file path = current relative file path
-  } = await evaluation.fix(
-    fileContents,
-    new FileCheckContext({ projectRootDirectory, relativeFilePath, projectVariables }),
-  );
+  } = await evaluation.fix(fileContents, evaluation.context);
   const desiredFilePath = `${projectRootDirectory}/${desiredRelativeFilePath}`;
 
   // define what we need to do to get there

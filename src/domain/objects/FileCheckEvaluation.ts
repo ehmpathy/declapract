@@ -1,5 +1,6 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
+import { FileCheckContext } from './FileCheckContext';
 
 import { FileCheckPurpose, FileCheckType, FileFixFunction } from './FileCheckDeclaration';
 
@@ -34,6 +35,7 @@ const schema = Joi.object().keys({
   fix: Joi.function()
     .allow(null)
     .required(),
+  context: FileCheckContext.schema.required(),
 });
 
 /**
@@ -48,6 +50,7 @@ export interface FileCheckEvaluation {
   result: FileEvaluationResult;
   reason: string | null; // the reason for this conclusion
   fix: FileFixFunction | null;
+  context: FileCheckContext;
 }
 
 export class FileCheckEvaluation extends DomainObject<FileCheckEvaluation> implements FileCheckEvaluation {

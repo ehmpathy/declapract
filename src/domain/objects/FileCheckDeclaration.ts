@@ -83,6 +83,9 @@ const schema = Joi.object().keys({
   fix: Joi.function()
     .required()
     .allow(null),
+  contents: Joi.string()
+    .required()
+    .allow(null),
 });
 
 /**
@@ -97,6 +100,7 @@ export interface FileCheckDeclaration {
   required: boolean;
   check: FileCheckFunction;
   fix: FileFixFunction | null; // may not have a fix function possible for this check declaration
+  contents: string | null; // the contents that the user declared for this file, if any; required to create "FileCheckContext"
 }
 export class FileCheckDeclaration extends DomainObject<FileCheckDeclaration> implements FileCheckDeclaration {
   public static schema = schema;

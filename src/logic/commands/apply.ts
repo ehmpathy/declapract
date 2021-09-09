@@ -43,5 +43,5 @@ export const apply = async ({
 
   // display the plans
   console.log('🔧 applying fixes...'); // tslint:disable-line: no-console
-  await applyPlans({ plans: plansToApply, projectRootDirectory: config.rootDir, projectVariables: config.variables });
+  await applyPlans({ plans: plansToApply, projectRootDirectory: config.rootDir });
 };

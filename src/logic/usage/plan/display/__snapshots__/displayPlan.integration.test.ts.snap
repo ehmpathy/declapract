@@ -53,7 +53,7 @@ Array [
     "    [31m✕[39m practice:dates-and-times.bad-practice.moment ",
   ],
   Array [
-    "    [31m✕[39m practice:prettier.best-practice ",
+    "    [33m✕[39m practice:prettier.best-practice [90m(fix:appliable)[39m",
   ],
   Array [
     "      [32m- Expected toContain[39m

@@ -1,5 +1,9 @@
 import { UnexpectedCodePathError } from '../../../../../UnexpectedCodePathError';
-import { defineMinPackageVersionRegex } from '../../../../publicFileCheckFunctionUtilities/defineMinPackageVersionRegex';
+import {
+  checkDoesFoundValuePassesMinVersionCheck,
+  getMinVersionFromCheckMinVersionExpression,
+  isCheckMinVersionExpression,
+} from '../checkExpressions/check.minVersion';
 import { checkContainsSubstring } from './checkContainsSubstring';
 
 /**
@@ -15,19 +19,18 @@ const evaluateSupportedJSONCheckExpressionMinimumVersion = ({
   foundValue: any;
 }) => {
   // grab the min version expected from the declared value check expression
-  const minVersion = (new RegExp(/^\@declapract\{check\.minVersion\('([0-9\.]+)'\)\}$/).exec(declaredValue) ?? [])[1];
+  const minVersion = getMinVersionFromCheckMinVersionExpression(declaredValue);
   if (!minVersion)
     throw new UnexpectedCodePathError(
       'JSONCheckExpressionMinimumVersion attempted to be evaluated, but no minVersion could be declared from check expression declaration',
       { declaredValue },
     );
 
-  // define the regex to check against
-  const minVersionRegexp = defineMinPackageVersionRegex(minVersion);
+  // check whether it passes
+  const passesMinVersionCheck = checkDoesFoundValuePassesMinVersionCheck({ foundValue, minVersion });
 
   // if foundValue does not match it, return the error message
-  if (!foundValue || typeof foundValue !== 'string' || !minVersionRegexp.test(foundValue))
-    return `a version greater than or equal to '${minVersion}'`;
+  if (!passesMinVersionCheck) return `a version greater than or equal to '${minVersion}'`;
 
   // if it does match it, then return the value we found (so that there's no diff due to this one)
   return foundValue;
@@ -68,7 +71,7 @@ const recursivelyEvaluateDeclaredContentsToCheckContains = ({ declared, found }:
 
       // handle cases where the declared value is a check reference to evaluate
       if (typeof declaredValue === 'string' && declaredValue.startsWith('@declapract{check.')) {
-        if (declaredValue.match(/^\@declapract\{check\.minVersion\('[0-9\.]+'\)\}$/)) {
+        if (isCheckMinVersionExpression(declaredValue)) {
           const evaluatedValue = evaluateSupportedJSONCheckExpressionMinimumVersion({ declaredValue, foundValue });
           return evaluatedValue;
         }

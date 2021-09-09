@@ -5,6 +5,17 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-serverless",
+          "projectVariables": Object {
+            "infrastructureNamespaceId": "abcde12345",
+            "organizationName": "awesome-org",
+            "serviceName": "svc-awesome-thing",
+            "slackReleaseWebHook": "https://...",
+          },
+          "relativeFilePath": "package.json",
+        },
         "fix": null,
         "path": "package.json",
         "practiceRef": "serverless.best-practice",
@@ -22,6 +33,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "package.json",
             "purpose": "BEST_PRACTICE",
@@ -30,6 +42,55 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "service: @declapract{variable.serviceName}
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 1024 # optional, in MB, default is 1024
+  timeout: 10
+  stage: \${opt:stage}
+  stackTags:
+    app: @declapract{variable.organizationName}
+    environment: \${self:provider.stage}
+    product: \${self:service}
+  environment:
+    SERVERLESS_STAGE: \${self:provider.stage}
+    NODE_ENV: \${self:custom.stageToNodeEnvMapping.\${self:provider.stage}}
+  deploymentBucket: serverless-deployment-@declapract{variable.infrastructureNamespaceId}-\${self:provider.stage}
+  vpc:
+    securityGroupIds:
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSecurityGroupId}
+    subnetIds:
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet1Id}
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet2Id}
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet3Id}
+  iamRoleStatements:
+    ## paramstore access
+    - Effect: 'Allow'
+      Action: 'ssm:DescribeParameters'
+      Resource: '*'
+    - Effect: 'Allow'
+      Action: 'ssm:GetParameters'
+      Resource: arn:aws:ssm:\${aws:region}:\${aws:accountId}:parameter/*
+    - Effect: 'Allow'
+      Action: 'kms:Decrypt'
+      Resource: arn:aws:kms:\${aws:region}:\${aws:accountId}:alias/aws/ssm*
+    ## allow invocation of other lambdas
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+        - lambda:InvokeAsync
+      Resource: '*'
+
+custom:
+  stageToNodeEnvMapping:
+    test: 'test'
+    dev: 'development'
+    prod: 'production'
+
+functions:
+",
             "fix": [Function],
             "pathGlob": "serverless.yml",
             "purpose": "BEST_PRACTICE",
@@ -47,6 +108,65 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": "service: @declapract{variable.serviceName}
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 1024 # optional, in MB, default is 1024
+  timeout: 10
+  stage: \${opt:stage}
+  stackTags:
+    app: @declapract{variable.organizationName}
+    environment: \${self:provider.stage}
+    product: \${self:service}
+  environment:
+    SERVERLESS_STAGE: \${self:provider.stage}
+    NODE_ENV: \${self:custom.stageToNodeEnvMapping.\${self:provider.stage}}
+  deploymentBucket: serverless-deployment-@declapract{variable.infrastructureNamespaceId}-\${self:provider.stage}
+  vpc:
+    securityGroupIds:
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSecurityGroupId}
+    subnetIds:
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet1Id}
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet2Id}
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet3Id}
+  iamRoleStatements:
+    ## paramstore access
+    - Effect: 'Allow'
+      Action: 'ssm:DescribeParameters'
+      Resource: '*'
+    - Effect: 'Allow'
+      Action: 'ssm:GetParameters'
+      Resource: arn:aws:ssm:\${aws:region}:\${aws:accountId}:parameter/*
+    - Effect: 'Allow'
+      Action: 'kms:Decrypt'
+      Resource: arn:aws:kms:\${aws:region}:\${aws:accountId}:alias/aws/ssm*
+    ## allow invocation of other lambdas
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+        - lambda:InvokeAsync
+      Resource: '*'
+
+custom:
+  stageToNodeEnvMapping:
+    test: 'test'
+    dev: 'development'
+    prod: 'production'
+
+functions:
+",
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-serverless",
+          "projectVariables": Object {
+            "infrastructureNamespaceId": "abcde12345",
+            "organizationName": "awesome-org",
+            "serviceName": "svc-awesome-thing",
+            "slackReleaseWebHook": "https://...",
+          },
+          "relativeFilePath": "serverless.yml",
+        },
         "fix": null,
         "path": "serverless.yml",
         "practiceRef": "serverless.best-practice",
@@ -64,6 +184,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "package.json",
             "purpose": "BEST_PRACTICE",
@@ -72,6 +193,55 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "service: @declapract{variable.serviceName}
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 1024 # optional, in MB, default is 1024
+  timeout: 10
+  stage: \${opt:stage}
+  stackTags:
+    app: @declapract{variable.organizationName}
+    environment: \${self:provider.stage}
+    product: \${self:service}
+  environment:
+    SERVERLESS_STAGE: \${self:provider.stage}
+    NODE_ENV: \${self:custom.stageToNodeEnvMapping.\${self:provider.stage}}
+  deploymentBucket: serverless-deployment-@declapract{variable.infrastructureNamespaceId}-\${self:provider.stage}
+  vpc:
+    securityGroupIds:
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSecurityGroupId}
+    subnetIds:
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet1Id}
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet2Id}
+      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet3Id}
+  iamRoleStatements:
+    ## paramstore access
+    - Effect: 'Allow'
+      Action: 'ssm:DescribeParameters'
+      Resource: '*'
+    - Effect: 'Allow'
+      Action: 'ssm:GetParameters'
+      Resource: arn:aws:ssm:\${aws:region}:\${aws:accountId}:parameter/*
+    - Effect: 'Allow'
+      Action: 'kms:Decrypt'
+      Resource: arn:aws:kms:\${aws:region}:\${aws:accountId}:alias/aws/ssm*
+    ## allow invocation of other lambdas
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+        - lambda:InvokeAsync
+      Resource: '*'
+
+custom:
+  stageToNodeEnvMapping:
+    test: 'test'
+    dev: 'development'
+    prod: 'production'
+
+functions:
+",
             "fix": [Function],
             "pathGlob": "serverless.yml",
             "purpose": "BEST_PRACTICE",
@@ -94,6 +264,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-dates-and-times",
+          "projectVariables": Object {},
+          "relativeFilePath": "package.json",
+        },
         "fix": null,
         "path": "package.json",
         "practiceRef": "dates-and-times.best-practice",
@@ -104,6 +280,12 @@ Array [
         "type": "CUSTOM",
       },
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-dates-and-times",
+          "projectVariables": Object {},
+          "relativeFilePath": "package.json",
+        },
         "fix": null,
         "path": "package.json",
         "practiceRef": "dates-and-times.bad-practice.moment",
@@ -121,6 +303,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": null,
               "pathGlob": "package.json",
               "purpose": "BAD_PRACTICE",
@@ -145,6 +328,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "package.json",
             "purpose": "BEST_PRACTICE",
@@ -168,6 +352,13 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": "*.md
+",
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-prettier",
+          "projectVariables": Object {},
+          "relativeFilePath": ".prettierignore",
+        },
         "fix": [Function],
         "path": ".prettierignore",
         "practiceRef": "prettier.best-practice",
@@ -190,6 +381,8 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "*.md
+",
             "fix": [Function],
             "pathGlob": ".prettierignore",
             "purpose": "BEST_PRACTICE",
@@ -198,6 +391,15 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "{
+  \\"devDependencies\\": {
+    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  },
+  \\"scripts\\": {
+    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  }
+}
+",
             "fix": [Function],
             "pathGlob": "package.json",
             "purpose": "BEST_PRACTICE",
@@ -206,6 +408,15 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "// ref: http://json.schemastore.org/prettierrc
+
+module.exports = {
+  trailingComma: 'all',
+  tabWidth: 2,
+  singleQuote: true,
+  printWidth: 150,
+};
+",
             "fix": [Function],
             "pathGlob": "prettier.config.js",
             "purpose": "BEST_PRACTICE",
@@ -223,6 +434,20 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": "{
+  \\"devDependencies\\": {
+    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  },
+  \\"scripts\\": {
+    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  }
+}
+",
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-prettier",
+          "projectVariables": Object {},
+          "relativeFilePath": "package.json",
+        },
         "fix": null,
         "path": "package.json",
         "practiceRef": "prettier.best-practice",
@@ -240,6 +465,8 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "*.md
+",
             "fix": [Function],
             "pathGlob": ".prettierignore",
             "purpose": "BEST_PRACTICE",
@@ -248,6 +475,15 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "{
+  \\"devDependencies\\": {
+    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  },
+  \\"scripts\\": {
+    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  }
+}
+",
             "fix": [Function],
             "pathGlob": "package.json",
             "purpose": "BEST_PRACTICE",
@@ -256,6 +492,15 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "// ref: http://json.schemastore.org/prettierrc
+
+module.exports = {
+  trailingComma: 'all',
+  tabWidth: 2,
+  singleQuote: true,
+  printWidth: 150,
+};
+",
             "fix": [Function],
             "pathGlob": "prettier.config.js",
             "purpose": "BEST_PRACTICE",
@@ -273,6 +518,20 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": "// ref: http://json.schemastore.org/prettierrc
+
+module.exports = {
+  trailingComma: 'all',
+  tabWidth: 2,
+  singleQuote: true,
+  printWidth: 150,
+};
+",
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-prettier",
+          "projectVariables": Object {},
+          "relativeFilePath": "prettier.config.js",
+        },
         "fix": [Function],
         "path": "prettier.config.js",
         "practiceRef": "prettier.best-practice",
@@ -302,6 +561,8 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "*.md
+",
             "fix": [Function],
             "pathGlob": ".prettierignore",
             "purpose": "BEST_PRACTICE",
@@ -310,6 +571,15 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "{
+  \\"devDependencies\\": {
+    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  },
+  \\"scripts\\": {
+    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  }
+}
+",
             "fix": [Function],
             "pathGlob": "package.json",
             "purpose": "BEST_PRACTICE",
@@ -318,6 +588,15 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "// ref: http://json.schemastore.org/prettierrc
+
+module.exports = {
+  trailingComma: 'all',
+  tabWidth: 2,
+  singleQuote: true,
+  printWidth: 150,
+};
+",
             "fix": [Function],
             "pathGlob": "prettier.config.js",
             "purpose": "BEST_PRACTICE",
@@ -340,6 +619,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-directory-structure-src",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/contract/**/*.ts",
+        },
         "fix": null,
         "path": "src/contract/**/*.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -358,6 +643,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -374,6 +660,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -389,6 +676,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -397,6 +685,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -405,6 +695,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -413,6 +704,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -421,6 +713,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -429,6 +722,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -437,6 +731,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -476,6 +771,13 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-directory-structure-src",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/data/clients/coolServiceClient.ts",
+        },
         "fix": null,
         "path": "src/data/clients/coolServiceClient.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -498,6 +800,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -514,6 +817,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -529,6 +833,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -537,6 +842,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -545,6 +852,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -553,6 +861,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -561,6 +870,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -569,6 +879,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -577,6 +888,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -616,6 +928,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-directory-structure-src",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/data/dao/**/*.ts",
+        },
         "fix": null,
         "path": "src/data/dao/**/*.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -633,6 +951,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -649,6 +968,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -664,6 +984,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -672,6 +993,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -680,6 +1003,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -688,6 +1012,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -696,6 +1021,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -704,6 +1030,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -712,6 +1039,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -751,6 +1079,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-directory-structure-src",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/domain/constants.ts",
+        },
         "fix": null,
         "path": "src/domain/constants.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -768,6 +1102,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -784,6 +1119,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -799,6 +1135,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -807,6 +1144,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -815,6 +1154,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -823,6 +1163,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -831,6 +1172,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -839,6 +1181,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -847,6 +1190,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -886,6 +1230,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-directory-structure-src",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/domain/index.ts",
+        },
         "fix": null,
         "path": "src/domain/index.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -904,6 +1254,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -920,6 +1271,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -935,6 +1287,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -943,6 +1296,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -951,6 +1306,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -959,6 +1315,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -967,6 +1324,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -975,6 +1333,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -983,6 +1342,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1022,6 +1382,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-directory-structure-src",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/domain/objects/index.ts",
+        },
         "fix": null,
         "path": "src/domain/objects/index.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -1040,6 +1406,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1056,6 +1423,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1071,6 +1439,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1079,6 +1448,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1087,6 +1458,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1095,6 +1467,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -1103,6 +1476,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1111,6 +1485,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1119,6 +1494,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1158,6 +1534,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-directory-structure-src",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/logic/**/*.ts",
+        },
         "fix": null,
         "path": "src/logic/**/*.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -1176,6 +1558,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1192,6 +1575,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1207,6 +1591,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1215,6 +1600,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1223,6 +1610,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1231,6 +1619,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -1239,6 +1628,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1247,6 +1637,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1255,6 +1646,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1294,6 +1686,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-directory-structure-src",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/model/someFile.ts",
+        },
         "fix": [Function],
         "path": "src/model/someFile.ts",
         "practiceRef": "directory-structure-src.bad-practice.model-dir",
@@ -1311,6 +1709,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1327,6 +1726,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1342,6 +1742,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1350,6 +1751,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1358,6 +1761,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1366,6 +1770,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -1374,6 +1779,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1382,6 +1788,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1390,6 +1797,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1429,6 +1837,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-fails-directory-structure-src",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/services/someFile.ts",
+        },
         "fix": [Function],
         "path": "src/services/someFile.ts",
         "practiceRef": "directory-structure-src.bad-practice.services-dir",
@@ -1446,6 +1860,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1462,6 +1877,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1477,6 +1893,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1485,6 +1902,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1493,6 +1912,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1501,6 +1921,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -1509,6 +1930,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1517,6 +1939,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1525,6 +1948,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1569,6 +1993,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-with-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/contract/handlers/doSomething.ts",
+        },
         "fix": null,
         "path": "src/contract/handlers/doSomething.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -1586,6 +2016,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1602,6 +2033,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1617,6 +2049,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1625,6 +2058,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1633,6 +2068,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1641,6 +2077,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -1649,6 +2086,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1657,6 +2095,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1665,6 +2104,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1704,6 +2144,13 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-with-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/data/clients/svcAwesomeStuff.ts",
+        },
         "fix": null,
         "path": "src/data/clients/svcAwesomeStuff.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -1721,6 +2168,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1737,6 +2185,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1752,6 +2201,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1760,6 +2210,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1768,6 +2220,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1776,6 +2229,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -1784,6 +2238,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1792,6 +2247,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1800,6 +2256,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1839,6 +2296,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-with-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/data/dao/superCoolThingDao/index.ts",
+        },
         "fix": null,
         "path": "src/data/dao/superCoolThingDao/index.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -1856,6 +2319,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1872,6 +2336,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -1887,6 +2352,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1895,6 +2361,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1903,6 +2371,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1911,6 +2380,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -1919,6 +2389,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1927,6 +2398,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -1935,6 +2407,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -1974,6 +2447,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-with-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/domain/constants.ts",
+        },
         "fix": null,
         "path": "src/domain/constants.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -1991,6 +2470,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2007,6 +2487,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2022,6 +2503,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2030,6 +2512,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2038,6 +2522,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2046,6 +2531,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -2054,6 +2540,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2062,6 +2549,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2070,6 +2558,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2109,6 +2598,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-with-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/domain/index.ts",
+        },
         "fix": null,
         "path": "src/domain/index.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -2126,6 +2621,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2142,6 +2638,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2157,6 +2654,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2165,6 +2663,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2173,6 +2673,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2181,6 +2682,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -2189,6 +2691,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2197,6 +2700,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2205,6 +2709,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2244,6 +2749,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-with-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/domain/objects/index.ts",
+        },
         "fix": null,
         "path": "src/domain/objects/index.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -2261,6 +2772,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2277,6 +2789,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2292,6 +2805,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2300,6 +2814,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2308,6 +2824,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2316,6 +2833,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -2324,6 +2842,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2332,6 +2851,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2340,6 +2860,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2379,6 +2900,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-with-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/logic/doSomething.ts",
+        },
         "fix": null,
         "path": "src/logic/doSomething.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -2396,6 +2923,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2412,6 +2940,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2427,6 +2956,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2435,6 +2965,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2443,6 +2975,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2451,6 +2984,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -2459,6 +2993,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2467,6 +3002,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2475,6 +3011,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2514,6 +3051,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-with-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/model/**/*.ts",
+        },
         "fix": null,
         "path": "src/model/**/*.ts",
         "practiceRef": "directory-structure-src.bad-practice.model-dir",
@@ -2532,6 +3075,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2548,6 +3092,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2563,6 +3108,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2571,6 +3117,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2579,6 +3127,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2587,6 +3136,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -2595,6 +3145,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2603,6 +3154,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2611,6 +3163,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2650,6 +3203,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-with-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/services/**/*.ts",
+        },
         "fix": null,
         "path": "src/services/**/*.ts",
         "practiceRef": "directory-structure-src.bad-practice.services-dir",
@@ -2668,6 +3227,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2684,6 +3244,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2699,6 +3260,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2707,6 +3269,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2715,6 +3279,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2723,6 +3288,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -2731,6 +3297,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2739,6 +3306,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2747,6 +3315,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2791,6 +3360,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-without-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/contract/handlers/doSomething.ts",
+        },
         "fix": null,
         "path": "src/contract/handlers/doSomething.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -2808,6 +3383,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2824,6 +3400,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2839,6 +3416,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2847,6 +3425,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2855,6 +3435,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2863,6 +3444,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -2871,6 +3453,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2879,6 +3462,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -2887,6 +3471,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2926,6 +3511,13 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-without-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/data/clients/**/*.ts",
+        },
         "fix": null,
         "path": "src/data/clients/**/*.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -2943,6 +3535,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2959,6 +3552,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -2974,6 +3568,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2982,6 +3577,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2990,6 +3587,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -2998,6 +3596,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -3006,6 +3605,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3014,6 +3614,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3022,6 +3623,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3061,6 +3663,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-without-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/data/dao/**/*.ts",
+        },
         "fix": null,
         "path": "src/data/dao/**/*.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -3078,6 +3686,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3094,6 +3703,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3109,6 +3719,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3117,6 +3728,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3125,6 +3738,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3133,6 +3747,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -3141,6 +3756,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3149,6 +3765,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3157,6 +3774,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3196,6 +3814,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-without-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/domain/constants.ts",
+        },
         "fix": null,
         "path": "src/domain/constants.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -3213,6 +3837,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3229,6 +3854,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3244,6 +3870,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3252,6 +3879,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3260,6 +3889,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3268,6 +3898,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -3276,6 +3907,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3284,6 +3916,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3292,6 +3925,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3331,6 +3965,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-without-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/domain/index.ts",
+        },
         "fix": null,
         "path": "src/domain/index.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -3348,6 +3988,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3364,6 +4005,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3379,6 +4021,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3387,6 +4030,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3395,6 +4040,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3403,6 +4049,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -3411,6 +4058,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3419,6 +4067,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3427,6 +4076,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3466,6 +4116,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-without-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/domain/objects/index.ts",
+        },
         "fix": null,
         "path": "src/domain/objects/index.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -3483,6 +4139,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3499,6 +4156,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3514,6 +4172,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3522,6 +4181,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3530,6 +4191,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3538,6 +4200,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -3546,6 +4209,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3554,6 +4218,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3562,6 +4227,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3601,6 +4267,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-without-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/logic/doSomething.ts",
+        },
         "fix": null,
         "path": "src/logic/doSomething.ts",
         "practiceRef": "directory-structure-src.best-practice",
@@ -3618,6 +4290,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3634,6 +4307,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3649,6 +4323,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3657,6 +4332,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3665,6 +4342,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3673,6 +4351,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -3681,6 +4360,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3689,6 +4369,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3697,6 +4378,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3736,6 +4418,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-without-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/model/**/*.ts",
+        },
         "fix": null,
         "path": "src/model/**/*.ts",
         "practiceRef": "directory-structure-src.bad-practice.model-dir",
@@ -3754,6 +4442,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3770,6 +4459,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3785,6 +4475,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3793,6 +4484,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3801,6 +4494,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3809,6 +4503,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -3817,6 +4512,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3825,6 +4521,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3833,6 +4530,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3872,6 +4570,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-directory-structure-src-without-optionals",
+          "projectVariables": Object {},
+          "relativeFilePath": "src/services/**/*.ts",
+        },
         "fix": null,
         "path": "src/services/**/*.ts",
         "practiceRef": "directory-structure-src.bad-practice.services-dir",
@@ -3890,6 +4594,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/model/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3906,6 +4611,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "src/services/**/*.ts",
               "purpose": "BAD_PRACTICE",
@@ -3921,6 +4627,7 @@ Array [
         "checks": Array [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/contract/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3929,6 +4636,8 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
+",
             "fix": [Function],
             "pathGlob": "src/data/clients/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3937,6 +4646,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/data/dao/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -3945,6 +4655,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/constants.ts",
             "purpose": "BEST_PRACTICE",
@@ -3953,6 +4664,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3961,6 +4673,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/domain/objects/index.ts",
             "purpose": "BEST_PRACTICE",
@@ -3969,6 +4682,7 @@ Array [
           },
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
             "fix": null,
             "pathGlob": "src/logic/**/*.ts",
             "purpose": "BEST_PRACTICE",
@@ -4013,6 +4727,12 @@ Array [
   FilePracticeEvaluation {
     "checks": Array [
       FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": null,
+          "projectRootDirectory": "/home/uladkasach/git/more/declapract/src/logic/__test_assets__/example-project-passes-testing-with-bad-practices-in-ignored-dirs",
+          "projectVariables": Object {},
+          "relativeFilePath": "**/*.test.integration.ts",
+        },
         "fix": null,
         "path": "**/*.test.integration.ts",
         "practiceRef": "testing.bad-practice.old-extension-pattern",
@@ -4031,6 +4751,7 @@ Array [
           "checks": Array [
             FileCheckDeclaration {
               "check": [Function],
+              "contents": null,
               "fix": [Function],
               "pathGlob": "**/*.test.integration.ts",
               "purpose": "BAD_PRACTICE",

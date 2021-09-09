@@ -1,9 +1,10 @@
 import { FileCheckPurpose, FileCheckType } from '../../../../../domain';
+import { doesDirectoryExist } from '../../../../../utils/fileio/doesDirectoryExist';
+import { readFileAsync } from '../../../../../utils/fileio/readFileAsync';
 import { createExampleFileCheckContext } from '../../../../__test_assets__/createExampleFileCheckContext';
 import { testAssetsDirectoryPath } from '../../../../__test_assets__/dirPath';
 import { compile } from '../../../../commands/compile';
 import { getFileCheckDeclaration } from './getFileCheckDeclaration';
-import { doesDirectoryExist } from '../../../../../utils/fileio/doesDirectoryExist';
 
 const exampleContext = createExampleFileCheckContext();
 
@@ -192,12 +193,16 @@ provider "aws" {
     }
 
     // check that the fix function works correctly
-    const fixResultFileNotDefined = await declaration.fix!(null, exampleContext);
+    const declaredFileContents = await readFileAsync({
+      filePath: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/prettier/best-practice/package.json`,
+    });
+
+    const fixResultFileNotDefined = await declaration.fix!(null, { ...exampleContext, declaredFileContents });
     expect(fixResultFileNotDefined!.contents!.trim()).toEqual(
       JSON.stringify(
         {
           devDependencies: {
-            prettier: "@declapract{check.minVersion('2.0.0')}", // TODO: figure out how to actually get this to be a real value after fix applied...
+            prettier: '2.0.0',
           },
           scripts: {
             format: "prettier --write '**/*.ts' --config ./prettier.config.js",
@@ -207,8 +212,42 @@ provider "aws" {
         2,
       ),
     );
-    const fixResultFileDefined = await declaration.fix!('anything else', exampleContext);
-    expect(fixResultFileDefined.contents).toEqual('anything else'); // should not change it. fix only changes the file when file does not exist
+    const fixResultFileDefined = await declaration.fix!(
+      JSON.stringify(
+        {
+          devDependencies: {
+            prettier: '1.1.0',
+          },
+          scripts: {
+            otherStuff: "echo 'still do the other stuff without changing'",
+            format: "prettier --do-it '**/*.ts|js|otherstuff' --config ./prettier.old-config.js",
+            otherStuffWithoutChangingPosition:
+              "echo 'still do the other stuff without changing, in the same order as before'",
+          },
+        },
+        null,
+        2,
+      ),
+      { ...exampleContext, declaredFileContents },
+    );
+    expect(fixResultFileDefined.contents).toEqual(
+      // should fix all of the existing keys and replace them with their values
+      JSON.stringify(
+        {
+          devDependencies: {
+            prettier: '2.0.0', // should also bump the version of the dep
+          },
+          scripts: {
+            otherStuff: "echo 'still do the other stuff without changing'",
+            format: "prettier --write '**/*.ts' --config ./prettier.config.js", // notice that its position remains the same around the other scripts
+            otherStuffWithoutChangingPosition:
+              "echo 'still do the other stuff without changing, in the same order as before'",
+          },
+        },
+        null,
+        2,
+      ),
+    );
   });
   it('should get file declaration correctly for an optional file existence declaration (e.g., user wants to specify directory structure)', async () => {
     const declaration = await getFileCheckDeclaration({

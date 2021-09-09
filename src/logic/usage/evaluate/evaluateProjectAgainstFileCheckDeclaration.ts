@@ -1,6 +1,4 @@
 import glob from 'fast-glob';
-import { string } from 'joi';
-import { AwaitKeyword } from 'typescript';
 
 import {
   Awaited,
@@ -71,7 +69,12 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
       const foundContents = await readFileIfExistsAsync({ filePath });
 
       // define the context of this file check
-      const context = new FileCheckContext({ projectRootDirectory, relativeFilePath: relativePath, projectVariables });
+      const context = new FileCheckContext({
+        projectRootDirectory,
+        relativeFilePath: relativePath,
+        projectVariables,
+        declaredFileContents: check.contents,
+      });
 
       // check the file contents against declared check
       try {
@@ -106,6 +109,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
           path: relativePath,
           result,
           reason: null,
+          context,
         });
       } catch (error) {
         // determine the result of the check based on the context
@@ -136,6 +140,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
           path: relativePath,
           result,
           reason: error.message,
+          context,
         });
       }
     }),
