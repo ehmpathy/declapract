@@ -6,3 +6,4 @@ export * from './ProjectCheckDeclaration';
 export * from './FilePracticeEvaluation';
 export * from './FileActionPlan';
 export * from './FileCheckContext';
+export * from './FileCheckDeclarationInput';
