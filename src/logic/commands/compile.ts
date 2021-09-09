@@ -24,11 +24,14 @@ export const compile = async ({
 }) => {
   // list all the files in the source dir
   const filePaths = await listFilesInDirectory({ directory: sourceDirectory });
-  console.log(`📝 compiling ${filePaths.length} files...`);
+  const relevantFilePaths = filePaths.filter(
+    (filePath) => !filePath.endsWith('.declapract.test.ts') && !filePath.endsWith('.declapract.test.ts.snap'), // no metafile test files // no metafile snapshot files,
+  ); // skip the test files
+  console.log(`📝 compiling ${relevantFilePaths.length} files...`); // tslint:disable-line: no-console
 
   // write each one to the distribution directory
   await Promise.all(
-    filePaths.map((filePath) =>
+    relevantFilePaths.map((filePath) =>
       copyFileAsync({
         from: `${sourceDirectory}/${filePath}`,
         to: `${distributionDirectory}/${serializeGlobPathForNpmPackaging(filePath)}`,

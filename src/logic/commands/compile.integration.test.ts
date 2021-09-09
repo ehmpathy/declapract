@@ -25,7 +25,10 @@ describe('compile', () => {
     // and check that the files are correctly defined
     const filesInDistDir = await listFilesInDirectory({ directory: distDir });
     expect(filesInDistDir).toContain(
-      'practices/directory-structure-src/best-practice/src/logic/<star><star>/<star>.ts.declapract.ts',
+      'practices/directory-structure-src/best-practice/src/logic/<star><star>/<star>.ts.declapract.ts', // should replace `*` with `<star>`
+    );
+    expect(filesInDistDir).not.toContain(
+      'practices/prettier/best-practice/package.json.declapract.test.ts', // should skip .declapract.test.ts files
     );
     expect(filesInDistDir.sort()).toMatchSnapshot();
 
