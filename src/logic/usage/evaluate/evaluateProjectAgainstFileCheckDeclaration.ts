@@ -70,10 +70,10 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
 
       // define the context of this file check
       const context = new FileCheckContext({
-        projectRootDirectory,
         relativeFilePath: relativePath,
         projectVariables,
         declaredFileContents: check.contents,
+        getProjectRootDirectory: () => projectRootDirectory,
       });
 
       // check the file contents against declared check
