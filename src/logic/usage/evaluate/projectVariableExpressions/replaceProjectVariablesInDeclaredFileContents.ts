@@ -1,3 +1,5 @@
+import flatten from 'flat';
+
 import { ProjectVariablesImplementation } from '../../../../domain';
 import { replaceAll } from '../../../../utils/stringPolyfill/replaceAll';
 import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
@@ -12,17 +14,20 @@ export const replaceProjectVariablesInDeclaredFileContents = ({
 }) => {
   // find the variables declared in the file contents
   const uniqueDeclaredVariableExpressions = [
-    ...new Set(Array.from(fileContents.matchAll(new RegExp(/\@declapract\{variable\.\w+\}/g)), (m) => m[0])),
+    ...new Set(Array.from(fileContents.matchAll(new RegExp(/\@declapract\{variable.[\w\.]+\}/g)), (m) => m[0])),
   ];
+
+  // flatten the project variables so we can dereference by nested keys (e.g., `variable.databaseUserName.serviceUser`)
+  const flattenedProjectVariables: Record<string, string> = flatten(projectVariables);
 
   // lookup each one and replace it (or throw an error if the variable was not defined)
   const replacedFileContents = uniqueDeclaredVariableExpressions.reduce((contents, thisVariableExpression) => {
-    const variableKey = (new RegExp(/@declapract\{variable\.(\w+)\}/).exec(thisVariableExpression) ?? [])[1];
+    const variableKey = (new RegExp(/@declapract\{variable\.([\w\.]+)\}/).exec(thisVariableExpression) ?? [])[1];
     if (!variableKey)
       throw new UnexpectedCodePathError(
         `could not extract variableKey from variableExpression '${thisVariableExpression}'`,
       );
-    const variableValue = projectVariables[variableKey];
+    const variableValue = flattenedProjectVariables[variableKey];
     if (!variableValue)
       throw new UserInputError(
         `variable was declared in file contents but its value was not defined: '${variableKey}' (declared by '${thisVariableExpression}')`,
