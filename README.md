@@ -15,6 +15,7 @@ Scalable software best practices. Declare, plan, and apply software practices ac
 * [Purpose](#purpose)
 * [Usage](#usage)
 * [Commands](#commands)
+* [Philosophy](#philosophy)
 * [Declarations](#declarations)
 * [Contribution](#contribution)
 <!-- tocstop -->
@@ -97,6 +98,7 @@ Next, you'll need to declare your practices, use-cases, and examples. See the do
 # Commands
 <!-- commands -->
 * [`declapract apply`](#declapract-apply)
+* [`declapract compile`](#declapract-compile)
 * [`declapract help [COMMAND]`](#declapract-help-command)
 * [`declapract plan`](#declapract-plan)
 * [`declapract validate`](#declapract-validate)
@@ -111,11 +113,32 @@ USAGE
 
 OPTIONS
   -c, --config=config      (required) [default: declapract.use.yml] path to the declapract usage config yml
+  -f, --file=file          the file path of a specific file you want to scope checking for
   -h, --help               show CLI help
   -p, --practice=practice  the name of a specific practice you want to scope checking for
 ```
 
-_See code: [dist/contract/commands/apply.ts](https://github.com/uladkasach/declapract/blob/v0.0.4/dist/contract/commands/apply.ts)_
+_See code: [dist/contract/commands/apply.ts](https://github.com/uladkasach/declapract/blob/v0.8.2/dist/contract/commands/apply.ts)_
+
+## `declapract compile`
+
+compile the declared declarations so that they can be packaged and distributed by npm safely
+
+```
+USAGE
+  $ declapract compile
+
+OPTIONS
+  -d, --distributionDirectory=distributionDirectory  (required) [default: dist] the distribution directory to which we
+                                                     will compile the declarations
+
+  -h, --help                                         show CLI help
+
+  -s, --sourceDirectory=sourceDirectory              (required) [default: src] the source directory which contains the
+                                                     declarations to compile
+```
+
+_See code: [dist/contract/commands/compile.ts](https://github.com/uladkasach/declapract/blob/v0.8.2/dist/contract/commands/compile.ts)_
 
 ## `declapract help [COMMAND]`
 
@@ -144,11 +167,12 @@ USAGE
 
 OPTIONS
   -c, --config=config      (required) [default: declapract.use.yml] path to the declapract usage config yml
+  -f, --file=file          the file path of a specific file you want to scope checking for
   -h, --help               show CLI help
   -p, --practice=practice  the name of a specific practice you want to scope checking for
 ```
 
-_See code: [dist/contract/commands/plan.ts](https://github.com/uladkasach/declapract/blob/v0.0.4/dist/contract/commands/plan.ts)_
+_See code: [dist/contract/commands/plan.ts](https://github.com/uladkasach/declapract/blob/v0.8.2/dist/contract/commands/plan.ts)_
 
 ## `declapract validate`
 
@@ -163,7 +187,7 @@ OPTIONS
   -h, --help           show CLI help
 ```
 
-_See code: [dist/contract/commands/validate.ts](https://github.com/uladkasach/declapract/blob/v0.0.4/dist/contract/commands/validate.ts)_
+_See code: [dist/contract/commands/validate.ts](https://github.com/uladkasach/declapract/blob/v0.8.2/dist/contract/commands/validate.ts)_
 <!-- commandsstop -->
 
 # Philosophy

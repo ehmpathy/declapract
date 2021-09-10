@@ -17,6 +17,10 @@ export default class Apply extends Command {
       char: 'p',
       description: 'the name of a specific practice you want to scope checking for',
     }),
+    file: flags.string({
+      char: 'f',
+      description: 'the file path of a specific file you want to scope checking for',
+    }),
   };
 
   public async run() {
@@ -27,7 +31,13 @@ export default class Apply extends Command {
     const configPath = config.slice(0, 1) === '/' ? config : `${process.cwd()}/${config}`; // if starts with /, consider it as an absolute path
     await apply({
       usePracticesConfigPath: configPath,
-      filter: flags.practice ? { practiceNames: [flags.practice] } : undefined,
+      filter:
+        flags.practice || flags.file
+          ? {
+              practiceNames: flags.practice ? [flags.practice] : undefined,
+              filePaths: flags.file ? [flags.file] : undefined,
+            }
+          : undefined,
     });
   }
 }

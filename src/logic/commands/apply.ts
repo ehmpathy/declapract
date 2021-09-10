@@ -12,6 +12,7 @@ export const apply = async ({
   usePracticesConfigPath: string;
   filter?: {
     practiceNames?: string[];
+    filePaths?: string[];
   };
 }) => {
   // read the usage config
@@ -37,7 +38,11 @@ export const apply = async ({
   const plansToApply = (
     await filterPracticeEvaluationsFromPlans({
       plans,
-      filter: { byFixable: true, byPracticeNames: filter?.practiceNames ?? undefined },
+      filter: {
+        byFixable: true,
+        byPracticeNames: filter?.practiceNames ?? undefined,
+        byFilePaths: filter?.filePaths ?? undefined,
+      },
     })
   ).filter((plan) => plan.action === RequiredAction.FIX_AUTOMATIC);
 
