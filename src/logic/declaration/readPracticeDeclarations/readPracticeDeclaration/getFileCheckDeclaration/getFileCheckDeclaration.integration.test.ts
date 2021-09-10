@@ -6,6 +6,7 @@ import { testAssetsDirectoryPath } from '../../../../__test_assets__/dirPath';
 import { compile } from '../../../../commands/compile';
 import { getFileCheckDeclaration } from './getFileCheckDeclaration';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
+import { replaceProjectVariablesInDeclaredFileContents } from '../../../../usage/evaluate/projectVariableExpressions/replaceProjectVariablesInDeclaredFileContents';
 
 const exampleContext = createExampleFileCheckContext();
 
@@ -164,7 +165,7 @@ provider "aws" {
       `.trim(),
     );
     const fixResultFileDefined = await declaration.fix!('anything else', context);
-    expect(fixResultFileDefined).toEqual({ contents: 'anything else' }); // should not change it. fix only changes the file when file does not exist
+    expect(fixResultFileDefined).toEqual({}); // should change nothing
   });
   it('should get file declaration correctly for a json file with a contains check', async () => {
     const declaredProjectDirectory = `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/prettier/best-practice`;
@@ -177,7 +178,7 @@ provider "aws" {
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, declaredFileContents };
+    const context = { ...exampleContext, relativeFilePath: declaredFileCorePath, declaredFileContents };
 
     // check that the properties look right
     expect(declaration.required).toEqual(true);
@@ -280,7 +281,7 @@ provider "aws" {
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, declaredFileContents };
+    const context = { ...exampleContext, declaredFileContents, required: false };
 
     // check that the properties look right
     expect(declaration.required).toEqual(false);
@@ -302,7 +303,7 @@ provider "aws" {
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, declaredFileContents };
+    const context = { ...exampleContext, declaredFileContents, required: false };
 
     // check that the properties look right
     expect(declaration.required).toEqual(false);
@@ -310,7 +311,7 @@ provider "aws" {
     expect(declaration.pathGlob).toMatch(/src\/data\/clients\/\*\*\/\*\.ts$/);
 
     // check that the check function works
-    await declaration.check(null, exampleContext); // should allow null, since file is optional
+    await declaration.check(null, context); // should allow null, since file is optional
     await declaration.check(
       // should allow correct definition
       `
@@ -346,7 +347,7 @@ import { AWS } from 'aws-sdk';
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, declaredFileContents };
+    const context = { ...exampleContext, declaredFileContents, required: false };
 
     // check that the properties look right
     expect(declaration.required).toEqual(false);
@@ -354,7 +355,7 @@ import { AWS } from 'aws-sdk';
     expect(declaration.pathGlob).toMatch(/src\/\*\*\/sleep\.ts$/);
 
     // check that the check function works
-    await declaration.check(null, exampleContext); // should allow null
+    await declaration.check(null, context); // should allow null
     await declaration.check(
       // should allow correct definition
       `${`
@@ -387,7 +388,7 @@ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, declaredFileContents };
+    const context = { ...exampleContext, relativeFilePath: declaredFileCorePath, declaredFileContents };
 
     // check that the properties look right
     expect(declaration.required).toEqual(true);
@@ -499,6 +500,14 @@ this is a super awesome package that you should definitely use
           organizationName: 'org-of-awesomeness',
           packageDescription: 'this is a super awesome package that you should definitely use',
         },
+        declaredFileContents: replaceProjectVariablesInDeclaredFileContents({
+          projectVariables: {
+            packageName: 'awesome-package',
+            organizationName: 'org-of-awesomeness',
+            packageDescription: 'this is a super awesome package that you should definitely use',
+          },
+          fileContents: context.declaredFileContents!,
+        }),
       },
     );
     try {
@@ -524,6 +533,14 @@ this is a super awesome package that you should definitely use
             organizationName: 'org-of-awesomeness',
             packageDescription: 'this is a super awesome package that you should definitely use',
           },
+          declaredFileContents: replaceProjectVariablesInDeclaredFileContents({
+            projectVariables: {
+              packageName: 'renamed-package',
+              organizationName: 'org-of-awesomeness',
+              packageDescription: 'this is a super awesome package that you should definitely use',
+            },
+            fileContents: context.declaredFileContents!,
+          }),
         },
       );
       fail('should not reach here');
@@ -540,6 +557,14 @@ this is a super awesome package that you should definitely use
         organizationName: 'org-of-awesomeness',
         packageDescription: 'this is a super awesome package that you should definitely use',
       },
+      declaredFileContents: replaceProjectVariablesInDeclaredFileContents({
+        projectVariables: {
+          packageName: 'awesome-package',
+          organizationName: 'org-of-awesomeness',
+          packageDescription: 'this is a super awesome package that you should definitely use',
+        },
+        fileContents: context.declaredFileContents!,
+      }),
     });
     expect(fixResult.contents).toContain(
       '[![License](https://img.shields.io/npm/l/awesome-package.svg)](https://github.com/org-of-awesomeness/awesome-package/blob/master/package.json)',

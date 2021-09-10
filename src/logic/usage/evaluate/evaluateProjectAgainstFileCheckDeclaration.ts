@@ -13,6 +13,7 @@ import { FileCheckContext } from '../../../domain/objects/FileCheckContext';
 import { readFileIfExistsAsync } from '../../../utils/fileio/readFileIfExistsAsync';
 import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { UnexpectedCodePathError } from '../../UnexpectedCodePathError';
+import { replaceProjectVariablesInDeclaredFileContents } from './projectVariableExpressions/replaceProjectVariablesInDeclaredFileContents';
 
 const checkApplyingFixWouldChangeSomething = ({
   fixResults,
@@ -72,7 +73,13 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
       const context = new FileCheckContext({
         relativeFilePath: relativePath,
         projectVariables,
-        declaredFileContents: check.contents,
+        declaredFileContents: check.contents
+          ? replaceProjectVariablesInDeclaredFileContents({
+              projectVariables,
+              fileContents: check.contents,
+            })
+          : null,
+        required: check.required,
         getProjectRootDirectory: () => projectRootDirectory,
       });
 

@@ -9,18 +9,36 @@ const schema = Joi.object().keys({
     .allow(null)
     .required(),
   getProjectRootDirectory: Joi.function().required(),
+  required: Joi.boolean().required(),
 });
 
 /**
  * info about the context in which a file is checked
  */
 export interface FileCheckContext {
+  /**
+   * the path of the file being checked, relative to the project root
+   */
   relativeFilePath: string;
+
+  /**
+   * the variables declared for this project
+   */
   projectVariables: ProjectVariablesImplementation;
+
   /**
    * the file contents that were declared to be checked against
    */
   declaredFileContents: string | null;
+
+  /**
+   * defines whether this file is required or optional
+   */
+  required: boolean;
+
+  /**
+   * enables getting the root directory of the project being evaluated
+   */
   getProjectRootDirectory: () => string; // as a function, to prevent it showing up in snapshots (since root will be different on ci vs local test machine) // TODO: think through if there's a better way to handle this
 }
 export class FileCheckContext extends DomainObject<FileCheckContext> implements FileCheckContext {

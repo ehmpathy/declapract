@@ -146,10 +146,15 @@ describe('fixFile', () => {
     const fileToCheckRelativePath = 'src/old-syntax.test.integration.ts';
     const fileToCreateRelativePath = 'src/old-syntax.integration.test.ts';
 
+    const expectedContent = `describe('some integration test', () => {
+  test.todo('something');
+});
+`;
+
     // overwrite the contents of the file we're planning on fixing in this test, to get it back to the failing state
     await writeFileAsync({
       path: `${projectRootDirectory}/${fileToCheckRelativePath}`,
-      content: "describe('some integration test', () => { test.todo('something') })", // any contents, really
+      content: expectedContent, // any contents, really
     });
     if (await doesFileExist({ filePath: `${projectRootDirectory}/${fileToCreateRelativePath}` }))
       await removeFileAsync({
@@ -195,6 +200,6 @@ describe('fixFile', () => {
     const createdFileContents = await readFileAsync({
       filePath: `${projectRootDirectory}/${fileToCreateRelativePath}`,
     });
-    expect(createdFileContents).toEqual("describe('some integration test', () => { test.todo('something') })");
+    expect(createdFileContents).toEqual(expectedContent);
   });
 });

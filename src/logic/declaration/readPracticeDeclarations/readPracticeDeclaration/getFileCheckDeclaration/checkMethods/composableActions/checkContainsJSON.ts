@@ -1,9 +1,9 @@
-import { UnexpectedCodePathError } from '../../../../../UnexpectedCodePathError';
+import { UnexpectedCodePathError } from '../../../../../../UnexpectedCodePathError';
 import {
   checkDoesFoundValuePassesMinVersionCheck,
   getMinVersionFromCheckMinVersionExpression,
   isCheckMinVersionExpression,
-} from '../checkExpressions/check.minVersion';
+} from '../../checkExpressions/check.minVersion';
 import { checkContainsSubstring } from './checkContainsSubstring';
 
 /**

@@ -5,18 +5,17 @@ import {
   FileCheckType,
   FileFixFunction,
 } from '../../../../../domain';
-import { FileCheckContext } from '../../../../../domain/objects/FileCheckContext';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync } from '../../../../../utils/fileio/readFileAsync';
 import { deserializeGlobPathFromNpmPackaging } from '../../../../commands/compile';
 import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
-import { checkContainsJSON } from './checkMethods/checkContainsJSON';
-import { checkContainsSubstring } from './checkMethods/checkContainsSubstring';
-import { checkEqualsString } from './checkMethods/checkEqualsString';
-import { checkExists } from './checkMethods/checkExists';
+import { containsCheck } from './checkMethods/containsCheck';
+import { existsCheck } from './checkMethods/existsCheck';
+import { strictEqualsCheck } from './checkMethods/strictEqualsCheck';
 import { fixContainsJSONByReplacingKeyValues } from './fixMethods/fixContainsJSONByReplacingKeyValues';
+import { fixContainsWhenFileDoesntExistBySettingDeclaredContents } from './fixMethods/fixContainsWhenFileDoesntExistBySettingDeclaredContents';
+import { fixEqualsBySettingDeclaredContents } from './fixMethods/fixEqualsBySettingDeclaredContents';
 import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
-import { getParsedDeclaredContentsFromContext } from './checkExpressions/getParsedDeclaredContentsFromContext';
 
 export const getFileCheckDeclaration = async ({
   purpose,
@@ -43,48 +42,14 @@ export const getFileCheckDeclaration = async ({
   const required = !declaredCheckInputs?.optional; // if not explicitly opted-in to be optional, then its required
 
   // define the check fns
-  const withOptionalityCheck = (logic: FileCheckFunction): FileCheckFunction => {
-    return async (foundContents: string | null, context: FileCheckContext) => {
-      if (!required && foundContents === null) return; // if this file is optional, then just return here
-      await logic(foundContents, context);
-    };
-  };
-  const strictEqualsCheck: FileCheckFunction = withOptionalityCheck(
-    (foundContents: string | null, context: FileCheckContext) => {
-      checkExists(foundContents);
-      const parsedDeclaredContents = getParsedDeclaredContentsFromContext(context);
-      checkEqualsString({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
-    },
-  );
-  const containsCheck = withOptionalityCheck(async (foundContents: string | null, context: FileCheckContext) => {
-    checkExists(foundContents);
-    const parsedDeclaredContents = getParsedDeclaredContentsFromContext(context);
-    if (declaredFileCorePath.endsWith('.json')) {
-      checkContainsJSON({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
-    } else {
-      checkContainsSubstring({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
-    }
-  });
-  const existsCheck = withOptionalityCheck(async (foundContents: string | null) => {
-    checkExists(foundContents);
-  });
-
   // define the fix fns
   const strictEqualsFix: FileFixFunction | null =
-    purpose === FileCheckPurpose.BEST_PRACTICE
-      ? (_, context) => ({
-          contents: getParsedDeclaredContentsFromContext(context), // i.e., replace the file with the expected contents, to fix for best practice
-        })
-      : null; // no fix defined for this check for badPractice
+    purpose === FileCheckPurpose.BEST_PRACTICE ? fixEqualsBySettingDeclaredContents : null; // TODO: think of a fix for bad practice case
   const containsFix: FileFixFunction | null = (() => {
     if (!declaredContents) return null; // contains fixes can only be defined when declared contents are defined (side note: we shouldn't be needing a contains fix otherwise, since contains type only occurs if there is a file)
     if (purpose === FileCheckPurpose.BEST_PRACTICE) {
       if (pathGlob.endsWith('.json')) return fixContainsJSONByReplacingKeyValues;
-      return (foundContents: string | null, context: FileCheckContext) => {
-        if (foundContents) return { contents: foundContents }; // do nothing if it already has contents; we can't actually fix it in this case
-        const parsedDeclaredContents = getParsedDeclaredContentsFromContext(context);
-        return { contents: parsedDeclaredContents }; // i.e., create a file with that content when file doesn't exist
-      };
+      return fixContainsWhenFileDoesntExistBySettingDeclaredContents;
     }
     return null; // otherwise, no fix
   })();

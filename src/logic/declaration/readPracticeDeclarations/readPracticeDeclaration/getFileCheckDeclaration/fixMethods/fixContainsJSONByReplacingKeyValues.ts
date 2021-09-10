@@ -5,7 +5,6 @@ import {
   getMinVersionFromCheckMinVersionExpression,
   isCheckMinVersionExpression,
 } from '../checkExpressions/check.minVersion';
-import { getParsedDeclaredContentsFromContext } from '../checkExpressions/getParsedDeclaredContentsFromContext';
 
 /**
  * e.g., replace a `@declapract{check.minVersion('..')}` strings in the declared contents
@@ -71,7 +70,7 @@ const deepReplaceCurrentKeyValuesWithDesiredKeyValues = ({
 
 export const fixContainsJSONByReplacingKeyValues: FileFixFunction = (contents, context) => {
   // check that declared contents exist; if not, then nothing to do
-  const declaredContents = getParsedDeclaredContentsFromContext(context);
+  const declaredContents = context.declaredFileContents;
   if (!declaredContents) return {}; // if no declared file contents, then we cant change anything
 
   // check that the file exists; if not,

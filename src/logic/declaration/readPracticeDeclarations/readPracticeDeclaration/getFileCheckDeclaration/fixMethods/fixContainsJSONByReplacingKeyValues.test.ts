@@ -122,18 +122,4 @@ describe('fixContainsJSONByReplacingKeyValues', () => {
       expect(fixedPackageJSON.devDependencies.prettier).toEqual('2.0.0');
     });
   });
-  describe('variables', () => {
-    it('should substitute variable expressions to the project variable value', async () => {
-      // fix them
-      const { contents: fixedContents } = await fixContainsJSONByReplacingKeyValues(exampleFoundContents, ({
-        declaredFileContents: exampleDesiredWithVariableExpression,
-        projectVariables: { serviceName: 'svc-awesomeness' },
-      } as any) as FileCheckContext);
-
-      // parse the fixed contents
-      const fixedPackageJSON = JSON.parse(fixedContents!);
-      expect(fixedPackageJSON).toHaveProperty('name');
-      expect(fixedPackageJSON.name).toEqual('svc-awesomeness');
-    });
-  });
 });

@@ -1,7 +1,7 @@
-import { ProjectVariablesImplementation } from '../../../../../../domain';
-import { replaceAll } from '../../../../../../utils/stringPolyfill/replaceAll';
-import { UnexpectedCodePathError } from '../../../../../UnexpectedCodePathError';
-import { UserInputError } from '../../../../../UserInputError';
+import { ProjectVariablesImplementation } from '../../../../domain';
+import { replaceAll } from '../../../../utils/stringPolyfill/replaceAll';
+import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
+import { UserInputError } from '../../../UserInputError';
 
 export const replaceProjectVariablesInDeclaredFileContents = ({
   projectVariables,
