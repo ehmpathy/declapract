@@ -5,6 +5,7 @@ import {
   getMinVersionFromCheckMinVersionExpression,
   isCheckMinVersionExpression,
 } from '../checkExpressions/check.minVersion';
+import { getParsedDeclaredContentsFromContext } from '../checkExpressions/getParsedDeclaredContentsFromContext';
 
 /**
  * e.g., replace a `@declapract{check.minVersion('..')}` strings in the declared contents
@@ -69,15 +70,21 @@ const deepReplaceCurrentKeyValuesWithDesiredKeyValues = ({
 };
 
 export const fixContainsJSONByReplacingKeyValues: FileFixFunction = (contents, context) => {
+  // check that declared contents exist; if not, then nothing to do
+  const declaredContents = getParsedDeclaredContentsFromContext(context);
+  if (!declaredContents) return {}; // if no declared file contents, then we cant change anything
+
+  // check that the file exists; if not,
   if (!contents)
     return {
       contents: context.declaredFileContents
-        ? deepReplaceAllCheckExpressionsFromDeclaredContentsString({ declaredContents: context.declaredFileContents }) // replace the check expressions, if declaredFileContents
+        ? deepReplaceAllCheckExpressionsFromDeclaredContentsString({ declaredContents }) // replace the check expressions, if declaredFileContents
         : context.declaredFileContents,
     }; // if the file DNE
-  if (!context.declaredFileContents) return {}; // if no declared file contents, then we cant change anything
+
+  // parse the contents
   const foundPackageJSON = JSON.parse(contents);
-  const declaredPackageJSON = JSON.parse(context.declaredFileContents);
+  const declaredPackageJSON = JSON.parse(declaredContents);
 
   // for each key in declared package json, replace the key if it exists in the found package json
   const fixedPackageJSON = deepReplaceCurrentKeyValuesWithDesiredKeyValues({

@@ -10,13 +10,13 @@ import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync } from '../../../../../utils/fileio/readFileAsync';
 import { deserializeGlobPathFromNpmPackaging } from '../../../../commands/compile';
 import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
-import { replaceProjectVariablesInDeclaredFileContents } from '../../../replaceProjectVariablesInDeclaredFileContents';
 import { checkContainsJSON } from './checkMethods/checkContainsJSON';
 import { checkContainsSubstring } from './checkMethods/checkContainsSubstring';
 import { checkEqualsString } from './checkMethods/checkEqualsString';
 import { checkExists } from './checkMethods/checkExists';
 import { fixContainsJSONByReplacingKeyValues } from './fixMethods/fixContainsJSONByReplacingKeyValues';
 import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
+import { getParsedDeclaredContentsFromContext } from './checkExpressions/getParsedDeclaredContentsFromContext';
 
 export const getFileCheckDeclaration = async ({
   purpose,
@@ -42,18 +42,6 @@ export const getFileCheckDeclaration = async ({
   const pathGlob = deserializeGlobPathFromNpmPackaging(declaredFileCorePath); // its the path relative to the project root (note that this path can is technically a glob (e.g., can be `src/**/*.ts`))
   const required = !declaredCheckInputs?.optional; // if not explicitly opted-in to be optional, then its required
 
-  // define how to get the parsed declared contents
-  const getParsedDeclaredContents = (context: FileCheckContext) => {
-    const projectVariables = context.projectVariables; // grab the project variables
-    const declaredContentsPostVariableReplacement = declaredContents
-      ? replaceProjectVariablesInDeclaredFileContents({
-          projectVariables,
-          fileContents: declaredContents,
-        })
-      : null;
-    return declaredContentsPostVariableReplacement;
-  };
-
   // define the check fns
   const withOptionalityCheck = (logic: FileCheckFunction): FileCheckFunction => {
     return async (foundContents: string | null, context: FileCheckContext) => {
@@ -64,13 +52,13 @@ export const getFileCheckDeclaration = async ({
   const strictEqualsCheck: FileCheckFunction = withOptionalityCheck(
     (foundContents: string | null, context: FileCheckContext) => {
       checkExists(foundContents);
-      const parsedDeclaredContents = getParsedDeclaredContents(context);
+      const parsedDeclaredContents = getParsedDeclaredContentsFromContext(context);
       checkEqualsString({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
     },
   );
   const containsCheck = withOptionalityCheck(async (foundContents: string | null, context: FileCheckContext) => {
     checkExists(foundContents);
-    const parsedDeclaredContents = getParsedDeclaredContents(context);
+    const parsedDeclaredContents = getParsedDeclaredContentsFromContext(context);
     if (declaredFileCorePath.endsWith('.json')) {
       checkContainsJSON({ declaredContents: parsedDeclaredContents!, foundContents: foundContents! });
     } else {
@@ -85,7 +73,7 @@ export const getFileCheckDeclaration = async ({
   const strictEqualsFix: FileFixFunction | null =
     purpose === FileCheckPurpose.BEST_PRACTICE
       ? (_, context) => ({
-          contents: getParsedDeclaredContents(context), // i.e., replace the file with the expected contents, to fix for best practice
+          contents: getParsedDeclaredContentsFromContext(context), // i.e., replace the file with the expected contents, to fix for best practice
         })
       : null; // no fix defined for this check for badPractice
   const containsFix: FileFixFunction | null = (() => {
@@ -94,7 +82,7 @@ export const getFileCheckDeclaration = async ({
       if (pathGlob.endsWith('.json')) return fixContainsJSONByReplacingKeyValues;
       return (foundContents: string | null, context: FileCheckContext) => {
         if (foundContents) return { contents: foundContents }; // do nothing if it already has contents; we can't actually fix it in this case
-        const parsedDeclaredContents = getParsedDeclaredContents(context);
+        const parsedDeclaredContents = getParsedDeclaredContentsFromContext(context);
         return { contents: parsedDeclaredContents }; // i.e., create a file with that content when file doesn't exist
       };
     }

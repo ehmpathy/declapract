@@ -14,8 +14,18 @@ const exampleDesiredContents = `
 }
     `.trim();
 
+const exampleDesiredWithVariableExpression = `
+{
+  "name": "@declapract{variable.serviceName}",
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
+  }
+}
+    `.trim();
+
 const exampleFoundContents = `
 {
+  "name": "goolash",
   "version": "0.8.2",
   "main": "src/index.js",
   "scripts": {
@@ -58,6 +68,7 @@ describe('fixContainsJSONByReplacingKeyValues', () => {
     // fix them
     const { contents: fixedContents } = await fixContainsJSONByReplacingKeyValues(exampleFoundContents, {
       declaredFileContents: exampleDesiredContents,
+      projectVariables: {},
     } as FileCheckContext);
 
     // parse the fixed contents
@@ -74,6 +85,7 @@ describe('fixContainsJSONByReplacingKeyValues', () => {
     // fix them
     const { contents: fixedContents } = await fixContainsJSONByReplacingKeyValues(exampleFoundContents, {
       declaredFileContents: exampleDesiredContents,
+      projectVariables: {},
     } as FileCheckContext);
 
     // parse the fixed contents
@@ -86,6 +98,7 @@ describe('fixContainsJSONByReplacingKeyValues', () => {
       // fix them
       const { contents: fixedContents } = await fixContainsJSONByReplacingKeyValues(exampleFoundContents, {
         declaredFileContents: exampleDesiredContents,
+        projectVariables: {},
       } as FileCheckContext);
 
       // parse the fixed contents
@@ -99,6 +112,7 @@ describe('fixContainsJSONByReplacingKeyValues', () => {
         exampleFoundContentsFailingDevDepMinVersionCheck,
         {
           declaredFileContents: exampleDesiredContents,
+          projectVariables: {},
         } as FileCheckContext,
       );
 
@@ -106,6 +120,20 @@ describe('fixContainsJSONByReplacingKeyValues', () => {
       const fixedPackageJSON = JSON.parse(fixedContents!);
       expect(fixedPackageJSON).toHaveProperty('devDependencies.prettier');
       expect(fixedPackageJSON.devDependencies.prettier).toEqual('2.0.0');
+    });
+  });
+  describe('variables', () => {
+    it('should substitute variable expressions to the project variable value', async () => {
+      // fix them
+      const { contents: fixedContents } = await fixContainsJSONByReplacingKeyValues(exampleFoundContents, ({
+        declaredFileContents: exampleDesiredWithVariableExpression,
+        projectVariables: { serviceName: 'svc-awesomeness' },
+      } as any) as FileCheckContext);
+
+      // parse the fixed contents
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+      expect(fixedPackageJSON).toHaveProperty('name');
+      expect(fixedPackageJSON.name).toEqual('svc-awesomeness');
     });
   });
 });

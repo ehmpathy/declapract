@@ -2,6 +2,7 @@
 
 exports[`fixContainsJSONByReplacingKeyValues should correctly replace nested keys with the correct values 1`] = `
 "{
+  \\"name\\": \\"goolash\\",
   \\"version\\": \\"0.8.2\\",
   \\"main\\": \\"src/index.js\\",
   \\"scripts\\": {

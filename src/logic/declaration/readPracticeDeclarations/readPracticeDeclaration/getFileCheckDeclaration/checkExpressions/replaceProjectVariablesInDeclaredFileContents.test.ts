@@ -1,4 +1,4 @@
-import { UserInputError } from '../UserInputError';
+import { UserInputError } from '../../../../../UserInputError';
 import { replaceProjectVariablesInDeclaredFileContents } from './replaceProjectVariablesInDeclaredFileContents';
 
 const exampleReadmeFileContents = `
