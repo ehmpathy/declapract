@@ -12,7 +12,7 @@ import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
 import { containsCheck } from './checkMethods/containsCheck';
 import { existsCheck } from './checkMethods/existsCheck';
 import { strictEqualsCheck } from './checkMethods/strictEqualsCheck';
-import { fixContainsJSONByReplacingKeyValues } from './fixMethods/fixContainsJSONByReplacingKeyValues';
+import { fixContainsJSONByReplacingAndAddingKeyValues } from './fixMethods/fixContainsJSONByReplacingAndAddingKeyValues';
 import { fixContainsWhenFileDoesntExistBySettingDeclaredContents } from './fixMethods/fixContainsWhenFileDoesntExistBySettingDeclaredContents';
 import { fixEqualsBySettingDeclaredContents } from './fixMethods/fixEqualsBySettingDeclaredContents';
 import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
@@ -48,7 +48,7 @@ export const getFileCheckDeclaration = async ({
   const containsFix: FileFixFunction | null = (() => {
     if (!declaredContents) return null; // contains fixes can only be defined when declared contents are defined (side note: we shouldn't be needing a contains fix otherwise, since contains type only occurs if there is a file)
     if (purpose === FileCheckPurpose.BEST_PRACTICE) {
-      if (pathGlob.endsWith('.json')) return fixContainsJSONByReplacingKeyValues;
+      if (pathGlob.endsWith('.json')) return fixContainsJSONByReplacingAndAddingKeyValues;
       return fixContainsWhenFileDoesntExistBySettingDeclaredContents;
     }
     return null; // otherwise, no fix

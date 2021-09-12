@@ -20,9 +20,9 @@ const deepReplaceAllCheckExpressionsFromDeclaredContentsString = ({
 };
 
 /**
- * replaces the value of each key in `currentObject` with the value of that key in `desiredObject`, if its in `desiredObject`, recursively
+ * replaces the value of each key in `currentObject` with the value of that key in `desiredObject`, if its already in `currentObject`, recursively
  */
-const deepReplaceCurrentKeyValuesWithDesiredKeyValues = ({
+const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
   currentObject,
   desiredObject,
 }: {
@@ -35,10 +35,15 @@ const deepReplaceCurrentKeyValuesWithDesiredKeyValues = ({
   // if either input is null, return null; (special case of whats intended with the above since technically `null` _is_ typeof object)
   if (currentObject === null || desiredObject === null) return currentObject;
 
-  // replace the value of each key in currentObject with the value in desiredObject, if exists in desiredObject, deeply
+  // merge the keys
+  const currentKeys = Object.keys(currentObject);
+  const keysToAdd = Object.keys(desiredObject).filter((desiredKey) => !currentKeys.includes(desiredKey));
+  const mergedKeys = [...currentKeys, ...keysToAdd]; // add the keys to the end
+
+  // replace the value of each key in currentObject with the value in desiredObject, if exists in currentObject, deeply
   // using a for loop to ensure key order (no "parallelism", one at a time)
   const newObject: Record<string, any> = {};
-  for (const thisKey of Object.keys(currentObject)) {
+  for (const thisKey of mergedKeys) {
     const currentValue = currentObject[thisKey];
     const desiredValue = desiredObject[thisKey];
     const newValue = (() => {
@@ -56,7 +61,7 @@ const deepReplaceCurrentKeyValuesWithDesiredKeyValues = ({
       }
       if (typeof desiredValue !== 'object') return desiredValue;
       if (desiredValue === null) return desiredValue;
-      return deepReplaceCurrentKeyValuesWithDesiredKeyValues({
+      return deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues({
         currentObject: currentValue,
         desiredObject: desiredValue,
       });
@@ -68,7 +73,12 @@ const deepReplaceCurrentKeyValuesWithDesiredKeyValues = ({
   return newObject;
 };
 
-export const fixContainsJSONByReplacingKeyValues: FileFixFunction = (contents, context) => {
+/**
+ * fix contains json by replacing and adding key values
+ * - replaces keys in place (order not change)
+ * - adds keys to the end (note: folks should specify a check that checks order if it matters, and have that check fix things)
+ */
+export const fixContainsJSONByReplacingAndAddingKeyValues: FileFixFunction = (contents, context) => {
   // check that declared contents exist; if not, then nothing to do
   const declaredContents = context.declaredFileContents;
   if (!declaredContents) return {}; // if no declared file contents, then we cant change anything
@@ -85,8 +95,8 @@ export const fixContainsJSONByReplacingKeyValues: FileFixFunction = (contents, c
   const foundPackageJSON = JSON.parse(contents);
   const declaredPackageJSON = JSON.parse(declaredContents);
 
-  // for each key in declared package json, replace the key if it exists in the found package json
-  const fixedPackageJSON = deepReplaceCurrentKeyValuesWithDesiredKeyValues({
+  // for each key in declared package json, replace the key if it exists in the found package
+  const fixedPackageJSON = deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues({
     currentObject: foundPackageJSON,
     desiredObject: declaredPackageJSON,
   });

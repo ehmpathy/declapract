@@ -1,5 +1,5 @@
 import { FileCheckContext } from '../../../../../../domain';
-import { fixContainsJSONByReplacingKeyValues } from './fixContainsJSONByReplacingKeyValues';
+import { fixContainsJSONByReplacingAndAddingKeyValues } from './fixContainsJSONByReplacingAndAddingKeyValues';
 
 const exampleDesiredContents = `
 {
@@ -10,15 +10,6 @@ const exampleDesiredContents = `
     "format": "prettier --write '**/*.ts' --config ./prettier.config.js",
     "test:format": "prettier --parser typescript --check 'src/**/*.ts' --config ./prettier.config.js",
     "test": "npm run test:types && npm run test:format && npm run test:lint && npm run test:unit && npm run test:integration && npm run test:acceptance:locally"
-  }
-}
-    `.trim();
-
-const exampleDesiredWithVariableExpression = `
-{
-  "name": "@declapract{variable.serviceName}",
-  "devDependencies": {
-    "prettier": "@declapract{check.minVersion('2.0.0')}"
   }
 }
     `.trim();
@@ -63,10 +54,10 @@ const exampleFoundContentsFailingDevDepMinVersionCheck = `
 }
     `.trim();
 
-describe('fixContainsJSONByReplacingKeyValues', () => {
+describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
   it('should correctly replace nested keys with the correct values', async () => {
     // fix them
-    const { contents: fixedContents } = await fixContainsJSONByReplacingKeyValues(exampleFoundContents, {
+    const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
       declaredFileContents: exampleDesiredContents,
       projectVariables: {},
     } as FileCheckContext);
@@ -81,22 +72,22 @@ describe('fixContainsJSONByReplacingKeyValues', () => {
     // make sure it looks good
     expect(fixedContents).toMatchSnapshot();
   });
-  it('should not add new keys to the object', async () => {
+  it('should add new keys to the object at the end of their object', async () => {
     // fix them
-    const { contents: fixedContents } = await fixContainsJSONByReplacingKeyValues(exampleFoundContents, {
+    const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
       declaredFileContents: exampleDesiredContents,
       projectVariables: {},
     } as FileCheckContext);
 
     // parse the fixed contents
     const fixedPackageJSON = JSON.parse(fixedContents!);
-    expect(fixedPackageJSON).not.toHaveProperty('scripts.format');
-    expect(fixedPackageJSON).not.toHaveProperty('scripts.test:format');
+    expect(fixedPackageJSON).toHaveProperty('scripts.format');
+    expect(fixedPackageJSON).toHaveProperty('scripts.test:format');
   });
   describe('check.minVersion', () => {
     it('should not substitute declapract minVersion check expression values with the correct value, if key is already defined but it does not fail', async () => {
       // fix them
-      const { contents: fixedContents } = await fixContainsJSONByReplacingKeyValues(exampleFoundContents, {
+      const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
         declaredFileContents: exampleDesiredContents,
         projectVariables: {},
       } as FileCheckContext);
@@ -108,7 +99,7 @@ describe('fixContainsJSONByReplacingKeyValues', () => {
     });
     it('should substitute declapract minVersion check expression values with the correct value, if key is already defined and it fails', async () => {
       // fix them
-      const { contents: fixedContents } = await fixContainsJSONByReplacingKeyValues(
+      const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(
         exampleFoundContentsFailingDevDepMinVersionCheck,
         {
           declaredFileContents: exampleDesiredContents,
