@@ -9,21 +9,10 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
-    "lib": [
-      "dom",
-      "es7",
-      "es2021"
-    ],
+    "lib": ["dom", "es7", "es2021"]
   },
-  "include": [
-    "src/**/*.ts",
-    "nontyped_modules"
-  ],
-  "exclude": [
-    "src/**/*.test.ts",
-    "src/**/*.test.integration.ts",
-    "src/**/__test_assets__/*"
-  ],
+  "include": ["src/**/*.ts", "nontyped_modules"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.integration.ts", "src/**/__test_assets__/*"],
   "atom": {
     "rewriteTsconfig": false
   }
