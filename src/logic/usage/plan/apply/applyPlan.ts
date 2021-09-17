@@ -29,21 +29,19 @@ export const applyPlan = async ({
   console.log(`  * ${title}`); // tslint:disable-line: no-console
 
   // for each failed evaluation check, output that we're applying it
-  for (const evaluation of plan.evaluations.sort(sortFilePracticeEvaluationsByPracticeName)) {
+  for (const practiceEvaluation of plan.evaluations.sort(sortFilePracticeEvaluationsByPracticeName)) {
     // grab the failed, fixable checks
-    const failedFixableChecks = evaluation.checks
+    const failedFixableChecks = practiceEvaluation.checks
       .filter(hasFailed)
       .filter(isFixableCheck)
       .sort(sortFileCheckEvaluationsByPracticeRef);
 
-    // apply each of them
-    await Promise.all(
-      failedFixableChecks.map(async (evaluation) => {
-        await fixFile({ evaluation, projectRootDirectory });
-        const statusToken = chalk.green('✓');
-        const fixabilityToken = chalk.gray('(fix:applied)');
-        console.log(indentString(`${statusToken} practice:${evaluation.practiceRef} ${fixabilityToken}`, 4)); // tslint:disable-line: no-console
-      }),
-    );
+    // apply each of them, one at a time sequentially
+    for (const checkEvaluation of failedFixableChecks) {
+      await fixFile({ evaluation: checkEvaluation, projectRootDirectory });
+      const statusToken = chalk.green('✓');
+      const fixabilityToken = chalk.gray('(fix:applied)');
+      console.log(indentString(`${statusToken} practice:${checkEvaluation.practiceRef} ${fixabilityToken}`, 4)); // tslint:disable-line: no-console
+    }
   }
 };
