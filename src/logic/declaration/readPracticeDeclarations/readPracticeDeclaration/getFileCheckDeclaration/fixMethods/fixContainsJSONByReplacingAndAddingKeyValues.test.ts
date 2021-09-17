@@ -84,6 +84,27 @@ describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
     expect(fixedPackageJSON).toHaveProperty('scripts.format');
     expect(fixedPackageJSON).toHaveProperty('scripts.test:format');
   });
+  it('should add new nested keys to the object at the end of their object', async () => {
+    const exampleDesiredNewNestedContents = `
+{
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
+    `.trim();
+
+    // fix them
+    const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
+      declaredFileContents: exampleDesiredNewNestedContents,
+      projectVariables: {},
+    } as FileCheckContext);
+
+    // parse the fixed contents
+    const fixedPackageJSON = JSON.parse(fixedContents!);
+    expect(fixedPackageJSON).toHaveProperty('config.commitizen.path');
+  });
   describe('check.minVersion', () => {
     it('should not substitute declapract minVersion check expression values with the correct value, if key is already defined but it does not fail', async () => {
       // fix them

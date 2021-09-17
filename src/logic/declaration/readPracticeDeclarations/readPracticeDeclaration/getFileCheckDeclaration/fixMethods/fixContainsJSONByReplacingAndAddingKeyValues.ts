@@ -47,7 +47,8 @@ const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
     const currentValue = currentObject[thisKey];
     const desiredValue = desiredObject[thisKey];
     const newValue = (() => {
-      if (!desiredValue) return currentValue; // if there is no value defined in the desired object for this key, then return the current value
+      if (currentValue === undefined) return desiredValue; // if current value is not defined at all, then we should add it to be the desired value
+      if (desiredValue === undefined) return currentValue; // if there is no value defined in the desired object for this key, then keep the current value
       if (Array.isArray(desiredValue)) return desiredValue; // TODO: think through if we should do something special here
       if (isCheckMinVersionExpression(desiredValue)) {
         const minVersion = getMinVersionFromCheckMinVersionExpression(desiredValue);
