@@ -9,5 +9,8 @@ const writeFile = util.promisify(fs.writeFile);
 
 export const writeFileAsync = async ({ path, content }: { path: string; content: string }) => {
   await makeDirectoryAsync({ directoryPath: await getDirOfPath(path) }); // find or create the dir, before writing the file to the dir
-  await writeFile(path, content);
+  await writeFile(
+    path,
+    `${content.replace(/\n$/, '')}\n`, // ensure there's always a newline at end of file
+  );
 };
