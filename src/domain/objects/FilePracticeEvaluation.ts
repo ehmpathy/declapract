@@ -5,10 +5,10 @@ import { FileCheckEvaluation, FileEvaluationResult, hasFailed, isFixableCheck } 
 import { PracticeDeclaration } from './PracticeDeclaration';
 
 /**
- * a practice is fixable if every check that failed is fixable
+ * a practice is fixable if any check that failed is fixable (since there could be one fix to fix them all)
  */
 export const isFixablePractice = (evaluation: FilePracticeEvaluation): boolean =>
-  evaluation.checks.filter(hasFailed).every(isFixableCheck); // if every check that failed is fixable, then fixable
+  evaluation.checks.filter(hasFailed).some(isFixableCheck); // if every check that failed is fixable, then fixable
 
 const schema = Joi.object().keys({
   path: Joi.string().required(),
