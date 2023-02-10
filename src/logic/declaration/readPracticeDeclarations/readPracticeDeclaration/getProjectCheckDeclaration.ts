@@ -15,9 +15,20 @@ export const getProjectCheckDeclaration = async ({
   // grab name from the directory
   const name = (() => {
     if (purpose === FileCheckPurpose.BEST_PRACTICE)
-      return (new RegExp(/\/([\w-]+)\/best-practice$/).exec(declaredProjectDirectory) ?? [])[1] ?? null;
+      return (
+        (new RegExp(/\/([\w-]+)\/best-practice$/).exec(
+          declaredProjectDirectory,
+        ) ?? [])[1] ?? null
+      );
     if (purpose === FileCheckPurpose.BAD_PRACTICE)
-      return (new RegExp(/bad-practices\/([\w-]+)$/).exec(declaredProjectDirectory) ?? [])[1] ?? null;
+      return (
+        (new RegExp(/bad-practices\/([\w-]+)$/).exec(
+          declaredProjectDirectory,
+        ) ?? [])[1] ?? null
+      );
+    throw new UnexpectedCodePathError('unsupported file check purpose', {
+      purpose,
+    });
   })();
   if (!name)
     throw new UnexpectedCodePathError(
@@ -25,31 +36,47 @@ export const getProjectCheckDeclaration = async ({
     );
 
   // grab paths to _all_ files in this dir (not just at root level)
-  const paths = await listFilesInDirectory({ directory: declaredProjectDirectory });
+  const paths = await listFilesInDirectory({
+    directory: declaredProjectDirectory,
+  });
 
   // grab the meta files (i.e., path matches `${projectRoot}/.declapract.*`)
-  const metaFilePaths = paths.filter((path) => new RegExp(/^\.declapract\./).test(path));
+  const metaFilePaths = paths.filter((path) =>
+    new RegExp(/^\.declapract\./).test(path),
+  );
 
   // group all of the other files by main file name (i.e., key = filePath.replace('.declapract.ts$', ''))
   const projectFilePaths = [
     ...new Set(
-      paths.filter((path) => !metaFilePaths.includes(path)).map((path) => path.replace(/\.declapract\.ts$/, '')),
+      paths
+        .filter((path) => !metaFilePaths.includes(path))
+        .map((path) => path.replace(/\.declapract\.ts$/, '')),
     ),
   ].sort();
 
   // for each "main file", get the FileCheckDefinition, now that we have all the files defined for it
   const checksAndErrors = await Promise.all(
     projectFilePaths.map((declaredFileCorePath) =>
-      getFileCheckDeclaration({ purpose, declaredProjectDirectory, declaredFileCorePath }).catch((error) => error),
+      getFileCheckDeclaration({
+        purpose,
+        declaredProjectDirectory,
+        declaredFileCorePath,
+      }).catch((error) => error),
     ),
   );
-  const anError = checksAndErrors.find((checkOrError) => checkOrError instanceof Error);
+  const anError = checksAndErrors.find(
+    (checkOrError) => checkOrError instanceof Error,
+  );
   if (anError) throw anError;
-  const checks: FileCheckDeclaration[] = checksAndErrors.filter((checkOrError) => !(checkOrError instanceof Error));
+  const checks: FileCheckDeclaration[] = checksAndErrors.filter(
+    (checkOrError) => !(checkOrError instanceof Error),
+  );
 
   // get readme contents, if readme defined
   const readme = metaFilePaths.includes('.declapract.readme.md')
-    ? await readFileAsync({ filePath: `${declaredProjectDirectory}/.declapract.readme.md` })
+    ? await readFileAsync({
+        filePath: `${declaredProjectDirectory}/.declapract.readme.md`,
+      })
     : null;
 
   // return the project def

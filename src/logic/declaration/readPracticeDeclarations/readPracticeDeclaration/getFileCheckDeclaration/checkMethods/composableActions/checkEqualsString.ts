@@ -14,8 +14,13 @@ export const checkEqualsString = ({
     expect(foundContents).toEqual(declaredContents);
   } catch (error) {
     // if the above check failed, run diff on the string directly to show a better string diff message
-    const difference = diff(declaredContents, foundContents, { aAnnotation: 'Expected toEqual' });
-    if (!difference || difference === 'Compared values have no visual difference.')
+    const difference = diff(declaredContents, foundContents, {
+      aAnnotation: 'Expected toEqual',
+    });
+    if (
+      !difference ||
+      difference === 'Compared values have no visual difference.'
+    )
       throw new UnexpectedCodePathError(
         'expect().toEqual() threw an error, but no difference was detected in the strings',
         { errorMessage: error.message },

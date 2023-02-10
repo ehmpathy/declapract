@@ -1,4 +1,8 @@
-import { isOfFileCheckType, FileCheckType, FileFixFunction } from '../../../../../domain';
+import {
+  isOfFileCheckType,
+  FileCheckType,
+  FileFixFunction,
+} from '../../../../../domain';
 import { FileCheckDeclarationInput } from '../../../../../domain/objects/FileCheckDeclarationInput';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { importExportsFromFile } from '../../../../../utils/fileio/importExportsFromFile';
@@ -10,21 +14,29 @@ export const getHydratedCheckInputsForFile = async ({
 }: {
   declaredProjectDirectory: string;
   declaredFileCorePath: string;
-}): Promise<{ declaredCheckInputs: FileCheckDeclarationInput | null; declaredFixFunction: null | FileFixFunction }> => {
+}): Promise<{
+  declaredCheckInputs: FileCheckDeclarationInput | null;
+  declaredFixFunction: null | FileFixFunction;
+}> => {
   // check if user declared input for this file-check
   const inputFilePath = `${declaredProjectDirectory}/${declaredFileCorePath}.declapract.ts`; // e.g., the metadata for `tsconfig.ts` is found under `tsconfig.ts.declapract.ts`
   const inputFileExists = await doesFileExist({ filePath: inputFilePath });
-  if (!inputFileExists) return { declaredCheckInputs: null, declaredFixFunction: null };
+  if (!inputFileExists)
+    return { declaredCheckInputs: null, declaredFixFunction: null };
 
   // grab the input file exports
-  const declaredExports: { check?: any; fix?: any } = await importExportsFromFile({ filePath: inputFilePath });
-  if (!declaredExports) return { declaredCheckInputs: null, declaredFixFunction: null };
+  const declaredExports: { check?: any; fix?: any } =
+    await importExportsFromFile({ filePath: inputFilePath });
+  if (!declaredExports)
+    return { declaredCheckInputs: null, declaredFixFunction: null };
 
   // make sure that check is defined
   if (!declaredExports.check)
     throw new UserInputError(
       `a '*.declapract.ts' file was defined for '${declaredFileCorePath}' but it did not export a 'check' variable`,
-      { potentialSolution: `please 'export const check = ...' from '${inputFilePath}'` },
+      {
+        potentialSolution: `please 'export const check = ...' from '${inputFilePath}'`,
+      },
     );
 
   // determine the check inputs user requested
@@ -33,9 +45,13 @@ export const getHydratedCheckInputsForFile = async ({
     if (isOfFileCheckType(declaredExports.check)) {
       if (declaredExports.check === FileCheckType.CUSTOM)
         // complain if user defined the type in shorthand as CUSTOM - since we dont know what the custom function is then!
-        throw new UserInputError('file check type can not be CUSTOM without the function being specified', {
-          potentialSolution: 'consider defining the check function, type FileCheckFunction, instead',
-        });
+        throw new UserInputError(
+          'file check type can not be CUSTOM without the function being specified',
+          {
+            potentialSolution:
+              'consider defining the check function, type FileCheckFunction, instead',
+          },
+        );
       return new FileCheckDeclarationInput({
         type: declaredExports.check,
       });

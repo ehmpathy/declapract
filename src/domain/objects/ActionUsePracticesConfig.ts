@@ -1,5 +1,6 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
+
 import { ProjectVariablesImplementation } from '../constants';
 import { DeclaredPractices } from './DeclaredPractices';
 
@@ -16,7 +17,9 @@ export interface ActionUsePracticesConfig {
   useCase: string;
   variables: ProjectVariablesImplementation;
 }
-export class ActionUsePracticesConfig extends DomainObject<ActionUsePracticesConfig>
-  implements ActionUsePracticesConfig {
+export class ActionUsePracticesConfig
+  extends DomainObject<ActionUsePracticesConfig>
+  implements ActionUsePracticesConfig
+{
   public static schema = schema;
 }

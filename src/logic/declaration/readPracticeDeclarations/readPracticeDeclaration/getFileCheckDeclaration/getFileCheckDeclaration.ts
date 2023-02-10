@@ -7,8 +7,8 @@ import {
 } from '../../../../../domain';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync } from '../../../../../utils/fileio/readFileAsync';
-import { deserializeGlobPathFromNpmPackaging } from '../../../../commands/compile';
 import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
+import { deserializeGlobPathFromNpmPackaging } from '../../../../commands/compile';
 import { containsCheck } from './checkMethods/containsCheck';
 import { existsCheck } from './checkMethods/existsCheck';
 import { strictEqualsCheck } from './checkMethods/strictEqualsCheck';
@@ -28,14 +28,19 @@ export const getFileCheckDeclaration = async ({
 }): Promise<FileCheckDeclaration> => {
   // get declared best practice contents, if declared
   const contentsFilePath = `${declaredProjectDirectory}/${declaredFileCorePath}`; // its the same path. i.e., the contents for `tsconfig.ts` are declared under `tsconfig.ts`)
-  const contentsFileExists = await doesFileExist({ filePath: contentsFilePath });
-  const declaredContents = contentsFileExists ? await readFileAsync({ filePath: contentsFilePath }) : null;
+  const contentsFileExists = await doesFileExist({
+    filePath: contentsFilePath,
+  });
+  const declaredContents = contentsFileExists
+    ? await readFileAsync({ filePath: contentsFilePath })
+    : null;
 
   // get check inputs, if declared
-  const { declaredCheckInputs, declaredFixFunction } = await getHydratedCheckInputsForFile({
-    declaredFileCorePath,
-    declaredProjectDirectory,
-  });
+  const { declaredCheckInputs, declaredFixFunction } =
+    await getHydratedCheckInputsForFile({
+      declaredFileCorePath,
+      declaredProjectDirectory,
+    });
 
   // define the common attributes
   const pathGlob = deserializeGlobPathFromNpmPackaging(declaredFileCorePath); // its the path relative to the project root (note that this path can is technically a glob (e.g., can be `src/**/*.ts`))
@@ -44,11 +49,14 @@ export const getFileCheckDeclaration = async ({
   // define the check fns
   // define the fix fns
   const strictEqualsFix: FileFixFunction | null =
-    purpose === FileCheckPurpose.BEST_PRACTICE ? fixEqualsBySettingDeclaredContents : null; // TODO: think of a fix for bad practice case
+    purpose === FileCheckPurpose.BEST_PRACTICE
+      ? fixEqualsBySettingDeclaredContents
+      : null; // TODO: think of a fix for bad practice case
   const containsFix: FileFixFunction | null = (() => {
     if (!declaredContents) return null; // contains fixes can only be defined when declared contents are defined (side note: we shouldn't be needing a contains fix otherwise, since contains type only occurs if there is a file)
     if (purpose === FileCheckPurpose.BEST_PRACTICE) {
-      if (pathGlob.endsWith('.json')) return fixContainsJSONByReplacingAndAddingKeyValues;
+      if (pathGlob.endsWith('.json'))
+        return fixContainsJSONByReplacingAndAddingKeyValues;
       return fixContainsWhenFileDoesntExistBySettingDeclaredContents;
     }
     return null; // otherwise, no fix
@@ -88,7 +96,9 @@ export const getFileCheckDeclaration = async ({
     if (type === FileCheckType.CUSTOM) return declaredCheckInputs!.function!;
     if (type === FileCheckType.CONTAINS) return containsCheck;
     if (type === FileCheckType.EXISTS) return existsCheck;
-    throw new UnexpectedCodePathError('should have a check for each type defined');
+    throw new UnexpectedCodePathError(
+      'should have a check for each type defined',
+    );
   })();
   const fixForType: FileFixFunction | null = (() => {
     if (type === FileCheckType.EQUALS) return strictEqualsFix;

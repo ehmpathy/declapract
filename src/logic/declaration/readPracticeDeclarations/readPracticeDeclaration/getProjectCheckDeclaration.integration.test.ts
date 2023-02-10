@@ -32,8 +32,8 @@ describe('getProjectCheckDeclarationFromDirectory', () => {
       purpose: FileCheckPurpose.BEST_PRACTICE,
       declaredProjectDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/prettier/best-practice`,
     });
-    expect(project.checks[0].fix).toBeDefined();
-    expect(project.checks[0].fix).not.toBeNull();
+    expect(project.checks[0]!.fix).toBeDefined();
+    expect(project.checks[0]!.fix).not.toBeNull();
     expect(project).toMatchSnapshot();
   });
 });

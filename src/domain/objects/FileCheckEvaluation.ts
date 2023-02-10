@@ -1,20 +1,27 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
-import { FileCheckContext } from './FileCheckContext';
 
-import { FileCheckPurpose, FileCheckType, FileFixFunction } from './FileCheckDeclaration';
+import { FileCheckContext } from './FileCheckContext';
+import {
+  FileCheckPurpose,
+  FileCheckType,
+  FileFixFunction,
+} from './FileCheckDeclaration';
 
 export enum FileEvaluationResult {
   PASS = 'PASS',
   FAIL = 'FAIL',
 }
-export const hasFailed = (evaluation: { result: FileEvaluationResult }): boolean =>
-  evaluation.result === FileEvaluationResult.FAIL;
-export const hasPassed = (evaluation: { result: FileEvaluationResult }): boolean =>
-  evaluation.result === FileEvaluationResult.PASS;
+export const hasFailed = (evaluation: {
+  result: FileEvaluationResult;
+}): boolean => evaluation.result === FileEvaluationResult.FAIL;
+export const hasPassed = (evaluation: {
+  result: FileEvaluationResult;
+}): boolean => evaluation.result === FileEvaluationResult.PASS;
 
 // check is fixable if it has a fix function
-export const isFixableCheck = (evaluation: FileCheckEvaluation): boolean => !!evaluation.fix;
+export const isFixableCheck = (evaluation: FileCheckEvaluation): boolean =>
+  !!evaluation.fix;
 
 const schema = Joi.object().keys({
   practiceRef: Joi.string().required(),
@@ -29,12 +36,8 @@ const schema = Joi.object().keys({
   result: Joi.string()
     .valid(...Object.values(FileEvaluationResult))
     .required(),
-  reason: Joi.string()
-    .required()
-    .allow(null),
-  fix: Joi.function()
-    .allow(null)
-    .required(),
+  reason: Joi.string().required().allow(null),
+  fix: Joi.function().allow(null).required(),
   context: FileCheckContext.schema.required(),
 });
 
@@ -53,6 +56,9 @@ export interface FileCheckEvaluation {
   context: FileCheckContext;
 }
 
-export class FileCheckEvaluation extends DomainObject<FileCheckEvaluation> implements FileCheckEvaluation {
+export class FileCheckEvaluation
+  extends DomainObject<FileCheckEvaluation>
+  implements FileCheckEvaluation
+{
   public static schema = schema;
 }

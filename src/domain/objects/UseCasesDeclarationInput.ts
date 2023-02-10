@@ -6,12 +6,8 @@ const schema = Joi.object().keys({
     /.*/,
     Joi.object().keys({
       example: Joi.string().optional(),
-      extends: Joi.array()
-        .items(Joi.string().required())
-        .optional(),
-      practices: Joi.array()
-        .items(Joi.string().required())
-        .min(1),
+      extends: Joi.array().items(Joi.string().required()).optional(),
+      practices: Joi.array().items(Joi.string().required()).min(1),
     }),
   ),
 });
@@ -26,7 +22,9 @@ export interface UseCasesDeclarationInput {
     }
   >;
 }
-export class UseCasesDeclarationInput extends DomainObject<UseCasesDeclarationInput>
-  implements UseCasesDeclarationInput {
+export class UseCasesDeclarationInput
+  extends DomainObject<UseCasesDeclarationInput>
+  implements UseCasesDeclarationInput
+{
   public static schema = schema;
 }

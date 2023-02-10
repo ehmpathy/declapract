@@ -57,10 +57,11 @@ const exampleFoundContentsFailingDevDepMinVersionCheck = `
 describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
   it('should correctly replace nested keys with the correct values', async () => {
     // fix them
-    const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
-      declaredFileContents: exampleDesiredContents,
-      projectVariables: {},
-    } as FileCheckContext);
+    const { contents: fixedContents } =
+      await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
+        declaredFileContents: exampleDesiredContents,
+        projectVariables: {},
+      } as FileCheckContext);
 
     // parse the fixed contents
     const fixedPackageJSON = JSON.parse(fixedContents!);
@@ -74,10 +75,11 @@ describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
   });
   it('should add new keys to the object at the end of their object', async () => {
     // fix them
-    const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
-      declaredFileContents: exampleDesiredContents,
-      projectVariables: {},
-    } as FileCheckContext);
+    const { contents: fixedContents } =
+      await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
+        declaredFileContents: exampleDesiredContents,
+        projectVariables: {},
+      } as FileCheckContext);
 
     // parse the fixed contents
     const fixedPackageJSON = JSON.parse(fixedContents!);
@@ -96,10 +98,11 @@ describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
     `.trim();
 
     // fix them
-    const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
-      declaredFileContents: exampleDesiredNewNestedContents,
-      projectVariables: {},
-    } as FileCheckContext);
+    const { contents: fixedContents } =
+      await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
+        declaredFileContents: exampleDesiredNewNestedContents,
+        projectVariables: {},
+      } as FileCheckContext);
 
     // parse the fixed contents
     const fixedPackageJSON = JSON.parse(fixedContents!);
@@ -108,10 +111,14 @@ describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
   describe('check.minVersion', () => {
     it('should not substitute declapract minVersion check expression values with the correct value, if key is already defined but it does not fail', async () => {
       // fix them
-      const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(exampleFoundContents, {
-        declaredFileContents: exampleDesiredContents,
-        projectVariables: {},
-      } as FileCheckContext);
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(
+          exampleFoundContents,
+          {
+            declaredFileContents: exampleDesiredContents,
+            projectVariables: {},
+          } as FileCheckContext,
+        );
 
       // parse the fixed contents
       const fixedPackageJSON = JSON.parse(fixedContents!);
@@ -120,13 +127,14 @@ describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
     });
     it('should substitute declapract minVersion check expression values with the correct value, if key is already defined and it fails', async () => {
       // fix them
-      const { contents: fixedContents } = await fixContainsJSONByReplacingAndAddingKeyValues(
-        exampleFoundContentsFailingDevDepMinVersionCheck,
-        {
-          declaredFileContents: exampleDesiredContents,
-          projectVariables: {},
-        } as FileCheckContext,
-      );
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(
+          exampleFoundContentsFailingDevDepMinVersionCheck,
+          {
+            declaredFileContents: exampleDesiredContents,
+            projectVariables: {},
+          } as FileCheckContext,
+        );
 
       // parse the fixed contents
       const fixedPackageJSON = JSON.parse(fixedContents!);

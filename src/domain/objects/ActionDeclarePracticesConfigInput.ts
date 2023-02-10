@@ -18,7 +18,9 @@ export interface ActionDeclarePracticesConfigInput {
     practices: string;
   };
 }
-export class ActionDeclarePracticesConfigInput extends DomainObject<ActionDeclarePracticesConfigInput>
-  implements ActionDeclarePracticesConfigInput {
+export class ActionDeclarePracticesConfigInput
+  extends DomainObject<ActionDeclarePracticesConfigInput>
+  implements ActionDeclarePracticesConfigInput
+{
   public static schema = schema;
 }

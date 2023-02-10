@@ -1,4 +1,5 @@
 import shell from 'shelljs';
+
 import { testAssetsDirectoryPath } from '../__test_assets__/dirPath';
 import { readUsePracticesConfig } from './readUsePracticesConfig';
 
@@ -44,7 +45,9 @@ describe('readUsePracticesConfig', () => {
     expect(config).toMatchSnapshot({
       rootDir: expect.any(String),
       declared: expect.objectContaining({
-        rootDir: expect.stringContaining('example-service-3-repo/node_modules/best-practices-typescript'), // should reference the `.declapract` dir of the example project (since that's where we clone git repos into)
+        rootDir: expect.stringContaining(
+          'example-service-3-repo/node_modules/best-practices-typescript',
+        ), // should reference the `.declapract` dir of the example project (since that's where we clone git repos into)
       }),
     });
   });

@@ -13,14 +13,17 @@ export const readDeclarePracticesConfig = async ({
   configPath: string;
 }): Promise<DeclaredPractices> => {
   const configDir = getDirOfPath(configPath);
-  const getAbsolutePathFromRelativeToConfigPath = (relpath: string) => `${configDir}/${relpath}`;
+  const getAbsolutePathFromRelativeToConfigPath = (relpath: string) =>
+    `${configDir}/${relpath}`;
 
   // get the yml
   const contents = await (async () => {
     try {
       return await readYmlFile({ filePath: configPath });
     } catch (error) {
-      throw new UserInputError(`could not read config. ${error.message}. See '${configPath}'`);
+      throw new UserInputError(
+        `could not read config. ${error.message}. See '${configPath}'`,
+      );
     }
   })();
 
@@ -29,20 +32,26 @@ export const readDeclarePracticesConfig = async ({
 
   // define the practices based on the input
   const practices = await readPracticeDeclarations({
-    declaredPracticesDirectory: getAbsolutePathFromRelativeToConfigPath(configInput.declare.practices),
+    declaredPracticesDirectory: getAbsolutePathFromRelativeToConfigPath(
+      configInput.declare.practices,
+    ),
   });
 
   // define the examples based on the input
   const examples = configInput.declare.examples
     ? await readExampleDeclarations({
         declarationsRootDirectory: configDir,
-        declaredExamplesDirectory: getAbsolutePathFromRelativeToConfigPath(configInput.declare.examples),
+        declaredExamplesDirectory: getAbsolutePathFromRelativeToConfigPath(
+          configInput.declare.examples,
+        ),
       })
     : [];
 
   // define the use cases based on the input
   const useCases = await readUseCaseDeclarations({
-    declaredUseCasesPath: getAbsolutePathFromRelativeToConfigPath(configInput.declare['use-cases']),
+    declaredUseCasesPath: getAbsolutePathFromRelativeToConfigPath(
+      configInput.declare['use-cases'],
+    ),
     practices,
     examples,
   });

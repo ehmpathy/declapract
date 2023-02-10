@@ -1,6 +1,7 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
 import { createIsOfEnum } from 'simple-type-guards';
+
 import { FileCheckContext } from './FileCheckContext';
 
 export enum FileCheckType {
@@ -46,7 +47,10 @@ export const isOfFileCheckType = createIsOfEnum(FileCheckType);
  *   export const check = (contents: string | null) => expect(contents).toEqual(bestPracticeContents);
  * ```
  */
-export type FileCheckFunction = (contents: string | null, context: FileCheckContext) => Promise<void> | void;
+export type FileCheckFunction = (
+  contents: string | null,
+  context: FileCheckContext,
+) => Promise<void> | void;
 
 /**
  * a file fix function is used to automatically fix files that fail your declared practices
@@ -80,12 +84,8 @@ const schema = Joi.object().keys({
     .required(),
   required: Joi.boolean().required(),
   check: Joi.function().required(),
-  fix: Joi.function()
-    .required()
-    .allow(null),
-  contents: Joi.string()
-    .required()
-    .allow(null),
+  fix: Joi.function().required().allow(null),
+  contents: Joi.string().required().allow(null),
 });
 
 /**
@@ -102,6 +102,9 @@ export interface FileCheckDeclaration {
   fix: FileFixFunction | null; // may not have a fix function possible for this check declaration
   contents: string | null; // the contents that the user declared for this file, if any; required to create "FileCheckContext"
 }
-export class FileCheckDeclaration extends DomainObject<FileCheckDeclaration> implements FileCheckDeclaration {
+export class FileCheckDeclaration
+  extends DomainObject<FileCheckDeclaration>
+  implements FileCheckDeclaration
+{
   public static schema = schema;
 }

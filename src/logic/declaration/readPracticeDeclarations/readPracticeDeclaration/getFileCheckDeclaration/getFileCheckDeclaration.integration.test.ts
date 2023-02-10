@@ -1,12 +1,12 @@
 import { FileCheckPurpose, FileCheckType } from '../../../../../domain';
 import { doesDirectoryExist } from '../../../../../utils/fileio/doesDirectoryExist';
+import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync as readFileAsyncUnsafe } from '../../../../../utils/fileio/readFileAsync';
 import { createExampleFileCheckContext } from '../../../../__test_assets__/createExampleFileCheckContext';
 import { testAssetsDirectoryPath } from '../../../../__test_assets__/dirPath';
 import { compile } from '../../../../commands/compile';
-import { getFileCheckDeclaration } from './getFileCheckDeclaration';
-import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { replaceProjectVariablesInDeclaredFileContents } from '../../../../usage/evaluate/projectVariableExpressions/replaceProjectVariablesInDeclaredFileContents';
+import { getFileCheckDeclaration } from './getFileCheckDeclaration';
 
 const exampleContext = createExampleFileCheckContext();
 
@@ -71,7 +71,10 @@ module.exports = {
     }
 
     // check that the fix function works correctly
-    const fixResult = await declaration.fix!(null, { ...exampleContext, declaredFileContents });
+    const fixResult = await declaration.fix!(null, {
+      ...exampleContext,
+      declaredFileContents,
+    });
     expect(fixResult.contents).toEqual(
       `${`
 // ref: http://json.schemastore.org/prettierrc
@@ -101,7 +104,9 @@ module.exports = {
     // check that the properties look right
     expect(declaration.required).toEqual(true);
     expect(declaration.type).toEqual(FileCheckType.CONTAINS);
-    expect(declaration.pathGlob).toMatch(/provision\/terraform\/environments\/dev\/main\.tf$/);
+    expect(declaration.pathGlob).toMatch(
+      /provision\/terraform\/environments\/dev\/main\.tf$/,
+    );
 
     // check that the check function works correctly
     await declaration.check(
@@ -164,7 +169,10 @@ provider "aws" {
 }
       `.trim(),
     );
-    const fixResultFileDefined = await declaration.fix!('anything else', context);
+    const fixResultFileDefined = await declaration.fix!(
+      'anything else',
+      context,
+    );
     expect(fixResultFileDefined).toEqual({}); // should change nothing
   });
   it('should get file declaration correctly for a json file with a contains check', async () => {
@@ -178,7 +186,11 @@ provider "aws" {
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, relativeFilePath: declaredFileCorePath, declaredFileContents };
+    const context = {
+      ...exampleContext,
+      relativeFilePath: declaredFileCorePath,
+      declaredFileContents,
+    };
 
     // check that the properties look right
     expect(declaration.required).toEqual(true);
@@ -241,7 +253,8 @@ provider "aws" {
           },
           scripts: {
             otherStuff: "echo 'still do the other stuff without changing'",
-            format: "prettier --do-it '**/*.ts|js|otherstuff' --config ./prettier.old-config.js",
+            format:
+              "prettier --do-it '**/*.ts|js|otherstuff' --config ./prettier.old-config.js",
             otherStuffWithoutChangingPosition:
               "echo 'still do the other stuff without changing, in the same order as before'",
           },
@@ -281,7 +294,11 @@ provider "aws" {
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, declaredFileContents, required: false };
+    const context = {
+      ...exampleContext,
+      declaredFileContents,
+      required: false,
+    };
 
     // check that the properties look right
     expect(declaration.required).toEqual(false);
@@ -303,7 +320,11 @@ provider "aws" {
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, declaredFileContents, required: false };
+    const context = {
+      ...exampleContext,
+      declaredFileContents,
+      required: false,
+    };
 
     // check that the properties look right
     expect(declaration.required).toEqual(false);
@@ -347,7 +368,11 @@ import { AWS } from 'aws-sdk';
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, declaredFileContents, required: false };
+    const context = {
+      ...exampleContext,
+      declaredFileContents,
+      required: false,
+    };
 
     // check that the properties look right
     expect(declaration.required).toEqual(false);
@@ -388,7 +413,11 @@ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, relativeFilePath: declaredFileCorePath, declaredFileContents };
+    const context = {
+      ...exampleContext,
+      relativeFilePath: declaredFileCorePath,
+      declaredFileContents,
+    };
 
     // check that the properties look right
     expect(declaration.required).toEqual(true);
@@ -498,13 +527,15 @@ this is a super awesome package that you should definitely use
         projectVariables: {
           packageName: 'awesome-package',
           organizationName: 'org-of-awesomeness',
-          packageDescription: 'this is a super awesome package that you should definitely use',
+          packageDescription:
+            'this is a super awesome package that you should definitely use',
         },
         declaredFileContents: replaceProjectVariablesInDeclaredFileContents({
           projectVariables: {
             packageName: 'awesome-package',
             organizationName: 'org-of-awesomeness',
-            packageDescription: 'this is a super awesome package that you should definitely use',
+            packageDescription:
+              'this is a super awesome package that you should definitely use',
           },
           fileContents: context.declaredFileContents!,
         }),
@@ -531,13 +562,15 @@ this is a super awesome package that you should definitely use
           projectVariables: {
             packageName: 'renamed-package',
             organizationName: 'org-of-awesomeness',
-            packageDescription: 'this is a super awesome package that you should definitely use',
+            packageDescription:
+              'this is a super awesome package that you should definitely use',
           },
           declaredFileContents: replaceProjectVariablesInDeclaredFileContents({
             projectVariables: {
               packageName: 'renamed-package',
               organizationName: 'org-of-awesomeness',
-              packageDescription: 'this is a super awesome package that you should definitely use',
+              packageDescription:
+                'this is a super awesome package that you should definitely use',
             },
             fileContents: context.declaredFileContents!,
           }),
@@ -555,13 +588,15 @@ this is a super awesome package that you should definitely use
       projectVariables: {
         packageName: 'awesome-package',
         organizationName: 'org-of-awesomeness',
-        packageDescription: 'this is a super awesome package that you should definitely use',
+        packageDescription:
+          'this is a super awesome package that you should definitely use',
       },
       declaredFileContents: replaceProjectVariablesInDeclaredFileContents({
         projectVariables: {
           packageName: 'awesome-package',
           organizationName: 'org-of-awesomeness',
-          packageDescription: 'this is a super awesome package that you should definitely use',
+          packageDescription:
+            'this is a super awesome package that you should definitely use',
         },
         fileContents: context.declaredFileContents!,
       }),
@@ -591,7 +626,7 @@ this is a super awesome package that you should definitely use
     const declaredFileContents = await readFileAsync({
       filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
     });
-    const context = { ...exampleContext, declaredFileContents };
+    expect(declaredFileContents).not.toEqual(null);
 
     // check that the properties look right
     expect(declaration.required).toEqual(false);
@@ -634,7 +669,10 @@ export const anything = 'should not exist';
 
     // check that the fix function works correctly
     const fixResultNoFile = await declaration.fix!(null, context);
-    expect(fixResultNoFile).toEqual({ contents: null, relativeFilePath: 'some/file/path.ts' }); // should do nothing if file is not defined
+    expect(fixResultNoFile).toEqual({
+      contents: null,
+      relativeFilePath: 'some/file/path.ts',
+    }); // should do nothing if file is not defined
     const fixResultWithFile = await declaration.fix!('some contents', {
       ...context,
       relativeFilePath: 'some/file/path.test.integration.ts',

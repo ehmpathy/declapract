@@ -8,12 +8,17 @@ export const readExampleDeclarations = async ({
   declarationsRootDirectory: string;
   declaredExamplesDirectory: string;
 }) => {
-  const exampleDirectories = await listPathsInDirectory({ directory: declaredExamplesDirectory });
+  const exampleDirectories = await listPathsInDirectory({
+    directory: declaredExamplesDirectory,
+  });
   const examples = exampleDirectories.map((directory) => {
     const name = directory;
     return new ExampleDeclaration({
       name,
-      exampleRootDirectory: `${declaredExamplesDirectory}/${directory}`.replace(`${declarationsRootDirectory}/`, ''),
+      exampleRootDirectory: `${declaredExamplesDirectory}/${directory}`.replace(
+        `${declarationsRootDirectory}/`,
+        '',
+      ),
     });
   });
   return examples;

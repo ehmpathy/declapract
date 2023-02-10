@@ -1,6 +1,6 @@
 import { RequiredAction } from '../../../domain';
-import { readPracticeDeclaration } from '../../declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
 import { testAssetsDirectoryPath } from '../../__test_assets__/dirPath';
+import { readPracticeDeclaration } from '../../declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
 import { getPlansForProject } from './getPlansForProject';
 
 describe('getPlansForProject', () => {
@@ -17,7 +17,9 @@ describe('getPlansForProject', () => {
     expect(plans.find((plan) => plan.path === 'package.json')).toMatchObject({
       action: RequiredAction.FIX_MANUAL,
     });
-    expect(plans.find((plan) => plan.path === '.prettierignore')).toEqual(undefined); // not evaluated since not in the practices
+    expect(plans.find((plan) => plan.path === '.prettierignore')).toEqual(
+      undefined,
+    ); // not evaluated since not in the practices
   });
   it('should define that a file failing a check that _is_ automatically fixable needs FIX_AUTOMATIC action', async () => {
     const practice = await readPracticeDeclaration({
@@ -29,9 +31,11 @@ describe('getPlansForProject', () => {
       projectVariables: {},
     });
     // console.log(JSON.stringify(plans, null, 2));
-    expect(plans.find((plan) => plan.path === '.prettierignore')).toMatchObject({
-      action: RequiredAction.FIX_AUTOMATIC,
-    });
+    expect(plans.find((plan) => plan.path === '.prettierignore')).toMatchObject(
+      {
+        action: RequiredAction.FIX_AUTOMATIC,
+      },
+    );
     expect(plans.find((plan) => plan.path === 'package.json')).toMatchObject({
       action: RequiredAction.NO_CHANGE,
     });
@@ -51,9 +55,11 @@ describe('getPlansForProject', () => {
       projectVariables: {},
     });
     // console.log(JSON.stringify(plans, null, 2));
-    expect(plans.find((plan) => plan.path === '.prettierignore')).toMatchObject({
-      action: RequiredAction.FIX_AUTOMATIC,
-    });
+    expect(plans.find((plan) => plan.path === '.prettierignore')).toMatchObject(
+      {
+        action: RequiredAction.FIX_AUTOMATIC,
+      },
+    );
     expect(plans.find((plan) => plan.path === 'package.json')).toMatchObject({
       action: RequiredAction.FIX_MANUAL,
     });

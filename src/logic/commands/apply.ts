@@ -17,10 +17,14 @@ export const apply = async ({
 }) => {
   // read the usage config
   console.log('🔎 reading configs and declarations...'); // tslint:disable-line: no-console
-  const config = await readUsePracticesConfig({ configPath: usePracticesConfigPath });
+  const config = await readUsePracticesConfig({
+    configPath: usePracticesConfigPath,
+  });
 
   // grab the selected use case's practices
-  const useCase = config.declared.useCases.find((useCase) => useCase.name === config.useCase);
+  const useCase = config.declared.useCases.find(
+    (useCase) => useCase.name === config.useCase,
+  );
   if (!useCase)
     throw new UnexpectedCodePathError(
       'requested use case was not defined on config. should have thrown an error when processing the config by now',
@@ -48,5 +52,8 @@ export const apply = async ({
 
   // display the plans
   console.log('🔧 applying fixes...'); // tslint:disable-line: no-console
-  await applyPlans({ plans: plansToApply, projectRootDirectory: config.rootDir });
+  await applyPlans({
+    plans: plansToApply,
+    projectRootDirectory: config.rootDir,
+  });
 };

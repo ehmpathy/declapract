@@ -1,6 +1,10 @@
 import { readDeclarePracticesConfig } from '../declaration/readDeclarePracticesConfig';
 
-export const validate = async ({ declarePracticesConfigPath }: { declarePracticesConfigPath: string }) => {
+export const validate = async ({
+  declarePracticesConfigPath,
+}: {
+  declarePracticesConfigPath: string;
+}) => {
   // read the usage config
   await readDeclarePracticesConfig({ configPath: declarePracticesConfigPath });
 

@@ -6,9 +6,7 @@ import { ProjectCheckDeclaration } from './ProjectCheckDeclaration';
 const schema = Joi.object().keys({
   name: Joi.string().required(),
   bestPractice: ProjectCheckDeclaration.schema.allow(null).required(),
-  badPractices: Joi.array()
-    .items(ProjectCheckDeclaration.schema)
-    .required(),
+  badPractices: Joi.array().items(ProjectCheckDeclaration.schema).required(),
 });
 
 /**
@@ -21,6 +19,9 @@ export interface PracticeDeclaration {
   bestPractice: ProjectCheckDeclaration | null;
   badPractices: ProjectCheckDeclaration[];
 }
-export class PracticeDeclaration extends DomainObject<PracticeDeclaration> implements PracticeDeclaration {
+export class PracticeDeclaration
+  extends DomainObject<PracticeDeclaration>
+  implements PracticeDeclaration
+{
   public static schema = schema;
 }

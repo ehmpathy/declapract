@@ -1,16 +1,12 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
+
 import { FileCheckDeclaration } from './FileCheckDeclaration';
 
 const schema = Joi.object().keys({
   name: Joi.string().required(),
-  readme: Joi.string()
-    .required()
-    .allow(null),
-  checks: Joi.array()
-    .items(FileCheckDeclaration.schema)
-    .required()
-    .min(1),
+  readme: Joi.string().required().allow(null),
+  checks: Joi.array().items(FileCheckDeclaration.schema).required().min(1),
 });
 
 export interface ProjectCheckDeclaration {
@@ -18,6 +14,9 @@ export interface ProjectCheckDeclaration {
   readme: string | null;
   checks: FileCheckDeclaration[];
 }
-export class ProjectCheckDeclaration extends DomainObject<ProjectCheckDeclaration> implements ProjectCheckDeclaration {
+export class ProjectCheckDeclaration
+  extends DomainObject<ProjectCheckDeclaration>
+  implements ProjectCheckDeclaration
+{
   public static schema = schema;
 }

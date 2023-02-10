@@ -1,5 +1,6 @@
 // tslint:disable no-console
 import { hrtime } from 'process';
+
 import { log } from '../logger';
 
 const roundToHundredths = (num: number) => Math.round(num * 100) / 100; // https://stackoverflow.com/a/14968691/3068233
@@ -17,7 +18,10 @@ const roundToHundredths = (num: number) => Math.round(num * 100) / 100; // https
  * )
  * ```
  */
-export const withDurationReporting = <R extends any, T extends (...args: any[]) => Promise<R>>(
+export const withDurationReporting = <
+  R extends any,
+  T extends (...args: any[]) => Promise<R>,
+>(
   title: string,
   logic: T,
   options: {
@@ -26,7 +30,10 @@ export const withDurationReporting = <R extends any, T extends (...args: any[]) 
   } = {
     reportingThresholdSeconds: 1, // report on anything that takes more than 1 second, by default
     log: ({ title, durationInSeconds }) =>
-      log.debug(`⏲️  ${title} took ${durationInSeconds} seconds to execute`, { title, durationInSeconds }), // debug log by default
+      log.debug(`⏲️  ${title} took ${durationInSeconds} seconds to execute`, {
+        title,
+        durationInSeconds,
+      }), // debug log by default
   },
 ) => {
   return (async (...args: Parameters<T>): Promise<R> => {
@@ -34,8 +41,11 @@ export const withDurationReporting = <R extends any, T extends (...args: any[]) 
     const result = await logic(...args);
     const endTimeInNanoseconds = hrtime.bigint();
     const durationInNanoseconds = endTimeInNanoseconds - startTimeInNanoseconds;
-    const durationInSeconds = roundToHundredths(Number(durationInNanoseconds) / 1e9); // https://stackoverflow.com/a/53970656/3068233
-    if (durationInSeconds >= options.reportingThresholdSeconds) options.log({ title, durationInSeconds });
+    const durationInSeconds = roundToHundredths(
+      Number(durationInNanoseconds) / 1e9,
+    ); // https://stackoverflow.com/a/53970656/3068233
+    if (durationInSeconds >= options.reportingThresholdSeconds)
+      options.log({ title, durationInSeconds });
     return result;
   }) as T;
 };

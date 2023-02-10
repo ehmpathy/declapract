@@ -12,7 +12,9 @@ import { getRequiredActionForFile } from './getRequiredActionForFile';
 describe('getRequiredActionForFile', () => {
   it('should find that if all the evaluations passed, the action is no change', () => {
     const action = getRequiredActionForFile({
-      evaluations: [{ result: FileEvaluationResult.PASS } as FilePracticeEvaluation],
+      evaluations: [
+        { result: FileEvaluationResult.PASS } as FilePracticeEvaluation,
+      ],
     });
     expect(action).toEqual(RequiredAction.NO_CHANGE);
   });

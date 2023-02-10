@@ -1,5 +1,4 @@
-import { FileCheckEvaluation, ProjectVariablesImplementation } from '../../../../domain';
-import { FileCheckContext } from '../../../../domain/objects/FileCheckContext';
+import { FileCheckEvaluation } from '../../../../domain';
 import { readFileIfExistsAsync } from '../../../../utils/fileio/readFileIfExistsAsync';
 import { removeFileAsync } from '../../../../utils/fileio/removeFileAsync';
 import { writeFileAsync } from '../../../../utils/fileio/writeFileAsync';
@@ -20,7 +19,10 @@ export const fixFile = async ({
   evaluation: FileCheckEvaluation;
   projectRootDirectory: string;
 }) => {
-  if (!evaluation.fix) throw new UnexpectedCodePathError('fixFile called on an eval that doesnt have a fix defined');
+  if (!evaluation.fix)
+    throw new UnexpectedCodePathError(
+      'fixFile called on an eval that doesnt have a fix defined',
+    );
 
   // define the current state
   const relativeFilePath = evaluation.path;

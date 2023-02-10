@@ -12,7 +12,9 @@ export interface ActionUsePracticesConfigInput {
   useCase: string;
   variables?: Record<string, any>;
 }
-export class ActionUsePracticesConfigInput extends DomainObject<ActionUsePracticesConfigInput>
-  implements ActionUsePracticesConfigInput {
+export class ActionUsePracticesConfigInput
+  extends DomainObject<ActionUsePracticesConfigInput>
+  implements ActionUsePracticesConfigInput
+{
   public static schema = schema;
 }

@@ -1,11 +1,17 @@
 import { register } from 'ts-node';
+
 import { UnexpectedCodePathError } from '../../logic/UnexpectedCodePathError';
 
 const nodeModulesToTSNodeTranspileOnImport: string[] = [];
-const isExplicitImportToNodeModule = (filePath: string) => new RegExp(/node_modules\//).test(filePath);
+const isExplicitImportToNodeModule = (filePath: string) =>
+  new RegExp(/node_modules\//).test(filePath);
 const extractNodeModuleNameFromFilePath = (filePath: string): string | null =>
   (new RegExp(/node_modules\/([\w-]+)\//).exec(filePath) ?? [])[1] ?? null;
-const addNodeModuleToListOfModulesToAllowTranspilation = ({ nodeModuleName }: { nodeModuleName: string }) => {
+const addNodeModuleToListOfModulesToAllowTranspilation = ({
+  nodeModuleName,
+}: {
+  nodeModuleName: string;
+}) => {
   // check that this is not a redundant op
   if (nodeModulesToTSNodeTranspileOnImport.includes(nodeModuleName)) return; // do nothing if its already supported
 
@@ -17,7 +23,9 @@ const addNodeModuleToListOfModulesToAllowTranspilation = ({ nodeModuleName }: { 
     typeCheck: false,
     transpileOnly: true,
     files: true,
-    ignore: nodeModulesToTSNodeTranspileOnImport.map((moduleName) => `/node_modules/(?!${moduleName})/`),
+    ignore: nodeModulesToTSNodeTranspileOnImport.map(
+      (moduleName) => `/node_modules/(?!${moduleName})/`,
+    ),
     skipProject: true,
     compilerOptions: {
       esModuleInterop: true,
@@ -30,7 +38,11 @@ const addNodeModuleToListOfModulesToAllowTranspilation = ({ nodeModuleName }: { 
  *
  * note: this fn keeps track of which node modules we've been asked to explicitly import from - and tells tsnode to parse them by adding them to the list of not ignored modules
  */
-export const importExportsFromFile = async ({ filePath }: { filePath: string }) => {
+export const importExportsFromFile = async ({
+  filePath,
+}: {
+  filePath: string;
+}) => {
   if (isExplicitImportToNodeModule(filePath)) {
     const nodeModuleName = extractNodeModuleNameFromFilePath(filePath);
     if (!nodeModuleName)

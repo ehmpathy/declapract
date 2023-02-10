@@ -13,6 +13,9 @@ export interface ExampleDeclaration {
   name: string;
   exampleRootDirectory: string;
 }
-export class ExampleDeclaration extends DomainObject<ExampleDeclaration> implements ExampleDeclaration {
+export class ExampleDeclaration
+  extends DomainObject<ExampleDeclaration>
+  implements ExampleDeclaration
+{
   public static schema = schema;
 }

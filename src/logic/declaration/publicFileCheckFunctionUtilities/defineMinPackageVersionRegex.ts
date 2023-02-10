@@ -1,4 +1,5 @@
 import Joi from 'joi';
+
 import { UserInputError } from '../../UserInputError';
 
 export const defineRegexPartForNumberGreaterThan = (greaterThan: string) => {
@@ -8,7 +9,8 @@ export const defineRegexPartForNumberGreaterThan = (greaterThan: string) => {
     .positive()
     .allow(0)
     .validate(greaterThan);
-  if (validationResult.error) throw new Error(`not a positive integer: '${greaterThan}'`);
+  if (validationResult.error)
+    throw new Error(`not a positive integer: '${greaterThan}'`);
 
   // build the regex string
   const sameNumberOfDigitsPart = [...greaterThan]
@@ -27,7 +29,9 @@ export const defineRegexPartForNumberGreaterThan = (greaterThan: string) => {
 export const defineMinPackageVersionRegex = (minVersion: string) => {
   try {
     // for each part of the semver version, specify the regexp
-    const [major, minor = '0', patch = '0', ...more] = minVersion.split('.'); // default minor and patch to zero
+    const [major, minor = '0', patch = '0', ...more] = minVersion.split(
+      '.',
+    ) as [string, string | undefined, string | undefined, ...string[]]; // default minor and patch to zero
     if (more.length)
       // fail fast if not a valid semver
       throw new Error(

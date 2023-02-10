@@ -1,5 +1,6 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
+
 import { RequiredAction } from '../constants';
 import { FilePracticeEvaluation } from './FilePracticeEvaluation';
 
@@ -23,6 +24,9 @@ export interface FileActionPlan {
   evaluations: FilePracticeEvaluation[]; // the evaluated practices this plan was based on
 }
 
-export class FileActionPlan extends DomainObject<FileActionPlan> implements FileActionPlan {
+export class FileActionPlan
+  extends DomainObject<FileActionPlan>
+  implements FileActionPlan
+{
   public static schema = schema;
 }

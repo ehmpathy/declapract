@@ -3,4 +3,5 @@ import util from 'util';
 
 const unlink = util.promisify(fs.unlink);
 
-export const removeFileAsync = async ({ path }: { path: string }) => unlink(path);
+export const removeFileAsync = async ({ path }: { path: string }) =>
+  unlink(path);

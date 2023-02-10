@@ -24,14 +24,16 @@ export const evaluteProjectAgainstProjectCheckDeclaration = async ({
   const results = (
     await Promise.all(
       declaration.checks.map((check) =>
-        withDurationReporting(`evaluateFileCheckDeclaration.${practiceRef}.${check.pathGlob}`, () =>
-          evaluateProjectAgainstFileCheckDeclaration({
-            practiceRef,
-            purpose,
-            projectRootDirectory,
-            check,
-            projectVariables,
-          }),
+        withDurationReporting(
+          `evaluateFileCheckDeclaration.${practiceRef}.${check.pathGlob}`,
+          () =>
+            evaluateProjectAgainstFileCheckDeclaration({
+              practiceRef,
+              purpose,
+              projectRootDirectory,
+              check,
+              projectVariables,
+            }),
         )(),
       ),
     )

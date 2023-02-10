@@ -1,7 +1,12 @@
 import chalk from 'chalk';
 import indentString from 'indent-string';
 
-import { FileActionPlan, hasFailed, isFixableCheck, RequiredAction } from '../../../../domain';
+import {
+  FileActionPlan,
+  hasFailed,
+  isFixableCheck,
+  RequiredAction,
+} from '../../../../domain';
 import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
 import { getColoredPlanTitle } from '../display/color/getColoredPlanTitle';
 import { sortFileCheckEvaluationsByPracticeRef } from '../sortFileCheckEvaluationsByPracticeRef';
@@ -20,16 +25,21 @@ export const applyPlan = async ({
 }) => {
   // sanity check that the plan has fixable actions
   if (plan.action !== RequiredAction.FIX_AUTOMATIC)
-    throw new UnexpectedCodePathError('asked to apply a plan which does not have action FIX_AUTOMATIC specified', {
-      plan,
-    }); // should have been filtered out by now
+    throw new UnexpectedCodePathError(
+      'asked to apply a plan which does not have action FIX_AUTOMATIC specified',
+      {
+        plan,
+      },
+    ); // should have been filtered out by now
 
   // print out the title for this file
   const title = getColoredPlanTitle({ plan });
   console.log(`  * ${title}`); // tslint:disable-line: no-console
 
   // for each failed evaluation check, output that we're applying it
-  for (const practiceEvaluation of plan.evaluations.sort(sortFilePracticeEvaluationsByPracticeName)) {
+  for (const practiceEvaluation of plan.evaluations.sort(
+    sortFilePracticeEvaluationsByPracticeName,
+  )) {
     // grab the failed, fixable checks
     const failedFixableChecks = practiceEvaluation.checks
       .filter(hasFailed)
@@ -41,7 +51,12 @@ export const applyPlan = async ({
       await fixFile({ evaluation: checkEvaluation, projectRootDirectory });
       const statusToken = chalk.green('✓');
       const fixabilityToken = chalk.gray('(fix:applied)');
-      console.log(indentString(`${statusToken} practice:${checkEvaluation.practiceRef} ${fixabilityToken}`, 4)); // tslint:disable-line: no-console
+      console.log(
+        indentString(
+          `${statusToken} practice:${checkEvaluation.practiceRef} ${fixabilityToken}`,
+          4,
+        ),
+      ); // tslint:disable-line: no-console
     }
   }
 };

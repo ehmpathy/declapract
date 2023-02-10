@@ -32,7 +32,10 @@ export const getPlansForProject = withDurationReporting(
     // convert each file evaluation in to a plan per file
     const evaluationsPerFile = evaluations.reduce((summary, thisEvaluation) => {
       const currentState = summary[thisEvaluation.path] ?? []; // default to empty array
-      return { ...summary, [thisEvaluation.path]: [...currentState, thisEvaluation] }; // append this evaluation
+      return {
+        ...summary,
+        [thisEvaluation.path]: [...currentState, thisEvaluation],
+      }; // append this evaluation
     }, {} as Record<string, FilePracticeEvaluation[]>);
 
     // compose evaluations into plans

@@ -6,6 +6,9 @@ import { withOptionalityCheck } from './withOptionalityCheck';
 export const strictEqualsCheck: FileCheckFunction = withOptionalityCheck(
   (foundContents: string | null, context: FileCheckContext) => {
     checkExists(foundContents);
-    checkEqualsString({ declaredContents: context.declaredFileContents!, foundContents: foundContents! });
+    checkEqualsString({
+      declaredContents: context.declaredFileContents!,
+      foundContents: foundContents!,
+    });
   },
 );

@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+
 import {
   FileCheckPurpose,
   FileEvaluationResult,
@@ -45,14 +46,20 @@ export const evaluteProjectAgainstPracticeDeclaration = async ({
   // merge the results per file (i.e., if a file passes best practices (or does not exist there) but fails bad practices, just report it as failed once... but if it exists in either and passes all, then report as passed once)
   const pathsEvaluated = [
     ...new Set(
-      [...bestPracticeFileCheckEvaluations, ...badPracticeFileCheckEvaluations].map((evaluation) => evaluation.path),
+      [
+        ...bestPracticeFileCheckEvaluations,
+        ...badPracticeFileCheckEvaluations,
+      ].map((evaluation) => evaluation.path),
     ),
   ].sort();
   const evaluations = pathsEvaluated.map((path) => {
-    const checks = [...bestPracticeFileCheckEvaluations, ...badPracticeFileCheckEvaluations].filter(
-      (check) => check.path === path,
-    );
-    const result = checks.every(hasPassed) ? FileEvaluationResult.PASS : FileEvaluationResult.FAIL;
+    const checks = [
+      ...bestPracticeFileCheckEvaluations,
+      ...badPracticeFileCheckEvaluations,
+    ].filter((check) => check.path === path);
+    const result = checks.every(hasPassed)
+      ? FileEvaluationResult.PASS
+      : FileEvaluationResult.FAIL;
     return new FilePracticeEvaluation({
       path,
       result,

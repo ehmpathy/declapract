@@ -1,4 +1,7 @@
-import { defineMinPackageVersionRegex, defineRegexPartForNumberGreaterThan } from './defineMinPackageVersionRegex';
+import {
+  defineMinPackageVersionRegex,
+  defineRegexPartForNumberGreaterThan,
+} from './defineMinPackageVersionRegex';
 
 const testCases = [
   { minVersion: '0.8.21', versionToCheck: '0.1.21', correctResult: false },
@@ -50,7 +53,9 @@ const subTestCases = [
 describe('defineRegexPartForNumberGreaterThan', () => {
   subTestCases.forEach((testCase) =>
     it(`should create a regexp that finds '${testCase.minNumber} <= ${testCase.numberToCheck}' is '${testCase.correctResult}'`, () => {
-      const regexpPart = defineRegexPartForNumberGreaterThan(testCase.minNumber);
+      const regexpPart = defineRegexPartForNumberGreaterThan(
+        testCase.minNumber,
+      );
       const result = new RegExp(`^${regexpPart}$`).test(testCase.numberToCheck);
       expect(result).toEqual(testCase.correctResult);
     }),

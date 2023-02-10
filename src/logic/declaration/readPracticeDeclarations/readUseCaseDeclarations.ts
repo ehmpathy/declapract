@@ -1,4 +1,5 @@
 import uniqBy from 'lodash.uniqby';
+
 import { PracticeDeclaration, UseCaseDeclaration } from '../../../domain';
 import { ExampleDeclaration } from '../../../domain/objects/ExampleDeclaration';
 import { UseCasesDeclarationInput } from '../../../domain/objects/UseCasesDeclarationInput';
@@ -22,9 +23,12 @@ export const readUseCaseDeclarations = async ({
     try {
       return new UseCasesDeclarationInput(useCasesYml);
     } catch (error) {
-      throw new UserInputError('use-cases declaration file contents failed validation', {
-        potentialSolution: error.message,
-      });
+      throw new UserInputError(
+        'use-cases declaration file contents failed validation',
+        {
+          potentialSolution: error.message,
+        },
+      );
     }
   })();
 
@@ -34,19 +38,24 @@ export const readUseCaseDeclarations = async ({
       new UseCaseDeclaration({
         name,
         practices: definition.practices.map((requestedPracticeName) => {
-          const foundPractice = practices.find((practice) => practice.name === requestedPracticeName);
+          const foundPractice = practices.find(
+            (practice) => practice.name === requestedPracticeName,
+          );
           if (!foundPractice)
             throw new UserInputError(
               `A use-case specified a practices that was not defined. 'use-case:${name}' specified 'practice:${requestedPracticeName}', but no practice with name '${requestedPracticeName}' has been defined`,
               {
-                potentialSolution: 'Have you checked that there is not a typo in the practice name?',
+                potentialSolution:
+                  'Have you checked that there is not a typo in the practice name?',
               },
             );
           return foundPractice;
         }),
         example: definition.example
           ? (() => {
-              const example = examples.find((example) => example.name === definition.example);
+              const example = examples.find(
+                (thisExample) => thisExample.name === definition.example,
+              );
               if (!example)
                 throw new UserInputError(
                   `example declared for use case but no example with this name was declared: '${definition.example}'`,
@@ -60,14 +69,17 @@ export const readUseCaseDeclarations = async ({
   // now hydrate the use cases that requested "extends" of another use case
   const hydratedUseCases = useCases.map((useCase) => {
     // determine whether this use case asked for an extension
-    const { extends: extendsUseCaseNames } = useCasesInput['use-cases'][useCase.name];
+    const { extends: extendsUseCaseNames } =
+      useCasesInput['use-cases'][useCase.name]!;
     if (!extendsUseCaseNames) return useCase; // if it doesn't extend any use cases, then we can stop here
 
     // for each use case it extends and build up the full, hydrated set of practices
     const hydratedPractices = [...useCase.practices];
     extendsUseCaseNames.forEach((extendsUseCaseName) => {
       // lookup the use case that it extends
-      const extendedUseCase = useCases.find((candidateUseCase) => candidateUseCase.name === extendsUseCaseName);
+      const extendedUseCase = useCases.find(
+        (candidateUseCase) => candidateUseCase.name === extendsUseCaseName,
+      );
       if (!extendedUseCase)
         throw new UserInputError(
           `A use-case was defined to extend a non-existent use-case. 'use-case:${useCase.name}' was defined to extend 'use-case:${extendsUseCaseName}', but no use case with name '${extendsUseCaseName}' is defined`,
@@ -79,10 +91,16 @@ export const readUseCaseDeclarations = async ({
     });
 
     // now dedupe them by name
-    const uniqueHydratedPractices = uniqBy(hydratedPractices, (practice) => practice.name);
+    const uniqueHydratedPractices = uniqBy(
+      hydratedPractices,
+      (practice) => practice.name,
+    );
 
     // and return the hydrated use case
-    return new UseCaseDeclaration({ ...useCase, practices: uniqueHydratedPractices });
+    return new UseCaseDeclaration({
+      ...useCase,
+      practices: uniqueHydratedPractices,
+    });
   });
 
   // and return the use cases

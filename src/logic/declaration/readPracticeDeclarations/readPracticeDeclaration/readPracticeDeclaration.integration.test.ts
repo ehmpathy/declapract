@@ -31,8 +31,8 @@ describe('readPracticeDeclarationFromDirectory', () => {
     const practice = await readPracticeDeclaration({
       declaredPracticeDirectory: `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/prettier`,
     });
-    expect(practice.bestPractice?.checks[0].fix).toBeDefined();
-    expect(practice.bestPractice?.checks[0].fix).not.toEqual(null);
+    expect(practice.bestPractice?.checks[0]!.fix).toBeDefined();
+    expect(practice.bestPractice?.checks[0]!.fix).not.toEqual(null);
     expect(practice.bestPractice).not.toEqual(null);
     expect(practice.badPractices.length).toEqual(0);
     expect(practice).toMatchSnapshot();

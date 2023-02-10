@@ -1,8 +1,10 @@
 import { copyFileAsync } from '../../utils/fileio/copyFileAsync';
 import { listFilesInDirectory } from '../../utils/filepaths/listFilesInDirectory';
 
-export const serializeGlobPathForNpmPackaging = (path: string) => path.replace(/\*/g, '<star>');
-export const deserializeGlobPathFromNpmPackaging = (path: string) => path.replace(/\<star\>/g, '*');
+export const serializeGlobPathForNpmPackaging = (path: string) =>
+  path.replace(/\*/g, '<star>');
+export const deserializeGlobPathFromNpmPackaging = (path: string) =>
+  path.replace(/\<star\>/g, '*');
 
 /**
  *
@@ -25,7 +27,9 @@ export const compile = async ({
   // list all the files in the source dir
   const filePaths = await listFilesInDirectory({ directory: sourceDirectory });
   const relevantFilePaths = filePaths.filter(
-    (filePath) => !filePath.endsWith('.declapract.test.ts') && !filePath.endsWith('.declapract.test.ts.snap'), // no metafile test files // no metafile snapshot files,
+    (filePath) =>
+      !filePath.endsWith('.declapract.test.ts') &&
+      !filePath.endsWith('.declapract.test.ts.snap'), // no metafile test files // no metafile snapshot files,
   ); // skip the test files
   console.log(`📝 compiling ${relevantFilePaths.length} files...`); // tslint:disable-line: no-console
 
@@ -34,7 +38,9 @@ export const compile = async ({
     relevantFilePaths.map((filePath) =>
       copyFileAsync({
         from: `${sourceDirectory}/${filePath}`,
-        to: `${distributionDirectory}/${serializeGlobPathForNpmPackaging(filePath)}`,
+        to: `${distributionDirectory}/${serializeGlobPathForNpmPackaging(
+          filePath,
+        )}`,
       }),
     ),
   );

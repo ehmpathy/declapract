@@ -1,9 +1,9 @@
 import { RequiredAction } from '../../../../domain';
-import { getPlansForProject } from '../getPlansForProject';
-import { readPracticeDeclaration } from '../../../declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
-import { testAssetsDirectoryPath } from '../../../__test_assets__/dirPath';
-import { displayPlan } from './displayPlan';
 import { log } from '../../../../utils/logger';
+import { testAssetsDirectoryPath } from '../../../__test_assets__/dirPath';
+import { readPracticeDeclaration } from '../../../declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
+import { getPlansForProject } from '../getPlansForProject';
+import { displayPlan } from './displayPlan';
 
 const logSpy = jest.spyOn(console, 'log').mockImplementation(() => log.debug); // swap to log debug so its not displaying during tests by default
 
@@ -30,7 +30,9 @@ describe('displayPlan', () => {
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[NO_CHANGE]'));
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('package.json'));
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('package.json'),
+    );
     expect(logSpy.mock.calls[0]).toMatchSnapshot();
   });
   it('should show automatically fixable plans correctly', async () => {
@@ -45,7 +47,9 @@ describe('displayPlan', () => {
     // console.log(JSON.stringify(plans, null, 2));
 
     // grab the no change plan
-    const plan = plans.find((plan) => plan.action === RequiredAction.FIX_AUTOMATIC);
+    const plan = plans.find(
+      (plan) => plan.action === RequiredAction.FIX_AUTOMATIC,
+    );
     if (!plan) throw new Error('expected to find the plan here');
 
     // now display the plan
@@ -53,8 +57,12 @@ describe('displayPlan', () => {
 
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[FIX_AUTOMATIC]'));
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('.prettierignore'));
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('[FIX_AUTOMATIC]'),
+    );
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('.prettierignore'),
+    );
     expect(logSpy.mock.calls).toMatchSnapshot();
   });
   it('should show manually fixable plans correctly', async () => {
@@ -69,7 +77,9 @@ describe('displayPlan', () => {
     // console.log(JSON.stringify(plans, null, 2));
 
     // grab the no change plan
-    const plan = plans.find((plan) => plan.action === RequiredAction.FIX_MANUAL);
+    const plan = plans.find(
+      (plan) => plan.action === RequiredAction.FIX_MANUAL,
+    );
     if (!plan) throw new Error('expected to find the plan here');
 
     // now display the plan
@@ -77,8 +87,12 @@ describe('displayPlan', () => {
 
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[FIX_MANUAL]'));
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('package.json'));
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('[FIX_MANUAL]'),
+    );
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('package.json'),
+    );
     expect(logSpy.mock.calls).toMatchSnapshot();
   });
   it('should show failing bad practice correctly', async () => {
@@ -95,7 +109,9 @@ describe('displayPlan', () => {
     // console.log(JSON.stringify(plans, null, 2));
 
     // grab the no change plan
-    const plan = plans.find((plan) => plan.action === RequiredAction.FIX_MANUAL);
+    const plan = plans.find(
+      (plan) => plan.action === RequiredAction.FIX_MANUAL,
+    );
     if (!plan) throw new Error('expected to find the plan here');
 
     // now display the plan
@@ -103,8 +119,12 @@ describe('displayPlan', () => {
 
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[FIX_MANUAL]'));
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('package.json'));
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('[FIX_MANUAL]'),
+    );
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('package.json'),
+    );
     expect(logSpy.mock.calls).toMatchSnapshot();
   });
   it('should show failing multiple practices on the same file correctly', async () => {
@@ -124,7 +144,9 @@ describe('displayPlan', () => {
     // console.log(JSON.stringify(plans, null, 2));
 
     // grab the no change plan
-    const plan = plans.find((plan) => plan.action === RequiredAction.FIX_MANUAL);
+    const plan = plans.find(
+      (plan) => plan.action === RequiredAction.FIX_MANUAL,
+    );
     if (!plan) throw new Error('expected to find the plan here');
 
     // now display the plan
@@ -132,8 +154,12 @@ describe('displayPlan', () => {
 
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[FIX_MANUAL]'));
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('package.json'));
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('[FIX_MANUAL]'),
+    );
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining('package.json'),
+    );
     expect(logSpy.mock.calls).toMatchSnapshot();
   });
   it.todo('should show failing both manually and automatically correctly');

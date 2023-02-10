@@ -1,4 +1,5 @@
 import { isPresent } from 'simple-type-guards';
+
 import { FileActionPlan, isFixablePractice } from '../../../domain';
 import { getRequiredActionForFile } from './getRequiredActionForFile';
 
@@ -27,7 +28,9 @@ export const filterPracticeEvaluationsFromPlans = async ({
         return new FileActionPlan({
           path: plan.path,
           evaluations: filteredEvaluations,
-          action: getRequiredActionForFile({ evaluations: filteredEvaluations }),
+          action: getRequiredActionForFile({
+            evaluations: filteredEvaluations,
+          }),
         });
       })
       .filter(isPresent);
@@ -43,7 +46,9 @@ export const filterPracticeEvaluationsFromPlans = async ({
         return new FileActionPlan({
           path: plan.path,
           evaluations: filteredEvaluations,
-          action: getRequiredActionForFile({ evaluations: filteredEvaluations }),
+          action: getRequiredActionForFile({
+            evaluations: filteredEvaluations,
+          }),
         });
       })
       .filter(isPresent);
@@ -57,7 +62,9 @@ export const filterPracticeEvaluationsFromPlans = async ({
         return new FileActionPlan({
           path: plan.path,
           evaluations: filteredEvaluations,
-          action: getRequiredActionForFile({ evaluations: filteredEvaluations }),
+          action: getRequiredActionForFile({
+            evaluations: filteredEvaluations,
+          }),
         });
       })
       .filter(isPresent);

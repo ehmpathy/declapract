@@ -1,5 +1,6 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
+
 import { FileCheckFunction, FileCheckType } from '.';
 
 const schema = Joi.object().keys({
@@ -91,7 +92,9 @@ export interface FileCheckDeclarationInput {
    */
   function?: FileCheckFunction;
 }
-export class FileCheckDeclarationInput extends DomainObject<FileCheckDeclarationInput>
-  implements FileCheckDeclarationInput {
+export class FileCheckDeclarationInput
+  extends DomainObject<FileCheckDeclarationInput>
+  implements FileCheckDeclarationInput
+{
   public static schema = schema;
 }

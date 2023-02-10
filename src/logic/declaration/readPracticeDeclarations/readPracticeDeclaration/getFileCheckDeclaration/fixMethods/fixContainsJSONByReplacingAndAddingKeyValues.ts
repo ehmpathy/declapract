@@ -16,7 +16,10 @@ const deepReplaceAllCheckExpressionsFromDeclaredContentsString = ({
 }: {
   declaredContents: string;
 }) => {
-  return declaredContents.replace(/\@declapract\{check\.minVersion\('([0-9\.]+)'\)\}/g, '$1'); // using regexp capture groups to simplify this for now since we only have the minVersion expression; // TODO: make this more generic to handle other check expression types
+  return declaredContents.replace(
+    /\@declapract\{check\.minVersion\('([0-9\.]+)'\)\}/g,
+    '$1',
+  ); // using regexp capture groups to simplify this for now since we only have the minVersion expression; // TODO: make this more generic to handle other check expression types
 };
 
 /**
@@ -30,14 +33,17 @@ const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
   desiredObject: any;
 }) => {
   // if either key is not an object, return the current object without doing anything - we found a normal value
-  if (typeof currentObject !== 'object' || typeof desiredObject !== 'object') return currentObject;
+  if (typeof currentObject !== 'object' || typeof desiredObject !== 'object')
+    return currentObject;
 
   // if either input is null, return null; (special case of whats intended with the above since technically `null` _is_ typeof object)
   if (currentObject === null || desiredObject === null) return currentObject;
 
   // merge the keys
   const currentKeys = Object.keys(currentObject);
-  const keysToAdd = Object.keys(desiredObject).filter((desiredKey) => !currentKeys.includes(desiredKey));
+  const keysToAdd = Object.keys(desiredObject).filter(
+    (desiredKey) => !currentKeys.includes(desiredKey),
+  );
   const mergedKeys = [...currentKeys, ...keysToAdd]; // add the keys to the end
 
   // replace the value of each key in currentObject with the value in desiredObject, if exists in currentObject, deeply
@@ -51,12 +57,16 @@ const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
       if (desiredValue === undefined) return currentValue; // if there is no value defined in the desired object for this key, then keep the current value
       if (Array.isArray(desiredValue)) return desiredValue; // TODO: think through if we should do something special here
       if (isCheckMinVersionExpression(desiredValue)) {
-        const minVersion = getMinVersionFromCheckMinVersionExpression(desiredValue);
+        const minVersion =
+          getMinVersionFromCheckMinVersionExpression(desiredValue);
         if (!minVersion)
           throw new UnexpectedCodePathError(
             "checked that its a min version expression but couldn't extract a min version",
           ); // fail fast if weird error occurs
-        const passesMinVersion = checkDoesFoundValuePassesMinVersionCheck({ foundValue: currentValue, minVersion });
+        const passesMinVersion = checkDoesFoundValuePassesMinVersionCheck({
+          foundValue: currentValue,
+          minVersion,
+        });
         if (passesMinVersion) return currentValue; // dont change the current version if it passes the check
         return minVersion; // return the minimum version if it doesn't pass the check
       }
@@ -79,7 +89,10 @@ const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
  * - replaces keys in place (order not change)
  * - adds keys to the end (note: folks should specify a check that checks order if it matters, and have that check fix things)
  */
-export const fixContainsJSONByReplacingAndAddingKeyValues: FileFixFunction = (contents, context) => {
+export const fixContainsJSONByReplacingAndAddingKeyValues: FileFixFunction = (
+  contents,
+  context,
+) => {
   // check that declared contents exist; if not, then nothing to do
   const declaredContents = context.declaredFileContents;
   if (!declaredContents) return {}; // if no declared file contents, then we cant change anything
@@ -88,7 +101,9 @@ export const fixContainsJSONByReplacingAndAddingKeyValues: FileFixFunction = (co
   if (!contents)
     return {
       contents: context.declaredFileContents
-        ? deepReplaceAllCheckExpressionsFromDeclaredContentsString({ declaredContents }) // replace the check expressions, if declaredFileContents
+        ? deepReplaceAllCheckExpressionsFromDeclaredContentsString({
+            declaredContents,
+          }) // replace the check expressions, if declaredFileContents
         : context.declaredFileContents,
     }; // if the file DNE
 
@@ -97,10 +112,12 @@ export const fixContainsJSONByReplacingAndAddingKeyValues: FileFixFunction = (co
   const declaredPackageJSON = JSON.parse(declaredContents);
 
   // for each key in declared package json, replace the key if it exists in the found package
-  const fixedPackageJSON = deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues({
-    currentObject: foundPackageJSON,
-    desiredObject: declaredPackageJSON,
-  });
+  const fixedPackageJSON = deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues(
+    {
+      currentObject: foundPackageJSON,
+      desiredObject: declaredPackageJSON,
+    },
+  );
 
   // and return the contents now
   return {

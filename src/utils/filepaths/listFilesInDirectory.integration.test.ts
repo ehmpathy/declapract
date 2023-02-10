@@ -9,7 +9,9 @@ describe('listFilesInDirectory', () => {
   it('should find files nested in directory', async () => {
     const paths = await listFilesInDirectory({ directory: `${__dirname}/../` });
     expect(paths).toContain('filepaths/listFilesInDirectory.ts');
-    expect(paths).toContain('filepaths/listFilesInDirectory.integration.test.ts');
+    expect(paths).toContain(
+      'filepaths/listFilesInDirectory.integration.test.ts',
+    );
     expect(paths).not.toContain('filepaths'); // should not reference the directory itself though
   });
 });

@@ -27,10 +27,14 @@ const evaluateSupportedJSONCheckExpressionMinimumVersion = ({
     );
 
   // check whether it passes
-  const passesMinVersionCheck = checkDoesFoundValuePassesMinVersionCheck({ foundValue, minVersion });
+  const passesMinVersionCheck = checkDoesFoundValuePassesMinVersionCheck({
+    foundValue,
+    minVersion,
+  });
 
   // if foundValue does not match it, return the error message
-  if (!passesMinVersionCheck) return `a version greater than or equal to '${minVersion}'`;
+  if (!passesMinVersionCheck)
+    return `a version greater than or equal to '${minVersion}'`;
 
   // if it does match it, then return the value we found (so that there's no diff due to this one)
   return foundValue;
@@ -46,7 +50,13 @@ const evaluateSupportedJSONCheckExpressionMinimumVersion = ({
  *
  * why?: in order to evaluate each of the check expressions we support and display them in an easy to read diff
  */
-const recursivelyEvaluateDeclaredContentsToCheckContains = ({ declared, found }: { declared: any; found: any }) => {
+const recursivelyEvaluateDeclaredContentsToCheckContains = ({
+  declared,
+  found,
+}: {
+  declared: any;
+  found: any;
+}) => {
   // sanity check that there's anything to do
   if (!declared || typeof declared !== 'object') return declared; // nothing to eval, if declared is not an object
   if (!found || typeof found !== 'object') return declared; // nothing to eval, if found is not an object
@@ -67,12 +77,22 @@ const recursivelyEvaluateDeclaredContentsToCheckContains = ({ declared, found }:
 
       // handle cases where the declared value is itself an object (i.e., go one layer deeper, recursively)
       if (typeof declaredValue === 'object')
-        return recursivelyEvaluateDeclaredContentsToCheckContains({ declared: declaredValue, found: foundValue });
+        return recursivelyEvaluateDeclaredContentsToCheckContains({
+          declared: declaredValue,
+          found: foundValue,
+        });
 
       // handle cases where the declared value is a check reference to evaluate
-      if (typeof declaredValue === 'string' && declaredValue.startsWith('@declapract{check.')) {
+      if (
+        typeof declaredValue === 'string' &&
+        declaredValue.startsWith('@declapract{check.')
+      ) {
         if (isCheckMinVersionExpression(declaredValue)) {
-          const evaluatedValue = evaluateSupportedJSONCheckExpressionMinimumVersion({ declaredValue, foundValue });
+          const evaluatedValue =
+            evaluateSupportedJSONCheckExpressionMinimumVersion({
+              declaredValue,
+              foundValue,
+            });
           return evaluatedValue;
         }
       }
@@ -92,7 +112,13 @@ const recursivelyEvaluateDeclaredContentsToCheckContains = ({ declared, found }:
 /**
  * a function which recursively filters down the found contents to the ones that were specified as relevant by the declared contents.
  */
-const recursivelyFilterFoundContentsToCheckContains = ({ declared, found }: { declared: any; found: any }) => {
+const recursivelyFilterFoundContentsToCheckContains = ({
+  declared,
+  found,
+}: {
+  declared: any;
+  found: any;
+}) => {
   // sanity check that there's anything to do
   if (!declared || typeof declared !== 'object') return {}; // nothing to compare against, if declared is not an object
   if (!found || typeof found !== 'object') return found; // nothing to filter, if found is not an object
@@ -113,7 +139,10 @@ const recursivelyFilterFoundContentsToCheckContains = ({ declared, found }: { de
 
       // handle cases where the declared value is itself an object (i.e., go one layer deeper, recursively)
       if (typeof declaredValue === 'object')
-        return recursivelyFilterFoundContentsToCheckContains({ declared: declaredValue, found: foundValue });
+        return recursivelyFilterFoundContentsToCheckContains({
+          declared: declaredValue,
+          found: foundValue,
+        });
 
       // if did not match any of the above, then its just the declared value still
       return foundValue;
@@ -139,14 +168,16 @@ export const checkContainsJSON = ({
   const parsedFoundContents = JSON.parse(foundContents);
 
   // define the "declaredContentsToCheckContains" and "foundContentsToCheckContains" by evaluating any "@declapract{check.}" expressions and excluding any irrelevant keys, recursively
-  const declaredContentsToCheckContains = recursivelyEvaluateDeclaredContentsToCheckContains({
-    declared: parsedDeclaredContents,
-    found: parsedFoundContents,
-  });
-  const foundContentsToCheckContains = recursivelyFilterFoundContentsToCheckContains({
-    declared: parsedDeclaredContents,
-    found: parsedFoundContents,
-  });
+  const declaredContentsToCheckContains =
+    recursivelyEvaluateDeclaredContentsToCheckContains({
+      declared: parsedDeclaredContents,
+      found: parsedFoundContents,
+    });
+  const foundContentsToCheckContains =
+    recursivelyFilterFoundContentsToCheckContains({
+      declared: parsedDeclaredContents,
+      found: parsedFoundContents,
+    });
 
   // and do the contains substring check on those two strings now, to show diff better
   checkContainsSubstring({

@@ -7,14 +7,18 @@ export const readPracticeDeclarations = async ({
 }: {
   declaredPracticesDirectory: string;
 }) => {
-  const practiceDirectories = await listPathsInDirectory({ directory: declaredPracticesDirectory });
+  const practiceDirectories = await listPathsInDirectory({
+    directory: declaredPracticesDirectory,
+  });
   if (!practiceDirectories.length)
     throw new UserInputError(
       `at least one practice needs to be defined in the practices directory: '${declaredPracticesDirectory}'`,
     );
   const practices = await Promise.all(
     practiceDirectories.map((directory) =>
-      readPracticeDeclaration({ declaredPracticeDirectory: `${declaredPracticesDirectory}/${directory}` }),
+      readPracticeDeclaration({
+        declaredPracticeDirectory: `${declaredPracticesDirectory}/${directory}`,
+      }),
     ),
   );
   return practices;

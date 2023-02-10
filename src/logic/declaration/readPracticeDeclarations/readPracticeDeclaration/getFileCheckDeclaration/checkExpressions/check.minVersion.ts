@@ -5,13 +5,18 @@ import { defineMinPackageVersionRegex } from '../../../../publicFileCheckFunctio
  *
  * returns null if no match
  */
-export const getMinVersionFromCheckMinVersionExpression = (value: string): string | null =>
-  (new RegExp(/^\@declapract\{check\.minVersion\('([0-9\.]+)'\)\}$/).exec(value) ?? [])[1] ?? null;
+export const getMinVersionFromCheckMinVersionExpression = (
+  value: string,
+): string | null =>
+  (new RegExp(/^\@declapract\{check\.minVersion\('([0-9\.]+)'\)\}$/).exec(
+    value,
+  ) ?? [])[1] ?? null;
 
 /**
  * checks whether the string matches the form "@declapract{check.minVersion('x.y.z')}" (with nothing before and nothing after, too)
  */
-export const isCheckMinVersionExpression = (value: string) => !!getMinVersionFromCheckMinVersionExpression(value);
+export const isCheckMinVersionExpression = (value: string) =>
+  !!getMinVersionFromCheckMinVersionExpression(value);
 
 /**
  * evaluates a foundValue against a minVersion, to check if it passes it or not

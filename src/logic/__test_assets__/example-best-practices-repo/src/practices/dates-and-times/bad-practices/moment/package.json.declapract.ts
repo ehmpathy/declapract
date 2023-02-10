@@ -1,4 +1,5 @@
 import expect from 'expect';
+
 import { FileCheckFunction } from '../../../../../../../../domain';
 
 export const check: FileCheckFunction = (contents: string | null) => {

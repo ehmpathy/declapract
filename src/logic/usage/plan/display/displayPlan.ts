@@ -1,7 +1,12 @@
 import chalk from 'chalk';
 import indentString from 'indent-string';
 
-import { FileActionPlan, hasFailed, isFixableCheck, RequiredAction } from '../../../../domain';
+import {
+  FileActionPlan,
+  hasFailed,
+  isFixableCheck,
+  RequiredAction,
+} from '../../../../domain';
 import { sortFileCheckEvaluationsByPracticeRef } from '../sortFileCheckEvaluationsByPracticeRef';
 import { getColoredPlanTitle } from './color/getColoredPlanTitle';
 
@@ -20,10 +25,20 @@ export const displayPlan = async ({ plan }: { plan: FileActionPlan }) => {
       .filter(hasFailed)
       .sort(sortFileCheckEvaluationsByPracticeRef)
       .forEach((failedCheck) => {
-        const statusToken = isFixableCheck(failedCheck) ? chalk.yellow('✕') : chalk.red('✕');
-        const fixabilityToken = isFixableCheck(failedCheck) ? chalk.gray('(fix:appliable)') : '';
-        console.log(indentString(`${statusToken} practice:${failedCheck.practiceRef} ${fixabilityToken}`, 4)); // tslint:disable-line: no-console
-        if (failedCheck.reason) console.log(indentString(failedCheck.reason, 6), '\n'); // tslint:disable-line: no-console
+        const statusToken = isFixableCheck(failedCheck)
+          ? chalk.yellow('✕')
+          : chalk.red('✕');
+        const fixabilityToken = isFixableCheck(failedCheck)
+          ? chalk.gray('(fix:appliable)')
+          : '';
+        console.log(
+          indentString(
+            `${statusToken} practice:${failedCheck.practiceRef} ${fixabilityToken}`,
+            4,
+          ),
+        ); // tslint:disable-line: no-console
+        if (failedCheck.reason)
+          console.log(indentString(failedCheck.reason, 6), '\n'); // tslint:disable-line: no-console
       });
   });
 };

@@ -16,8 +16,14 @@ export const checkContainsSubstring = ({
     expect(foundContents).toContain(declaredContents);
   } catch (error) {
     // if the above check failed, run diff on the string directly to show a better string diff message
-    const difference = diff(declaredContents, foundContents, { aAnnotation: 'Expected toContain', bAnnotation });
-    if (!difference || difference === 'Compared values have no visual difference.')
+    const difference = diff(declaredContents, foundContents, {
+      aAnnotation: 'Expected toContain',
+      bAnnotation,
+    });
+    if (
+      !difference ||
+      difference === 'Compared values have no visual difference.'
+    )
       throw new UnexpectedCodePathError(
         'expect().toContain() threw an error, but no difference was detected in the strings',
         {

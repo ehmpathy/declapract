@@ -1,4 +1,9 @@
-import { FileCheckPurpose, FileCheckType, FileEvaluationResult, hasFailed } from '../../../domain';
+import {
+  FileCheckPurpose,
+  FileCheckType,
+  FileEvaluationResult,
+  hasFailed,
+} from '../../../domain';
 import { testAssetsDirectoryPath } from '../../__test_assets__/dirPath';
 import { readDeclarePracticesConfig } from '../../declaration/readDeclarePracticesConfig';
 import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgainstPracticeDeclaration';
@@ -9,7 +14,9 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
     });
-    const practice = declarations.practices.find((practice) => practice.name === 'prettier'); // lets use the "prettier" practice for this one, since its a "best-practice" only one
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'prettier',
+    ); // lets use the "prettier" practice for this one, since its a "best-practice" only one
     if (!practice) fail('should have found a practice');
 
     // sanity check the practice we'll be using
@@ -24,8 +31,14 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     });
 
     // check that the evaluation matches what we expect
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.FAIL).length).toEqual(2); // 2 out of 3 fail
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.PASS).length).toEqual(1); // 1 out of 3 pass
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(2); // 2 out of 3 fail
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(1); // 1 out of 3 pass
     expect(evaluations).toMatchSnapshot();
   });
   it('should be able to evaluate a practice with both a best practice and bad practices', async () => {
@@ -33,7 +46,9 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
     });
-    const practice = declarations.practices.find((practice) => practice.name === 'dates-and-times');
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'dates-and-times',
+    );
     if (!practice) fail('should have found a practice');
 
     // sanity check the practice we'll be using
@@ -48,14 +63,24 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     });
 
     // check that the evaluation matches what we expect
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.FAIL).length).toEqual(1);
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.PASS).length).toEqual(0);
-    expect(evaluations[0].checks.filter((check) => check.purpose === FileCheckPurpose.BEST_PRACTICE)[0].result).toEqual(
-      FileEvaluationResult.PASS,
-    );
-    expect(evaluations[0].checks.filter((check) => check.purpose === FileCheckPurpose.BAD_PRACTICE)[0].result).toEqual(
-      FileEvaluationResult.FAIL,
-    );
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(1);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(0);
+    expect(
+      evaluations[0]!.checks.filter(
+        (check) => check.purpose === FileCheckPurpose.BEST_PRACTICE,
+      )[0]!.result,
+    ).toEqual(FileEvaluationResult.PASS);
+    expect(
+      evaluations[0]!.checks.filter(
+        (check) => check.purpose === FileCheckPurpose.BAD_PRACTICE,
+      )[0]!.result,
+    ).toEqual(FileEvaluationResult.FAIL);
     expect(evaluations).toMatchSnapshot();
   });
   it('should be able to evaluate a practice with wildcard glob pattern path file checks - fails best and bad practices', async () => {
@@ -63,7 +88,9 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
     });
-    const practice = declarations.practices.find((practice) => practice.name === 'directory-structure-src');
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'directory-structure-src',
+    );
     if (!practice) fail('should have found a practice');
 
     // sanity check the practice we'll be using
@@ -78,8 +105,14 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     });
 
     // check that the evaluation matches what we expect
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.FAIL).length).toEqual(7);
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.PASS).length).toEqual(2);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(7);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(2);
 
     // sanity check a couple of important texamples
     expect(
@@ -95,7 +128,11 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
         }),
       ]),
     });
-    expect(evaluations.find((file) => file.path === 'src/data/clients/coolServiceClient.ts')).toMatchObject({
+    expect(
+      evaluations.find(
+        (file) => file.path === 'src/data/clients/coolServiceClient.ts',
+      ),
+    ).toMatchObject({
       // should have found this file by wildcard _and_ failed it due to the contains check not being satisfied correctly
       result: FileEvaluationResult.FAIL,
       checks: expect.arrayContaining([
@@ -127,7 +164,9 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
     });
-    const practice = declarations.practices.find((practice) => practice.name === 'directory-structure-src');
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'directory-structure-src',
+    );
     if (!practice) fail('should have found a practice');
 
     // sanity check the practice we'll be using
@@ -143,12 +182,20 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     // console.log(JSON.stringify(evaluations, null, 2));
 
     // check that the evaluation matches what we expect
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.FAIL).length).toEqual(0);
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.PASS).length).toEqual(9);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(0);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(9);
 
     // sanity check a couple of important texamples
     expect(
-      evaluations.find((file) => file.path === 'src/contract/handlers/doSomething.ts'), // found this file by wildcard glob path
+      evaluations.find(
+        (file) => file.path === 'src/contract/handlers/doSomething.ts',
+      ), // found this file by wildcard glob path
     ).toMatchObject({
       result: FileEvaluationResult.PASS, // passed, due to existance
       checks: expect.arrayContaining([
@@ -193,7 +240,9 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
     });
-    const practice = declarations.practices.find((practice) => practice.name === 'directory-structure-src');
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'directory-structure-src',
+    );
     if (!practice) fail('should have found a practice');
 
     // sanity check the practice we'll be using
@@ -209,12 +258,20 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     // console.log(JSON.stringify(evaluation, null, 2));
 
     // check that the evaluation matches what we expect
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.FAIL).length).toEqual(0);
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.PASS).length).toEqual(9);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(0);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(9);
 
     // sanity check a couple of important examples
     expect(
-      evaluations.find((file) => file.path === 'src/data/clients/svcAwesomeStuff.ts'), // did not find any files for this glob path -> glob path is kept
+      evaluations.find(
+        (file) => file.path === 'src/data/clients/svcAwesomeStuff.ts',
+      ), // did not find any files for this glob path -> glob path is kept
     ).toMatchObject({
       result: FileEvaluationResult.PASS,
       checks: expect.arrayContaining([
@@ -226,7 +283,9 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
       ]),
     });
     expect(
-      evaluations.find((file) => file.path === 'src/data/dao/superCoolThingDao/index.ts'), // found this file by wildcard glob path
+      evaluations.find(
+        (file) => file.path === 'src/data/dao/superCoolThingDao/index.ts',
+      ), // found this file by wildcard glob path
     ).toMatchObject({
       result: FileEvaluationResult.PASS, // passed, due to existance
       checks: expect.arrayContaining([
@@ -258,7 +317,9 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
     });
-    const practice = declarations.practices.find((practice) => practice.name === 'serverless');
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'serverless',
+    );
     if (!practice) fail('should have found a practice');
 
     // sanity check the practice we'll be using
@@ -280,12 +341,20 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     evaluations
       .filter(hasFailed)
       .forEach((evaluation) =>
-        evaluation.checks.filter(hasFailed).forEach((failedCheck) => console.log(failedCheck.reason)),
+        evaluation.checks
+          .filter(hasFailed)
+          .forEach((failedCheck) => console.log(failedCheck.reason)),
       );
 
     // check that the evaluation matches what we expect
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.FAIL).length).toEqual(0);
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.PASS).length).toEqual(2);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(0);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(2);
 
     // sanity check a couple of important examples
     expect(
@@ -321,7 +390,9 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
     });
-    const practice = declarations.practices.find((practice) => practice.name === 'testing');
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'testing',
+    );
     if (!practice) fail('should have found a practice');
 
     // sanity check the practice we'll be using
@@ -337,15 +408,27 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     // console.log(JSON.stringify(evaluations, null, 2));
 
     // check that the evaluation matches what we expect
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.FAIL).length).toEqual(0);
-    expect(evaluations.filter((file) => file.result === FileEvaluationResult.PASS).length).toEqual(1);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(0);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(1);
 
     // sanity check a couple of important examples
     expect(
-      evaluations.find((file) => file.path === 'node_modules/old-syntax.test.integration.ts'), // should not have found this path
+      evaluations.find(
+        (file) => file.path === 'node_modules/old-syntax.test.integration.ts',
+      ), // should not have found this path
     ).not.toBeDefined(); // should have found it because `.declapract` directory should be ignored
     expect(
-      evaluations.find((file) => file.path === 'node_modules/another-dir/old-syntax.test.integration.ts'), // should not have found this path
+      evaluations.find(
+        (file) =>
+          file.path ===
+          'node_modules/another-dir/old-syntax.test.integration.ts',
+      ), // should not have found this path
     ).not.toBeDefined(); // should have found it because `.declapract` directory should be ignored
 
     expect(
