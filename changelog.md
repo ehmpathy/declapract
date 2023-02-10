@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.7](https://github.com/ehmpathy/declapract/compare/v0.10.6...v0.10.7) (2023-02-10)
+
+
+### Bug Fixes
+
+* **bin:** ensure bin uses oclif core ([9db7b1b](https://github.com/ehmpathy/declapract/commit/9db7b1b007080a7517b04bfb541504456a2fa5d9))
+
 ## [0.10.6](https://github.com/ehmpathy/declapract/compare/v0.10.5...v0.10.6) (2023-02-10)
 
 
