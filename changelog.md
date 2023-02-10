@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.6](https://github.com/ehmpathy/declapract/compare/v0.10.5...v0.10.6) (2023-02-10)
+
+
+### Bug Fixes
+
+* **pkg:** emit declarations in dist ([79215a0](https://github.com/ehmpathy/declapract/commit/79215a00f3a673274e1de6166dfdd31a82f725ed))
+
 ## [0.10.5](https://github.com/ehmpathy/declapract/compare/v0.10.4...v0.10.5) (2023-02-10)
 
 
