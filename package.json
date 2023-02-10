@@ -3,7 +3,7 @@
   "author": "ehmpathy",
   "description": "A tool to declaratively define best practices, maintainable evolve them, and scalably enforce them.",
   "private": true,
-  "version": "0.10.3",
+  "version": "0.10.4",
   "repository": "ehmpathy/declapract",
   "homepage": "https://github.com/ehmpathy/declapract",
   "keywords": [
