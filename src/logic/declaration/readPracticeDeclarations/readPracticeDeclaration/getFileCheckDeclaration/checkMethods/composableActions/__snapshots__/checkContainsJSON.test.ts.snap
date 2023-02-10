@@ -5,11 +5,11 @@ exports[`checkContainsJSON should throw an error with a good looking diff when f
 [31m+ Received relevantKeys[39m
 
 [2m  {[22m
-[32m-   \\"name\\": \\"svc-of-awesomeness\\",[39m
-[31m+   \\"name\\": \\"svc-awesomeness\\",[39m
-[2m    \\"scripts\\": {[22m
-[32m-     \\"test\\": \\"npm run test:lint && npm run test:unit\\"[39m
-[31m+     \\"test\\": \\"npm run test:lint && npm run test:integration\\"[39m
+[32m-   "name": "svc-of-awesomeness",[39m
+[31m+   "name": "svc-awesomeness",[39m
+[2m    "scripts": {[22m
+[32m-     "test": "npm run test:lint && npm run test:unit"[39m
+[31m+     "test": "npm run test:lint && npm run test:integration"[39m
 [2m    }[22m
 [2m  }[22m"
 `;
@@ -19,12 +19,12 @@ exports[`checkContainsJSON should throw an error with a good looking diff when f
 [31m+ Received relevantKeys[39m
 
 [2m  {[22m
-[2m    \\"name\\": \\"svc-of-awesomeness\\",[22m
-[32m-   \\"version\\": \\"a version greater than or equal to '1.0.0'\\",[39m
-[31m+   \\"version\\": \\"0.8.21\\",[39m
-[2m    \\"devDependencies\\": {[22m
-[32m-     \\"typescript\\": \\"a version greater than or equal to '4.0.0'\\"[39m
-[31m+     \\"typescript\\": \\"3.3.1\\"[39m
+[2m    "name": "svc-of-awesomeness",[22m
+[32m-   "version": "a version greater than or equal to '1.0.0'",[39m
+[31m+   "version": "0.8.21",[39m
+[2m    "devDependencies": {[22m
+[32m-     "typescript": "a version greater than or equal to '4.0.0'"[39m
+[31m+     "typescript": "3.3.1"[39m
 [2m    }[22m
 [2m  }[22m"
 `;

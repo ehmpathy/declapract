@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`displayPlan should show automatically fixable plans correctly 1`] = `
-Array [
-  Array [
+[
+  [
     "[90m  ✓ evaluated practice:prettier[39m",
   ],
-  Array [
+  [
     "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .prettierignore[22m",
   ],
-  Array [
+  [
     "    [33m✕[39m practice:prettier.best-practice [90m(fix:appliable)[39m",
   ],
-  Array [
+  [
     "      [32m- Expected toEqual[39m
       [31m+ Received[39m
 
@@ -25,46 +25,46 @@ Array [
 `;
 
 exports[`displayPlan should show failing bad practice correctly 1`] = `
-Array [
-  Array [
+[
+  [
     "[90m  ✓ evaluated practice:dates-and-times[39m",
   ],
-  Array [
+  [
     "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
   ],
-  Array [
+  [
     "    [31m✕[39m practice:dates-and-times.bad-practice.moment ",
   ],
 ]
 `;
 
 exports[`displayPlan should show failing multiple practices on the same file correctly 1`] = `
-Array [
-  Array [
+[
+  [
     "[90m  ✓ evaluated practice:prettier[39m",
   ],
-  Array [
+  [
     "[90m  ✓ evaluated practice:dates-and-times[39m",
   ],
-  Array [
+  [
     "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
   ],
-  Array [
+  [
     "    [31m✕[39m practice:dates-and-times.bad-practice.moment ",
   ],
-  Array [
+  [
     "    [33m✕[39m practice:prettier.best-practice [90m(fix:appliable)[39m",
   ],
-  Array [
+  [
     "      [32m- Expected toContain[39m
       [31m+ Received relevantKeys[39m
 
       [32m- {[39m
-      [32m-   \\"devDependencies\\": {[39m
-      [32m-     \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"[39m
+      [32m-   "devDependencies": {[39m
+      [32m-     "prettier": "@declapract{check.minVersion('2.0.0')}"[39m
       [32m-   },[39m
-      [32m-   \\"scripts\\": {[39m
-      [32m-     \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"[39m
+      [32m-   "scripts": {[39m
+      [32m-     "format": "prettier --write '**/*.ts' --config ./prettier.config.js"[39m
       [32m-   }[39m
       [32m- }[39m
       [31m+ {}[39m",
@@ -75,21 +75,33 @@ Array [
 `;
 
 exports[`displayPlan should show manually fixable plans correctly 1`] = `
-Array [
-  Array [
+[
+  [
     "[90m  ✓ evaluated practice:dates-and-times[39m",
   ],
-  Array [
+  [
     "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
   ],
-  Array [
+  [
     "    [31m✕[39m practice:dates-and-times.best-practice ",
   ],
-  Array [
+  [
     "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
 
-      Expected: [32mObjectContaining {\\"dependencies\\": ObjectContaining {\\"date-fns\\": Any<String>}}[39m
-      Received: [31m{\\"devDependencies\\": {\\"prettier\\": \\"8.21.0\\"}, \\"scripts\\": {\\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"}}[39m",
+      [32m- Expected  - 3[39m
+      [31m+ Received  + 6[39m
+
+      [32m- ObjectContaining {[39m
+      [32m-   "dependencies": ObjectContaining {[39m
+      [32m-     "date-fns": Any<String>,[39m
+      [31m+ Object {[39m
+      [31m+   "devDependencies": Object {[39m
+      [31m+     "prettier": "8.21.0",[39m
+      [31m+   },[39m
+      [31m+   "scripts": Object {[39m
+      [31m+     "format": "prettier --write '**/*.ts' --config ./prettier.config.js",[39m
+      [2m    },[22m
+      [2m  }[22m",
     "
 ",
   ],
@@ -97,7 +109,7 @@ Array [
 `;
 
 exports[`displayPlan should show no change plans correctly 1`] = `
-Array [
+[
   "[90m  ✓ evaluated practice:prettier[39m",
 ]
 `;

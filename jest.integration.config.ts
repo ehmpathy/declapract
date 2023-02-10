@@ -11,6 +11,9 @@ const config: Config = {
   testMatch: ['**/*.integration.test.ts'],
   setupFiles: ['core-js'],
   setupFilesAfterEnv: ['./jest.integration.env.ts'],
+  transformIgnorePatterns: [
+    '<rootDir>/*/node_modules/(?!declapract-typescript-ehmpathy/)',
+  ],
 };
 
 // eslint-disable-next-line import/no-default-export

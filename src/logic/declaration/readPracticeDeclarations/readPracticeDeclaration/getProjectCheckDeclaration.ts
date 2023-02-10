@@ -64,12 +64,14 @@ export const getProjectCheckDeclaration = async ({
       }).catch((error) => error),
     ),
   );
-  const anError = checksAndErrors.find(
-    (checkOrError) => checkOrError instanceof Error,
-  );
+  const isError = (err: any): err is Error =>
+    err instanceof Error || // if its an error from the same context
+    (err && err.stack && err.message) || // if its an error from a different context (e.g., jest+babel parsing error); // https://stackoverflow.com/a/30469297/3068233
+    (err && err.diagnosticCodes && err.diagnosticText); // if its a typescript error from a different context (e.g., jest+babel parsing error); // https://stackoverflow.com/a/30469297/3068233
+  const anError = checksAndErrors.find(isError);
   if (anError) throw anError;
   const checks: FileCheckDeclaration[] = checksAndErrors.filter(
-    (checkOrError) => !(checkOrError instanceof Error),
+    (checkOrError) => !isError(checkOrError),
   );
 
   // get readme contents, if readme defined

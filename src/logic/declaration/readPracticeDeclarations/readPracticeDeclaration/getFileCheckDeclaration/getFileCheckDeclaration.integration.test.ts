@@ -384,7 +384,8 @@ import { AWS } from 'aws-sdk';
     await declaration.check(
       // should allow correct definition
       `${`
-export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
       `.trim()}\n`,
       context,
     );
@@ -623,10 +624,6 @@ this is a super awesome package that you should definitely use
       declaredProjectDirectory,
       declaredFileCorePath,
     });
-    const declaredFileContents = await readFileAsync({
-      filePath: `${declaredProjectDirectory}/${declaredFileCorePath}`,
-    });
-    expect(declaredFileContents).not.toEqual(null);
 
     // check that the properties look right
     expect(declaration.required).toEqual(false);

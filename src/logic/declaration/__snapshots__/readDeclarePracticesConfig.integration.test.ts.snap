@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`readDeclarePracticesConfig should be able to read a declared practices from example declarations repo config 1`] = `
-Object {
-  "examples": Array [
+{
+  "examples": [
     ExampleDeclaration {
       "exampleRootDirectory": "src/examples/lambda-service",
       "name": "lambda-service",
     },
   ],
-  "practices": Array [
+  "practices": [
     PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -24,7 +24,7 @@ Object {
             },
           ],
           "name": "moment",
-          "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+          "readme": "using \`moment\` is a bad practice because it has a weird api that "mutates" values
 
 for example:
 \`\`\`ts
@@ -37,7 +37,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -55,9 +55,9 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
       "name": "dates-and-times",
     },
     PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -74,7 +74,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -90,7 +90,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -184,9 +184,9 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
       "name": "directory-structure-src",
     },
     PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": "*.md
@@ -200,11 +200,11 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
           FileCheckDeclaration {
             "check": [Function],
             "contents": "{
-  \\"devDependencies\\": {
-    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
   },
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
   }
 }
 ",
@@ -238,9 +238,9 @@ module.exports = {
       "name": "prettier",
     },
     PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": "@declapract{variable.packageName}
@@ -267,9 +267,9 @@ module.exports = {
       "name": "readme-for-packages",
     },
     PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -343,9 +343,9 @@ functions:
       "name": "serverless",
     },
     PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": ".terraform
@@ -368,8 +368,8 @@ functions:
           },
           FileCheckDeclaration {
             "check": [Function],
-            "contents": "provider \\"aws\\" {
-  region = \\"us-east-1\\"
+            "contents": "provider "aws" {
+  region = "us-east-1"
 }
 ",
             "fix": [Function],
@@ -381,11 +381,11 @@ functions:
           FileCheckDeclaration {
             "check": [Function],
             "contents": "terraform {
-  required_version = \\">= 0.14\\"
+  required_version = ">= 0.14"
   required_providers {
     aws = {
-      source = \\"hashicorp/aws\\"
-      version = \\"3.53.0\\"
+      source = "hashicorp/aws"
+      version = "3.53.0"
     }
   }
 }
@@ -398,8 +398,8 @@ functions:
           },
           FileCheckDeclaration {
             "check": [Function],
-            "contents": "provider \\"aws\\" {
-  region = \\"us-east-1\\"
+            "contents": "provider "aws" {
+  region = "us-east-1"
 }
 ",
             "fix": [Function],
@@ -411,11 +411,11 @@ functions:
           FileCheckDeclaration {
             "check": [Function],
             "contents": "terraform {
-  required_version = \\">= 0.14\\"
+  required_version = ">= 0.14"
   required_providers {
     aws = {
-      source = \\"hashicorp/aws\\"
-      version = \\"3.53.0\\"
+      source = "hashicorp/aws"
+      version = "3.53.0"
     }
   }
 }
@@ -428,15 +428,15 @@ functions:
           },
           FileCheckDeclaration {
             "check": [Function],
-            "contents": "variable \\"environment\\" {}
+            "contents": "variable "environment" {}
 
 locals {
-  service = \\"@declapract{variable.serviceName}\\"
+  service = "@declapract{variable.serviceName}"
 }
 
 locals {
   tags = {
-    app         = \\"@declapract{variable.organizationName}\\"
+    app         = "@declapract{variable.organizationName}"
     environment = var.environment
     product     = local.service
   }
@@ -456,9 +456,9 @@ locals {
       "name": "terraform",
     },
     PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -477,12 +477,13 @@ locals {
       "name": "testing",
     },
     PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
-            "contents": "export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+            "contents": "export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 ",
             "fix": [Function],
             "pathGlob": "src/**/sleep.ts",
@@ -505,15 +506,15 @@ helpful in that:
     },
   ],
   "rootDir": Any<String>,
-  "useCases": Array [
+  "useCases": [
     UseCaseDeclaration {
       "example": null,
       "name": "typescript",
-      "practices": Array [
+      "practices": [
         PracticeDeclaration {
-          "badPractices": Array [],
+          "badPractices": [],
           "bestPractice": ProjectCheckDeclaration {
-            "checks": Array [
+            "checks": [
               FileCheckDeclaration {
                 "check": [Function],
                 "contents": "*.md
@@ -527,11 +528,11 @@ helpful in that:
               FileCheckDeclaration {
                 "check": [Function],
                 "contents": "{
-  \\"devDependencies\\": {
-    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
   },
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
   }
 }
 ",
@@ -565,12 +566,13 @@ module.exports = {
           "name": "prettier",
         },
         PracticeDeclaration {
-          "badPractices": Array [],
+          "badPractices": [],
           "bestPractice": ProjectCheckDeclaration {
-            "checks": Array [
+            "checks": [
               FileCheckDeclaration {
                 "check": [Function],
-                "contents": "export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+                "contents": "export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 ",
                 "fix": [Function],
                 "pathGlob": "src/**/sleep.ts",
@@ -599,11 +601,11 @@ helpful in that:
         "name": "lambda-service",
       },
       "name": "lambda-service",
-      "practices": Array [
+      "practices": [
         PracticeDeclaration {
-          "badPractices": Array [
+          "badPractices": [
             ProjectCheckDeclaration {
-              "checks": Array [
+              "checks": [
                 FileCheckDeclaration {
                   "check": [Function],
                   "contents": null,
@@ -615,7 +617,7 @@ helpful in that:
                 },
               ],
               "name": "moment",
-              "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+              "readme": "using \`moment\` is a bad practice because it has a weird api that "mutates" values
 
 for example:
 \`\`\`ts
@@ -628,7 +630,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
             },
           ],
           "bestPractice": ProjectCheckDeclaration {
-            "checks": Array [
+            "checks": [
               FileCheckDeclaration {
                 "check": [Function],
                 "contents": null,
@@ -646,9 +648,9 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
           "name": "dates-and-times",
         },
         PracticeDeclaration {
-          "badPractices": Array [],
+          "badPractices": [],
           "bestPractice": ProjectCheckDeclaration {
-            "checks": Array [
+            "checks": [
               FileCheckDeclaration {
                 "check": [Function],
                 "contents": null,
@@ -722,9 +724,9 @@ functions:
           "name": "serverless",
         },
         PracticeDeclaration {
-          "badPractices": Array [],
+          "badPractices": [],
           "bestPractice": ProjectCheckDeclaration {
-            "checks": Array [
+            "checks": [
               FileCheckDeclaration {
                 "check": [Function],
                 "contents": ".terraform
@@ -747,8 +749,8 @@ functions:
               },
               FileCheckDeclaration {
                 "check": [Function],
-                "contents": "provider \\"aws\\" {
-  region = \\"us-east-1\\"
+                "contents": "provider "aws" {
+  region = "us-east-1"
 }
 ",
                 "fix": [Function],
@@ -760,11 +762,11 @@ functions:
               FileCheckDeclaration {
                 "check": [Function],
                 "contents": "terraform {
-  required_version = \\">= 0.14\\"
+  required_version = ">= 0.14"
   required_providers {
     aws = {
-      source = \\"hashicorp/aws\\"
-      version = \\"3.53.0\\"
+      source = "hashicorp/aws"
+      version = "3.53.0"
     }
   }
 }
@@ -777,8 +779,8 @@ functions:
               },
               FileCheckDeclaration {
                 "check": [Function],
-                "contents": "provider \\"aws\\" {
-  region = \\"us-east-1\\"
+                "contents": "provider "aws" {
+  region = "us-east-1"
 }
 ",
                 "fix": [Function],
@@ -790,11 +792,11 @@ functions:
               FileCheckDeclaration {
                 "check": [Function],
                 "contents": "terraform {
-  required_version = \\">= 0.14\\"
+  required_version = ">= 0.14"
   required_providers {
     aws = {
-      source = \\"hashicorp/aws\\"
-      version = \\"3.53.0\\"
+      source = "hashicorp/aws"
+      version = "3.53.0"
     }
   }
 }
@@ -807,15 +809,15 @@ functions:
               },
               FileCheckDeclaration {
                 "check": [Function],
-                "contents": "variable \\"environment\\" {}
+                "contents": "variable "environment" {}
 
 locals {
-  service = \\"@declapract{variable.serviceName}\\"
+  service = "@declapract{variable.serviceName}"
 }
 
 locals {
   tags = {
-    app         = \\"@declapract{variable.organizationName}\\"
+    app         = "@declapract{variable.organizationName}"
     environment = var.environment
     product     = local.service
   }
@@ -835,9 +837,9 @@ locals {
           "name": "terraform",
         },
         PracticeDeclaration {
-          "badPractices": Array [],
+          "badPractices": [],
           "bestPractice": ProjectCheckDeclaration {
-            "checks": Array [
+            "checks": [
               FileCheckDeclaration {
                 "check": [Function],
                 "contents": "*.md
@@ -851,11 +853,11 @@ locals {
               FileCheckDeclaration {
                 "check": [Function],
                 "contents": "{
-  \\"devDependencies\\": {
-    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
   },
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
   }
 }
 ",
@@ -889,12 +891,13 @@ module.exports = {
           "name": "prettier",
         },
         PracticeDeclaration {
-          "badPractices": Array [],
+          "badPractices": [],
           "bestPractice": ProjectCheckDeclaration {
-            "checks": Array [
+            "checks": [
               FileCheckDeclaration {
                 "check": [Function],
-                "contents": "export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+                "contents": "export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 ",
                 "fix": [Function],
                 "pathGlob": "src/**/sleep.ts",

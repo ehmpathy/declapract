@@ -48,6 +48,7 @@
     "fix:lint": "eslint -c ./.eslintrc.js src/**/*.ts --fix",
     "build:clean": "rm dist/ -rf",
     "build:compile": "tsc -p ./tsconfig.build.json",
+    "build:artifact": "echo 'no artifact'",
     "build": "npm run build:clean && npm run build:compile && npm run build:artifact",
     "test:commits": "LAST_TAG=$(git describe --tags --abbrev=0 @^ 2> /dev/null || git rev-list --max-parents=0 HEAD) && npx commitlint --from $LAST_TAG --to HEAD --verbose",
     "test:types": "tsc -p ./tsconfig.build.json --noEmit",
@@ -68,6 +69,7 @@
   "dependencies": {
     "@oclif/core": "2.0.11",
     "@oclif/plugin-help": "3.1.0",
+    "bottleneck": "2.19.5",
     "chalk": "2.4.2",
     "cross-path-sort": "1.0.0",
     "diff": "4.0.1",

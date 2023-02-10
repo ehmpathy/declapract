@@ -2,9 +2,9 @@
 
 exports[`readPracticeDeclarationFromDirectory should define correctly when a bad-practice is defined 1`] = `
 PracticeDeclaration {
-  "badPractices": Array [
+  "badPractices": [
     ProjectCheckDeclaration {
-      "checks": Array [
+      "checks": [
         FileCheckDeclaration {
           "check": [Function],
           "contents": null,
@@ -16,7 +16,7 @@ PracticeDeclaration {
         },
       ],
       "name": "moment",
-      "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+      "readme": "using \`moment\` is a bad practice because it has a weird api that "mutates" values
 
 for example:
 \`\`\`ts
@@ -29,7 +29,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
     },
   ],
   "bestPractice": ProjectCheckDeclaration {
-    "checks": Array [
+    "checks": [
       FileCheckDeclaration {
         "check": [Function],
         "contents": null,
@@ -50,9 +50,9 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 
 exports[`readPracticeDeclarationFromDirectory should define correctly when best and bad practices are defined 1`] = `
 PracticeDeclaration {
-  "badPractices": Array [
+  "badPractices": [
     ProjectCheckDeclaration {
-      "checks": Array [
+      "checks": [
         FileCheckDeclaration {
           "check": [Function],
           "contents": null,
@@ -69,7 +69,7 @@ PracticeDeclaration {
 ",
     },
     ProjectCheckDeclaration {
-      "checks": Array [
+      "checks": [
         FileCheckDeclaration {
           "check": [Function],
           "contents": null,
@@ -85,7 +85,7 @@ PracticeDeclaration {
     },
   ],
   "bestPractice": ProjectCheckDeclaration {
-    "checks": Array [
+    "checks": [
       FileCheckDeclaration {
         "check": [Function],
         "contents": null,
@@ -182,12 +182,13 @@ PracticeDeclaration {
 
 exports[`readPracticeDeclarationFromDirectory should define correctly when only the best-practice is defined 1`] = `
 PracticeDeclaration {
-  "badPractices": Array [],
+  "badPractices": [],
   "bestPractice": ProjectCheckDeclaration {
-    "checks": Array [
+    "checks": [
       FileCheckDeclaration {
         "check": [Function],
-        "contents": "export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+        "contents": "export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
 ",
         "fix": [Function],
         "pathGlob": "src/**/sleep.ts",
@@ -212,9 +213,9 @@ helpful in that:
 
 exports[`readPracticeDeclarationFromDirectory should still have the fix functions defined on the file checks 1`] = `
 PracticeDeclaration {
-  "badPractices": Array [],
+  "badPractices": [],
   "bestPractice": ProjectCheckDeclaration {
-    "checks": Array [
+    "checks": [
       FileCheckDeclaration {
         "check": [Function],
         "contents": "*.md
@@ -228,11 +229,11 @@ PracticeDeclaration {
       FileCheckDeclaration {
         "check": [Function],
         "contents": "{
-  \\"devDependencies\\": {
-    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
   },
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
   }
 }
 ",

@@ -2,7 +2,7 @@
 
 exports[`getProjectCheckDeclarationFromDirectory should define correctly for a bad practice 1`] = `
 ProjectCheckDeclaration {
-  "checks": Array [
+  "checks": [
     FileCheckDeclaration {
       "check": [Function],
       "contents": null,
@@ -14,7 +14,7 @@ ProjectCheckDeclaration {
     },
   ],
   "name": "moment",
-  "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+  "readme": "using \`moment\` is a bad practice because it has a weird api that "mutates" values
 
 for example:
 \`\`\`ts
@@ -29,7 +29,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 
 exports[`getProjectCheckDeclarationFromDirectory should define correctly when many files in many levels 1`] = `
 ProjectCheckDeclaration {
-  "checks": Array [
+  "checks": [
     FileCheckDeclaration {
       "check": [Function],
       "contents": ".terraform
@@ -52,8 +52,8 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "provider \\"aws\\" {
-  region = \\"us-east-1\\"
+      "contents": "provider "aws" {
+  region = "us-east-1"
 }
 ",
       "fix": [Function],
@@ -65,11 +65,11 @@ ProjectCheckDeclaration {
     FileCheckDeclaration {
       "check": [Function],
       "contents": "terraform {
-  required_version = \\">= 0.14\\"
+  required_version = ">= 0.14"
   required_providers {
     aws = {
-      source = \\"hashicorp/aws\\"
-      version = \\"3.53.0\\"
+      source = "hashicorp/aws"
+      version = "3.53.0"
     }
   }
 }
@@ -82,8 +82,8 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "provider \\"aws\\" {
-  region = \\"us-east-1\\"
+      "contents": "provider "aws" {
+  region = "us-east-1"
 }
 ",
       "fix": [Function],
@@ -95,11 +95,11 @@ ProjectCheckDeclaration {
     FileCheckDeclaration {
       "check": [Function],
       "contents": "terraform {
-  required_version = \\">= 0.14\\"
+  required_version = ">= 0.14"
   required_providers {
     aws = {
-      source = \\"hashicorp/aws\\"
-      version = \\"3.53.0\\"
+      source = "hashicorp/aws"
+      version = "3.53.0"
     }
   }
 }
@@ -112,15 +112,15 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "variable \\"environment\\" {}
+      "contents": "variable "environment" {}
 
 locals {
-  service = \\"@declapract{variable.serviceName}\\"
+  service = "@declapract{variable.serviceName}"
 }
 
 locals {
   tags = {
-    app         = \\"@declapract{variable.organizationName}\\"
+    app         = "@declapract{variable.organizationName}"
     environment = var.environment
     product     = local.service
   }
@@ -141,7 +141,7 @@ locals {
 
 exports[`getProjectCheckDeclarationFromDirectory should define correctly when only one root level file check and a readme 1`] = `
 ProjectCheckDeclaration {
-  "checks": Array [
+  "checks": [
     FileCheckDeclaration {
       "check": [Function],
       "contents": null,
@@ -160,7 +160,7 @@ ProjectCheckDeclaration {
 
 exports[`getProjectCheckDeclarationFromDirectory should still have the fix functions defined on the file checks 1`] = `
 ProjectCheckDeclaration {
-  "checks": Array [
+  "checks": [
     FileCheckDeclaration {
       "check": [Function],
       "contents": "*.md
@@ -174,11 +174,11 @@ ProjectCheckDeclaration {
     FileCheckDeclaration {
       "check": [Function],
       "contents": "{
-  \\"devDependencies\\": {
-    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
   },
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
   }
 }
 ",

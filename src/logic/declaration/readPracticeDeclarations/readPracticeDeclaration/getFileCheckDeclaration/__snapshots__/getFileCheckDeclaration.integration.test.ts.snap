@@ -32,13 +32,13 @@ exports[`getFileCheckDeclaration should get file declaration correctly for a jso
 [31m+ Received relevantKeys[39m
 
 [2m  {[22m
-[2m    \\"devDependencies\\": {[22m
-[32m-     \\"prettier\\": \\"a version greater than or equal to '2.0.0'\\"[39m
-[31m+     \\"prettier\\": \\"1.2.1\\"[39m
+[2m    "devDependencies": {[22m
+[32m-     "prettier": "a version greater than or equal to '2.0.0'"[39m
+[31m+     "prettier": "1.2.1"[39m
 [2m    },[22m
-[2m    \\"scripts\\": {[22m
-[32m-     \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"[39m
-[31m+     \\"format\\": \\"prettier --read '**/*.ts' --config ./prettier.config.js\\"[39m
+[2m    "scripts": {[22m
+[32m-     "format": "prettier --write '**/*.ts' --config ./prettier.config.js"[39m
+[31m+     "format": "prettier --read '**/*.ts' --config ./prettier.config.js"[39m
 [2m    }[22m
 [2m  }[22m"
 `;
@@ -46,8 +46,17 @@ exports[`getFileCheckDeclaration should get file declaration correctly for a jso
 exports[`getFileCheckDeclaration should get file declaration correctly for a package json file with a custom check 1`] = `
 "[2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
 
-Expected: [32mObjectContaining {\\"dependencies\\": ObjectContaining {\\"date-fns\\": Any<String>}}[39m
-Received: [31m{\\"dependencies\\": {\\"time-fns\\": \\"2.0.0\\"}}[39m"
+[32m- Expected  - 3[39m
+[31m+ Received  + 3[39m
+
+[32m- ObjectContaining {[39m
+[32m-   "dependencies": ObjectContaining {[39m
+[32m-     "date-fns": Any<String>,[39m
+[31m+ Object {[39m
+[31m+   "dependencies": Object {[39m
+[31m+     "time-fns": "2.0.0",[39m
+[2m    },[22m
+[2m  }[22m"
 `;
 
 exports[`getFileCheckDeclaration should get file declaration correctly for a prettier config file exact equals definition 1`] = `
@@ -70,23 +79,23 @@ exports[`getFileCheckDeclaration should get file declaration correctly for a ter
 "[32m- Expected toContain[39m
 [31m+ Received[39m
 
-[2m  provider \\"aws\\" {[22m
-[32m-   region = \\"us-east-1\\"[39m
-[31m+   region  = \\"us-west-1\\"[39m
+[2m  provider "aws" {[22m
+[32m-   region = "us-east-1"[39m
+[31m+   region  = "us-west-1"[39m
 [31m+ }[39m
 [31m+[39m
 [31m+ terraform {[39m
-[31m+   required_version = \\">= 0.14\\"[39m
-[31m+   backend \\"s3\\" {[39m
-[31m+     bucket = \\"terraform-state-someidentifier-dev\\"[39m
-[31m+     key    = \\"svc-cool-stuff\\"[39m
-[31m+     region = \\"us-east-1\\"[39m
+[31m+   required_version = ">= 0.14"[39m
+[31m+   backend "s3" {[39m
+[31m+     bucket = "terraform-state-someidentifier-dev"[39m
+[31m+     key    = "svc-cool-stuff"[39m
+[31m+     region = "us-east-1"[39m
 [31m+   }[39m
 [2m  }[22m
 
-[31m+ module \\"product\\" {[39m
-[31m+   source      = \\"../../product\\"[39m
-[31m+   environment = \\"dev\\"[39m
+[31m+ module "product" {[39m
+[31m+   source      = "../../product"[39m
+[31m+   environment = "dev"[39m
 [31m+ }[39m"
 `;
 
@@ -103,7 +112,8 @@ exports[`getFileCheckDeclaration should get file declaration correctly for an op
 "[32m- Expected toEqual[39m
 [31m+ Received[39m
 
-[32m- export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));[39m
+[32m- export const sleep = (ms: number) =>[39m
+[32m-   new Promise((resolve) => setTimeout(resolve, ms));[39m
 [32m-[39m
 [31m+ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout(reject, ms));[39m"
 `;

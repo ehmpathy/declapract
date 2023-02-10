@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice which reference project variables in the declared contents and custom checks 1`] = `
-Array [
+[
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {
+          "projectVariables": {
             "infrastructureNamespaceId": "abcde12345",
             "organizationName": "awesome-org",
             "serviceName": "svc-awesome-thing",
@@ -29,9 +29,9 @@ Array [
     ],
     "path": "package.json",
     "practice": PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -107,7 +107,7 @@ functions:
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": "service: svc-awesome-thing
@@ -160,7 +160,7 @@ custom:
 functions:
 ",
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {
+          "projectVariables": {
             "infrastructureNamespaceId": "abcde12345",
             "organizationName": "awesome-org",
             "serviceName": "svc-awesome-thing",
@@ -181,9 +181,9 @@ functions:
     ],
     "path": "serverless.yml",
     "practice": PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -262,14 +262,14 @@ functions:
 `;
 
 exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with both a best practice and bad practices 1`] = `
-Array [
+[
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "package.json",
           "required": true,
         },
@@ -286,7 +286,7 @@ Array [
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "package.json",
           "required": true,
         },
@@ -302,9 +302,9 @@ Array [
     ],
     "path": "package.json",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -316,7 +316,7 @@ Array [
             },
           ],
           "name": "moment",
-          "readme": "using \`moment\` is a bad practice because it has a weird api that \\"mutates\\" values
+          "readme": "using \`moment\` is a bad practice because it has a weird api that "mutates" values
 
 for example:
 \`\`\`ts
@@ -329,7 +329,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -352,15 +352,15 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
 `;
 
 exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with only a best practice 1`] = `
-Array [
+[
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": "*.md
 ",
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": ".prettierignore",
           "required": true,
         },
@@ -381,9 +381,9 @@ Array [
     ],
     "path": ".prettierignore",
     "practice": PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": "*.md
@@ -397,11 +397,11 @@ Array [
           FileCheckDeclaration {
             "check": [Function],
             "contents": "{
-  \\"devDependencies\\": {
-    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
   },
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
   }
 }
 ",
@@ -437,20 +437,20 @@ module.exports = {
     "result": "FAIL",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": "{
-  \\"devDependencies\\": {
-    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
   },
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
   }
 }
 ",
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "package.json",
           "required": true,
         },
@@ -466,9 +466,9 @@ module.exports = {
     ],
     "path": "package.json",
     "practice": PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": "*.md
@@ -482,11 +482,11 @@ module.exports = {
           FileCheckDeclaration {
             "check": [Function],
             "contents": "{
-  \\"devDependencies\\": {
-    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
   },
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
   }
 }
 ",
@@ -522,7 +522,7 @@ module.exports = {
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": "// ref: http://json.schemastore.org/prettierrc
@@ -535,7 +535,7 @@ module.exports = {
 };
 ",
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "prettier.config.js",
           "required": true,
         },
@@ -563,9 +563,9 @@ module.exports = {
     ],
     "path": "prettier.config.js",
     "practice": PracticeDeclaration {
-      "badPractices": Array [],
+      "badPractices": [],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": "*.md
@@ -579,11 +579,11 @@ module.exports = {
           FileCheckDeclaration {
             "check": [Function],
             "contents": "{
-  \\"devDependencies\\": {
-    \\"prettier\\": \\"@declapract{check.minVersion('2.0.0')}\\"
+  "devDependencies": {
+    "prettier": "@declapract{check.minVersion('2.0.0')}"
   },
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --write '**/*.ts' --config ./prettier.config.js\\"
+  "scripts": {
+    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
   }
 }
 ",
@@ -622,14 +622,14 @@ module.exports = {
 `;
 
 exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with wildcard glob pattern path file checks - fails best and bad practices 1`] = `
-Array [
+[
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/contract/**/*.ts",
           "required": true,
         },
@@ -646,9 +646,9 @@ Array [
     ],
     "path": "src/contract/**/*.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -665,7 +665,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -681,7 +681,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -777,13 +777,13 @@ Array [
     "result": "FAIL",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": "import { invokeLambdaFunction } from 'simple-lambda-client';
 ",
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/data/clients/coolServiceClient.ts",
           "required": false,
         },
@@ -804,9 +804,9 @@ Array [
     ],
     "path": "src/data/clients/coolServiceClient.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -823,7 +823,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -839,7 +839,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -935,12 +935,12 @@ Array [
     "result": "FAIL",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/data/dao/**/*.ts",
           "required": false,
         },
@@ -956,9 +956,9 @@ Array [
     ],
     "path": "src/data/dao/**/*.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -975,7 +975,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -991,7 +991,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -1087,12 +1087,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/domain/constants.ts",
           "required": false,
         },
@@ -1108,9 +1108,9 @@ Array [
     ],
     "path": "src/domain/constants.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1127,7 +1127,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1143,7 +1143,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -1239,12 +1239,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/domain/index.ts",
           "required": true,
         },
@@ -1261,9 +1261,9 @@ Array [
     ],
     "path": "src/domain/index.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1280,7 +1280,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1296,7 +1296,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -1392,12 +1392,12 @@ Array [
     "result": "FAIL",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/domain/objects/index.ts",
           "required": true,
         },
@@ -1414,9 +1414,9 @@ Array [
     ],
     "path": "src/domain/objects/index.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1433,7 +1433,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1449,7 +1449,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -1545,12 +1545,12 @@ Array [
     "result": "FAIL",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/logic/**/*.ts",
           "required": true,
         },
@@ -1567,9 +1567,9 @@ Array [
     ],
     "path": "src/logic/**/*.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1586,7 +1586,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1602,7 +1602,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -1698,12 +1698,12 @@ Array [
     "result": "FAIL",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/model/someFile.ts",
           "required": true,
         },
@@ -1719,9 +1719,9 @@ Array [
     ],
     "path": "src/model/someFile.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1738,7 +1738,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1754,7 +1754,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -1850,12 +1850,12 @@ Array [
     "result": "FAIL",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/services/someFile.ts",
           "required": true,
         },
@@ -1871,9 +1871,9 @@ Array [
     ],
     "path": "src/services/someFile.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1890,7 +1890,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -1906,7 +1906,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -2005,14 +2005,14 @@ Array [
 `;
 
 exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with wildcard glob pattern path file checks - passes with optionals 1`] = `
-Array [
+[
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/contract/handlers/doSomething.ts",
           "required": true,
         },
@@ -2028,9 +2028,9 @@ Array [
     ],
     "path": "src/contract/handlers/doSomething.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2047,7 +2047,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2063,7 +2063,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -2159,13 +2159,13 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": "import { invokeLambdaFunction } from 'simple-lambda-client';
 ",
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/data/clients/svcAwesomeStuff.ts",
           "required": false,
         },
@@ -2181,9 +2181,9 @@ Array [
     ],
     "path": "src/data/clients/svcAwesomeStuff.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2200,7 +2200,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2216,7 +2216,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -2312,12 +2312,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/data/dao/superCoolThingDao/index.ts",
           "required": false,
         },
@@ -2333,9 +2333,9 @@ Array [
     ],
     "path": "src/data/dao/superCoolThingDao/index.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2352,7 +2352,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2368,7 +2368,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -2464,12 +2464,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/domain/constants.ts",
           "required": false,
         },
@@ -2485,9 +2485,9 @@ Array [
     ],
     "path": "src/domain/constants.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2504,7 +2504,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2520,7 +2520,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -2616,12 +2616,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/domain/index.ts",
           "required": true,
         },
@@ -2637,9 +2637,9 @@ Array [
     ],
     "path": "src/domain/index.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2656,7 +2656,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2672,7 +2672,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -2768,12 +2768,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/domain/objects/index.ts",
           "required": true,
         },
@@ -2789,9 +2789,9 @@ Array [
     ],
     "path": "src/domain/objects/index.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2808,7 +2808,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2824,7 +2824,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -2920,12 +2920,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/logic/doSomething.ts",
           "required": true,
         },
@@ -2941,9 +2941,9 @@ Array [
     ],
     "path": "src/logic/doSomething.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2960,7 +2960,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -2976,7 +2976,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -3072,12 +3072,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/model/**/*.ts",
           "required": true,
         },
@@ -3094,9 +3094,9 @@ Array [
     ],
     "path": "src/model/**/*.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3113,7 +3113,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3129,7 +3129,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -3225,12 +3225,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/services/**/*.ts",
           "required": true,
         },
@@ -3247,9 +3247,9 @@ Array [
     ],
     "path": "src/services/**/*.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3266,7 +3266,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3282,7 +3282,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -3381,14 +3381,14 @@ Array [
 `;
 
 exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice with wildcard glob pattern path file checks - passes without optionals 1`] = `
-Array [
+[
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/contract/handlers/doSomething.ts",
           "required": true,
         },
@@ -3404,9 +3404,9 @@ Array [
     ],
     "path": "src/contract/handlers/doSomething.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3423,7 +3423,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3439,7 +3439,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -3535,13 +3535,13 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": "import { invokeLambdaFunction } from 'simple-lambda-client';
 ",
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/data/clients/**/*.ts",
           "required": false,
         },
@@ -3557,9 +3557,9 @@ Array [
     ],
     "path": "src/data/clients/**/*.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3576,7 +3576,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3592,7 +3592,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -3688,12 +3688,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/data/dao/**/*.ts",
           "required": false,
         },
@@ -3709,9 +3709,9 @@ Array [
     ],
     "path": "src/data/dao/**/*.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3728,7 +3728,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3744,7 +3744,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -3840,12 +3840,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/domain/constants.ts",
           "required": false,
         },
@@ -3861,9 +3861,9 @@ Array [
     ],
     "path": "src/domain/constants.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3880,7 +3880,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -3896,7 +3896,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -3992,12 +3992,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/domain/index.ts",
           "required": true,
         },
@@ -4013,9 +4013,9 @@ Array [
     ],
     "path": "src/domain/index.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4032,7 +4032,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4048,7 +4048,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -4144,12 +4144,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/domain/objects/index.ts",
           "required": true,
         },
@@ -4165,9 +4165,9 @@ Array [
     ],
     "path": "src/domain/objects/index.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4184,7 +4184,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4200,7 +4200,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -4296,12 +4296,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/logic/doSomething.ts",
           "required": true,
         },
@@ -4317,9 +4317,9 @@ Array [
     ],
     "path": "src/logic/doSomething.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4336,7 +4336,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4352,7 +4352,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -4448,12 +4448,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/model/**/*.ts",
           "required": true,
         },
@@ -4470,9 +4470,9 @@ Array [
     ],
     "path": "src/model/**/*.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4489,7 +4489,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4505,7 +4505,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -4601,12 +4601,12 @@ Array [
     "result": "PASS",
   },
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "src/services/**/*.ts",
           "required": true,
         },
@@ -4623,9 +4623,9 @@ Array [
     ],
     "path": "src/services/**/*.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4642,7 +4642,7 @@ Array [
 ",
         },
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
@@ -4658,7 +4658,7 @@ Array [
         },
       ],
       "bestPractice": ProjectCheckDeclaration {
-        "checks": Array [
+        "checks": [
           FileCheckDeclaration {
             "check": [Function],
             "contents": null,
@@ -4757,14 +4757,14 @@ Array [
 `;
 
 exports[`evaluteProjectAgainstPracticeDeclaration should ignore the "node_modules" and ".declapract" directory when evaluating glob paths 1`] = `
-Array [
+[
   FilePracticeEvaluation {
-    "checks": Array [
+    "checks": [
       FileCheckEvaluation {
         "context": FileCheckContext {
           "declaredFileContents": null,
           "getProjectRootDirectory": [Function],
-          "projectVariables": Object {},
+          "projectVariables": {},
           "relativeFilePath": "**/*.test.integration.ts",
           "required": true,
         },
@@ -4781,9 +4781,9 @@ Array [
     ],
     "path": "**/*.test.integration.ts",
     "practice": PracticeDeclaration {
-      "badPractices": Array [
+      "badPractices": [
         ProjectCheckDeclaration {
-          "checks": Array [
+          "checks": [
             FileCheckDeclaration {
               "check": [Function],
               "contents": null,
