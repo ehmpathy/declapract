@@ -1,4 +1,4 @@
-import { isPresent } from 'simple-type-guards';
+import { isPresent } from 'type-fns';
 
 import { FileActionPlan, isFixablePractice } from '../../../domain';
 import { getRequiredActionForFile } from './getRequiredActionForFile';

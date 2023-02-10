@@ -1,6 +1,6 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
-import { createIsOfEnum } from 'simple-type-guards';
+import { createIsOfEnum } from 'type-fns';
 
 import { FileCheckContext } from './FileCheckContext';
 

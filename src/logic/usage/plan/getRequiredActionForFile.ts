@@ -1,4 +1,4 @@
-import { withNot } from 'simple-type-guards';
+import { withNot } from 'type-fns';
 
 import {
   FilePracticeEvaluation,
