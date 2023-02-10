@@ -5,12 +5,13 @@
     "noPropertyAccessFromIndexSignature": false,
     "noImplicitOverride": false,
     "resolveJsonModule": true,
+    "declaration": true,
     "sourceMap": true,
     "useUnknownInCatchVariables": false,
     "exactOptionalPropertyTypes": false,
     "allowUnreachableCode": true,
     "outDir": "dist",
-    "target": "es6",
+    "target": "es6"
   },
   "include": [
     "**/*.ts"
