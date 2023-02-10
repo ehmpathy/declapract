@@ -50,6 +50,7 @@
     "build:compile": "tsc -p ./tsconfig.build.json",
     "build:artifact": "echo 'no artifact'",
     "build": "npm run build:clean && npm run build:compile && npm run build:artifact",
+    "provision:integration-test-db": "echo 'no integration test db'",
     "test:commits": "LAST_TAG=$(git describe --tags --abbrev=0 @^ 2> /dev/null || git rev-list --max-parents=0 HEAD) && npx commitlint --from $LAST_TAG --to HEAD --verbose",
     "test:types": "tsc -p ./tsconfig.build.json --noEmit",
     "prepublish": "npm run build",
