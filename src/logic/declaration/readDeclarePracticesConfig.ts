@@ -1,4 +1,3 @@
-import { config } from 'shelljs';
 import { ActionDeclarePracticesConfigInput } from '../../domain/objects/ActionDeclarePracticesConfigInput';
 import { DeclaredPractices } from '../../domain/objects/DeclaredPractices';
 import { readYmlFile } from '../../utils/fileio/readYmlFile';
