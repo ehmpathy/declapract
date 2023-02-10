@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.10.5](https://github.com/ehmpathy/declapract/compare/v0.10.4...v0.10.5) (2023-02-10)
+
+
+### Bug Fixes
+
+* **cicd:** remove private flag to unblock publishing ([c53d2ed](https://github.com/ehmpathy/declapract/commit/c53d2ed1e15a5354bb8fbd9c65dad996b2e32937))
+* **deps:** add back improperly removed typedeps ([9abf012](https://github.com/ehmpathy/declapract/commit/9abf012fddaef33ad514e6894bb67cf4877a1552))
+* **deps:** further trim unused dependencies with depcheck ([dbeb6a4](https://github.com/ehmpathy/declapract/commit/dbeb6a4e29fc06ea93f7d34add0618155fb5cd39))
+
 ## [0.10.4](https://github.com/ehmpathy/declapract/compare/v0.10.3...v0.10.4) (2023-02-10)
 
 
