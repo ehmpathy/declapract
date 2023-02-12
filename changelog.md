@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.8](https://github.com/ehmpathy/declapract/compare/v0.10.7...v0.10.8) (2023-02-12)
+
+
+### Bug Fixes
+
+* **deps:** bump dev dependency on declapract-typescript-ehmpathy ([8c5cdf2](https://github.com/ehmpathy/declapract/commit/8c5cdf227a8fe5d97b4783c5aeeb6844165dbed6))
+
 ## [0.10.7](https://github.com/ehmpathy/declapract/compare/v0.10.6...v0.10.7) (2023-02-10)
 
 
