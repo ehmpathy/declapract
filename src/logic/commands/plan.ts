@@ -22,7 +22,7 @@ export const plan = async ({
 
   // grab the selected use case's practices
   const useCase = config.declared.useCases.find(
-    (useCase) => useCase.name === config.useCase,
+    (thisUseCase) => thisUseCase.name === config.useCase,
   );
   if (!useCase)
     throw new UnexpectedCodePathError(
@@ -32,7 +32,12 @@ export const plan = async ({
   // get the plans
   console.log('🔬️ evaluating project...'); // tslint:disable-line: no-console
   const plans = await getPlansForProject({
-    practices: useCase.practices,
+    practices: useCase.practices.filter(
+      (practice) =>
+        filter?.practiceNames
+          ? filter?.practiceNames.includes(practice.name) // if practice.name filter was defined, ensure practice.name is included
+          : true, // otherwise, all are included
+    ),
     projectRootDirectory: config.rootDir,
     projectVariables: config.variables,
   });

@@ -40,11 +40,11 @@ export const getPlansForProject = withDurationReporting(
 
     // compose evaluations into plans
     const plans = Object.entries(evaluationsPerFile).map(
-      ([path, evaluations]) =>
+      ([path, evaluationsForFile]) =>
         new FileActionPlan({
           path,
-          evaluations,
-          action: getRequiredActionForFile({ evaluations }),
+          evaluations: evaluationsForFile,
+          action: getRequiredActionForFile({ evaluations: evaluationsForFile }),
         }),
     );
 

@@ -103,7 +103,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
           if (purpose === FileCheckPurpose.BAD_PRACTICE)
             return FileEvaluationResult.FAIL; // if it matches a bad practice, then it failed the check
           throw new UnexpectedCodePathError(
-            'context was not bet practice or bad practice',
+            'context was not best practice or bad practice',
           );
         })();
 
