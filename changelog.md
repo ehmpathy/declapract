@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.9](https://github.com/ehmpathy/declapract/compare/v0.10.8...v0.10.9) (2023-02-16)
+
+
+### Bug Fixes
+
+* **deps:** bump expect and jest-diff deps to match jest version and prevent false positives ([e74502d](https://github.com/ehmpathy/declapract/commit/e74502d904d111a61f4eb9116b1c4305869c440f))
+* **deps:** bump recursive deps in package.lock to remove vulnerability ([ecf15d4](https://github.com/ehmpathy/declapract/commit/ecf15d46cb904ccead48219e7d9031d9886fe971))
+
 ## [0.10.8](https://github.com/ehmpathy/declapract/compare/v0.10.7...v0.10.8) (2023-02-12)
 
 
