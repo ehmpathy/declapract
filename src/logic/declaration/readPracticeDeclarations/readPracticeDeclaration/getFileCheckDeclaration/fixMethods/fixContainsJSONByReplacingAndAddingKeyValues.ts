@@ -109,8 +109,8 @@ export const fixContainsJSONByReplacingAndAddingKeyValues: FileFixFunction = (
     }; // if the file DNE
 
   // parse the contents
-  const foundPackageJSON = parseJSON(contents).output;
-  const declaredPackageJSON = parseJSON(declaredContents).output;
+  const foundPackageJSON = parseJSON(contents);
+  const declaredPackageJSON = parseJSON(declaredContents);
 
   // for each key in declared package json, replace the key if it exists in the found package
   const fixedPackageJSON = deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues(
