@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.11](https://github.com/ehmpathy/declapract/compare/v0.10.10...v0.10.11) (2023-05-22)
+
+
+### Bug Fixes
+
+* **readme:** update readme ([15ae0ac](https://github.com/ehmpathy/declapract/commit/15ae0ac97b00389861555acf6f3acd2448371ac5))
+
 ## [0.10.10](https://github.com/ehmpathy/declapract/compare/v0.10.9...v0.10.10) (2023-05-22)
 
 
