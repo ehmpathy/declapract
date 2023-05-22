@@ -437,7 +437,7 @@ For example:
 
 # To Do
 
-Todo: update the readme to better document how to define FileCheckDeclarations and PracticeDeclarations
+todo: update the readme to better document how to define FileCheckDeclarations and PracticeDeclarations
 - fixes
 - more clear examples
 - best practice -vs- bad practices
