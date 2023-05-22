@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.12](https://github.com/ehmpathy/declapract/compare/v0.10.11...v0.10.12) (2023-05-22)
+
+
+### Bug Fixes
+
+* **contains:** remove the variant from the parseJSON function output ([89069a1](https://github.com/ehmpathy/declapract/commit/89069a1035f579be6242e0edbbd8d703de28e734))
+
 ## [0.10.11](https://github.com/ehmpathy/declapract/compare/v0.10.10...v0.10.11) (2023-05-22)
 
 
