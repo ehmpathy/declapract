@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseJSON should throw an error if neither is able to parse 1`] = `
+"Could not parse contents as neither JSON nor JSON5.
+
+JSON Error:
+Unexpected token z in JSON at position 10
+
+JSON5 Error:
+JSON5: invalid character 'z' at 1:11
+
+Contents Head:
+{"hello": z "world", }"
+`;

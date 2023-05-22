@@ -1,4 +1,5 @@
 import { FileFixFunction } from '../../../../../../domain';
+import { parseJSON } from '../../../../../../utils/json/parseJSON';
 import { UnexpectedCodePathError } from '../../../../../UnexpectedCodePathError';
 import {
   checkDoesFoundValuePassesMinVersionCheck,
@@ -108,8 +109,8 @@ export const fixContainsJSONByReplacingAndAddingKeyValues: FileFixFunction = (
     }; // if the file DNE
 
   // parse the contents
-  const foundPackageJSON = JSON.parse(contents);
-  const declaredPackageJSON = JSON.parse(declaredContents);
+  const foundPackageJSON = parseJSON(contents).output;
+  const declaredPackageJSON = parseJSON(declaredContents).output;
 
   // for each key in declared package json, replace the key if it exists in the found package
   const fixedPackageJSON = deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues(
