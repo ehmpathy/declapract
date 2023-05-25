@@ -1,3 +1,4 @@
+import { parseJSON } from '../../../../../../../utils/json/parseJSON';
 import { UnexpectedCodePathError } from '../../../../../../UnexpectedCodePathError';
 import {
   checkDoesFoundValuePassesMinVersionCheck,
@@ -164,8 +165,8 @@ export const checkContainsJSON = ({
   foundContents: string;
 }) => {
   // json parse the contents
-  const parsedDeclaredContents = JSON.parse(declaredContents);
-  const parsedFoundContents = JSON.parse(foundContents);
+  const parsedDeclaredContents = parseJSON(declaredContents);
+  const parsedFoundContents = parseJSON(foundContents);
 
   // define the "declaredContentsToCheckContains" and "foundContentsToCheckContains" by evaluating any "@declapract{check.}" expressions and excluding any irrelevant keys, recursively
   const declaredContentsToCheckContains =
