@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.13](https://github.com/ehmpathy/declapract/compare/v0.10.12...v0.10.13) (2023-05-25)
+
+
+### Bug Fixes
+
+* **check:** support json5 in checks as well as fixes ([f2c7ad9](https://github.com/ehmpathy/declapract/commit/f2c7ad9ca975afc5db29570fcb703ad8b6a5e0c8))
+
 ## [0.10.12](https://github.com/ehmpathy/declapract/compare/v0.10.11...v0.10.12) (2023-05-22)
 
 
