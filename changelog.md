@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.2](https://github.com/ehmpathy/declapract/compare/v0.11.1...v0.11.2) (2023-07-16)
+
+
+### Bug Fixes
+
+* **contents:** allow both contents file and function declared at both time ([739896d](https://github.com/ehmpathy/declapract/commit/739896d6426844c764e4184bced2fc48bac25fcd))
+
 ## [0.11.1](https://github.com/ehmpathy/declapract/compare/v0.11.0...v0.11.1) (2023-07-16)
 
 
