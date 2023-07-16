@@ -2,6 +2,7 @@ export {
   FileCheckType,
   FileCheckFunction,
   FileFixFunction,
+  FileContentsFunction,
   FileCheckContext,
   FileCheckDeclarationInput,
 } from '../domain';
