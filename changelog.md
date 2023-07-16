@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/ehmpathy/declapract/compare/v0.11.0...v0.11.1) (2023-07-16)
+
+
+### Bug Fixes
+
+* **pkg:** expose contents function type def ([0a4edee](https://github.com/ehmpathy/declapract/commit/0a4edee0615beb74782bb7626279cf2a5feecc38))
+
 ## [0.11.0](https://github.com/ehmpathy/declapract/compare/v0.10.13...v0.11.0) (2023-07-16)
 
 
