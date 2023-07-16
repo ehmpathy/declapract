@@ -2,11 +2,9 @@ import chalk from 'chalk';
 import { LOG_LEVEL } from 'simple-leveled-log-methods';
 import { isPresent } from 'type-fns';
 
-import {
-  PracticeDeclaration,
-  ProjectVariablesImplementation,
-} from '../../../domain';
+import { PracticeDeclaration } from '../../../domain';
 import { FilePracticeEvaluation } from '../../../domain/objects/FilePracticeEvaluation';
+import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { ACTIVE_LOG_LEVEL } from '../../../utils/logger';
 import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgainstPracticeDeclaration';
@@ -32,12 +30,10 @@ const colorDurationInSeconds = (durationInSeconds: number) => {
  */
 export const evaluateProjectAgainstPracticeDeclarations = async ({
   practices,
-  projectRootDirectory,
-  projectVariables,
+  project,
 }: {
   practices: PracticeDeclaration[];
-  projectRootDirectory: string;
-  projectVariables: ProjectVariablesImplementation;
+  project: ProjectCheckContext;
 }): Promise<FilePracticeEvaluation[]> => {
   return (
     await Promise.all(
@@ -47,8 +43,7 @@ export const evaluateProjectAgainstPracticeDeclarations = async ({
           () =>
             evaluteProjectAgainstPracticeDeclaration({
               practice,
-              projectRootDirectory,
-              projectVariables,
+              project,
             }).catch((error) => {
               console.log(
                 chalk.yellow(`  ⚠️ broken practice:${practice.name}`),

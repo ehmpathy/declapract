@@ -7,9 +7,9 @@ import {
   FileCheckPurpose,
   FileEvaluationResult,
   FileFixFunction,
-  ProjectVariablesImplementation,
 } from '../../../domain';
 import { FileCheckContext } from '../../../domain/objects/FileCheckContext';
+import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { readFileIfExistsAsync } from '../../../utils/fileio/readFileIfExistsAsync';
 import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { UnexpectedCodePathError } from '../../UnexpectedCodePathError';
@@ -41,15 +41,13 @@ const checkApplyingFixWouldChangeSomething = ({
 export const evaluateProjectAgainstFileCheckDeclaration = async ({
   practiceRef,
   purpose,
-  projectRootDirectory,
+  project,
   check,
-  projectVariables,
 }: {
   practiceRef: string;
   purpose: FileCheckPurpose;
-  projectRootDirectory: string;
   check: FileCheckDeclaration;
-  projectVariables: ProjectVariablesImplementation;
+  project: ProjectCheckContext;
 }): Promise<FileCheckEvaluation[]> => {
   // lookup the gitignore file for the directory
 
@@ -58,7 +56,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
     `glob:${check.pathGlob}`,
     () =>
       glob(check.pathGlob, {
-        cwd: projectRootDirectory, // relative to project root,
+        cwd: project.getProjectRootDirectory(), // relative to project root,
         dot: true, // include dot files,
         onlyFiles: true, // only files, no directories (these are file checks, directories are not files)
         ignore: ['node_modules'], // ignore all files in these specific directories, too
@@ -72,23 +70,22 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
   return await Promise.all(
     pathsToCheck.map(async (relativePath) => {
       // define the absolute file path
-      const filePath = `${projectRootDirectory}/${relativePath}`;
+      const filePath = `${project.getProjectRootDirectory()}/${relativePath}`;
 
       // grab the contents of the file
       const foundContents = await readFileIfExistsAsync({ filePath });
 
       // define the context of this file check
       const context = new FileCheckContext({
+        ...project,
         relativeFilePath: relativePath,
-        projectVariables,
         declaredFileContents: check.contents
           ? replaceProjectVariablesInDeclaredFileContents({
-              projectVariables,
-              fileContents: check.contents,
+              projectVariables: project.projectVariables,
+              fileContents: await check.contents(project),
             })
           : null,
         required: check.required,
-        getProjectRootDirectory: () => projectRootDirectory,
       });
 
       // check the file contents against declared check

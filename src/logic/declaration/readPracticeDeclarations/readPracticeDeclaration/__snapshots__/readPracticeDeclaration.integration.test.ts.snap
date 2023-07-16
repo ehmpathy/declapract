@@ -97,8 +97,7 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
-        "contents": "import { invokeLambdaFunction } from 'simple-lambda-client';
-",
+        "contents": [Function],
         "fix": [Function],
         "pathGlob": "src/data/clients/**/*.ts",
         "purpose": "BEST_PRACTICE",
@@ -187,9 +186,7 @@ PracticeDeclaration {
     "checks": [
       FileCheckDeclaration {
         "check": [Function],
-        "contents": "export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
-",
+        "contents": [Function],
         "fix": [Function],
         "pathGlob": "src/**/sleep.ts",
         "purpose": "BEST_PRACTICE",
@@ -218,8 +215,7 @@ PracticeDeclaration {
     "checks": [
       FileCheckDeclaration {
         "check": [Function],
-        "contents": "*.md
-",
+        "contents": [Function],
         "fix": [Function],
         "pathGlob": ".prettierignore",
         "purpose": "BEST_PRACTICE",
@@ -228,15 +224,7 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
-        "contents": "{
-  "devDependencies": {
-    "prettier": "@declapract{check.minVersion('2.0.0')}"
-  },
-  "scripts": {
-    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
-  }
-}
-",
+        "contents": [Function],
         "fix": [Function],
         "pathGlob": "package.json",
         "purpose": "BEST_PRACTICE",
@@ -245,15 +233,7 @@ PracticeDeclaration {
       },
       FileCheckDeclaration {
         "check": [Function],
-        "contents": "// ref: http://json.schemastore.org/prettierrc
-
-module.exports = {
-  trailingComma: 'all',
-  tabWidth: 2,
-  singleQuote: true,
-  printWidth: 150,
-};
-",
+        "contents": [Function],
         "fix": [Function],
         "pathGlob": "prettier.config.js",
         "purpose": "BEST_PRACTICE",

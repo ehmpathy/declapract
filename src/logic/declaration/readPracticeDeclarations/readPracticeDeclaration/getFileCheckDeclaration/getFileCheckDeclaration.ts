@@ -3,6 +3,7 @@ import {
   FileCheckFunction,
   FileCheckPurpose,
   FileCheckType,
+  FileContentsFunction,
   FileFixFunction,
 } from '../../../../../domain';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
@@ -26,21 +27,31 @@ export const getFileCheckDeclaration = async ({
   declaredProjectDirectory: string;
   declaredFileCorePath: string;
 }): Promise<FileCheckDeclaration> => {
+  // get check inputs, if declared
+  const { declaredCheckInputs, declaredFixFunction, declaredContentsFunction } =
+    await getHydratedCheckInputsForFile({
+      declaredFileCorePath,
+      declaredProjectDirectory,
+    });
+
   // get declared best practice contents, if declared
   const contentsFilePath = `${declaredProjectDirectory}/${declaredFileCorePath}`; // its the same path. i.e., the contents for `tsconfig.ts` are declared under `tsconfig.ts`)
   const contentsFileExists = await doesFileExist({
     filePath: contentsFilePath,
   });
-  const declaredContents = contentsFileExists
-    ? await readFileAsync({ filePath: contentsFilePath })
-    : null;
-
-  // get check inputs, if declared
-  const { declaredCheckInputs, declaredFixFunction } =
-    await getHydratedCheckInputsForFile({
-      declaredFileCorePath,
-      declaredProjectDirectory,
-    });
+  if (declaredContentsFunction && contentsFileExists)
+    throw new UnexpectedCodePathError(
+      'both the declared best practice contents file and function were defined. please use one or the other, but not both.',
+      {
+        contentsFileExists,
+      },
+    );
+  const declaredContents: FileContentsFunction | null = await (async () => {
+    if (contentsFileExists)
+      return () => readFileAsync({ filePath: contentsFilePath });
+    if (declaredContentsFunction) return declaredContentsFunction;
+    return null;
+  })();
 
   // define the common attributes
   const pathGlob = deserializeGlobPathFromNpmPackaging(declaredFileCorePath); // its the path relative to the project root (note that this path can is technically a glob (e.g., can be `src/**/*.ts`))

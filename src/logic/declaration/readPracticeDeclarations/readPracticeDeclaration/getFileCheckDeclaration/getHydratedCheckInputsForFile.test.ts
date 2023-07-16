@@ -34,6 +34,7 @@ describe('getHydratedCheckInputsForFile', () => {
     });
     expect(result).toEqual({
       declaredCheckInputs: null,
+      declaredContentsFunction: null,
       declaredFixFunction: null,
     });
   });
@@ -63,6 +64,7 @@ describe('getHydratedCheckInputsForFile', () => {
         declaredCheckInputs: new FileCheckDeclarationInput({
           type: FileCheckType.CONTAINS,
         }),
+        declaredContentsFunction: null,
         declaredFixFunction: null,
       });
     });
@@ -96,6 +98,7 @@ describe('getHydratedCheckInputsForFile', () => {
           type: FileCheckType.CUSTOM,
           function: expect.any(Function),
         },
+        declaredContentsFunction: null,
         declaredFixFunction: null,
       });
     });
@@ -112,6 +115,7 @@ describe('getHydratedCheckInputsForFile', () => {
       });
       expect(result).toEqual({
         declaredCheckInputs: { optional: true },
+        declaredContentsFunction: null,
         declaredFixFunction: null,
       });
     });
@@ -126,6 +130,7 @@ describe('getHydratedCheckInputsForFile', () => {
       });
       expect(result).toEqual({
         declaredCheckInputs: { type: FileCheckType.CONTAINS, optional: true },
+        declaredContentsFunction: null,
         declaredFixFunction: null,
       });
     });
@@ -140,6 +145,7 @@ describe('getHydratedCheckInputsForFile', () => {
       });
       expect(result).toEqual({
         declaredCheckInputs: { optional: true, function: expect.any(Function) },
+        declaredContentsFunction: null,
         declaredFixFunction: null,
       });
     });

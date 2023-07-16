@@ -21,11 +21,13 @@ describe('displayPlan', () => {
     // console.log(JSON.stringify(plans, null, 2));
 
     // grab the no change plan
-    const plan = plans.find((plan) => plan.action === RequiredAction.NO_CHANGE);
+    const plan = plans.find(
+      (thisPlan) => thisPlan.action === RequiredAction.NO_CHANGE,
+    );
     if (!plan) throw new Error('expected to find the plan here');
 
     // now display the plan
-    displayPlan({ plan });
+    await displayPlan({ plan });
 
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();
@@ -48,12 +50,12 @@ describe('displayPlan', () => {
 
     // grab the no change plan
     const plan = plans.find(
-      (plan) => plan.action === RequiredAction.FIX_AUTOMATIC,
+      (thisPlan) => thisPlan.action === RequiredAction.FIX_AUTOMATIC,
     );
     if (!plan) throw new Error('expected to find the plan here');
 
     // now display the plan
-    displayPlan({ plan });
+    await displayPlan({ plan });
 
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();
@@ -78,12 +80,12 @@ describe('displayPlan', () => {
 
     // grab the no change plan
     const plan = plans.find(
-      (plan) => plan.action === RequiredAction.FIX_MANUAL,
+      (thisPlan) => thisPlan.action === RequiredAction.FIX_MANUAL,
     );
     if (!plan) throw new Error('expected to find the plan here');
 
     // now display the plan
-    displayPlan({ plan });
+    await displayPlan({ plan });
 
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();
@@ -110,12 +112,12 @@ describe('displayPlan', () => {
 
     // grab the no change plan
     const plan = plans.find(
-      (plan) => plan.action === RequiredAction.FIX_MANUAL,
+      (thisPlan) => thisPlan.action === RequiredAction.FIX_MANUAL,
     );
     if (!plan) throw new Error('expected to find the plan here');
 
     // now display the plan
-    displayPlan({ plan });
+    await displayPlan({ plan });
 
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();
@@ -145,12 +147,12 @@ describe('displayPlan', () => {
 
     // grab the no change plan
     const plan = plans.find(
-      (plan) => plan.action === RequiredAction.FIX_MANUAL,
+      (thisPlan) => thisPlan.action === RequiredAction.FIX_MANUAL,
     );
     if (!plan) throw new Error('expected to find the plan here');
 
     // now display the plan
-    displayPlan({ plan });
+    await displayPlan({ plan });
 
     // check that it looks right
     expect(logSpy).toHaveBeenCalled();

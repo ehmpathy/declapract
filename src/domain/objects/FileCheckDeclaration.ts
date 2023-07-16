@@ -3,6 +3,12 @@ import Joi from 'joi';
 import { createIsOfEnum } from 'type-fns';
 
 import { FileCheckContext } from './FileCheckContext';
+import { ProjectCheckContext } from './ProjectCheckContext';
+
+export enum FileCheckPurpose {
+  BAD_PRACTICE = 'BAD_PRACTICE',
+  BEST_PRACTICE = 'BEST_PRACTICE',
+}
 
 export enum FileCheckType {
   /**
@@ -69,10 +75,20 @@ export type FileFixFunction = (
   | { relativeFilePath?: string; contents?: string | null }
   | Promise<{ relativeFilePath?: string; contents?: string | null }>;
 
-export enum FileCheckPurpose {
-  BAD_PRACTICE = 'BAD_PRACTICE',
-  BEST_PRACTICE = 'BEST_PRACTICE',
-}
+/**
+ * a file contents function is used to dynamically define the best practice contents based on the context of the project
+ *
+ * for example
+ * ```ts
+ *   export const contents: FileContentsFunction = (context) => {
+ *     if (context.projectPractices.includes('terraform')) return X
+ *     else return Y
+ *   }
+ * ```
+ */
+export type FileContentsFunction = (
+  context: ProjectCheckContext,
+) => Promise<string> | string;
 
 const schema = Joi.object().keys({
   pathGlob: Joi.string().required(),
@@ -85,7 +101,7 @@ const schema = Joi.object().keys({
   required: Joi.boolean().required(),
   check: Joi.function().required(),
   fix: Joi.function().required().allow(null),
-  contents: Joi.string().required().allow(null),
+  contents: Joi.function().required().allow(null),
 });
 
 /**
@@ -100,7 +116,7 @@ export interface FileCheckDeclaration {
   required: boolean;
   check: FileCheckFunction;
   fix: FileFixFunction | null; // may not have a fix function possible for this check declaration
-  contents: string | null; // the contents that the user declared for this file, if any; required to create "FileCheckContext"
+  contents: FileContentsFunction | null; // the contents that the user declared for this file, if any; required to create "FileCheckContext"
 }
 export class FileCheckDeclaration
   extends DomainObject<FileCheckDeclaration>

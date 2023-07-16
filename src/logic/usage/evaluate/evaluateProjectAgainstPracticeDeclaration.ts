@@ -5,28 +5,25 @@ import {
   FileEvaluationResult,
   hasPassed,
   PracticeDeclaration,
-  ProjectVariablesImplementation,
 } from '../../../domain';
 import { FilePracticeEvaluation } from '../../../domain/objects/FilePracticeEvaluation';
+import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { evaluteProjectAgainstProjectCheckDeclaration } from './evaluateProjectAgainstProjectCheckDeclaration';
 
 export const evaluteProjectAgainstPracticeDeclaration = async ({
   practice,
-  projectRootDirectory,
-  projectVariables,
+  project,
 }: {
   practice: PracticeDeclaration;
-  projectRootDirectory: string;
-  projectVariables: ProjectVariablesImplementation;
+  project: ProjectCheckContext;
 }) => {
   // evaluate all of the best practices checks and bad practices checks
   const bestPracticeFileCheckEvaluations = practice.bestPractice
     ? await evaluteProjectAgainstProjectCheckDeclaration({
         practiceRef: `${practice.name}.best-practice`,
         purpose: FileCheckPurpose.BEST_PRACTICE,
-        projectRootDirectory,
         declaration: practice.bestPractice,
-        projectVariables,
+        project,
       })
     : [];
   const badPracticeFileCheckEvaluations = (
@@ -35,9 +32,8 @@ export const evaluteProjectAgainstPracticeDeclaration = async ({
         evaluteProjectAgainstProjectCheckDeclaration({
           practiceRef: `${practice.name}.bad-practice.${badPractice.name}`,
           purpose: FileCheckPurpose.BAD_PRACTICE,
-          projectRootDirectory,
           declaration: badPractice,
-          projectVariables,
+          project,
         }),
       ),
     )

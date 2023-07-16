@@ -1,4 +1,8 @@
-import { FileCheckPurpose, FileCheckType } from '../../../../../domain';
+import {
+  FileCheckContext,
+  FileCheckPurpose,
+  FileCheckType,
+} from '../../../../../domain';
 import { doesDirectoryExist } from '../../../../../utils/fileio/doesDirectoryExist';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync as readFileAsyncUnsafe } from '../../../../../utils/fileio/readFileAsync';
@@ -678,5 +682,97 @@ export const anything = 'should not exist';
       relativeFilePath: 'some/file/path.integration.test.ts', // should have moved this file to the correct extension
       contents: 'some contents',
     });
+  });
+
+  it('should use the custom contents function defined, if one is defined', async () => {
+    const declaredProjectDirectory = `${testAssetsDirectoryPath}/example-best-practices-repo/src/practices/format/best-practice`;
+    const declaredFileCorePath = 'package.json';
+    const declaration = await getFileCheckDeclaration({
+      purpose: FileCheckPurpose.BEST_PRACTICE,
+      declaredProjectDirectory,
+      declaredFileCorePath,
+    });
+
+    // check that the properties look right
+    expect(declaration.required).toEqual(true);
+    expect(declaration.type).toEqual(FileCheckType.CONTAINS);
+    expect(declaration.pathGlob).toMatch('package.json');
+
+    // check that getting the contents works
+    const declaredFileContents =
+      (await declaration.contents!({ projectPractices: [] } as any)) ?? null;
+    expect(declaredFileContents).toContain('fix:format');
+
+    // check that the check function works
+    const context: FileCheckContext = {
+      ...exampleContext,
+      declaredFileContents,
+    };
+    await declaration.check(
+      // should match this by default
+      JSON.stringify(
+        {
+          scripts: {
+            'fix:format': 'npm run fix:format:prettier',
+            'test:format': 'npm run test:format:prettier',
+          },
+        },
+        null,
+        2,
+      ),
+      context,
+    );
+    try {
+      await declaration.check(null, context); // should not match file not existing, since file is required
+      fail('should not reach here');
+    } catch (error) {
+      expect(error.message).toContain('Expected file to exist');
+      expect(error.message).toMatchSnapshot();
+    }
+
+    // check that the fix function works correctly
+    const fixResultFileNotDefined = await declaration.fix!(null, context);
+    expect(fixResultFileNotDefined!.contents!.trim()).toEqual(
+      JSON.stringify(
+        {
+          scripts: {
+            'fix:format': 'npm run fix:format:prettier',
+            'test:format': 'npm run test:format:prettier',
+          },
+        },
+        null,
+        2,
+      ),
+    );
+    const fixResultFileDefined = await declaration.fix!(
+      JSON.stringify(
+        {
+          scripts: {
+            other: 'stuff',
+            'fix:format':
+              'npm run fix:format:prettier && npm run fix:format:terraform',
+            'test:format':
+              'npm run test:format:prettier && npm run fix:format:terraform',
+          },
+        },
+        null,
+        2,
+      ),
+      context,
+    );
+    expect(fixResultFileDefined.contents).toEqual(
+      // should fix all of the existing keys and replace them with their values
+      JSON.stringify(
+        {
+          scripts: {
+            other: 'stuff',
+            'fix:format': 'npm run fix:format:prettier',
+            'test:format': 'npm run test:format:prettier',
+          },
+        },
+        null,
+        2,
+      ),
+    );
   });
 });

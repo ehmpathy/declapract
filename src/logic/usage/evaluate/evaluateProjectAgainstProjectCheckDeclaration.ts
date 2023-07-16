@@ -2,23 +2,21 @@ import {
   FileCheckEvaluation,
   FileCheckPurpose,
   ProjectCheckDeclaration,
-  ProjectVariablesImplementation,
 } from '../../../domain';
+import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { evaluateProjectAgainstFileCheckDeclaration } from './evaluateProjectAgainstFileCheckDeclaration';
 
 export const evaluteProjectAgainstProjectCheckDeclaration = async ({
   practiceRef,
   purpose,
-  projectRootDirectory,
+  project,
   declaration,
-  projectVariables,
 }: {
   practiceRef: string;
   purpose: FileCheckPurpose;
-  projectRootDirectory: string;
+  project: ProjectCheckContext;
   declaration: ProjectCheckDeclaration;
-  projectVariables: ProjectVariablesImplementation;
 }): Promise<FileCheckEvaluation[]> => {
   // evaluate each declared file check
   const results = (
@@ -29,10 +27,9 @@ export const evaluteProjectAgainstProjectCheckDeclaration = async ({
           () =>
             evaluateProjectAgainstFileCheckDeclaration({
               practiceRef,
+              project,
               purpose,
-              projectRootDirectory,
               check,
-              projectVariables,
             }),
         )(),
       ),

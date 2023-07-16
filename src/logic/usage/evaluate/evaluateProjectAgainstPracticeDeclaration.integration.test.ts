@@ -4,6 +4,7 @@ import {
   FileEvaluationResult,
   hasFailed,
 } from '../../../domain';
+import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { testAssetsDirectoryPath } from '../../__test_assets__/dirPath';
 import { readDeclarePracticesConfig } from '../../declaration/readDeclarePracticesConfig';
 import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgainstPracticeDeclaration';
@@ -24,10 +25,14 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
 
     // now evaluate it
     const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-fails-prettier`;
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
+      projectVariables: {},
+      projectPractices: [],
+    });
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project,
     });
 
     // check that the evaluation matches what we expect
@@ -56,10 +61,14 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
 
     // now evaluate it
     const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-fails-dates-and-times`;
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
+      projectVariables: {},
+      projectPractices: [],
+    });
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project,
     });
 
     // check that the evaluation matches what we expect
@@ -98,10 +107,14 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
 
     // now evaluate it
     const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-fails-directory-structure-src`;
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
+      projectVariables: {},
+      projectPractices: [],
+    });
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project,
     });
 
     // check that the evaluation matches what we expect
@@ -174,10 +187,14 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
 
     // now evaluate it
     const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-passes-directory-structure-src-without-optionals`;
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
+      projectVariables: {},
+      projectPractices: [],
+    });
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project,
     });
     // console.log(JSON.stringify(evaluations, null, 2));
 
@@ -250,10 +267,14 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
 
     // now evaluate it
     const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-passes-directory-structure-src-with-optionals`;
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
+      projectVariables: {},
+      projectPractices: [],
+    });
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project,
     });
     // console.log(JSON.stringify(evaluation, null, 2));
 
@@ -327,15 +348,19 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
 
     // now evaluate it
     const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-passes-serverless`;
-    const evaluations = await evaluteProjectAgainstPracticeDeclaration({
-      practice,
-      projectRootDirectory,
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
       projectVariables: {
         organizationName: 'awesome-org',
         serviceName: 'svc-awesome-thing',
         infrastructureNamespaceId: 'abcde12345',
         slackReleaseWebHook: 'https://...',
       },
+      projectPractices: [],
+    });
+    const evaluations = await evaluteProjectAgainstPracticeDeclaration({
+      practice,
+      project,
     });
     // console.log(JSON.stringify(evaluations, null, 2));
     evaluations
@@ -385,6 +410,67 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     // now just save an example of the results
     expect(evaluations).toMatchSnapshot();
   });
+  it('should be able to evaluate a practice which references project practices in the declared contents function for a contains check', async () => {
+    // lookup a practice
+    const declarations = await readDeclarePracticesConfig({
+      configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
+    });
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'format',
+    );
+    if (!practice) fail('should have found a practice');
+
+    // sanity check the practice we'll be using
+    expect(practice.bestPractice).toBeDefined(); // check that our expectations for the test are met
+
+    // now evaluate it
+    const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-passes-serverless`;
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
+      projectVariables: {},
+      projectPractices: ['terraform'],
+    });
+    const evaluations = await evaluteProjectAgainstPracticeDeclaration({
+      practice,
+      project,
+    });
+
+    // console.log(JSON.stringify(evaluations, null, 2));
+    evaluations
+      .filter(hasFailed)
+      .forEach((evaluation) =>
+        evaluation.checks
+          .filter(hasFailed)
+          .forEach((failedCheck) => console.log(failedCheck.reason)),
+      );
+
+    // check that the evaluation matches what we expect
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(1);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(0);
+
+    // sanity check a couple of important examples
+    expect(
+      evaluations.find((file) => file.path === 'package.json'), // the package.json file should have failed
+    ).toMatchObject({
+      result: FileEvaluationResult.FAIL,
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.FAIL, // passed, due to having missing contents
+          purpose: FileCheckPurpose.BEST_PRACTICE,
+          type: FileCheckType.CONTAINS,
+        }),
+      ]),
+    });
+
+    // now just save an example of the results
+    expect(evaluations).toMatchSnapshot();
+  });
   it('should ignore the "node_modules" and ".declapract" directory when evaluating glob paths', async () => {
     // lookup a practice
     const declarations = await readDeclarePracticesConfig({
@@ -400,10 +486,14 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
 
     // now evaluate it
     const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-passes-testing-with-bad-practices-in-ignored-dirs`;
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
+      projectVariables: {},
+      projectPractices: [],
+    });
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project,
     });
     // console.log(JSON.stringify(evaluations, null, 2));
 

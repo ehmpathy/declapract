@@ -12,8 +12,7 @@ exports[`readUseCaseDeclarations should get the declarations correctly 1`] = `
           "checks": [
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "*.md
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": ".prettierignore",
               "purpose": "BEST_PRACTICE",
@@ -22,15 +21,7 @@ exports[`readUseCaseDeclarations should get the declarations correctly 1`] = `
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "{
-  "devDependencies": {
-    "prettier": "@declapract{check.minVersion('2.0.0')}"
-  },
-  "scripts": {
-    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
-  }
-}
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "package.json",
               "purpose": "BEST_PRACTICE",
@@ -39,15 +30,7 @@ exports[`readUseCaseDeclarations should get the declarations correctly 1`] = `
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "// ref: http://json.schemastore.org/prettierrc
-
-module.exports = {
-  trailingComma: 'all',
-  tabWidth: 2,
-  singleQuote: true,
-  printWidth: 150,
-};
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "prettier.config.js",
               "purpose": "BEST_PRACTICE",
@@ -66,9 +49,7 @@ module.exports = {
           "checks": [
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "src/**/sleep.ts",
               "purpose": "BEST_PRACTICE",
@@ -157,55 +138,7 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "service: @declapract{variable.serviceName}
-
-provider:
-  name: aws
-  runtime: nodejs14.x
-  memorySize: 1024 # optional, in MB, default is 1024
-  timeout: 10
-  stage: \${opt:stage}
-  stackTags:
-    app: @declapract{variable.organizationName}
-    environment: \${self:provider.stage}
-    product: \${self:service}
-  environment:
-    SERVERLESS_STAGE: \${self:provider.stage}
-    NODE_ENV: \${self:custom.stageToNodeEnvMapping.\${self:provider.stage}}
-  deploymentBucket: serverless-deployment-@declapract{variable.infrastructureNamespaceId}-\${self:provider.stage}
-  vpc:
-    securityGroupIds:
-      - \${ssm:/tf/infrastructure/vpc/main/lambdaSecurityGroupId}
-    subnetIds:
-      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet1Id}
-      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet2Id}
-      - \${ssm:/tf/infrastructure/vpc/main/lambdaSubnet3Id}
-  iamRoleStatements:
-    ## paramstore access
-    - Effect: 'Allow'
-      Action: 'ssm:DescribeParameters'
-      Resource: '*'
-    - Effect: 'Allow'
-      Action: 'ssm:GetParameters'
-      Resource: arn:aws:ssm:\${aws:region}:\${aws:accountId}:parameter/*
-    - Effect: 'Allow'
-      Action: 'kms:Decrypt'
-      Resource: arn:aws:kms:\${aws:region}:\${aws:accountId}:alias/aws/ssm*
-    ## allow invocation of other lambdas
-    - Effect: Allow
-      Action:
-        - lambda:InvokeFunction
-        - lambda:InvokeAsync
-      Resource: '*'
-
-custom:
-  stageToNodeEnvMapping:
-    test: 'test'
-    dev: 'development'
-    prod: 'production'
-
-functions:
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "serverless.yml",
               "purpose": "BEST_PRACTICE",
@@ -224,8 +157,7 @@ functions:
           "checks": [
             FileCheckDeclaration {
               "check": [Function],
-              "contents": ".terraform
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": ".gitignore",
               "purpose": "BEST_PRACTICE",
@@ -234,8 +166,7 @@ functions:
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "0.14.11
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": ".terraform-version",
               "purpose": "BEST_PRACTICE",
@@ -244,10 +175,7 @@ functions:
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "provider "aws" {
-  region = "us-east-1"
-}
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "provision/terraform/environments/dev/main.tf",
               "purpose": "BEST_PRACTICE",
@@ -256,16 +184,7 @@ functions:
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "terraform {
-  required_version = ">= 0.14"
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "3.53.0"
-    }
-  }
-}
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "provision/terraform/environments/dev/versions.tf",
               "purpose": "BEST_PRACTICE",
@@ -274,10 +193,7 @@ functions:
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "provider "aws" {
-  region = "us-east-1"
-}
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "provision/terraform/environments/prod/main.tf",
               "purpose": "BEST_PRACTICE",
@@ -286,16 +202,7 @@ functions:
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "terraform {
-  required_version = ">= 0.14"
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "3.53.0"
-    }
-  }
-}
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "provision/terraform/environments/prod/versions.tf",
               "purpose": "BEST_PRACTICE",
@@ -304,20 +211,7 @@ functions:
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "variable "environment" {}
-
-locals {
-  service = "@declapract{variable.serviceName}"
-}
-
-locals {
-  tags = {
-    app         = "@declapract{variable.organizationName}"
-    environment = var.environment
-    product     = local.service
-  }
-}
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "provision/terraform/product/variables.tf",
               "purpose": "BEST_PRACTICE",
@@ -337,8 +231,7 @@ locals {
           "checks": [
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "*.md
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": ".prettierignore",
               "purpose": "BEST_PRACTICE",
@@ -347,15 +240,7 @@ locals {
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "{
-  "devDependencies": {
-    "prettier": "@declapract{check.minVersion('2.0.0')}"
-  },
-  "scripts": {
-    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
-  }
-}
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "package.json",
               "purpose": "BEST_PRACTICE",
@@ -364,15 +249,7 @@ locals {
             },
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "// ref: http://json.schemastore.org/prettierrc
-
-module.exports = {
-  trailingComma: 'all',
-  tabWidth: 2,
-  singleQuote: true,
-  printWidth: 150,
-};
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "prettier.config.js",
               "purpose": "BEST_PRACTICE",
@@ -391,9 +268,7 @@ module.exports = {
           "checks": [
             FileCheckDeclaration {
               "check": [Function],
-              "contents": "export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
-",
+              "contents": [Function],
               "fix": [Function],
               "pathGlob": "src/**/sleep.ts",
               "purpose": "BEST_PRACTICE",

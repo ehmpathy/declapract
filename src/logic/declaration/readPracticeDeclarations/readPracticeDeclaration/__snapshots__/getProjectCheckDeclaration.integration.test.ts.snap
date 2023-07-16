@@ -32,8 +32,7 @@ ProjectCheckDeclaration {
   "checks": [
     FileCheckDeclaration {
       "check": [Function],
-      "contents": ".terraform
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": ".gitignore",
       "purpose": "BEST_PRACTICE",
@@ -42,8 +41,7 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "0.14.11
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": ".terraform-version",
       "purpose": "BEST_PRACTICE",
@@ -52,10 +50,7 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "provider "aws" {
-  region = "us-east-1"
-}
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": "provision/terraform/environments/dev/main.tf",
       "purpose": "BEST_PRACTICE",
@@ -64,16 +59,7 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "terraform {
-  required_version = ">= 0.14"
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "3.53.0"
-    }
-  }
-}
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": "provision/terraform/environments/dev/versions.tf",
       "purpose": "BEST_PRACTICE",
@@ -82,10 +68,7 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "provider "aws" {
-  region = "us-east-1"
-}
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": "provision/terraform/environments/prod/main.tf",
       "purpose": "BEST_PRACTICE",
@@ -94,16 +77,7 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "terraform {
-  required_version = ">= 0.14"
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "3.53.0"
-    }
-  }
-}
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": "provision/terraform/environments/prod/versions.tf",
       "purpose": "BEST_PRACTICE",
@@ -112,20 +86,7 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "variable "environment" {}
-
-locals {
-  service = "@declapract{variable.serviceName}"
-}
-
-locals {
-  tags = {
-    app         = "@declapract{variable.organizationName}"
-    environment = var.environment
-    product     = local.service
-  }
-}
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": "provision/terraform/product/variables.tf",
       "purpose": "BEST_PRACTICE",
@@ -163,8 +124,7 @@ ProjectCheckDeclaration {
   "checks": [
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "*.md
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": ".prettierignore",
       "purpose": "BEST_PRACTICE",
@@ -173,15 +133,7 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "{
-  "devDependencies": {
-    "prettier": "@declapract{check.minVersion('2.0.0')}"
-  },
-  "scripts": {
-    "format": "prettier --write '**/*.ts' --config ./prettier.config.js"
-  }
-}
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": "package.json",
       "purpose": "BEST_PRACTICE",
@@ -190,15 +142,7 @@ ProjectCheckDeclaration {
     },
     FileCheckDeclaration {
       "check": [Function],
-      "contents": "// ref: http://json.schemastore.org/prettierrc
-
-module.exports = {
-  trailingComma: 'all',
-  tabWidth: 2,
-  singleQuote: true,
-  printWidth: 150,
-};
-",
+      "contents": [Function],
       "fix": [Function],
       "pathGlob": "prettier.config.js",
       "purpose": "BEST_PRACTICE",

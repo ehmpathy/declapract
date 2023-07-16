@@ -9,6 +9,9 @@ exports[`apply should be able to apply for an example project 1`] = `
     "🔬️ evaluating project...",
   ],
   [
+    "[90m  ✓ evaluated practice:dates-and-times[39m",
+  ],
+  [
     "[90m  ✓ evaluated practice:util-sleep[39m",
   ],
   [
@@ -16,9 +19,6 @@ exports[`apply should be able to apply for an example project 1`] = `
   ],
   [
     "[90m  ✓ evaluated practice:prettier[39m",
-  ],
-  [
-    "[90m  ✓ evaluated practice:dates-and-times[39m",
   ],
   [
     "[90m  ✓ evaluated practice:terraform[39m",

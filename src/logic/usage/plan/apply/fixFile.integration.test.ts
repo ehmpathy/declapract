@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { FileCheckPurpose, FileEvaluationResult } from '../../../../domain';
 import { doesFileExist } from '../../../../utils/fileio/doesFileExist';
 import { readFileAsync } from '../../../../utils/fileio/readFileAsync';
@@ -31,8 +32,11 @@ describe('fixFile', () => {
     // now evaluate it
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project: {
+        getProjectRootDirectory: () => projectRootDirectory,
+        projectVariables: {},
+        projectPractices: [],
+      },
     });
 
     // now find the file's evaluation against this practice
@@ -50,8 +54,11 @@ describe('fixFile', () => {
     // now evaluate it again and see whether it now passes
     const evaluationsNow = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project: {
+        getProjectRootDirectory: () => projectRootDirectory,
+        projectVariables: {},
+        projectPractices: [],
+      },
     });
     const evaluationNow = evaluationsNow
       .find((evaluation) => evaluation.path === fileToCheckRelativePath)
@@ -87,8 +94,11 @@ describe('fixFile', () => {
     // now evaluate it
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project: {
+        getProjectRootDirectory: () => projectRootDirectory,
+        projectVariables: {},
+        projectPractices: [],
+      },
     });
 
     // now find the file's evaluation against this practice
@@ -106,8 +116,11 @@ describe('fixFile', () => {
     // now evaluate it again and see whether it now passes
     const evaluationsNow = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project: {
+        getProjectRootDirectory: () => projectRootDirectory,
+        projectVariables: {},
+        projectPractices: [],
+      },
     });
     const evaluationNow = evaluationsNow
       .find((evaluation) => evaluation.path === fileToCheckRelativePath)
@@ -139,8 +152,11 @@ describe('fixFile', () => {
     // now evaluate it
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project: {
+        getProjectRootDirectory: () => projectRootDirectory,
+        projectVariables: {},
+        projectPractices: [],
+      },
     });
 
     // now find the file's evaluation against this practice
@@ -156,8 +172,11 @@ describe('fixFile', () => {
     // now evaluate it again and see whether it now passes
     const evaluationsNow = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project: {
+        getProjectRootDirectory: () => projectRootDirectory,
+        projectVariables: {},
+        projectPractices: [],
+      },
     });
     const evaluationNow = evaluationsNow
       .find((evaluation) => evaluation.path === fileToCheckRelativePath)
@@ -200,8 +219,11 @@ describe('fixFile', () => {
     // now evaluate it
     const evaluations = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project: {
+        getProjectRootDirectory: () => projectRootDirectory,
+        projectVariables: {},
+        projectPractices: [],
+      },
     });
 
     // now find the file's evaluation against this practice
@@ -217,8 +239,11 @@ describe('fixFile', () => {
     // now evaluate it again and see whether it now passes
     const evaluationsNow = await evaluteProjectAgainstPracticeDeclaration({
       practice,
-      projectRootDirectory,
-      projectVariables: {},
+      project: {
+        getProjectRootDirectory: () => projectRootDirectory,
+        projectVariables: {},
+        projectPractices: [],
+      },
     });
     const evaluationNow = evaluationsNow
       .find((evaluation) => evaluation.path === fileToCheckRelativePath)

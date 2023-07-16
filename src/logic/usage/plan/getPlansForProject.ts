@@ -4,6 +4,7 @@ import {
   PracticeDeclaration,
   ProjectVariablesImplementation,
 } from '../../../domain';
+import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { evaluateProjectAgainstPracticeDeclarations } from '../evaluate/evaluateProjectAgainstPracticeDeclarations';
 import { getRequiredActionForFile } from './getRequiredActionForFile';
@@ -22,11 +23,17 @@ export const getPlansForProject = withDurationReporting(
     projectRootDirectory: string;
     projectVariables: ProjectVariablesImplementation;
   }) => {
+    // define the project context
+    const project = new ProjectCheckContext({
+      projectVariables,
+      projectPractices: practices.map((practice) => practice.name),
+      getProjectRootDirectory: () => projectRootDirectory,
+    });
+
     // evaluate the project against the practices
     const evaluations = await evaluateProjectAgainstPracticeDeclarations({
       practices,
-      projectRootDirectory,
-      projectVariables,
+      project,
     });
 
     // convert each file evaluation in to a plan per file
