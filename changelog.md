@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/ehmpathy/declapract/compare/v0.10.13...v0.11.0) (2023-07-16)
+
+
+### Features
+
+* **contents:** enable declaring best practice contents based on project context ([dfa75c3](https://github.com/ehmpathy/declapract/commit/dfa75c33bf1ca73dcc77c9646cf2af38e294057a)), closes [#28](https://github.com/ehmpathy/declapract/issues/28)
+
 ## [0.10.13](https://github.com/ehmpathy/declapract/compare/v0.10.12...v0.10.13) (2023-05-25)
 
 
