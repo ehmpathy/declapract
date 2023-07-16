@@ -39,17 +39,10 @@ export const getFileCheckDeclaration = async ({
   const contentsFileExists = await doesFileExist({
     filePath: contentsFilePath,
   });
-  if (declaredContentsFunction && contentsFileExists)
-    throw new UnexpectedCodePathError(
-      'both the declared best practice contents file and function were defined. please use one or the other, but not both.',
-      {
-        contentsFileExists,
-      },
-    );
   const declaredContents: FileContentsFunction | null = await (async () => {
+    if (declaredContentsFunction) return declaredContentsFunction;
     if (contentsFileExists)
       return () => readFileAsync({ filePath: contentsFilePath });
-    if (declaredContentsFunction) return declaredContentsFunction;
     return null;
   })();
 
