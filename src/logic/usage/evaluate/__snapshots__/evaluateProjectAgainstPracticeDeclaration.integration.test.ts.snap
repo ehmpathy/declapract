@@ -4730,3 +4730,55 @@ exports[`evaluteProjectAgainstPracticeDeclaration should ignore the "node_module
   },
 ]
 `;
+
+exports[`evaluteProjectAgainstPracticeDeclaration should include the ".npmrc" file when evaluating glob paths 1`] = `
+[
+  FilePracticeEvaluation {
+    "checks": [
+      FileCheckEvaluation {
+        "context": FileCheckContext {
+          "declaredFileContents": "engine-strict=true
+save-exact=true
+message=%s 🎉
+",
+          "getProjectRootDirectory": [Function],
+          "projectPractices": [],
+          "projectVariables": {},
+          "relativeFilePath": ".npmrc",
+          "required": true,
+        },
+        "fix": [Function],
+        "path": ".npmrc",
+        "practiceRef": "npmrc.best-practice",
+        "purpose": "BEST_PRACTICE",
+        "reason": "[32m- Expected file to exist[39m
+[31m+ Received file does not exist[39m",
+        "required": true,
+        "result": "FAIL",
+        "type": "EQUALS",
+      },
+    ],
+    "path": ".npmrc",
+    "practice": PracticeDeclaration {
+      "badPractices": [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": [
+          FileCheckDeclaration {
+            "check": [Function],
+            "contents": [Function],
+            "fix": [Function],
+            "pathGlob": ".npmrc",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EQUALS",
+          },
+        ],
+        "name": "npmrc",
+        "readme": null,
+      },
+      "name": "npmrc",
+    },
+    "result": "FAIL",
+  },
+]
+`;

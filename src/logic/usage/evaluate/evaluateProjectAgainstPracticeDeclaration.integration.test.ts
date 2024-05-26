@@ -537,4 +537,62 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     // now just save an example of the results
     expect(evaluations).toMatchSnapshot();
   });
+
+  it.only('should include the ".npmrc" file when evaluating glob paths', async () => {
+    // lookup a practice
+    const declarations = await readDeclarePracticesConfig({
+      configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
+    });
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'npmrc',
+    );
+    if (!practice) fail('should have found the practice');
+
+    // sanity check the practice we'll be using
+    console.log(practice);
+    expect(practice.bestPractice).toBeDefined(); // check that our expectations for the test are met
+
+    // now evaluate it
+    const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-fails-npmrc-practice`;
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
+      projectVariables: {},
+      projectPractices: [],
+    });
+    const evaluations = await evaluteProjectAgainstPracticeDeclaration({
+      practice,
+      project,
+    });
+
+    // check that the evaluation matches what we expect
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(1);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(0);
+
+    // sanity check a couple of important examples
+    expect(
+      evaluations.find((file) => file.path === '.npmrc'), // should  have found this path
+    ).toBeDefined(); // should have found it because `.declapract` directory should be ignored
+
+    expect(
+      evaluations.find((file) => file.path === '.npmrc'), // should have required it to exist
+    ).toMatchObject({
+      result: FileEvaluationResult.FAIL,
+      checks: expect.arrayContaining([
+        expect.objectContaining({
+          result: FileEvaluationResult.FAIL,
+          purpose: FileCheckPurpose.BEST_PRACTICE,
+          type: FileCheckType.EQUALS,
+        }),
+      ]),
+    });
+
+    // now just save an example of the results
+    expect(evaluations).toMatchSnapshot();
+  });
 });

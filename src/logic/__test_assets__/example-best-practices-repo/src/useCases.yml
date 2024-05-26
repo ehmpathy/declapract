@@ -12,3 +12,4 @@ use-cases:
       - dates-and-times
       - serverless
       - terraform
+      - npmrc
