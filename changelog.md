@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.3](https://github.com/ehmpathy/declapract/compare/v0.11.2...v0.11.3) (2024-05-26)
+
+
+### Bug Fixes
+
+* **tests:** add test to verify that .npmrc files are covered ([05a9f52](https://github.com/ehmpathy/declapract/commit/05a9f5259a52ed990a37ae05e26ada3553316632))
+
 ## [0.11.2](https://github.com/ehmpathy/declapract/compare/v0.11.1...v0.11.2) (2023-07-16)
 
 
