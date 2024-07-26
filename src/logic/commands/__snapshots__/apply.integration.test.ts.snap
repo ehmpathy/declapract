@@ -18,6 +18,9 @@ exports[`apply should be able to apply for an example project 1`] = `
     "[90m  ✓ evaluated practice:serverless[39m",
   ],
   [
+    "[90m  ✓ evaluated practice:npmrc[39m",
+  ],
+  [
     "[90m  ✓ evaluated practice:prettier[39m",
   ],
   [
@@ -55,6 +58,12 @@ exports[`apply should be able to apply for an example project 1`] = `
   ],
   [
     "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+  ],
+  [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .npmrc[22m",
+  ],
+  [
+    "    [32m✓[39m practice:npmrc.best-practice [90m(fix:applied)[39m",
   ],
   [
     "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .prettierignore[22m",

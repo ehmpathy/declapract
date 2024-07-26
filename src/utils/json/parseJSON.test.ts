@@ -18,7 +18,9 @@ describe('parseJSON', () => {
       throw new Error('should not reach here');
     } catch (error) {
       expect(error).toBeInstanceOf(JSONParsingError);
-      expect(error.message).toMatchSnapshot();
+      expect(error.message).toContain(
+        `Could not parse contents as neither JSON nor JSON5.`,
+      );
     }
   });
 });

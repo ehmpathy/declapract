@@ -12,6 +12,9 @@ exports[`plan should be able to plan for an example project 1`] = `
     "[90m  ✓ evaluated practice:util-sleep[39m",
   ],
   [
+    "[90m  ✓ evaluated practice:npmrc[39m",
+  ],
+  [
     "[90m  ✓ evaluated practice:serverless[39m",
   ],
   [
@@ -46,6 +49,18 @@ exports[`plan should be able to plan for an example project 1`] = `
   ],
   [
     "  * [1m[1m[90m[NO_CHANGE][39m[1m .gitignore[22m",
+  ],
+  [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .npmrc[22m",
+  ],
+  [
+    "    [33m✕[39m practice:npmrc.best-practice [90m(fix:appliable)[39m",
+  ],
+  [
+    "      [32m- Expected file to exist[39m
+      [31m+ Received file does not exist[39m",
+    "
+",
   ],
   [
     "  * [1m[1m[90m[NO_CHANGE][39m[1m .prettierignore[22m",

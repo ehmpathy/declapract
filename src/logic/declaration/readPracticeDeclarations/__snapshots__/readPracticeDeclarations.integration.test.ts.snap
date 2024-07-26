@@ -202,6 +202,25 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
           "check": [Function],
           "contents": [Function],
           "fix": [Function],
+          "pathGlob": ".npmrc",
+          "purpose": "BEST_PRACTICE",
+          "required": true,
+          "type": "EQUALS",
+        },
+      ],
+      "name": "npmrc",
+      "readme": null,
+    },
+    "name": "npmrc",
+  },
+  PracticeDeclaration {
+    "badPractices": [],
+    "bestPractice": ProjectCheckDeclaration {
+      "checks": [
+        FileCheckDeclaration {
+          "check": [Function],
+          "contents": [Function],
+          "fix": [Function],
           "pathGlob": ".prettierignore",
           "purpose": "BEST_PRACTICE",
           "required": true,
