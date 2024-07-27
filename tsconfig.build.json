@@ -1,8 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "allowUnreachableCode": false // useful in development, bad for production
+    "rootDir": "src"
   },
   "exclude": [
     "dist",
@@ -13,7 +12,8 @@
     "jest.*",
     "prettier.*",
     "commitlint.*",
+    "codegen.*",
     "src/**/*.test.(ts|js)",
-    "src/**/__test_assets__/**/*"
+    "src/**/__test_utils__/**/*.(ts|js)"
   ]
 }

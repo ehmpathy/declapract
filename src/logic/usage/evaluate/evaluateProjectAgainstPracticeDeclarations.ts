@@ -51,6 +51,7 @@ export const evaluateProjectAgainstPracticeDeclarations = async ({
               console.log(chalk.yellow(`    > ${error.message}`)); // tslint:disable-line: no-console
               if (ACTIVE_LOG_LEVEL === LOG_LEVEL.DEBUG) console.error(error); // only show this if running in debug mode
               if (SKIP_BROKEN !== true) throw error;
+              return null;
             }),
           {
             reportingThresholdSeconds: 0.5,
