@@ -8,3 +8,4 @@ ignores:
   - declapract-typescript-ehmpathy
   - ts-jest
   - husky
+  - test-fns
