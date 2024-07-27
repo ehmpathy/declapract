@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.4](https://github.com/ehmpathy/declapract/compare/v0.11.3...v0.11.4) (2024-07-27)
+
+
+### Bug Fixes
+
+* **audit:** bump deps to fix audit ([c98f4b0](https://github.com/ehmpathy/declapract/commit/c98f4b04f15d428694a60120d73572bc9aeb5dcc))
+
 ## [0.11.3](https://github.com/ehmpathy/declapract/compare/v0.11.2...v0.11.3) (2024-05-26)
 
 
