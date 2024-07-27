@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.11.5](https://github.com/ehmpathy/declapract/compare/v0.11.4...v0.11.5) (2024-07-27)
+
+
+### Bug Fixes
+
+* **cicd:** ensure cicd machine tests include color in snapshots ([00e08b4](https://github.com/ehmpathy/declapract/commit/00e08b453624cd0ea230ab400b62f220192038a0))
+* **deps:** bump oclif dep per audit ([e9ffc84](https://github.com/ehmpathy/declapract/commit/e9ffc845c8d2c3d821fa751731fce8e7697e633c))
+* **practs:** bump practs to latest best ([#34](https://github.com/ehmpathy/declapract/issues/34)) ([e0dcc8a](https://github.com/ehmpathy/declapract/commit/e0dcc8adc665991f7c43ddeb0c315f66ab5b1a67))
+
 ## [0.11.4](https://github.com/ehmpathy/declapract/compare/v0.11.3...v0.11.4) (2024-07-27)
 
 
