@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.12.0](https://github.com/ehmpathy/declapract/compare/v0.11.5...v0.12.0) (2024-09-03)
+
+
+### Features
+
+* **config:** enable choice of practices supplementally and exclusively ([d141ec3](https://github.com/ehmpathy/declapract/commit/d141ec39b82dbb4d601a5e59914106940f478ed5))
+
+
+### Bug Fixes
+
+* **practs:** bump practs to latest best ([50c4664](https://github.com/ehmpathy/declapract/commit/50c466480b9962335ee8722507c57a0471f33e00))
+
 ## [0.11.5](https://github.com/ehmpathy/declapract/compare/v0.11.4...v0.11.5) (2024-07-27)
 
 
