@@ -1,0 +1,11 @@
+declarations: ../example-best-practices-repo
+scope:
+  practices:
+    - cicd-common
+    - conventional-commits
+    - husky
+variables:
+  organizationName: 'awesome-org'
+  serviceName: 'svc-awesome-thing'
+  infrastructureNamespaceId: 'abcde12345'
+  slackReleaseWebHook: 'https://...'

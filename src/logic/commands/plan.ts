@@ -1,8 +1,8 @@
-import { UnexpectedCodePathError } from '../UnexpectedCodePathError';
 import { displayPlans } from '../usage/plan/display/displayPlans';
 import { filterPracticeEvaluationsFromPlans } from '../usage/plan/filterPracticeEvaluationsFromPlans';
 import { getPlansForProject } from '../usage/plan/getPlansForProject';
 import { readUsePracticesConfig } from '../usage/readUsePracticesConfig';
+import { getDesiredPractices } from './getScopedPractices';
 
 export const plan = async ({
   usePracticesConfigPath,
@@ -20,24 +20,13 @@ export const plan = async ({
     configPath: usePracticesConfigPath,
   });
 
-  // grab the selected use case's practices
-  const useCase = config.declared.useCases.find(
-    (thisUseCase) => thisUseCase.name === config.useCase,
-  );
-  if (!useCase)
-    throw new UnexpectedCodePathError(
-      'requested use case was not defined on config. should have thrown an error when processing the config by now',
-    );
+  // grab the desired practices
+  const practices = getDesiredPractices({ config, filter });
 
   // get the plans
   console.log('🔬️ evaluating project...'); // tslint:disable-line: no-console
   const plans = await getPlansForProject({
-    practices: useCase.practices.filter(
-      (practice) =>
-        filter?.practiceNames
-          ? filter?.practiceNames.includes(practice.name) // if practice.name filter was defined, ensure practice.name is included
-          : true, // otherwise, all are included
-    ),
+    practices,
     projectRootDirectory: config.rootDir,
     projectVariables: config.variables,
   });

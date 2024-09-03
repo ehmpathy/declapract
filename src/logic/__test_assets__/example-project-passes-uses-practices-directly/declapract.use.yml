@@ -1,0 +1,12 @@
+declarations: ../example-best-practices-repo
+scope:
+  usecase: lambda-service
+  practices:
+    - cicd-common
+    - conventional-commits
+    - husky
+variables:
+  organizationName: 'awesome-org'
+  serviceName: 'svc-awesome-thing'
+  infrastructureNamespaceId: 'abcde12345'
+  slackReleaseWebHook: 'https://...'

@@ -115,7 +115,10 @@ export const readUsePracticesConfig = withDurationReporting(
     return new ActionUsePracticesConfig({
       rootDir: configDir,
       declared: declaredPractices,
-      useCase: configInput.useCase,
+      scope: {
+        usecase: configInput.scope?.usecase ?? configInput.useCase ?? null,
+        practices: configInput.scope?.practices,
+      },
       variables: configInput.variables ?? {},
     });
   },

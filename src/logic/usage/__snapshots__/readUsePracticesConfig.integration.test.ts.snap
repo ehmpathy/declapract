@@ -6,7 +6,10 @@ exports[`readUsePracticesConfig should read usage config specifying locally decl
     "rootDir": Any<String>,
   },
   "rootDir": Any<String>,
-  "useCase": "lambda-service",
+  "scope": {
+    "practices": undefined,
+    "usecase": "lambda-service",
+  },
   "variables": {
     "infrastructureNamespaceId": "abcde12345",
     "organizationName": "awesome-org",
@@ -22,7 +25,10 @@ exports[`readUsePracticesConfig should read usage config specifying locally decl
     "rootDir": Any<String>,
   },
   "rootDir": Any<String>,
-  "useCase": "lambda-service",
+  "scope": {
+    "practices": undefined,
+    "usecase": "lambda-service",
+  },
   "variables": {
     "infrastructureNamespaceId": "abcde12345",
     "organizationName": "awesome-org",
@@ -40,6 +46,52 @@ Object {
   "rootDir": Any<String>,
   "useCase": "lambda-service",
   "variables": Object {
+    "infrastructureNamespaceId": "abcde12345",
+    "organizationName": "awesome-org",
+    "serviceName": "svc-awesome-thing",
+    "slackReleaseWebHook": "https://...",
+  },
+}
+`;
+
+exports[`readUsePracticesConfig should read usage config with exclusively practices scope 1`] = `
+{
+  "declared": ObjectContaining {
+    "rootDir": Any<String>,
+  },
+  "rootDir": Any<String>,
+  "scope": {
+    "practices": [
+      "cicd-common",
+      "conventional-commits",
+      "husky",
+    ],
+    "usecase": null,
+  },
+  "variables": {
+    "infrastructureNamespaceId": "abcde12345",
+    "organizationName": "awesome-org",
+    "serviceName": "svc-awesome-thing",
+    "slackReleaseWebHook": "https://...",
+  },
+}
+`;
+
+exports[`readUsePracticesConfig should read usage config with explicit practices scope 1`] = `
+{
+  "declared": ObjectContaining {
+    "rootDir": Any<String>,
+  },
+  "rootDir": Any<String>,
+  "scope": {
+    "practices": [
+      "cicd-common",
+      "conventional-commits",
+      "husky",
+    ],
+    "usecase": "lambda-service",
+  },
+  "variables": {
     "infrastructureNamespaceId": "abcde12345",
     "organizationName": "awesome-org",
     "serviceName": "svc-awesome-thing",
