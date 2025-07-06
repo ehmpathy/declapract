@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.3](https://github.com/ehmpathy/declapract/compare/v0.12.2...v0.12.3) (2025-07-05)
+
+
+### Bug Fixes
+
+* **deps:** bump to latest ver practs for ehmpathy org ([0339a40](https://github.com/ehmpathy/declapract/commit/0339a4005ac91cc584c220e2c4b41e1ad4f52846))
+
 ## [0.12.2](https://github.com/ehmpathy/declapract/compare/v0.12.1...v0.12.2) (2025-07-05)
 
 
