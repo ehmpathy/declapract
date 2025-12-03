@@ -27,7 +27,7 @@ export const checkContainsSubstring = ({
       throw new UnexpectedCodePathError(
         'expect().toContain() threw an error, but no difference was detected in the strings',
         {
-          errorMessage: error.message,
+          errorMessage: (error as Error).message,
         },
       );
     throw new Error(difference);

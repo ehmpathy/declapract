@@ -6,7 +6,7 @@ import {
   FileEvaluationResult,
   hasFailed,
   isFixableCheck,
-} from './';
+} from './FileCheckEvaluation';
 import { PracticeDeclaration } from './PracticeDeclaration';
 
 /**

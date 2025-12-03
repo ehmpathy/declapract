@@ -16,8 +16,8 @@ describe('checkContainsSubstring', () => {
       });
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toContain');
-      expect(error.message).toMatchSnapshot(); // log example of it
+      expect((error as Error).message).toContain('toContain');
+      expect((error as Error).message).toMatchSnapshot(); // log example of it
     }
   });
 });

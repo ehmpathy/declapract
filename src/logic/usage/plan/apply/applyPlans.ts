@@ -1,4 +1,4 @@
-import { FileActionPlan } from '../../../../domain';
+import type { FileActionPlan } from '../../../../domain';
 import { sortFileActionPlansByPaths } from '../sortFileActionPlansByPaths';
 import { applyPlan } from './applyPlan';
 

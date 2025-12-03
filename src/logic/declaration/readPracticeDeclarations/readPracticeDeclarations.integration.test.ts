@@ -1,4 +1,4 @@
-import { testAssetsDirectoryPath } from '../../__test_assets__/dirPath';
+import { testAssetsDirectoryPath } from '../../.test.assets/dirPath';
 import { readPracticeDeclarations } from './readPracticeDeclarations';
 
 describe('readPracticeDeclarations', () => {

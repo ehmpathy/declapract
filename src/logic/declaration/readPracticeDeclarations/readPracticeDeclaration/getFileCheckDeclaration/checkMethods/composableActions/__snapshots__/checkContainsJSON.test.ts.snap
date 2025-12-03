@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`checkContainsJSON should throw an error with a good looking diff when found json does not contain the declared json 1`] = `
 "[32m- Expected toContain[39m

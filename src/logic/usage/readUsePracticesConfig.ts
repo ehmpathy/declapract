@@ -8,8 +8,8 @@ import { doesFileExist } from '../../utils/fileio/doesFileExist';
 import { readYmlFile } from '../../utils/fileio/readYmlFile';
 import { getDirOfPath } from '../../utils/filepaths/getDirOfPath';
 import { withDurationReporting } from '../../utils/wrappers/withDurationReporting';
-import { UserInputError } from '../UserInputError';
 import { readDeclarePracticesConfig } from '../declaration/readDeclarePracticesConfig';
+import { UserInputError } from '../UserInputError';
 
 export const readUsePracticesConfig = withDurationReporting(
   'readUsePracticesConfig',
@@ -28,7 +28,7 @@ export const readUsePracticesConfig = withDurationReporting(
         return await readYmlFile({ filePath: configPath });
       } catch (error) {
         throw new UserInputError(
-          `could not read config. ${error.message}. See '${configPath}'`,
+          `could not read config. ${(error as Error).message}. See '${configPath}'`,
         );
       }
     })();
@@ -44,9 +44,8 @@ export const readUsePracticesConfig = withDurationReporting(
         const packageName = configInput.declarations.slice('npm:'.length);
 
         // if it starts with npm, then make sure that it is installed in package.json
-        const { data: packageJsonContents } = await findNearestPackageJson(
-          configDir,
-        ); // nearest to the config
+        const { data: packageJsonContents } =
+          await findNearestPackageJson(configDir); // nearest to the config
         if (!(packageJsonContents.devDependencies ?? {})[packageName])
           throw new UserInputError(
             `specified declarations in npm module, but module is not specified as a devDependency: '${configInput.declarations}'`,

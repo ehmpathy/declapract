@@ -1,10 +1,10 @@
 import {
-  FileCheckEvaluation,
+  type FileCheckEvaluation,
   FileCheckPurpose,
   FileEvaluationResult,
-  FileFixFunction,
-  FilePracticeEvaluation,
-  PracticeDeclaration,
+  type FileFixFunction,
+  type FilePracticeEvaluation,
+  type PracticeDeclaration,
   RequiredAction,
 } from '../../../domain';
 import { getRequiredActionForFile } from './getRequiredActionForFile';

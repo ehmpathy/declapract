@@ -12,7 +12,7 @@ describe('compile', () => {
       '-d',
       '/some/path/to/use/dist',
     ]);
-    expect(compileMock).toBeCalledTimes(1);
+    expect(compileMock).toHaveBeenCalledTimes(1);
     expect(compileMock).toHaveBeenCalledWith({
       sourceDirectory: '/some/path/to/use/src',
       distributionDirectory: '/some/path/to/use/dist',

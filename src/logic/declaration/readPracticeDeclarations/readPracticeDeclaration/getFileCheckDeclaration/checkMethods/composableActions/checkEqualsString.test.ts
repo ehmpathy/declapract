@@ -16,8 +16,8 @@ describe('checkEqualsString', () => {
       });
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toEqual');
-      expect(error.message).toMatchSnapshot(); // log example of it
+      expect((error as Error).message).toContain('toEqual');
+      expect((error as Error).message).toMatchSnapshot(); // log example of it
     }
   });
 });

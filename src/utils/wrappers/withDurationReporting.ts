@@ -19,7 +19,7 @@ const roundToHundredths = (num: number) => Math.round(num * 100) / 100; // https
  * ```
  */
 export const withDurationReporting = <
-  R extends any,
+  R,
   T extends (...args: any[]) => Promise<R>,
 >(
   title: string,

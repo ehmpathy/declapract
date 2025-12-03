@@ -2,10 +2,16 @@ ignores:
   - '@oclif/plugin-help'
   - oclif
   - '@commitlint/config-conventional'
-  - '@trivago/prettier-plugin-sort-imports'
-  - '@tsconfig/node-lts-strictest'
-  - core-js
   - declapract-typescript-ehmpathy
-  - ts-jest
   - husky
   - test-fns
+  - rhachet
+  - declapract
+  - "@tsconfig/node20"
+  - "@tsconfig/strictest"
+  - "@biomejs/biome"
+  - esbuild-register
+  - "@swc/core"
+  - "@swc/jest"
+  - tsx
+  - simple-lambda-client

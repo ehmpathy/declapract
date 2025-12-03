@@ -7,7 +7,7 @@ const validateMock = validate as jest.Mock;
 describe('generate', () => {
   it('should call the validate command logic', async () => {
     await Declapract.run(['-c', '/some/path/to/use']);
-    expect(validateMock).toBeCalledTimes(1);
+    expect(validateMock).toHaveBeenCalledTimes(1);
     expect(validateMock).toHaveBeenCalledWith({
       declarePracticesConfigPath: '/some/path/to/use',
     });

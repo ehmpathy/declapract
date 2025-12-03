@@ -1,4 +1,4 @@
-import { FileFixFunction } from '../../../../../../domain';
+import type { FileFixFunction } from '../../../../../../domain';
 
 export const fixContainsWhenFileDoesntExistBySettingDeclaredContents: FileFixFunction =
   (contents, context) => {

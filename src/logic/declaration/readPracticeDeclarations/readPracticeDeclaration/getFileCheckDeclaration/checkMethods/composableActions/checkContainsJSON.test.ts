@@ -39,8 +39,8 @@ describe('checkContainsJSON', () => {
       fail('should not reach here');
     } catch (error) {
       // console.log(error.message);
-      expect(error.message).toContain('toContain');
-      expect(error.message).toMatchSnapshot(); // log example of it
+      expect((error as Error).message).toContain('toContain');
+      expect((error as Error).message).toMatchSnapshot(); // log example of it
     }
   });
   it('should return nothing when found json contains the declared json after evaluating check expressions', () => {
@@ -87,8 +87,8 @@ describe('checkContainsJSON', () => {
       fail('should not reach here');
     } catch (error) {
       // console.log(error.message);
-      expect(error.message).toContain('toContain');
-      expect(error.message).toMatchSnapshot(); // log example of it
+      expect((error as Error).message).toContain('toContain');
+      expect((error as Error).message).toMatchSnapshot(); // log example of it
     }
   });
 });

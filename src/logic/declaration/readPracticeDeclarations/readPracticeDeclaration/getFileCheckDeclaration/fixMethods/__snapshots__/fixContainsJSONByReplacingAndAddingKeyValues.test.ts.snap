@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`fixContainsJSONByReplacingAndAddingKeyValues should correctly replace nested keys with the correct values 1`] = `
 "{

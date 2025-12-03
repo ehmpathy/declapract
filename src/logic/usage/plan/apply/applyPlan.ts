@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import indentString from 'indent-string';
 
 import {
-  FileActionPlan,
+  type FileActionPlan,
   hasFailed,
   isFixableCheck,
   RequiredAction,

@@ -5,7 +5,7 @@ import { FileCheckContext } from './FileCheckContext';
 import {
   FileCheckPurpose,
   FileCheckType,
-  FileFixFunction,
+  type FileFixFunction,
 } from './FileCheckDeclaration';
 
 export enum FileEvaluationResult {

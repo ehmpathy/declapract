@@ -1,6 +1,6 @@
 import { sort as sortFilePaths } from 'cross-path-sort';
 
-import { FileActionPlan } from '../../../domain';
+import type { FileActionPlan } from '../../../domain';
 
 export const sortFileActionPlansByPaths = ({
   plans,

@@ -1,6 +1,6 @@
 import { RequiredAction } from '../../../../domain';
 import { log } from '../../../../utils/logger';
-import { testAssetsDirectoryPath } from '../../../__test_assets__/dirPath';
+import { testAssetsDirectoryPath } from '../../../.test.assets/dirPath';
 import { readPracticeDeclaration } from '../../../declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
 import { getPlansForProject } from '../getPlansForProject';
 import { displayPlan } from './displayPlan';

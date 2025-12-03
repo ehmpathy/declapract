@@ -1,15 +1,15 @@
 import glob from 'fast-glob';
 
 import {
-  Awaited,
-  FileCheckDeclaration,
+  type Awaited,
+  type FileCheckDeclaration,
   FileCheckEvaluation,
   FileCheckPurpose,
   FileEvaluationResult,
-  FileFixFunction,
+  type FileFixFunction,
 } from '../../../domain';
 import { FileCheckContext } from '../../../domain/objects/FileCheckContext';
-import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
+import type { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { readFileIfExistsAsync } from '../../../utils/fileio/readFileIfExistsAsync';
 import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { UnexpectedCodePathError } from '../../UnexpectedCodePathError';
@@ -159,7 +159,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
           fix: canFix ? check.fix : null,
           path: relativePath,
           result,
-          reason: error.message,
+          reason: (error as Error).message,
           context,
         });
       }

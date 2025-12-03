@@ -1,20 +1,22 @@
 {
-  "extends": "@tsconfig/node-lts-strictest/tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
     "importsNotUsedAsValues": "remove",
     "noPropertyAccessFromIndexSignature": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "exactOptionalPropertyTypes": false,
     "noImplicitOverride": false,
     "resolveJsonModule": true,
-    "declaration": true,
     "sourceMap": true,
-    "useUnknownInCatchVariables": false,
-    "exactOptionalPropertyTypes": false,
-    "allowUnreachableCode": true,
     "outDir": "dist",
     "target": "es2020",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "incremental": true
   },
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node20/tsconfig.json"
+  ],
   "include": [
     "**/*.ts"
   ],

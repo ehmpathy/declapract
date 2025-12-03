@@ -65,7 +65,7 @@ export const defineMinPackageVersionRegex = (minVersion: string) => {
     );
   } catch (error) {
     throw new UserInputError(
-      `input to defineMinPackageVersionRegex was not a valid semver version number: ${error.message}`,
+      `input to defineMinPackageVersionRegex was not a valid semver version number: ${(error as Error).message}`,
       {
         potentialSolution: `change '${minVersion}' to a valid semver version number. (e.g., '0.8.21' or '7.0.0')`,
       },

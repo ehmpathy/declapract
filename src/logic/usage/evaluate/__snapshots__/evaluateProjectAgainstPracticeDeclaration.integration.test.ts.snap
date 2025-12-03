@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`evaluteProjectAgainstPracticeDeclaration should be able to evaluate a practice which reference project variables in the declared contents and custom checks 1`] = `
 [

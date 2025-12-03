@@ -1,4 +1,7 @@
-import { FileCheckContext, FileCheckFunction } from '../../../../../../domain';
+import type {
+  FileCheckContext,
+  FileCheckFunction,
+} from '../../../../../../domain';
 
 export const withOptionalityCheck = (
   logic: FileCheckFunction,

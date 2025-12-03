@@ -1,8 +1,8 @@
 import {
-  isOfFileCheckType,
   FileCheckType,
-  FileFixFunction,
-  FileContentsFunction,
+  type FileContentsFunction,
+  type FileFixFunction,
+  isOfFileCheckType,
 } from '../../../../../domain';
 import { FileCheckDeclarationInput } from '../../../../../domain/objects/FileCheckDeclarationInput';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
@@ -96,7 +96,7 @@ export const getHydratedCheckInputsForFile = async ({
       throw new UserInputError(
         `The 'check' variable exported from '*.declapract.ts' for '${declaredFileCorePath}' was not a supported shorthand definition and is not a correctly defined 'FileCheckDeclarationInput'`,
         {
-          potentialSolution: `Please fix the 'export const check = ...' export in '${inputFilePath}'. If you are trying to specify a FileCheckDeclarationInput check object, here is why it was invalid: ${error.message}`,
+          potentialSolution: `Please fix the 'export const check = ...' export in '${inputFilePath}'. If you are trying to specify a FileCheckDeclarationInput check object, here is why it was invalid: ${(error as Error).message}`,
         },
       );
     }

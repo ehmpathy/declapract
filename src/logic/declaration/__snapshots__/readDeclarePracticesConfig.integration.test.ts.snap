@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`readDeclarePracticesConfig should be able to read a declared practices from example declarations repo config 1`] = `
 {

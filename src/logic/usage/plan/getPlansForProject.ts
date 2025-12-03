@@ -1,8 +1,8 @@
 import {
   FileActionPlan,
-  FilePracticeEvaluation,
-  PracticeDeclaration,
-  ProjectVariablesImplementation,
+  type FilePracticeEvaluation,
+  type PracticeDeclaration,
+  type ProjectVariablesImplementation,
 } from '../../../domain';
 import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
@@ -37,13 +37,16 @@ export const getPlansForProject = withDurationReporting(
     });
 
     // convert each file evaluation in to a plan per file
-    const evaluationsPerFile = evaluations.reduce((summary, thisEvaluation) => {
-      const currentState = summary[thisEvaluation.path] ?? []; // default to empty array
-      return {
-        ...summary,
-        [thisEvaluation.path]: [...currentState, thisEvaluation],
-      }; // append this evaluation
-    }, {} as Record<string, FilePracticeEvaluation[]>);
+    const evaluationsPerFile = evaluations.reduce(
+      (summary, thisEvaluation) => {
+        const currentState = summary[thisEvaluation.path] ?? []; // default to empty array
+        return {
+          ...summary,
+          [thisEvaluation.path]: [...currentState, thisEvaluation],
+        }; // append this evaluation
+      },
+      {} as Record<string, FilePracticeEvaluation[]>,
+    );
 
     // compose evaluations into plans
     const plans = Object.entries(evaluationsPerFile).map(

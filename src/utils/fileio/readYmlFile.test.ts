@@ -29,7 +29,9 @@ describe('readDefinitionsFileRecursive', () => {
       await readYmlFile({ filePath: 'some.json' });
       throw new Error('should not reach here');
     } catch (error) {
-      expect(error.message).toMatch('file path point to a .yml file.');
+      expect((error as Error).message).toMatch(
+        'file path point to a .yml file.',
+      );
     }
   });
   it('should attempt to read the file', async () => {

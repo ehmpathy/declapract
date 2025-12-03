@@ -1,13 +1,13 @@
 import {
-  FileCheckContext,
+  type FileCheckContext,
   FileCheckPurpose,
   FileCheckType,
 } from '../../../../../domain';
 import { doesDirectoryExist } from '../../../../../utils/fileio/doesDirectoryExist';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync as readFileAsyncUnsafe } from '../../../../../utils/fileio/readFileAsync';
-import { createExampleFileCheckContext } from '../../../../__test_assets__/createExampleFileCheckContext';
-import { testAssetsDirectoryPath } from '../../../../__test_assets__/dirPath';
+import { createExampleFileCheckContext } from '../../../../.test.assets/createExampleFileCheckContext';
+import { testAssetsDirectoryPath } from '../../../../.test.assets/dirPath';
 import { compile } from '../../../../commands/compile';
 import { replaceProjectVariablesInDeclaredFileContents } from '../../../../usage/evaluate/projectVariableExpressions/replaceProjectVariablesInDeclaredFileContents';
 import { getFileCheckDeclaration } from './getFileCheckDeclaration';
@@ -70,8 +70,8 @@ module.exports = {
       );
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toEqual');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('toEqual');
+      expect((error as Error).message).toMatchSnapshot();
     }
 
     // check that the fix function works correctly
@@ -160,8 +160,8 @@ module "product" {
       );
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toContain');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('toContain');
+      expect((error as Error).message).toMatchSnapshot();
     }
 
     // check that the fix function works correctly
@@ -229,8 +229,8 @@ provider "aws" {
       );
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toContain');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('toContain');
+      expect((error as Error).message).toMatchSnapshot();
     }
 
     // check that the fix function works correctly
@@ -357,8 +357,8 @@ import { AWS } from 'aws-sdk';
       );
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toContain');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('toContain');
+      expect((error as Error).message).toMatchSnapshot();
     }
   });
   it('should get file declaration correctly for an optional file equals check declaration', async () => {
@@ -403,8 +403,8 @@ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout
       );
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toEqual');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('toEqual');
+      expect((error as Error).message).toMatchSnapshot();
     }
   });
   it('should get file declaration correctly for a package json file with a custom check', async () => {
@@ -449,8 +449,8 @@ export const sleep = (ms: number) => new Promise((resolve, reject) => setTimeout
       );
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toEqual');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('toEqual');
+      expect((error as Error).message).toMatchSnapshot();
     }
   });
   it('should get file declaration correctly for a bad practice file exists check', async () => {
@@ -483,8 +483,8 @@ export const anything = 'should not exist';
       await declaration.check(null, context); // should not match file not existing, since file is required
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('Expected file to exist');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('Expected file to exist');
+      expect((error as Error).message).toMatchSnapshot();
     }
 
     // check that the fix function works correctly
@@ -583,8 +583,8 @@ this is a super awesome package that you should definitely use
       );
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('toEqual');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('toEqual');
+      expect((error as Error).message).toMatchSnapshot();
     }
 
     // it should fix correctly
@@ -664,8 +664,8 @@ export const anything = 'should not exist';
       await declaration.check(null, context); // should not match file not existing, since file is required
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('Expected file to exist');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('Expected file to exist');
+      expect((error as Error).message).toMatchSnapshot();
     }
 
     // check that the fix function works correctly
@@ -726,8 +726,8 @@ export const anything = 'should not exist';
       await declaration.check(null, context); // should not match file not existing, since file is required
       fail('should not reach here');
     } catch (error) {
-      expect(error.message).toContain('Expected file to exist');
-      expect(error.message).toMatchSnapshot();
+      expect((error as Error).message).toContain('Expected file to exist');
+      expect((error as Error).message).toMatchSnapshot();
     }
 
     // check that the fix function works correctly

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`readPracticeDeclarationFromDirectory should define correctly when a bad-practice is defined 1`] = `
 PracticeDeclaration {

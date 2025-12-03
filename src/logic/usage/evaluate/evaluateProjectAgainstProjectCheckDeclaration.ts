@@ -1,9 +1,9 @@
-import {
+import type {
   FileCheckEvaluation,
   FileCheckPurpose,
   ProjectCheckDeclaration,
 } from '../../../domain';
-import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
+import type { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
 import { evaluateProjectAgainstFileCheckDeclaration } from './evaluateProjectAgainstFileCheckDeclaration';
 

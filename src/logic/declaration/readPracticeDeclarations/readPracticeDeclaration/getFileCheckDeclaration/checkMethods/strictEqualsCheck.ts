@@ -1,4 +1,7 @@
-import { FileCheckContext, FileCheckFunction } from '../../../../../../domain';
+import type {
+  FileCheckContext,
+  FileCheckFunction,
+} from '../../../../../../domain';
 import { checkEqualsString } from './composableActions/checkEqualsString';
 import { checkExists } from './composableActions/checkExists';
 import { withOptionalityCheck } from './withOptionalityCheck';

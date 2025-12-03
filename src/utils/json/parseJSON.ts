@@ -37,7 +37,11 @@ export const parseJSON = <T>(contents: string): T => {
     try {
       return JSON5.parse(contents);
     } catch (json5Error) {
-      throw new JSONParsingError({ json5Error, jsonError, contents });
+      throw new JSONParsingError({
+        json5Error: json5Error as Error,
+        jsonError: jsonError as Error,
+        contents,
+      });
     }
   }
 };

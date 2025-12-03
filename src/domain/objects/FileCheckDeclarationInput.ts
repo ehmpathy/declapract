@@ -1,7 +1,7 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
 
-import { FileCheckFunction, FileCheckType } from '.';
+import { type FileCheckFunction, FileCheckType } from '.';
 
 const schema = Joi.object().keys({
   type: Joi.string()

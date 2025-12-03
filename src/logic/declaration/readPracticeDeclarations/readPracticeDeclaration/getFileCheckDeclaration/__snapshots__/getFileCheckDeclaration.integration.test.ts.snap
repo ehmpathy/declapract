@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`getFileCheckDeclaration should declare the check function correctly when the declared file has variables that need dereferenced 1`] = `
 "[32m- Expected toEqual[39m

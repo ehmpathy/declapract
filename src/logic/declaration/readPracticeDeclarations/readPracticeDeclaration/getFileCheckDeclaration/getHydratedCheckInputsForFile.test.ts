@@ -81,7 +81,7 @@ describe('getHydratedCheckInputsForFile', () => {
         fail('should not reach here');
       } catch (error) {
         expect(error).toBeInstanceOf(UserInputError);
-        expect(error.message).toContain(
+        expect((error as Error).message).toContain(
           'File check type can not be CUSTOM without the function being specified',
         );
       }
@@ -163,7 +163,7 @@ describe('getHydratedCheckInputsForFile', () => {
         fail('should not reach here');
       } catch (error) {
         expect(error).toBeInstanceOf(UserInputError);
-        expect(error.message).toContain(
+        expect((error as Error).message).toContain(
           'If check.function is defined then the type can not be defined as anything but FileCheckType.CUSTOM',
         );
       }

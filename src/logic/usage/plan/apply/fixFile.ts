@@ -1,4 +1,4 @@
-import { FileCheckEvaluation } from '../../../../domain';
+import type { FileCheckEvaluation } from '../../../../domain';
 import { readFileIfExistsAsync } from '../../../../utils/fileio/readFileIfExistsAsync';
 import { removeFileAsync } from '../../../../utils/fileio/removeFileAsync';
 import { writeFileAsync } from '../../../../utils/fileio/writeFileAsync';

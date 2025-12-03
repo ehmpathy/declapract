@@ -1,5 +1,5 @@
 import { RequiredAction } from '../../../domain';
-import { testAssetsDirectoryPath } from '../../__test_assets__/dirPath';
+import { testAssetsDirectoryPath } from '../../.test.assets/dirPath';
 import { readPracticeDeclaration } from '../../declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
 import { getPlansForProject } from './getPlansForProject';
 

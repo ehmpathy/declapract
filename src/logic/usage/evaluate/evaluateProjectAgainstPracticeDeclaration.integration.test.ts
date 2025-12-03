@@ -5,7 +5,7 @@ import {
   hasFailed,
 } from '../../../domain';
 import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
-import { testAssetsDirectoryPath } from '../../__test_assets__/dirPath';
+import { testAssetsDirectoryPath } from '../../.test.assets/dirPath';
 import { readDeclarePracticesConfig } from '../../declaration/readDeclarePracticesConfig';
 import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgainstPracticeDeclaration';
 

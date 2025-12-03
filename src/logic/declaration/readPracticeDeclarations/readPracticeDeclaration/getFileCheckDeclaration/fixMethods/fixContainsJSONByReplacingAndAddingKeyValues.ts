@@ -1,4 +1,4 @@
-import { FileFixFunction } from '../../../../../../domain';
+import type { FileFixFunction } from '../../../../../../domain';
 import { parseJSON } from '../../../../../../utils/json/parseJSON';
 import { UnexpectedCodePathError } from '../../../../../UnexpectedCodePathError';
 import {
@@ -18,7 +18,7 @@ const deepReplaceAllCheckExpressionsFromDeclaredContentsString = ({
   declaredContents: string;
 }) => {
   return declaredContents.replace(
-    /\@declapract\{check\.minVersion\('([0-9\.]+)'\)\}/g,
+    /@declapract\{check\.minVersion\('([0-9.]+)'\)\}/g,
     '$1',
   ); // using regexp capture groups to simplify this for now since we only have the minVersion expression; // TODO: make this more generic to handle other check expression types
 };

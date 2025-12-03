@@ -22,7 +22,7 @@ export const readDeclarePracticesConfig = async ({
       return await readYmlFile({ filePath: configPath });
     } catch (error) {
       throw new UserInputError(
-        `could not read config. ${error.message}. See '${configPath}'`,
+        `could not read config. ${(error as Error).message}. See '${configPath}'`,
       );
     }
   })();
