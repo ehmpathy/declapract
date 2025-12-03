@@ -1,15 +1,15 @@
 import {
   FileCheckDeclaration,
-  FileCheckFunction,
+  type FileCheckFunction,
   FileCheckPurpose,
   FileCheckType,
-  FileContentsFunction,
-  FileFixFunction,
+  type FileContentsFunction,
+  type FileFixFunction,
 } from '../../../../../domain';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync } from '../../../../../utils/fileio/readFileAsync';
-import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
 import { deserializeGlobPathFromNpmPackaging } from '../../../../commands/compile';
+import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
 import { containsCheck } from './checkMethods/containsCheck';
 import { existsCheck } from './checkMethods/existsCheck';
 import { strictEqualsCheck } from './checkMethods/strictEqualsCheck';

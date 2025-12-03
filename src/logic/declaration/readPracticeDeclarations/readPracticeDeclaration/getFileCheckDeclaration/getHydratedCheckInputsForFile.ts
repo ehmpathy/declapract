@@ -1,8 +1,8 @@
 import {
-  isOfFileCheckType,
   FileCheckType,
-  FileFixFunction,
-  FileContentsFunction,
+  type FileContentsFunction,
+  type FileFixFunction,
+  isOfFileCheckType,
 } from '../../../../../domain';
 import { FileCheckDeclarationInput } from '../../../../../domain/objects/FileCheckDeclarationInput';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';

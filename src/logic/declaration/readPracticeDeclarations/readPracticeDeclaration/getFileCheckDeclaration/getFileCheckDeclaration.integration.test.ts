@@ -1,13 +1,13 @@
 import {
-  FileCheckContext,
+  type FileCheckContext,
   FileCheckPurpose,
   FileCheckType,
 } from '../../../../../domain';
 import { doesDirectoryExist } from '../../../../../utils/fileio/doesDirectoryExist';
 import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
 import { readFileAsync as readFileAsyncUnsafe } from '../../../../../utils/fileio/readFileAsync';
-import { createExampleFileCheckContext } from '../../../../__test_assets__/createExampleFileCheckContext';
-import { testAssetsDirectoryPath } from '../../../../__test_assets__/dirPath';
+import { createExampleFileCheckContext } from '../../../../.test.assets/createExampleFileCheckContext';
+import { testAssetsDirectoryPath } from '../../../../.test.assets/dirPath';
 import { compile } from '../../../../commands/compile';
 import { replaceProjectVariablesInDeclaredFileContents } from '../../../../usage/evaluate/projectVariableExpressions/replaceProjectVariablesInDeclaredFileContents';
 import { getFileCheckDeclaration } from './getFileCheckDeclaration';

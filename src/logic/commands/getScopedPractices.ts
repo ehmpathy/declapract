@@ -1,6 +1,6 @@
-import { UnexpectedCodePathError } from '@ehmpathy/error-fns';
+import { UnexpectedCodePathError } from 'helpful-errors';
 
-import { ActionUsePracticesConfig } from '../../domain/objects/ActionUsePracticesConfig';
+import type { ActionUsePracticesConfig } from '../../domain/objects/ActionUsePracticesConfig';
 
 export const getDesiredPractices = ({
   config,

@@ -1,5 +1,5 @@
 import { FileCheckPurpose } from '../../../../domain';
-import { testAssetsDirectoryPath } from '../../../__test_assets__/dirPath';
+import { testAssetsDirectoryPath } from '../../../.test.assets/dirPath';
 import { getProjectCheckDeclaration } from './getProjectCheckDeclaration';
 
 describe('getProjectCheckDeclarationFromDirectory', () => {

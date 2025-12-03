@@ -1,7 +1,7 @@
 import {
-  ProjectCheckDeclaration,
-  PracticeDeclaration,
   FileCheckPurpose,
+  PracticeDeclaration,
+  type ProjectCheckDeclaration,
 } from '../../../../domain';
 import { listPathsInDirectory } from '../../../../utils/filepaths/listPathsInDirectory';
 import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';

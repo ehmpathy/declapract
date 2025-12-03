@@ -4,7 +4,7 @@ import { listFilesInDirectory } from '../../utils/filepaths/listFilesInDirectory
 export const serializeGlobPathForNpmPackaging = (path: string) =>
   path.replace(/\*/g, '<star>');
 export const deserializeGlobPathFromNpmPackaging = (path: string) =>
-  path.replace(/\<star\>/g, '*');
+  path.replace(/<star>/g, '*');
 
 /**
  *

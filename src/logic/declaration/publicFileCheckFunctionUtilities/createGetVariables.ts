@@ -1,5 +1,5 @@
-import { ProjectVariablesImplementation } from '../../../domain';
-import { FileCheckContext } from '../../../domain/objects/FileCheckContext';
+import type { ProjectVariablesImplementation } from '../../../domain';
+import type { FileCheckContext } from '../../../domain/objects/FileCheckContext';
 import { UnexpectedCodePathError } from '../../UnexpectedCodePathError';
 
 /**

@@ -1,6 +1,6 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
-import { PickAny } from 'type-fns';
+import type { PickAny } from 'type-fns';
 
 const schema = Joi.object().keys({
   declarations: Joi.string().required(), // either an ssh path to a git repo - or a file path to a local directory

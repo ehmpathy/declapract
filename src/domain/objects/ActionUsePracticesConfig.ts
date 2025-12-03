@@ -1,8 +1,8 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
-import { PickAny } from 'type-fns';
+import type { PickAny } from 'type-fns';
 
-import { ProjectVariablesImplementation } from '../constants';
+import type { ProjectVariablesImplementation } from '../constants';
 import { DeclaredPractices } from './DeclaredPractices';
 
 const schema = Joi.object().keys({

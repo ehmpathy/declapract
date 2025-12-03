@@ -1,10 +1,10 @@
 import { withNot } from 'type-fns';
 
 import {
-  FilePracticeEvaluation,
+  type FilePracticeEvaluation,
   hasPassed,
-  RequiredAction,
   isFixablePractice,
+  RequiredAction,
 } from '../../../domain';
 
 /**

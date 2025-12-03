@@ -4,10 +4,10 @@ import {
   FileCheckPurpose,
   FileEvaluationResult,
   hasPassed,
-  PracticeDeclaration,
+  type PracticeDeclaration,
 } from '../../../domain';
 import { FilePracticeEvaluation } from '../../../domain/objects/FilePracticeEvaluation';
-import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
+import type { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
 import { evaluteProjectAgainstProjectCheckDeclaration } from './evaluateProjectAgainstProjectCheckDeclaration';
 
 export const evaluteProjectAgainstPracticeDeclaration = async ({

@@ -4,7 +4,7 @@ import { doesFileExist } from '../../../../utils/fileio/doesFileExist';
 import { readFileAsync } from '../../../../utils/fileio/readFileAsync';
 import { removeFileAsync } from '../../../../utils/fileio/removeFileAsync';
 import { writeFileAsync } from '../../../../utils/fileio/writeFileAsync';
-import { testAssetsDirectoryPath } from '../../../__test_assets__/dirPath';
+import { testAssetsDirectoryPath } from '../../../.test.assets/dirPath';
 import { readDeclarePracticesConfig } from '../../../declaration/readDeclarePracticesConfig';
 import { evaluteProjectAgainstPracticeDeclaration } from '../../evaluate/evaluateProjectAgainstPracticeDeclaration';
 import { fixFile } from './fixFile';

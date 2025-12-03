@@ -1,6 +1,6 @@
 import flatten from 'flat';
 
-import { ProjectVariablesImplementation } from '../../../../domain';
+import type { ProjectVariablesImplementation } from '../../../../domain';
 import { replaceAll } from '../../../../utils/stringPolyfill/replaceAll';
 import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
 import { UserInputError } from '../../../UserInputError';
@@ -16,7 +16,7 @@ export const replaceProjectVariablesInDeclaredFileContents = ({
   const uniqueDeclaredVariableExpressions = [
     ...new Set(
       Array.from(
-        fileContents.matchAll(new RegExp(/\@declapract\{variable.[\w\.]+\}/g)),
+        fileContents.matchAll(new RegExp(/@declapract\{variable.[\w.]+\}/g)),
         (m) => m[0],
       ),
     ),
@@ -29,9 +29,9 @@ export const replaceProjectVariablesInDeclaredFileContents = ({
   // lookup each one and replace it (or throw an error if the variable was not defined)
   const replacedFileContents = uniqueDeclaredVariableExpressions.reduce(
     (contents, thisVariableExpression) => {
-      const variableKey = (new RegExp(
-        /@declapract\{variable\.([\w\.]+)\}/,
-      ).exec(thisVariableExpression) ?? [])[1];
+      const variableKey = (new RegExp(/@declapract\{variable\.([\w.]+)\}/).exec(
+        thisVariableExpression,
+      ) ?? [])[1];
       if (!variableKey)
         throw new UnexpectedCodePathError(
           `could not extract variableKey from variableExpression '${thisVariableExpression}'`,

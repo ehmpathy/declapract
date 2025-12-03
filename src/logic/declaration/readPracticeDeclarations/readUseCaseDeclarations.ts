@@ -1,7 +1,7 @@
 import uniqBy from 'lodash.uniqby';
 
-import { PracticeDeclaration, UseCaseDeclaration } from '../../../domain';
-import { ExampleDeclaration } from '../../../domain/objects/ExampleDeclaration';
+import { type PracticeDeclaration, UseCaseDeclaration } from '../../../domain';
+import type { ExampleDeclaration } from '../../../domain/objects/ExampleDeclaration';
 import { UseCasesDeclarationInput } from '../../../domain/objects/UseCasesDeclarationInput';
 import { readYmlFile } from '../../../utils/fileio/readYmlFile';
 import { UserInputError } from '../../UserInputError';

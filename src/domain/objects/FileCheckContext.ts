@@ -1,7 +1,7 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
 
-import { ProjectVariablesImplementation } from '../constants';
+import type { ProjectVariablesImplementation } from '../constants';
 
 const schema = Joi.object().keys({
   relativeFilePath: Joi.string().required(),

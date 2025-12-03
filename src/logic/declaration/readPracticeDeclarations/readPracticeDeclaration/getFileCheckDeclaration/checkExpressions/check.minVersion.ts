@@ -8,7 +8,7 @@ import { defineMinPackageVersionRegex } from '../../../../publicFileCheckFunctio
 export const getMinVersionFromCheckMinVersionExpression = (
   value: string,
 ): string | null =>
-  (new RegExp(/^\@declapract\{check\.minVersion\('([0-9\.]+)'\)\}$/).exec(
+  (new RegExp(/^@declapract\{check\.minVersion\('([0-9.]+)'\)\}$/).exec(
     value,
   ) ?? [])[1] ?? null;
 

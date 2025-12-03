@@ -1,4 +1,7 @@
-import { FileCheckPurpose, FileCheckDeclaration } from '../../../../domain';
+import {
+  type FileCheckDeclaration,
+  FileCheckPurpose,
+} from '../../../../domain';
 import { ProjectCheckDeclaration } from '../../../../domain/objects/ProjectCheckDeclaration';
 import { readFileAsync } from '../../../../utils/fileio/readFileAsync';
 import { listFilesInDirectory } from '../../../../utils/filepaths/listFilesInDirectory';

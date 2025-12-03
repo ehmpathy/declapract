@@ -2,8 +2,8 @@ import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
 import { createIsOfEnum } from 'type-fns';
 
-import { FileCheckContext } from './FileCheckContext';
-import { ProjectCheckContext } from './ProjectCheckContext';
+import type { FileCheckContext } from './FileCheckContext';
+import type { ProjectCheckContext } from './ProjectCheckContext';
 
 export enum FileCheckPurpose {
   BAD_PRACTICE = 'BAD_PRACTICE',

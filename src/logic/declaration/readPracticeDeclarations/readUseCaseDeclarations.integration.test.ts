@@ -1,4 +1,4 @@
-import { testAssetsDirectoryPath } from '../../__test_assets__/dirPath';
+import { testAssetsDirectoryPath } from '../../.test.assets/dirPath';
 import { readExampleDeclarations } from './readExampleDeclarations';
 import { readPracticeDeclarations } from './readPracticeDeclarations';
 import { readUseCaseDeclarations } from './readUseCaseDeclarations';
