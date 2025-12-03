@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.4](https://github.com/ehmpathy/declapract/compare/v0.12.3...v0.12.4) (2025-12-03)
+
+
+### Bug Fixes
+
+* **deps:** bump to latest domain-objects depver ([0a95fb9](https://github.com/ehmpathy/declapract/commit/0a95fb9ccd8d71a2446454810bbaf006ab59b9b6))
+
 ## [0.12.3](https://github.com/ehmpathy/declapract/compare/v0.12.2...v0.12.3) (2025-07-05)
 
 
