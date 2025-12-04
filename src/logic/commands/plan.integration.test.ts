@@ -10,6 +10,11 @@ describe('plan', () => {
     await plan({
       usePracticesConfigPath: `${testAssetsDirectoryPath}/example-best-practices-repo/src/examples/lambda-service/declapract.use.yml`,
     });
-    expect(logSpy.mock.calls).toMatchSnapshot();
+    // filter out duration lines which vary between runs
+    const callsWithoutDurations = logSpy.mock.calls.filter(
+      (call) =>
+        !call.some((arg) => typeof arg === 'string' && arg.includes('> took')),
+    );
+    expect(callsWithoutDurations).toMatchSnapshot();
   });
 });
