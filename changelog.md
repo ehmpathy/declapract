@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0](https://github.com/ehmpathy/declapract/compare/v0.12.5...v0.13.0) (2025-12-04)
+
+
+### Features
+
+* **cli:** drop oclif deps ([#43](https://github.com/ehmpathy/declapract/issues/43)) ([03f257f](https://github.com/ehmpathy/declapract/commit/03f257f80618a6134f9065466b392f845f69557e))
+
 ## [0.12.5](https://github.com/ehmpathy/declapract/compare/v0.12.4...v0.12.5) (2025-12-04)
 
 
