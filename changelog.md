@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.5](https://github.com/ehmpathy/declapract/compare/v0.12.4...v0.12.5) (2025-12-04)
+
+
+### Bug Fixes
+
+* **practs:** bump to latest best ([#41](https://github.com/ehmpathy/declapract/issues/41)) ([7122814](https://github.com/ehmpathy/declapract/commit/712281481a2925cc7b51e89deb0732fb7b88a009))
+
 ## [0.12.4](https://github.com/ehmpathy/declapract/compare/v0.12.3...v0.12.4) (2025-12-03)
 
 
