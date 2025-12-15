@@ -1,4 +1,4 @@
-import type { FileCheckEvaluation } from '../../../domain';
+import type { FileCheckEvaluation } from '@src/domain';
 
 export const sortFileCheckEvaluationsByPracticeRef = (
   a: FileCheckEvaluation,

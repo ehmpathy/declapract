@@ -6,11 +6,12 @@ import {
   hasFailed,
   isFixableCheck,
   RequiredAction,
-} from '../../../../domain';
-import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
-import { getColoredPlanTitle } from '../display/color/getColoredPlanTitle';
-import { sortFileCheckEvaluationsByPracticeRef } from '../sortFileCheckEvaluationsByPracticeRef';
-import { sortFilePracticeEvaluationsByPracticeName } from '../sortFilePracticeEvaluationsByPracticeName';
+} from '@src/domain';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
+import { getColoredPlanTitle } from '@src/logic/usage/plan/display/color/getColoredPlanTitle';
+import { sortFileCheckEvaluationsByPracticeRef } from '@src/logic/usage/plan/sortFileCheckEvaluationsByPracticeRef';
+import { sortFilePracticeEvaluationsByPracticeName } from '@src/logic/usage/plan/sortFilePracticeEvaluationsByPracticeName';
+
 import { fixFile } from './fixFile';
 
 /**

@@ -1,4 +1,5 @@
-import type { FileCheckContext } from '../../../../../../domain';
+import type { FileCheckContext } from '@src/domain';
+
 import { checkContainsJSON } from './composableActions/checkContainsJSON';
 import { checkContainsSubstring } from './composableActions/checkContainsSubstring';
 import { checkExists } from './composableActions/checkExists';

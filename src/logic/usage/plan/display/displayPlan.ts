@@ -6,8 +6,9 @@ import {
   hasFailed,
   isFixableCheck,
   RequiredAction,
-} from '../../../../domain';
-import { sortFileCheckEvaluationsByPracticeRef } from '../sortFileCheckEvaluationsByPracticeRef';
+} from '@src/domain';
+import { sortFileCheckEvaluationsByPracticeRef } from '@src/logic/usage/plan/sortFileCheckEvaluationsByPracticeRef';
+
 import { getColoredPlanTitle } from './color/getColoredPlanTitle';
 
 export const displayPlan = async ({ plan }: { plan: FileActionPlan }) => {

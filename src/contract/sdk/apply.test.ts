@@ -1,4 +1,5 @@
-import { apply } from '../../logic/commands/apply';
+import { apply } from '@src/logic/commands/apply';
+
 import { executeApply } from './apply';
 
 jest.mock('../../logic/commands/apply');

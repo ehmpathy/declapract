@@ -1,5 +1,5 @@
-import { ExampleDeclaration } from '../../../domain/objects/ExampleDeclaration';
-import { listPathsInDirectory } from '../../../utils/filepaths/listPathsInDirectory';
+import { ExampleDeclaration } from '@src/domain/objects/ExampleDeclaration';
+import { listPathsInDirectory } from '@src/utils/filepaths/listPathsInDirectory';
 
 export const readExampleDeclarations = async ({
   declarationsRootDirectory,

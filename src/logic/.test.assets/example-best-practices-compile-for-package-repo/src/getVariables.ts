@@ -1,4 +1,4 @@
-import { createGetVariables } from '../../../declaration/publicFileCheckFunctionUtilities/createGetVariables';
+import { createGetVariables } from '@src/logic/declaration/publicFileCheckFunctionUtilities/createGetVariables';
 
 export const getProjectVariables = createGetVariables({
   organizationName: 'awesum',

@@ -3,10 +3,11 @@ import {
   type FilePracticeEvaluation,
   type PracticeDeclaration,
   type ProjectVariablesImplementation,
-} from '../../../domain';
-import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
-import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
-import { evaluateProjectAgainstPracticeDeclarations } from '../evaluate/evaluateProjectAgainstPracticeDeclarations';
+} from '@src/domain';
+import { ProjectCheckContext } from '@src/domain/objects/ProjectCheckContext';
+import { evaluateProjectAgainstPracticeDeclarations } from '@src/logic/usage/evaluate/evaluateProjectAgainstPracticeDeclarations';
+import { withDurationReporting } from '@src/utils/wrappers/withDurationReporting';
+
 import { getRequiredActionForFile } from './getRequiredActionForFile';
 
 /**

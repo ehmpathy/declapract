@@ -1,7 +1,8 @@
 import fs from 'fs';
 import util from 'util';
 
-import { getDirOfPath } from '../filepaths/getDirOfPath';
+import { getDirOfPath } from '@src/utils/filepaths/getDirOfPath';
+
 import { makeDirectoryAsync } from './makeDirAsync';
 
 // export these from a seperate file to make testing easier (i.e., easier to define the mocks)

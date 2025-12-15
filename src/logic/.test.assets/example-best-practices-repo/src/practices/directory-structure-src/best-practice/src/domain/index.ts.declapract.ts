@@ -1,3 +1,3 @@
-import { FileCheckType } from '../../../../../../../../../domain';
+import { FileCheckType } from '@src/domain';
 
 export const check = FileCheckType.EXISTS;

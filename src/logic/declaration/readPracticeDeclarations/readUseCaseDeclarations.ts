@@ -1,10 +1,10 @@
 import uniqBy from 'lodash.uniqby';
 
-import { type PracticeDeclaration, UseCaseDeclaration } from '../../../domain';
-import type { ExampleDeclaration } from '../../../domain/objects/ExampleDeclaration';
-import { UseCasesDeclarationInput } from '../../../domain/objects/UseCasesDeclarationInput';
-import { readYmlFile } from '../../../utils/fileio/readYmlFile';
-import { UserInputError } from '../../UserInputError';
+import { type PracticeDeclaration, UseCaseDeclaration } from '@src/domain';
+import type { ExampleDeclaration } from '@src/domain/objects/ExampleDeclaration';
+import { UseCasesDeclarationInput } from '@src/domain/objects/UseCasesDeclarationInput';
+import { UserInputError } from '@src/logic/UserInputError';
+import { readYmlFile } from '@src/utils/fileio/readYmlFile';
 
 export const readUseCaseDeclarations = async ({
   declaredUseCasesPath,

@@ -1,5 +1,6 @@
-import { FileCheckPurpose } from '../../../../domain';
-import { testAssetsDirectoryPath } from '../../../.test.assets/dirPath';
+import { FileCheckPurpose } from '@src/domain';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+
 import { getProjectCheckDeclaration } from './getProjectCheckDeclaration';
 
 describe('getProjectCheckDeclarationFromDirectory', () => {

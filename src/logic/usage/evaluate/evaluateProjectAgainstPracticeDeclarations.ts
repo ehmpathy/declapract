@@ -2,11 +2,12 @@ import chalk from 'chalk';
 import { LOG_LEVEL } from 'simple-leveled-log-methods';
 import { isPresent } from 'type-fns';
 
-import type { PracticeDeclaration } from '../../../domain';
-import type { FilePracticeEvaluation } from '../../../domain/objects/FilePracticeEvaluation';
-import type { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
-import { ACTIVE_LOG_LEVEL } from '../../../utils/logger';
-import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
+import type { PracticeDeclaration } from '@src/domain';
+import type { FilePracticeEvaluation } from '@src/domain/objects/FilePracticeEvaluation';
+import type { ProjectCheckContext } from '@src/domain/objects/ProjectCheckContext';
+import { ACTIVE_LOG_LEVEL } from '@src/utils/logger';
+import { withDurationReporting } from '@src/utils/wrappers/withDurationReporting';
+
 import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgainstPracticeDeclaration';
 
 const SKIP_BROKEN = process.env.SKIP_BROKEN?.toLocaleLowerCase() === 'true'; // TODO: pass in an argument through the oclif cli args

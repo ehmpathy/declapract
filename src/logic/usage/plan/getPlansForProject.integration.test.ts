@@ -1,6 +1,7 @@
-import { RequiredAction } from '../../../domain';
-import { testAssetsDirectoryPath } from '../../.test.assets/dirPath';
-import { readPracticeDeclaration } from '../../declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
+import { RequiredAction } from '@src/domain';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+import { readPracticeDeclaration } from '@src/logic/declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
+
 import { getPlansForProject } from './getPlansForProject';
 
 describe('getPlansForProject', () => {

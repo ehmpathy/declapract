@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { UserInputError } from '../../UserInputError';
+import { UserInputError } from '@src/logic/UserInputError';
 
 export const defineRegexPartForNumberGreaterThan = (greaterThan: string) => {
   // check that its an integer

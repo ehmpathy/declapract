@@ -2,14 +2,15 @@ import {
   type FileCheckContext,
   FileCheckPurpose,
   FileCheckType,
-} from '../../../../../domain';
-import { doesDirectoryExist } from '../../../../../utils/fileio/doesDirectoryExist';
-import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
-import { readFileAsync as readFileAsyncUnsafe } from '../../../../../utils/fileio/readFileAsync';
-import { createExampleFileCheckContext } from '../../../../.test.assets/createExampleFileCheckContext';
-import { testAssetsDirectoryPath } from '../../../../.test.assets/dirPath';
-import { compile } from '../../../../commands/compile';
-import { replaceProjectVariablesInDeclaredFileContents } from '../../../../usage/evaluate/projectVariableExpressions/replaceProjectVariablesInDeclaredFileContents';
+} from '@src/domain';
+import { createExampleFileCheckContext } from '@src/logic/.test.assets/createExampleFileCheckContext';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+import { compile } from '@src/logic/commands/compile';
+import { replaceProjectVariablesInDeclaredFileContents } from '@src/logic/usage/evaluate/projectVariableExpressions/replaceProjectVariablesInDeclaredFileContents';
+import { doesDirectoryExist } from '@src/utils/fileio/doesDirectoryExist';
+import { doesFileExist } from '@src/utils/fileio/doesFileExist';
+import { readFileAsync as readFileAsyncUnsafe } from '@src/utils/fileio/readFileAsync';
+
 import { getFileCheckDeclaration } from './getFileCheckDeclaration';
 
 const exampleContext = createExampleFileCheckContext();

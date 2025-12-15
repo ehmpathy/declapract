@@ -1,5 +1,6 @@
 *-debug.log
 *-error.log
+*.local.json
 *.log
 *.tsbuildinfo
 .artifact

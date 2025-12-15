@@ -1,9 +1,9 @@
 import flatten from 'flat';
 
-import type { ProjectVariablesImplementation } from '../../../../domain';
-import { replaceAll } from '../../../../utils/stringPolyfill/replaceAll';
-import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
-import { UserInputError } from '../../../UserInputError';
+import type { ProjectVariablesImplementation } from '@src/domain';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
+import { UserInputError } from '@src/logic/UserInputError';
+import { replaceAll } from '@src/utils/stringPolyfill/replaceAll';
 
 export const replaceProjectVariablesInDeclaredFileContents = ({
   projectVariables,

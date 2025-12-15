@@ -1,7 +1,7 @@
 // tslint:disable no-console
 import { hrtime } from 'process';
 
-import { log } from '../logger';
+import { log } from '@src/utils/logger';
 
 const roundToHundredths = (num: number) => Math.round(num * 100) / 100; // https://stackoverflow.com/a/14968691/3068233
 

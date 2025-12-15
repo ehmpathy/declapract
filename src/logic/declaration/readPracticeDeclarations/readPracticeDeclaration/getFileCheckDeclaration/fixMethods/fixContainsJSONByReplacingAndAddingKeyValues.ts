@@ -1,11 +1,11 @@
-import type { FileFixFunction } from '../../../../../../domain';
-import { parseJSON } from '../../../../../../utils/json/parseJSON';
-import { UnexpectedCodePathError } from '../../../../../UnexpectedCodePathError';
+import type { FileFixFunction } from '@src/domain';
 import {
   checkDoesFoundValuePassesMinVersionCheck,
   getMinVersionFromCheckMinVersionExpression,
   isCheckMinVersionExpression,
-} from '../checkExpressions/check.minVersion';
+} from '@src/logic/declaration/readPracticeDeclarations/readPracticeDeclaration/getFileCheckDeclaration/checkExpressions/check.minVersion';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
+import { parseJSON } from '@src/utils/json/parseJSON';
 
 /**
  * e.g., replace a `@declapract{check.minVersion('..')}` strings in the declared contents

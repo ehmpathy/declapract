@@ -1,8 +1,8 @@
-import type { FileCheckEvaluation } from '../../../../domain';
-import { readFileIfExistsAsync } from '../../../../utils/fileio/readFileIfExistsAsync';
-import { removeFileAsync } from '../../../../utils/fileio/removeFileAsync';
-import { writeFileAsync } from '../../../../utils/fileio/writeFileAsync';
-import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
+import type { FileCheckEvaluation } from '@src/domain';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
+import { readFileIfExistsAsync } from '@src/utils/fileio/readFileIfExistsAsync';
+import { removeFileAsync } from '@src/utils/fileio/removeFileAsync';
+import { writeFileAsync } from '@src/utils/fileio/writeFileAsync';
 
 /**
  * fix a file using the fix function of a check, based on an evaluation of the file

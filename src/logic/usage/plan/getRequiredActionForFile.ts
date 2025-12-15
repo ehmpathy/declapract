@@ -5,7 +5,7 @@ import {
   hasPassed,
   isFixablePractice,
   RequiredAction,
-} from '../../../domain';
+} from '@src/domain';
 
 /**
  * returns what the required action is for a file, based on all of the evaluations for that file

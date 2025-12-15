@@ -1,6 +1,7 @@
 import { isPresent } from 'type-fns';
 
-import { FileActionPlan, isFixablePractice } from '../../../domain';
+import { FileActionPlan, isFixablePractice } from '@src/domain';
+
 import { getRequiredActionForFile } from './getRequiredActionForFile';
 
 export const filterPracticeEvaluationsFromPlans = async ({

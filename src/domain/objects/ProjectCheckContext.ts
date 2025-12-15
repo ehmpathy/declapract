@@ -1,7 +1,7 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
 
-import type { ProjectVariablesImplementation } from '../constants';
+import type { ProjectVariablesImplementation } from '@src/domain/constants';
 
 const schema = Joi.object().keys({
   projectVariables: Joi.object().required(),

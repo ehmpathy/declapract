@@ -1,15 +1,15 @@
 import { findNearestPackageJson } from 'find-nearest-package-json';
 import { promises as fs } from 'fs';
 
-import { ActionUsePracticesConfig } from '../../domain/objects/ActionUsePracticesConfig';
-import { ActionUsePracticesConfigInput } from '../../domain/objects/ActionUsePracticesConfigInput';
-import { doesDirectoryExist } from '../../utils/fileio/doesDirectoryExist';
-import { doesFileExist } from '../../utils/fileio/doesFileExist';
-import { readYmlFile } from '../../utils/fileio/readYmlFile';
-import { getDirOfPath } from '../../utils/filepaths/getDirOfPath';
-import { withDurationReporting } from '../../utils/wrappers/withDurationReporting';
-import { readDeclarePracticesConfig } from '../declaration/readDeclarePracticesConfig';
-import { UserInputError } from '../UserInputError';
+import { ActionUsePracticesConfig } from '@src/domain/objects/ActionUsePracticesConfig';
+import { ActionUsePracticesConfigInput } from '@src/domain/objects/ActionUsePracticesConfigInput';
+import { readDeclarePracticesConfig } from '@src/logic/declaration/readDeclarePracticesConfig';
+import { UserInputError } from '@src/logic/UserInputError';
+import { doesDirectoryExist } from '@src/utils/fileio/doesDirectoryExist';
+import { doesFileExist } from '@src/utils/fileio/doesFileExist';
+import { readYmlFile } from '@src/utils/fileio/readYmlFile';
+import { getDirOfPath } from '@src/utils/filepaths/getDirOfPath';
+import { withDurationReporting } from '@src/utils/wrappers/withDurationReporting';
 
 export const readUsePracticesConfig = withDurationReporting(
   'readUsePracticesConfig',

@@ -1,4 +1,4 @@
-import { defineMinPackageVersionRegex } from '../../../../publicFileCheckFunctionUtilities/defineMinPackageVersionRegex';
+import { defineMinPackageVersionRegex } from '@src/logic/declaration/publicFileCheckFunctionUtilities/defineMinPackageVersionRegex';
 
 /**
  * grabs the `x.y.z` part from strings that match the shape `@declapract{check.minVersion('x.y.z')}`

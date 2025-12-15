@@ -1,5 +1,6 @@
-import type { FileActionPlan } from '../../../../domain';
-import { sortFileActionPlansByPaths } from '../sortFileActionPlansByPaths';
+import type { FileActionPlan } from '@src/domain';
+import { sortFileActionPlansByPaths } from '@src/logic/usage/plan/sortFileActionPlansByPaths';
+
 import { applyPlan } from './applyPlan';
 
 export const applyPlans = async ({

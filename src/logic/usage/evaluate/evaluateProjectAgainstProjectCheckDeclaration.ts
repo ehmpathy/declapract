@@ -2,9 +2,10 @@ import type {
   FileCheckEvaluation,
   FileCheckPurpose,
   ProjectCheckDeclaration,
-} from '../../../domain';
-import type { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
-import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
+} from '@src/domain';
+import type { ProjectCheckContext } from '@src/domain/objects/ProjectCheckContext';
+import { withDurationReporting } from '@src/utils/wrappers/withDurationReporting';
+
 import { evaluateProjectAgainstFileCheckDeclaration } from './evaluateProjectAgainstFileCheckDeclaration';
 
 export const evaluteProjectAgainstProjectCheckDeclaration = async ({

@@ -1,7 +1,8 @@
 import { DomainObject } from 'domain-objects';
 import Joi from 'joi';
 
-import { RequiredAction } from '../constants';
+import { RequiredAction } from '@src/domain/constants';
+
 import { FilePracticeEvaluation } from './FilePracticeEvaluation';
 
 const schema = Joi.object().keys({

@@ -1,7 +1,8 @@
 import fs from 'fs';
 import util from 'util';
 
-import { getDirOfPath } from '../filepaths/getDirOfPath';
+import { getDirOfPath } from '@src/utils/filepaths/getDirOfPath';
+
 import { makeDirectoryAsync } from './makeDirAsync';
 
 const copyFile = util.promisify(fs.copyFile);

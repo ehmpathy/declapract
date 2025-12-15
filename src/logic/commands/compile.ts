@@ -1,5 +1,5 @@
-import { copyFileAsync } from '../../utils/fileio/copyFileAsync';
-import { listFilesInDirectory } from '../../utils/filepaths/listFilesInDirectory';
+import { copyFileAsync } from '@src/utils/fileio/copyFileAsync';
+import { listFilesInDirectory } from '@src/utils/filepaths/listFilesInDirectory';
 
 export const serializeGlobPathForNpmPackaging = (path: string) =>
   path.replace(/\*/g, '<star>');

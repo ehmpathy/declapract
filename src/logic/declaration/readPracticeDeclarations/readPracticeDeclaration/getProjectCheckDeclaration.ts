@@ -1,11 +1,9 @@
-import {
-  type FileCheckDeclaration,
-  FileCheckPurpose,
-} from '../../../../domain';
-import { ProjectCheckDeclaration } from '../../../../domain/objects/ProjectCheckDeclaration';
-import { readFileAsync } from '../../../../utils/fileio/readFileAsync';
-import { listFilesInDirectory } from '../../../../utils/filepaths/listFilesInDirectory';
-import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
+import { type FileCheckDeclaration, FileCheckPurpose } from '@src/domain';
+import { ProjectCheckDeclaration } from '@src/domain/objects/ProjectCheckDeclaration';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
+import { readFileAsync } from '@src/utils/fileio/readFileAsync';
+import { listFilesInDirectory } from '@src/utils/filepaths/listFilesInDirectory';
+
 import { getFileCheckDeclaration } from './getFileCheckDeclaration/getFileCheckDeclaration';
 
 export const getProjectCheckDeclaration = async ({

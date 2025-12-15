@@ -1,4 +1,4 @@
-import type { FileFixFunction } from '../../../../../../domain';
+import type { FileFixFunction } from '@src/domain';
 
 export const fixEqualsBySettingDeclaredContents: FileFixFunction = (
   _,

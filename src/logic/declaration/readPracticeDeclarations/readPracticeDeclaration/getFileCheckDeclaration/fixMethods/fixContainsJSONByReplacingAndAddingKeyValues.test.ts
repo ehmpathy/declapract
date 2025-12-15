@@ -1,4 +1,5 @@
-import type { FileCheckContext } from '../../../../../../domain';
+import type { FileCheckContext } from '@src/domain';
+
 import { fixContainsJSONByReplacingAndAddingKeyValues } from './fixContainsJSONByReplacingAndAddingKeyValues';
 
 const exampleDesiredContents = `

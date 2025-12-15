@@ -2,14 +2,14 @@ export type {
   FileCheckFunction,
   FileContentsFunction,
   FileFixFunction,
-} from '../domain';
+} from '@src/domain';
 export {
   FileCheckContext,
   FileCheckDeclarationInput,
   FileCheckType,
-} from '../domain';
-export { createGetVariables } from '../logic/declaration/publicFileCheckFunctionUtilities/createGetVariables';
-export { defineMinPackageVersionRegex } from '../logic/declaration/publicFileCheckFunctionUtilities/defineMinPackageVersionRegex';
+} from '@src/domain';
+export { createGetVariables } from '@src/logic/declaration/publicFileCheckFunctionUtilities/createGetVariables';
+export { defineMinPackageVersionRegex } from '@src/logic/declaration/publicFileCheckFunctionUtilities/defineMinPackageVersionRegex';
 
 // SDK exports for programmatic usage
 export { executeApply } from './sdk/apply';

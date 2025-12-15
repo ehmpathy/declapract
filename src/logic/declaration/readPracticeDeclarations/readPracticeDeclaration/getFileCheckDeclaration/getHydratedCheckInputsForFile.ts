@@ -3,11 +3,11 @@ import {
   type FileContentsFunction,
   type FileFixFunction,
   isOfFileCheckType,
-} from '../../../../../domain';
-import { FileCheckDeclarationInput } from '../../../../../domain/objects/FileCheckDeclarationInput';
-import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
-import { importExportsFromFile } from '../../../../../utils/fileio/importExportsFromFile';
-import { UserInputError } from '../../../../UserInputError';
+} from '@src/domain';
+import { FileCheckDeclarationInput } from '@src/domain/objects/FileCheckDeclarationInput';
+import { UserInputError } from '@src/logic/UserInputError';
+import { doesFileExist } from '@src/utils/fileio/doesFileExist';
+import { importExportsFromFile } from '@src/utils/fileio/importExportsFromFile';
 
 export const getHydratedCheckInputsForFile = async ({
   declaredProjectDirectory,

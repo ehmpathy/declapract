@@ -7,12 +7,13 @@ import {
   FileCheckPurpose,
   FileEvaluationResult,
   type FileFixFunction,
-} from '../../../domain';
-import { FileCheckContext } from '../../../domain/objects/FileCheckContext';
-import type { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
-import { readFileIfExistsAsync } from '../../../utils/fileio/readFileIfExistsAsync';
-import { withDurationReporting } from '../../../utils/wrappers/withDurationReporting';
-import { UnexpectedCodePathError } from '../../UnexpectedCodePathError';
+} from '@src/domain';
+import { FileCheckContext } from '@src/domain/objects/FileCheckContext';
+import type { ProjectCheckContext } from '@src/domain/objects/ProjectCheckContext';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
+import { readFileIfExistsAsync } from '@src/utils/fileio/readFileIfExistsAsync';
+import { withDurationReporting } from '@src/utils/wrappers/withDurationReporting';
+
 import { replaceProjectVariablesInDeclaredFileContents } from './projectVariableExpressions/replaceProjectVariablesInDeclaredFileContents';
 
 const checkApplyingFixWouldChangeSomething = ({

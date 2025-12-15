@@ -5,11 +5,12 @@ import {
   FileCheckType,
   type FileContentsFunction,
   type FileFixFunction,
-} from '../../../../../domain';
-import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
-import { readFileAsync } from '../../../../../utils/fileio/readFileAsync';
-import { deserializeGlobPathFromNpmPackaging } from '../../../../commands/compile';
-import { UnexpectedCodePathError } from '../../../../UnexpectedCodePathError';
+} from '@src/domain';
+import { deserializeGlobPathFromNpmPackaging } from '@src/logic/commands/compile';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
+import { doesFileExist } from '@src/utils/fileio/doesFileExist';
+import { readFileAsync } from '@src/utils/fileio/readFileAsync';
+
 import { containsCheck } from './checkMethods/containsCheck';
 import { existsCheck } from './checkMethods/existsCheck';
 import { strictEqualsCheck } from './checkMethods/strictEqualsCheck';

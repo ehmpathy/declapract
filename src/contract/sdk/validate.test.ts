@@ -1,4 +1,5 @@
-import { validate } from '../../logic/commands/validate';
+import { validate } from '@src/logic/commands/validate';
+
 import { executeValidate } from './validate';
 
 jest.mock('../../logic/commands/validate');

@@ -1,4 +1,4 @@
-import { readDeclarePracticesConfig } from '../declaration/readDeclarePracticesConfig';
+import { readDeclarePracticesConfig } from '@src/logic/declaration/readDeclarePracticesConfig';
 
 export const validate = async ({
   declarePracticesConfigPath,
