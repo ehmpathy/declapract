@@ -1,8 +1,9 @@
-import { FileCheckType } from '../../../../../domain';
-import { FileCheckDeclarationInput } from '../../../../../domain/objects/FileCheckDeclarationInput';
-import { doesFileExist } from '../../../../../utils/fileio/doesFileExist';
-import { importExportsFromFile } from '../../../../../utils/fileio/importExportsFromFile';
-import { UserInputError } from '../../../../UserInputError';
+import { FileCheckType } from '@src/domain';
+import { FileCheckDeclarationInput } from '@src/domain/objects/FileCheckDeclarationInput';
+import { UserInputError } from '@src/logic/UserInputError';
+import { doesFileExist } from '@src/utils/fileio/doesFileExist';
+import { importExportsFromFile } from '@src/utils/fileio/importExportsFromFile';
+
 import { getHydratedCheckInputsForFile } from './getHydratedCheckInputsForFile';
 
 jest.mock('../../../../../utils/fileio/doesFileExist');

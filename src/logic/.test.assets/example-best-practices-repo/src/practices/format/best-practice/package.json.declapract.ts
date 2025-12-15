@@ -4,7 +4,7 @@ import { isPresent } from 'type-fns';
 import {
   FileCheckType,
   type FileContentsFunction,
-} from '../../../../../../../domain';
+} from '@src/domain';
 
 /**
  * declare the expected contents

@@ -2,10 +2,10 @@ import { Command } from 'commander';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-import { executeApply } from '../sdk/apply';
-import { executeCompile } from '../sdk/compile';
-import { executePlan } from '../sdk/plan';
-import { executeValidate } from '../sdk/validate';
+import { executeApply } from '@src/contract/sdk/apply';
+import { executeCompile } from '@src/contract/sdk/compile';
+import { executePlan } from '@src/contract/sdk/plan';
+import { executeValidate } from '@src/contract/sdk/validate';
 
 const getVersion = (): string => {
   const packageJson = JSON.parse(

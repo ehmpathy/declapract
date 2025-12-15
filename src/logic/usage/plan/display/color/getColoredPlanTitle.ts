@@ -1,4 +1,5 @@
-import type { FileActionPlan } from '../../../../../domain';
+import type { FileActionPlan } from '@src/domain';
+
 import { getColoredActionTitle } from './getColoredActionTitle';
 import { getColoredActionToken } from './getColoredActionToken';
 

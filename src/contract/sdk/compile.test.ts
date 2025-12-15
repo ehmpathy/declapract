@@ -1,4 +1,5 @@
-import { compile } from '../../logic/commands/compile';
+import { compile } from '@src/logic/commands/compile';
+
 import { executeCompile } from './compile';
 
 jest.mock('../../logic/commands/compile');

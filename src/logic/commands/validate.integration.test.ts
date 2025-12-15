@@ -1,5 +1,6 @@
-import { log } from '../../utils/logger';
-import { testAssetsDirectoryPath } from '../.test.assets/dirPath';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+import { log } from '@src/utils/logger';
+
 import { validate } from './validate';
 
 const logSpy = jest.spyOn(console, 'log').mockImplementation(() => log.debug); // swap to log debug so its not displaying during tests by default

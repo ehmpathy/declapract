@@ -1,8 +1,8 @@
 import expect from 'expect';
 
-import { defineMinPackageVersionRegex } from '../../../../../../../contract';
-import type { FileCheckContext } from '../../../../../../../domain/objects/FileCheckContext';
-import { getProjectVariables } from '../../../getVariables';
+import { defineMinPackageVersionRegex } from '@src/contract';
+import type { FileCheckContext } from '@src/domain/objects/FileCheckContext';
+import { getProjectVariables } from '@src/logic/.test.assets/example-best-practices-repo/src/getVariables';
 
 export const check = async (
   contents: string | null,

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { RequiredAction } from '../../../../../domain';
+import { RequiredAction } from '@src/domain';
 
 export const getColoredActionToken = ({
   action,

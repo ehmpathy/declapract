@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import { FileCheckPurpose, FileEvaluationResult } from '../../../../domain';
-import { doesFileExist } from '../../../../utils/fileio/doesFileExist';
-import { readFileAsync } from '../../../../utils/fileio/readFileAsync';
-import { removeFileAsync } from '../../../../utils/fileio/removeFileAsync';
-import { writeFileAsync } from '../../../../utils/fileio/writeFileAsync';
-import { testAssetsDirectoryPath } from '../../../.test.assets/dirPath';
-import { readDeclarePracticesConfig } from '../../../declaration/readDeclarePracticesConfig';
-import { evaluteProjectAgainstPracticeDeclaration } from '../../evaluate/evaluateProjectAgainstPracticeDeclaration';
+import { FileCheckPurpose, FileEvaluationResult } from '@src/domain';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+import { readDeclarePracticesConfig } from '@src/logic/declaration/readDeclarePracticesConfig';
+import { evaluteProjectAgainstPracticeDeclaration } from '@src/logic/usage/evaluate/evaluateProjectAgainstPracticeDeclaration';
+import { doesFileExist } from '@src/utils/fileio/doesFileExist';
+import { readFileAsync } from '@src/utils/fileio/readFileAsync';
+import { removeFileAsync } from '@src/utils/fileio/removeFileAsync';
+import { writeFileAsync } from '@src/utils/fileio/writeFileAsync';
+
 import { fixFile } from './fixFile';
 
 describe('fixFile', () => {

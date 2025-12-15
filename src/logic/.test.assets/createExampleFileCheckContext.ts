@@ -1,4 +1,4 @@
-import { FileCheckContext } from '../../domain/objects/FileCheckContext';
+import { FileCheckContext } from '@src/domain/objects/FileCheckContext';
 
 export const createExampleFileCheckContext = () =>
   new FileCheckContext({

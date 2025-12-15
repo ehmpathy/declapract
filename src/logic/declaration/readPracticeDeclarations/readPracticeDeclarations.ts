@@ -1,6 +1,7 @@
-import { PracticeDeclaration } from '../../../domain';
-import { listPathsInDirectory } from '../../../utils/filepaths/listPathsInDirectory';
-import { UserInputError } from '../../UserInputError';
+import { PracticeDeclaration } from '@src/domain';
+import { UserInputError } from '@src/logic/UserInputError';
+import { listPathsInDirectory } from '@src/utils/filepaths/listPathsInDirectory';
+
 import { readPracticeDeclaration } from './readPracticeDeclaration/readPracticeDeclaration';
 
 export const readPracticeDeclarations = async ({

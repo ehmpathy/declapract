@@ -1,6 +1,6 @@
-import type { ProjectVariablesImplementation } from '../../../domain';
-import type { FileCheckContext } from '../../../domain/objects/FileCheckContext';
-import { UnexpectedCodePathError } from '../../UnexpectedCodePathError';
+import type { ProjectVariablesImplementation } from '@src/domain';
+import type { FileCheckContext } from '@src/domain/objects/FileCheckContext';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
 
 /**
  * createGetVariables creates a function which you can use to access project variables in your check functions

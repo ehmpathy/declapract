@@ -1,7 +1,7 @@
 import expect from 'expect';
 import { diff } from 'jest-diff';
 
-import { UnexpectedCodePathError } from '../../../../../../UnexpectedCodePathError';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
 
 export const checkContainsSubstring = ({
   declaredContents,

@@ -1,7 +1,8 @@
-import { removeDirectoryAsync } from '../../utils/fileio/removeDirectoryAsync';
-import { listFilesInDirectory } from '../../utils/filepaths/listFilesInDirectory';
-import { log } from '../../utils/logger';
-import { testAssetsDirectoryPath } from '../.test.assets/dirPath';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+import { removeDirectoryAsync } from '@src/utils/fileio/removeDirectoryAsync';
+import { listFilesInDirectory } from '@src/utils/filepaths/listFilesInDirectory';
+import { log } from '@src/utils/logger';
+
 import { compile } from './compile';
 
 const logSpy = jest.spyOn(console, 'log').mockImplementation(() => log.debug); // swap to log debug so its not displaying during tests by default

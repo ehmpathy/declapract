@@ -1,4 +1,5 @@
-import { UserInputError } from '../../../UserInputError';
+import { UserInputError } from '@src/logic/UserInputError';
+
 import { replaceProjectVariablesInDeclaredFileContents } from './replaceProjectVariablesInDeclaredFileContents';
 
 const exampleReadmeFileContents = `

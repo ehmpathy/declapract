@@ -1,4 +1,5 @@
-import { testAssetsDirectoryPath } from '../.test.assets/dirPath';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+
 import { readDeclarePracticesConfig } from './readDeclarePracticesConfig';
 
 describe('readDeclarePracticesConfig', () => {

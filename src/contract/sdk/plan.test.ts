@@ -1,4 +1,5 @@
-import { plan } from '../../logic/commands/plan';
+import { plan } from '@src/logic/commands/plan';
+
 import { executePlan } from './plan';
 
 jest.mock('../../logic/commands/plan');

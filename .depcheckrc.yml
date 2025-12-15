@@ -15,3 +15,5 @@ ignores:
   - "@swc/jest"
   - tsx
   - simple-lambda-client
+  - "@src/*"
+  - "@src/.*"

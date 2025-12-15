@@ -1,8 +1,9 @@
-import { RequiredAction } from '../../../../domain';
-import { log } from '../../../../utils/logger';
-import { testAssetsDirectoryPath } from '../../../.test.assets/dirPath';
-import { readPracticeDeclaration } from '../../../declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
-import { getPlansForProject } from '../getPlansForProject';
+import { RequiredAction } from '@src/domain';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+import { readPracticeDeclaration } from '@src/logic/declaration/readPracticeDeclarations/readPracticeDeclaration/readPracticeDeclaration';
+import { getPlansForProject } from '@src/logic/usage/plan/getPlansForProject';
+import { log } from '@src/utils/logger';
+
 import { displayPlan } from './displayPlan';
 
 const logSpy = jest.spyOn(console, 'log').mockImplementation(() => log.debug); // swap to log debug so its not displaying during tests by default

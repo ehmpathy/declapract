@@ -1,6 +1,7 @@
 import shell from 'shelljs';
 
-import { testAssetsDirectoryPath } from '../.test.assets/dirPath';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+
 import { readUsePracticesConfig } from './readUsePracticesConfig';
 
 describe('readUsePracticesConfig', () => {

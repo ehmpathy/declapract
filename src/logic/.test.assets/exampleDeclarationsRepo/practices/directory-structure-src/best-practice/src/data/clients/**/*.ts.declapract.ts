@@ -1,5 +1,5 @@
-import { FileCheckType } from '../../../../../../../../../../domain';
-import type { FileCheckDeclarationInput } from '../../../../../../../../../../domain/objects/FileCheckDeclarationInput';
+import { FileCheckType } from '@src/domain';
+import type { FileCheckDeclarationInput } from '@src/domain/objects/FileCheckDeclarationInput';
 
 export const check: FileCheckDeclarationInput = {
   type: FileCheckType.CONTAINS,

@@ -1,8 +1,9 @@
-import { RequiredAction } from '../../domain';
-import { applyPlans } from '../usage/plan/apply/applyPlans';
-import { filterPracticeEvaluationsFromPlans } from '../usage/plan/filterPracticeEvaluationsFromPlans';
-import { getPlansForProject } from '../usage/plan/getPlansForProject';
-import { readUsePracticesConfig } from '../usage/readUsePracticesConfig';
+import { RequiredAction } from '@src/domain';
+import { applyPlans } from '@src/logic/usage/plan/apply/applyPlans';
+import { filterPracticeEvaluationsFromPlans } from '@src/logic/usage/plan/filterPracticeEvaluationsFromPlans';
+import { getPlansForProject } from '@src/logic/usage/plan/getPlansForProject';
+import { readUsePracticesConfig } from '@src/logic/usage/readUsePracticesConfig';
+
 import { getDesiredPractices } from './getScopedPractices';
 
 export const apply = async ({

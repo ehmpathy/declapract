@@ -1,8 +1,9 @@
-import { ActionDeclarePracticesConfigInput } from '../../domain/objects/ActionDeclarePracticesConfigInput';
-import { DeclaredPractices } from '../../domain/objects/DeclaredPractices';
-import { readYmlFile } from '../../utils/fileio/readYmlFile';
-import { getDirOfPath } from '../../utils/filepaths/getDirOfPath';
-import { UserInputError } from '../UserInputError';
+import { ActionDeclarePracticesConfigInput } from '@src/domain/objects/ActionDeclarePracticesConfigInput';
+import { DeclaredPractices } from '@src/domain/objects/DeclaredPractices';
+import { UserInputError } from '@src/logic/UserInputError';
+import { readYmlFile } from '@src/utils/fileio/readYmlFile';
+import { getDirOfPath } from '@src/utils/filepaths/getDirOfPath';
+
 import { readExampleDeclarations } from './readPracticeDeclarations/readExampleDeclarations';
 import { readPracticeDeclarations } from './readPracticeDeclarations/readPracticeDeclarations';
 import { readUseCaseDeclarations } from './readPracticeDeclarations/readUseCaseDeclarations';

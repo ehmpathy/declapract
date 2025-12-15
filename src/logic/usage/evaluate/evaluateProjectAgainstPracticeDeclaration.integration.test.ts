@@ -3,10 +3,11 @@ import {
   FileCheckType,
   FileEvaluationResult,
   hasFailed,
-} from '../../../domain';
-import { ProjectCheckContext } from '../../../domain/objects/ProjectCheckContext';
-import { testAssetsDirectoryPath } from '../../.test.assets/dirPath';
-import { readDeclarePracticesConfig } from '../../declaration/readDeclarePracticesConfig';
+} from '@src/domain';
+import { ProjectCheckContext } from '@src/domain/objects/ProjectCheckContext';
+import { testAssetsDirectoryPath } from '@src/logic/.test.assets/dirPath';
+import { readDeclarePracticesConfig } from '@src/logic/declaration/readDeclarePracticesConfig';
+
 import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgainstPracticeDeclaration';
 
 describe('evaluteProjectAgainstPracticeDeclaration', () => {

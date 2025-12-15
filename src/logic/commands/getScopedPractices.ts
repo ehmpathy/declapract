@@ -1,6 +1,6 @@
 import { UnexpectedCodePathError } from 'helpful-errors';
 
-import type { ActionUsePracticesConfig } from '../../domain/objects/ActionUsePracticesConfig';
+import type { ActionUsePracticesConfig } from '@src/domain/objects/ActionUsePracticesConfig';
 
 export const getDesiredPractices = ({
   config,

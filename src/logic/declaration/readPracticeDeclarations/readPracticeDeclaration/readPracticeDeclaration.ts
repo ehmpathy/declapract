@@ -2,10 +2,11 @@ import {
   FileCheckPurpose,
   PracticeDeclaration,
   type ProjectCheckDeclaration,
-} from '../../../../domain';
-import { listPathsInDirectory } from '../../../../utils/filepaths/listPathsInDirectory';
-import { UnexpectedCodePathError } from '../../../UnexpectedCodePathError';
-import { UserInputError } from '../../../UserInputError';
+} from '@src/domain';
+import { UnexpectedCodePathError } from '@src/logic/UnexpectedCodePathError';
+import { UserInputError } from '@src/logic/UserInputError';
+import { listPathsInDirectory } from '@src/utils/filepaths/listPathsInDirectory';
+
 import { getProjectCheckDeclaration } from './getProjectCheckDeclaration';
 
 export const readPracticeDeclaration = async ({

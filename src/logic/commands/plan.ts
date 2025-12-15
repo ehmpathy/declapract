@@ -1,7 +1,8 @@
-import { displayPlans } from '../usage/plan/display/displayPlans';
-import { filterPracticeEvaluationsFromPlans } from '../usage/plan/filterPracticeEvaluationsFromPlans';
-import { getPlansForProject } from '../usage/plan/getPlansForProject';
-import { readUsePracticesConfig } from '../usage/readUsePracticesConfig';
+import { displayPlans } from '@src/logic/usage/plan/display/displayPlans';
+import { filterPracticeEvaluationsFromPlans } from '@src/logic/usage/plan/filterPracticeEvaluationsFromPlans';
+import { getPlansForProject } from '@src/logic/usage/plan/getPlansForProject';
+import { readUsePracticesConfig } from '@src/logic/usage/readUsePracticesConfig';
+
 import { getDesiredPractices } from './getScopedPractices';
 
 export const plan = async ({

@@ -1,4 +1,4 @@
-import { compile } from '../../logic/commands/compile';
+import { compile } from '@src/logic/commands/compile';
 
 export const executeCompile = async (options: {
   sourceDirectory: string;
