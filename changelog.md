@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.13.1](https://github.com/ehmpathy/declapract/compare/v0.13.0...v0.13.1) (2025-12-15)
+
+
+### Bug Fixes
+
+* **deps:** use tsx as a dependency rather than ts-node ([#45](https://github.com/ehmpathy/declapract/issues/45)) ([47f7224](https://github.com/ehmpathy/declapract/commit/47f722491a6f92893573313f92b8736b2ed8b765))
+* **practs:** bump to latest best ([#46](https://github.com/ehmpathy/declapract/issues/46)) ([833c67b](https://github.com/ehmpathy/declapract/commit/833c67b9910005036dff22e799bd3bbc54c35c4b))
+
 ## [0.13.0](https://github.com/ehmpathy/declapract/compare/v0.12.5...v0.13.0) (2025-12-04)
 
 
