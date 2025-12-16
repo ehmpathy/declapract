@@ -13,6 +13,7 @@ import { sortFileCheckEvaluationsByPracticeRef } from '@src/logic/usage/plan/sor
 import { sortFilePracticeEvaluationsByPracticeName } from '@src/logic/usage/plan/sortFilePracticeEvaluationsByPracticeName';
 
 import { fixFile } from './fixFile';
+import { isWithinPracticeDeclarationDirectory } from './isWithinPracticeDeclarationDirectory';
 
 /**
  * for each "fixable" and "failed" check in the plan, apply the fix
@@ -24,6 +25,16 @@ export const applyPlan = async ({
   plan: FileActionPlan;
   projectRootDirectory: string;
 }) => {
+  // guard: never apply fixes to files within practice declaration directories
+  // why? because these files define the practices themselves - modifying them would corrupt the source of truth
+  if (isWithinPracticeDeclarationDirectory(plan.path)) {
+    const warningToken = chalk.yellow('⚠');
+    console.log(
+      `  ${warningToken} skipped ${plan.path} (within practice declaration directory)`,
+    ); // tslint:disable-line: no-console
+    return;
+  }
+
   // sanity check that the plan has fixable actions
   if (plan.action !== RequiredAction.FIX_AUTOMATIC)
     throw new UnexpectedCodePathError(
