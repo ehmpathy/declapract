@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.2](https://github.com/ehmpathy/declapract/compare/v0.13.1...v0.13.2) (2025-12-16)
+
+
+### Bug Fixes
+
+* **apply:** ensure its self to self apply practices against practice repos ([#48](https://github.com/ehmpathy/declapract/issues/48)) ([862ce21](https://github.com/ehmpathy/declapract/commit/862ce21e1057b71814a00b62e462836753a6e0e2))
+
 ## [0.13.1](https://github.com/ehmpathy/declapract/compare/v0.13.0...v0.13.1) (2025-12-15)
 
 
