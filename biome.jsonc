@@ -65,7 +65,7 @@
         "useExhaustiveDependencies": "off"
       },
       "style": {
-        "noDefaultExport": "warn",
+        "noDefaultExport": "error",
         "noNonNullAssertion": {
           "level": "warn",
           "fix": "none"
