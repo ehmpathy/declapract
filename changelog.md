@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.4](https://github.com/ehmpathy/declapract/compare/v0.13.3...v0.13.4) (2025-12-18)
+
+
+### Bug Fixes
+
+* **apply:** treat ENOENT as idempotent success on file removal ([#52](https://github.com/ehmpathy/declapract/issues/52)) ([1a68b5c](https://github.com/ehmpathy/declapract/commit/1a68b5cefae0e7ba34d412e695c64a911e9b57c8))
+
 ## [0.13.3](https://github.com/ehmpathy/declapract/compare/v0.13.2...v0.13.3) (2025-12-16)
 
 
