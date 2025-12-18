@@ -1,4 +1,4 @@
-import { validate } from '@src/logic/commands/validate';
+import { validate } from '@src/domain.operations/commands/validate';
 
 export const executeValidate = async (options: {
   config: string;

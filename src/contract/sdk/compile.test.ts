@@ -1,8 +1,8 @@
-import { compile } from '@src/logic/commands/compile';
+import { compile } from '@src/domain.operations/commands/compile';
 
 import { executeCompile } from './compile';
 
-jest.mock('../../logic/commands/compile');
+jest.mock('../../domain.operations/commands/compile');
 const compileMock = compile as jest.Mock;
 
 describe('executeCompile', () => {

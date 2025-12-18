@@ -1,0 +1,14 @@
+import {
+  FileCheckType,
+  type FileFixFunction,
+} from '@src/domain.objects';
+
+export const check = FileCheckType.EXISTS; // if files matching this pattern exist, bad practice
+
+export const fix: FileFixFunction = (contents, context) => ({
+  relativeFilePath: context.relativeFilePath.replace(
+    /\.test\.integration\.ts$/,
+    '.integration.test.ts',
+  ),
+  contents,
+});

@@ -1,4 +1,4 @@
-import { apply } from '@src/logic/commands/apply';
+import { apply } from '@src/domain.operations/commands/apply';
 
 export const executeApply = async (options: {
   config: string;

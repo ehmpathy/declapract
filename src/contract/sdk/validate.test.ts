@@ -1,8 +1,8 @@
-import { validate } from '@src/logic/commands/validate';
+import { validate } from '@src/domain.operations/commands/validate';
 
 import { executeValidate } from './validate';
 
-jest.mock('../../logic/commands/validate');
+jest.mock('../../domain.operations/commands/validate');
 const validateMock = validate as jest.Mock;
 
 describe('executeValidate', () => {
