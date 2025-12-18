@@ -1,8 +1,8 @@
-import { plan } from '@src/logic/commands/plan';
+import { plan } from '@src/domain.operations/commands/plan';
 
 import { executePlan } from './plan';
 
-jest.mock('../../logic/commands/plan');
+jest.mock('../../domain.operations/commands/plan');
 const planMock = plan as jest.Mock;
 
 describe('executePlan', () => {

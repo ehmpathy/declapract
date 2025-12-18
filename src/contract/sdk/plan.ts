@@ -1,4 +1,4 @@
-import { plan } from '@src/logic/commands/plan';
+import { plan } from '@src/domain.operations/commands/plan';
 
 export const executePlan = async (options: {
   config: string;

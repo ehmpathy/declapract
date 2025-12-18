@@ -1,8 +1,8 @@
-import { apply } from '@src/logic/commands/apply';
+import { apply } from '@src/domain.operations/commands/apply';
 
 import { executeApply } from './apply';
 
-jest.mock('../../logic/commands/apply');
+jest.mock('../../domain.operations/commands/apply');
 const applyMock = apply as jest.Mock;
 
 describe('executeApply', () => {
