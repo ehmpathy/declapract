@@ -121,8 +121,8 @@ importers:
         specifier: 0.13.4
         version: 0.13.4(@types/node@22.15.21)(zod@3.25.76)
       declapract-typescript-ehmpathy:
-        specifier: 0.47.5
-        version: 0.47.5(declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76))(esbuild@0.25.12)
+        specifier: 0.47.7
+        version: 0.47.7(declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76))(esbuild@0.25.12)
       declastruct:
         specifier: 1.7.3
         version: 1.7.3(domain-objects@0.31.7)
@@ -142,8 +142,11 @@ importers:
         specifier: 30.2.0
         version: 30.2.0(@types/node@22.15.21)(esbuild-register@3.6.0(esbuild@0.25.12))
       rhachet:
-        specifier: 1.18.0
-        version: 1.18.0(@types/node@22.15.21)
+        specifier: 1.19.1
+        version: 1.19.1
+      rhachet-roles-bhrain:
+        specifier: 0.5.7
+        version: 0.5.7(@types/node@22.15.21)
       rhachet-roles-bhuild:
         specifier: 0.5.0
         version: 0.5.0(@types/node@22.15.21)(zod@3.25.76)
@@ -170,6 +173,10 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       zod: ^3.24.1 || ^4.0.0
+
+  '@anthropic-ai/sdk@0.51.0':
+    resolution: {integrity: sha512-fAFC/uHhyzfw7rs65EPVV+scXDytGNm5BjttxHf6rP/YGvaBRKEvp2lwyuMigTwMI95neeG4bzrZigz7KCikjw==}
+    hasBin: true
 
   '@anthropic-ai/sdk@0.71.2':
     resolution: {integrity: sha512-TGNDEUuEstk/DKu0/TflXAEt+p+p/WhTlFzEnoosvbaDU2LTjm42igSdlL0VijrKpWejtOKxX0b8A7uc+XiSAQ==}
@@ -2278,8 +2285,8 @@ packages:
       supports-color:
         optional: true
 
-  declapract-typescript-ehmpathy@0.47.5:
-    resolution: {integrity: sha512-dubWIndNKXT95eaSpZEnpCLPo1rs1NipA1MDi++DBDB4Xzgd8At38IwNEWYF3C0ikkvrnf66dTHPmBCeQ3DljQ==}
+  declapract-typescript-ehmpathy@0.47.7:
+    resolution: {integrity: sha512-qQXI4BPOYAAatdoP2PDhxgDRb/APTT8dzlBnyPNF6aRYTIKQm+cyAbcl+t1VxkifUmNlc6u7AVi4OpximEIxqg==}
     peerDependencies:
       declapract: '>=0.13.3'
 
@@ -3484,6 +3491,10 @@ packages:
     resolution: {integrity: sha512-+Nk2bNKKuvXEx/ryq3zNTzw9Ay+2wGRs3JGg7mzHiVMDNseN/C5LM6BvruDE4tFjSgLMS3oHybJvl79lVC9mbQ==}
     engines: {node: '>=8.0.0'}
 
+  rhachet-roles-bhrain@0.5.7:
+    resolution: {integrity: sha512-pbKVk03XzVLEqTiP5MyUouUuK5xUxKm4GYrG+gSothdIhTrr9tUEGrL6gtWRAmDoiOE0uPniql2JHD3pQqMhdQ==}
+    engines: {node: '>=8.0.0'}
+
   rhachet-roles-bhuild@0.1.3:
     resolution: {integrity: sha512-wVJrFafD/JEmufaMl/tRbmKyQ7RFhXyixV+HopXiMn1MUq83egfnaMVPd98vrbx9Q9xRhJVwKUOfcjJlul8j0g==}
     engines: {node: '>=8.0.0'}
@@ -3506,8 +3517,8 @@ packages:
     engines: {node: '>=22.0.0'}
     hasBin: true
 
-  rhachet@1.18.0:
-    resolution: {integrity: sha512-AvEfa0sQbpnP5mefM9PJSfP5Z4arCOUaSLfbjrlbis9reX2yo7vw0mvz5uDB5wNBySREK5USAecl0F4J2WHOtg==}
+  rhachet@1.19.1:
+    resolution: {integrity: sha512-1WrnwKXfOSgUBzKACvH06KyZVD95GimwnK1/DqQ/HyggyNUWLbHIKjaBV5Y6PbTvpnh2O/4bj1sM848DFknSCg==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
@@ -3969,6 +3980,11 @@ packages:
     resolution: {integrity: sha512-U/PBtDf35ff0D8X8D0jfdzHYEPFxAI7jJlxZXwCSez5M3190m+QobIfh+sWDWSHMCWWJN2AWamkegn6vr6YBTw==}
     engines: {node: '>=18'}
 
+  zod-to-json-schema@3.25.0:
+    resolution: {integrity: sha512-HvWtU2UG41LALjajJrML6uQejQhNJx+JBO9IflpSja4R03iNWfKXrj6W2h7ljuLyc1nKS+9yDyL/9tD1U/yBnQ==}
+    peerDependencies:
+      zod: ^3.25 || ^4
+
   zod-to-json-schema@3.25.1:
     resolution: {integrity: sha512-pM/SU9d3YAggzi6MtR4h7ruuQlqKtad8e9S0fmxcMi+ueAK5Korys/aWcV9LIIHTVbj01NdzxcnXSN+O74ZIVA==}
     peerDependencies:
@@ -3991,6 +4007,8 @@ snapshots:
       '@img/sharp-linuxmusl-arm64': 0.33.5
       '@img/sharp-linuxmusl-x64': 0.33.5
       '@img/sharp-win32-x64': 0.33.5
+
+  '@anthropic-ai/sdk@0.51.0': {}
 
   '@anthropic-ai/sdk@0.71.2(zod@3.25.76)':
     dependencies:
@@ -6631,7 +6649,7 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
-  declapract-typescript-ehmpathy@0.47.5(declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76))(esbuild@0.25.12):
+  declapract-typescript-ehmpathy@0.47.7(declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76))(esbuild@0.25.12):
     dependencies:
       declapract: 0.13.4(@types/node@22.15.21)(zod@3.25.76)
       domain-objects: 0.31.7(@types/node@22.15.21)(zod@3.25.76)
@@ -6643,7 +6661,6 @@ snapshots:
     transitivePeerDependencies:
       - esbuild
       - supports-color
-      - ws
 
   declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76):
     dependencies:
@@ -6687,7 +6704,6 @@ snapshots:
       with-simple-cache: 0.15.1
     transitivePeerDependencies:
       - aws-crt
-      - ws
 
   declastruct@1.7.3(domain-objects@0.31.7):
     dependencies:
@@ -6795,7 +6811,7 @@ snapshots:
       domain-objects: 0.31.3
       helpful-errors: 1.5.3
       joi: 17.4.0
-      rhachet: 1.18.0(@types/node@22.15.21)
+      rhachet: 1.19.1
       rhachet-roles-ehmpathy: 1.15.25(@types/node@22.15.21)(zod@3.25.76)
       type-fns: 1.21.0
       uuid-fns: 1.1.3
@@ -8159,6 +8175,32 @@ snapshots:
       - ws
       - zod
 
+  rhachet-roles-bhrain@0.5.7(@types/node@22.15.21):
+    dependencies:
+      '@anthropic-ai/sdk': 0.51.0
+      '@ehmpathy/as-command': 1.0.3
+      '@ehmpathy/uni-time': 1.8.1
+      as-procedure: 1.1.7
+      domain-objects: 0.31.7(@types/node@22.15.21)(zod@3.25.76)
+      fast-glob: 3.3.3
+      helpful-errors: 1.5.3
+      inquirer: 12.7.0(@types/node@22.15.21)
+      openai: 5.8.2(zod@3.25.76)
+      rhachet-artifact: 1.0.0
+      rhachet-artifact-git: 1.1.0
+      rhachet-roles-bhuild: 0.1.3(zod@3.25.76)
+      serde-fns: 1.2.0
+      simple-in-memory-cache: 0.4.0
+      type-fns: 1.21.0
+      with-simple-caching: 0.14.2
+      wrapper-fns: 1.1.0
+      zod: 3.25.76
+      zod-to-json-schema: 3.25.0(zod@3.25.76)
+    transitivePeerDependencies:
+      - '@types/node'
+      - aws-crt
+      - ws
+
   rhachet-roles-bhuild@0.1.3(zod@3.25.76):
     dependencies:
       domain-objects: 0.31.7(@types/node@22.15.21)(zod@3.25.76)
@@ -8247,7 +8289,7 @@ snapshots:
       - ws
       - zod
 
-  rhachet@1.18.0(@types/node@22.15.21):
+  rhachet@1.19.1:
     dependencies:
       '@anthropic-ai/claude-agent-sdk': 0.1.76(zod@3.25.76)
       '@anthropic-ai/sdk': 0.71.2(zod@3.25.76)
@@ -8270,8 +8312,6 @@ snapshots:
       zod: 3.25.76
       zod-to-json-schema: 3.25.1(zod@3.25.76)
     transitivePeerDependencies:
-      - '@types/node'
-      - aws-crt
       - ws
 
   run-async@2.4.1: {}
@@ -8767,6 +8807,10 @@ snapshots:
   yocto-queue@1.2.2: {}
 
   yoctocolors-cjs@2.1.3: {}
+
+  zod-to-json-schema@3.25.0(zod@3.25.76):
+    dependencies:
+      zod: 3.25.76
 
   zod-to-json-schema@3.25.1(zod@3.25.76):
     dependencies:
