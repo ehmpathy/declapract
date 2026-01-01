@@ -19,7 +19,7 @@
   ],
   "bugs": "https://github.com/ehmpathy/declapract/issues",
   "engines": {
-    "node": ">=22.7.0"
+    "node": ">=18.19.0"
   },
   "types": "dist/contract/index.d.ts",
   "bin": {
@@ -84,6 +84,7 @@
     "lodash.uniqby": "4.7.0",
     "shelljs": "0.8.5",
     "simple-leveled-log-methods": "0.1.4",
+    "tsx": "4.20.6",
     "type-fns": "1.21.0",
     "uuid": "9.0.0",
     "yaml": "1.6.0"
