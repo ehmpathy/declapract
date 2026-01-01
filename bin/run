@@ -1,2 +1,3 @@
-#!/usr/bin/env -S node --experimental-strip-types --experimental-transform-types --disable-warning=ExperimentalWarning
+#!/usr/bin/env node
+require('tsx/cjs');
 require('../dist/contract/cli/invoke').invoke({ args: process.argv.slice(2) });
