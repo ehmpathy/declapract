@@ -19,7 +19,7 @@
   ],
   "bugs": "https://github.com/ehmpathy/declapract/issues",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=22.7.0"
   },
   "types": "dist/contract/index.d.ts",
   "bin": {
