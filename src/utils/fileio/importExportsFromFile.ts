@@ -1,7 +1,8 @@
 /**
- * runs `import(filePath)` on the file path
+ * .what = runs `import(filePath)` on the file path
+ * .why = enables dynamic import of practice declaration files at runtime
  *
- * note: tsx handles transpilation through its loader, so no special registration is needed
+ * .note = node 22.7+ handles typescript via --experimental-strip-types
  */
 export const importExportsFromFile = async ({
   filePath,
