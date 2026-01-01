@@ -1,5 +1,6 @@
 *-debug.log
 *-error.log
+*.bak.*
 *.local.json
 *.log
 *.tsbuildinfo
@@ -19,4 +20,3 @@
 coverage
 dist
 node_modules
-*.bak.*
