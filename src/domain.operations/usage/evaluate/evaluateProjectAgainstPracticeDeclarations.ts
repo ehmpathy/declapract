@@ -1,11 +1,11 @@
 import chalk from 'chalk';
-import { LOG_LEVEL } from 'simple-leveled-log-methods';
+import { LogLevel } from 'simple-log-methods';
 import { isPresent } from 'type-fns';
 
 import type { PracticeDeclaration } from '@src/domain.objects';
 import type { FilePracticeEvaluation } from '@src/domain.objects/FilePracticeEvaluation';
 import type { ProjectCheckContext } from '@src/domain.objects/ProjectCheckContext';
-import { ACTIVE_LOG_LEVEL } from '@src/utils/logger';
+import { ActiveLogLevel } from '@src/utils/logger';
 import { withDurationReporting } from '@src/utils/wrappers/withDurationReporting';
 
 import { evaluteProjectAgainstPracticeDeclaration } from './evaluateProjectAgainstPracticeDeclaration';
@@ -48,7 +48,7 @@ export const evaluateProjectAgainstPracticeDeclarations = async ({
             }).catch((error) => {
               console.log(chalk.yellow(`  ⚠️ broken practice:${practice.name}`)); // tslint:disable-line: no-console
               console.log(chalk.yellow(`    > ${error.message}`)); // tslint:disable-line: no-console
-              if (ACTIVE_LOG_LEVEL === LOG_LEVEL.DEBUG) console.error(error); // only show this if running in debug mode
+              if (ActiveLogLevel === LogLevel.DEBUG) console.error(error); // only show this if running in debug mode
               if (SKIP_BROKEN !== true) throw error;
               return null;
             }),

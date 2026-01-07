@@ -18,8 +18,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0
       domain-objects:
-        specifier: 0.31.7
-        version: 0.31.7(@types/node@22.15.21)(zod@3.25.76)
+        specifier: 0.31.9
+        version: 0.31.9
       expect:
         specifier: 29.4.3
         version: 29.4.3
@@ -53,9 +53,9 @@ importers:
       shelljs:
         specifier: 0.8.5
         version: 0.8.5
-      simple-leveled-log-methods:
-        specifier: 0.1.4
-        version: 0.1.4
+      simple-log-methods:
+        specifier: 0.6.9
+        version: 0.6.9
       tsx:
         specifier: 4.20.6
         version: 4.20.6
@@ -122,13 +122,13 @@ importers:
         version: 0.13.4(@types/node@22.15.21)(zod@3.25.76)
       declapract-typescript-ehmpathy:
         specifier: 0.47.7
-        version: 0.47.7(declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76))(esbuild@0.25.12)
+        version: 0.47.7(@types/node@22.15.21)(declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76))(esbuild@0.25.12)(zod@3.25.76)
       declastruct:
         specifier: 1.7.3
-        version: 1.7.3(domain-objects@0.31.7)
+        version: 1.7.3(domain-objects@0.31.9)
       declastruct-github:
         specifier: 1.3.0
-        version: 1.3.0
+        version: 1.3.0(@types/node@22.15.21)(zod@3.25.76)
       depcheck:
         specifier: 1.4.3
         version: 1.4.3
@@ -143,7 +143,7 @@ importers:
         version: 30.2.0(@types/node@22.15.21)(esbuild-register@3.6.0(esbuild@0.25.12))
       rhachet:
         specifier: 1.19.1
-        version: 1.19.1
+        version: 1.19.1(@types/node@22.15.21)
       rhachet-roles-bhrain:
         specifier: 0.5.7
         version: 0.5.7(@types/node@22.15.21)
@@ -2381,6 +2381,10 @@ packages:
     resolution: {integrity: sha512-7sINbsnU15hUue6APpZ4cXg55G8s6dvorr0lNecXbnGU5p/mCQ5QVKsuCzw8VQXml7EW3ilmGXj9OuA8Os40PQ==}
     engines: {node: '>=8.0.0'}
 
+  domain-objects@0.31.9:
+    resolution: {integrity: sha512-yf0jlgzv9xLfVkbJWhwRMZJYUPMPaVXEcgItwysKdiuenXyB2h34MNRqCI7H6D3kXdxAlgIRUdI0Nl5FjRitbA==}
+    engines: {node: '>=8.0.0'}
+
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
@@ -2808,6 +2812,10 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+
+  iso-time@1.10.1:
+    resolution: {integrity: sha512-3BQe0H4ZPM7O1w3TIxwoRSCf9gQ/h+dzcbOEn8Dos3OByQ0mLRV1tqnk0hwzjnXYNgXjWHxF2dHZVq2rdfpnWg==}
+    engines: {node: '>=8.0.0'}
 
   istanbul-lib-coverage@3.2.2:
     resolution: {integrity: sha512-O8dpsF+r0WV/8MNRKfnmrtCWhuKjxrq2w+jpzBL5UZKTi2LeVWnWOmWRxFlesJONmc+wLAGvKQZEOanko0LFTg==}
@@ -3616,6 +3624,10 @@ packages:
 
   simple-log-methods@0.6.2:
     resolution: {integrity: sha512-wzlQbbT7Emv3N3+iCeukKtQHMM6mPndg9CqzOppQnm4jEPNiaSJUkYz2wM3oOu7Q1RlLwt3qO02oPGBrZ4JLnw==}
+    engines: {node: '>=8.0.0'}
+
+  simple-log-methods@0.6.9:
+    resolution: {integrity: sha512-VeI9erbjgKtZ8bwdpHqkqgZomVqchZHFWidN3/5Jmb6UcKHKdduiADPAVqIwvFmobFOEtIyybyVw5bEaZpKODw==}
     engines: {node: '>=8.0.0'}
 
   simple-on-disk-cache@1.7.2:
@@ -6649,7 +6661,7 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
-  declapract-typescript-ehmpathy@0.47.7(declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76))(esbuild@0.25.12):
+  declapract-typescript-ehmpathy@0.47.7(@types/node@22.15.21)(declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76))(esbuild@0.25.12)(zod@3.25.76):
     dependencies:
       declapract: 0.13.4(@types/node@22.15.21)(zod@3.25.76)
       domain-objects: 0.31.7(@types/node@22.15.21)(zod@3.25.76)
@@ -6659,8 +6671,12 @@ snapshots:
       helpful-errors: 1.5.3
       yaml: 2.8.2
     transitivePeerDependencies:
+      - '@types/node'
+      - aws-crt
       - esbuild
       - supports-color
+      - ws
+      - zod
 
   declapract@0.13.4(@types/node@22.15.21)(zod@3.25.76):
     dependencies:
@@ -6690,7 +6706,7 @@ snapshots:
       - ws
       - zod
 
-  declastruct-github@1.3.0:
+  declastruct-github@1.3.0(@types/node@22.15.21)(zod@3.25.76):
     dependencies:
       '@ehmpathy/uni-time': 1.7.4
       '@octokit/rest': 21.1.1
@@ -6703,14 +6719,17 @@ snapshots:
       visualogic: 1.3.2
       with-simple-cache: 0.15.1
     transitivePeerDependencies:
+      - '@types/node'
       - aws-crt
+      - ws
+      - zod
 
-  declastruct@1.7.3(domain-objects@0.31.7):
+  declastruct@1.7.3(domain-objects@0.31.9):
     dependencies:
       bottleneck: 2.19.5
       chalk: 5.4.1
       commander: 14.0.2
-      domain-objects: 0.31.7(@types/node@22.15.21)(zod@3.25.76)
+      domain-objects: 0.31.9
       helpful-errors: 1.5.3
       jest-diff: 30.0.2
       rhachet-artifact-git: 1.1.3
@@ -6811,7 +6830,7 @@ snapshots:
       domain-objects: 0.31.3
       helpful-errors: 1.5.3
       joi: 17.4.0
-      rhachet: 1.19.1
+      rhachet: 1.19.1(@types/node@22.15.21)
       rhachet-roles-ehmpathy: 1.15.25(@types/node@22.15.21)(zod@3.25.76)
       type-fns: 1.21.0
       uuid-fns: 1.1.3
@@ -6820,6 +6839,13 @@ snapshots:
       - aws-crt
       - ws
       - zod
+
+  domain-objects@0.31.9:
+    dependencies:
+      change-case: 4.1.2
+      helpful-errors: 1.5.3
+      type-fns: 1.21.0
+      uuid-fns: 1.1.3
 
   dot-case@3.0.4:
     dependencies:
@@ -7282,6 +7308,13 @@ snapshots:
   is-windows@1.0.2: {}
 
   isexe@2.0.0: {}
+
+  iso-time@1.10.1:
+    dependencies:
+      date-fns: 3.6.0
+      domain-glossaries: 1.0.0
+      helpful-errors: 1.5.3
+      type-fns: 1.21.0
 
   istanbul-lib-coverage@3.2.2: {}
 
@@ -8163,7 +8196,7 @@ snapshots:
       openai: 5.8.2(zod@3.25.76)
       rhachet-artifact: 1.0.0
       rhachet-artifact-git: 1.1.0
-      rhachet-roles-bhuild: 0.1.3(zod@3.25.76)
+      rhachet-roles-bhuild: 0.1.3(@types/node@22.15.21)(zod@3.25.76)
       serde-fns: 1.2.0
       simple-in-memory-cache: 0.4.0
       type-fns: 1.21.0
@@ -8188,7 +8221,7 @@ snapshots:
       openai: 5.8.2(zod@3.25.76)
       rhachet-artifact: 1.0.0
       rhachet-artifact-git: 1.1.0
-      rhachet-roles-bhuild: 0.1.3(zod@3.25.76)
+      rhachet-roles-bhuild: 0.1.3(@types/node@22.15.21)(zod@3.25.76)
       serde-fns: 1.2.0
       simple-in-memory-cache: 0.4.0
       type-fns: 1.21.0
@@ -8201,12 +8234,14 @@ snapshots:
       - aws-crt
       - ws
 
-  rhachet-roles-bhuild@0.1.3(zod@3.25.76):
+  rhachet-roles-bhuild@0.1.3(@types/node@22.15.21)(zod@3.25.76):
     dependencies:
       domain-objects: 0.31.7(@types/node@22.15.21)(zod@3.25.76)
       helpful-errors: 1.5.3
-      rhachet: 1.15.2(zod@3.25.76)
+      rhachet: 1.15.2(@types/node@22.15.21)(zod@3.25.76)
     transitivePeerDependencies:
+      - '@types/node'
+      - aws-crt
       - ws
       - zod
 
@@ -8214,7 +8249,7 @@ snapshots:
     dependencies:
       domain-objects: 0.31.7(@types/node@22.15.21)(zod@3.25.76)
       helpful-errors: 1.5.3
-      rhachet: 1.15.2(zod@3.25.76)
+      rhachet: 1.15.2(@types/node@22.15.21)(zod@3.25.76)
       rhachet-roles-bhrain: 0.3.0(@types/node@22.15.21)(zod@3.25.76)
       test-fns: 1.7.2
     transitivePeerDependencies:
@@ -8247,7 +8282,7 @@ snapshots:
       - ws
       - zod
 
-  rhachet@1.15.2(zod@3.25.76):
+  rhachet@1.15.2(@types/node@22.15.21)(zod@3.25.76):
     dependencies:
       '@ehmpathy/uni-time': 1.9.0
       as-procedure: 1.1.6
@@ -8265,6 +8300,8 @@ snapshots:
       type-fns: 1.21.0
       uuid-fns: 1.0.1
     transitivePeerDependencies:
+      - '@types/node'
+      - aws-crt
       - ws
       - zod
 
@@ -8289,7 +8326,7 @@ snapshots:
       - ws
       - zod
 
-  rhachet@1.19.1:
+  rhachet@1.19.1(@types/node@22.15.21):
     dependencies:
       '@anthropic-ai/claude-agent-sdk': 0.1.76(zod@3.25.76)
       '@anthropic-ai/sdk': 0.71.2(zod@3.25.76)
@@ -8312,6 +8349,8 @@ snapshots:
       zod: 3.25.76
       zod-to-json-schema: 3.25.1(zod@3.25.76)
     transitivePeerDependencies:
+      - '@types/node'
+      - aws-crt
       - ws
 
   run-async@2.4.1: {}
@@ -8405,6 +8444,15 @@ snapshots:
       '@ehmpathy/error-fns': 1.3.7
       '@ehmpathy/uni-time': 1.9.1
       domain-glossary-procedure: 1.0.0
+      type-fns: 1.21.0
+
+  simple-log-methods@0.6.9:
+    dependencies:
+      '@ehmpathy/error-fns': 1.3.7
+      domain-glossary-procedure: 1.0.0
+      domain-objects: 0.31.9
+      helpful-errors: 1.5.3
+      iso-time: 1.10.1
       type-fns: 1.21.0
 
   simple-on-disk-cache@1.7.2:
