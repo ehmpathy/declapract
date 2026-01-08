@@ -1,6 +1,18 @@
 import { defineMinPackageVersionRegex } from '@src/domain.operations/declaration/publicFileCheckFunctionUtilities/defineMinPackageVersionRegex';
 
 /**
+ * .what = checks if a version string is a linked dependency version
+ * .why = linked versions (link:.) indicate the repo IS the package,
+ *        so they satisfy any minVersion check by definition
+ */
+export const isLinkedDependencyVersion = (input: {
+  value: unknown;
+}): boolean => {
+  if (typeof input.value !== 'string') return false;
+  return input.value.startsWith('link:');
+};
+
+/**
  * grabs the `x.y.z` part from strings that match the shape `@declapract{check.minVersion('x.y.z')}`
  *
  * returns null if no match
@@ -19,7 +31,8 @@ export const isCheckMinVersionExpression = (value: string) =>
   !!getMinVersionFromCheckMinVersionExpression(value);
 
 /**
- * evaluates a foundValue against a minVersion, to check if it passes it or not
+ * .what = evaluates a foundValue against a minVersion, to check if it passes it or not
+ * .why = enables validation of package versions against minimum requirements
  */
 export const checkDoesFoundValuePassesMinVersionCheck = ({
   foundValue,
@@ -28,6 +41,10 @@ export const checkDoesFoundValuePassesMinVersionCheck = ({
   foundValue: any;
   minVersion: string;
 }): boolean => {
+  // linked versions always satisfy minVersion checks (the repo IS the package)
+  const isLinked = isLinkedDependencyVersion({ value: foundValue });
+  if (isLinked) return true;
+
   // define the regex to check against
   const minVersionRegexp = defineMinPackageVersionRegex(minVersion);
 

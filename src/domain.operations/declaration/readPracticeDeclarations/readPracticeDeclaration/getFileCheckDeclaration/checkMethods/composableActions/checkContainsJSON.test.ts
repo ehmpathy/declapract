@@ -91,4 +91,38 @@ describe('checkContainsJSON', () => {
       expect((error as Error).message).toMatchSnapshot(); // log example of it
     }
   });
+  it('should return nothing when found json contains linked version for minVersion check expression', () => {
+    const result = checkContainsJSON({
+      declaredContents: JSON.stringify({
+        name: 'the-package-itself',
+        dependencies: {
+          'the-package-itself': "@declapract{check.minVersion('1.0.0')}",
+        },
+      }),
+      foundContents: JSON.stringify({
+        name: 'the-package-itself',
+        dependencies: {
+          'the-package-itself': 'link:.',
+        },
+      }),
+    });
+    expect(result).not.toBeDefined();
+  });
+  it('should return nothing when found json contains linked version with relative path for minVersion check expression', () => {
+    const result = checkContainsJSON({
+      declaredContents: JSON.stringify({
+        name: 'monorepo-package',
+        devDependencies: {
+          'shared-utils': "@declapract{check.minVersion('2.0.0')}",
+        },
+      }),
+      foundContents: JSON.stringify({
+        name: 'monorepo-package',
+        devDependencies: {
+          'shared-utils': 'link:../shared-utils',
+        },
+      }),
+    });
+    expect(result).not.toBeDefined();
+  });
 });
