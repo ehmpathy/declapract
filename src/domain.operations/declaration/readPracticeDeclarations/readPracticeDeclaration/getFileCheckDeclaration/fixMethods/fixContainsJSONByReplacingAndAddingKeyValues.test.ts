@@ -142,5 +142,57 @@ describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
       expect(fixedPackageJSON).toHaveProperty('devDependencies.prettier');
       expect(fixedPackageJSON.devDependencies.prettier).toEqual('2.0.0');
     });
+    it('should preserve linked version (link:.) for minVersion check expression', async () => {
+      const declaredContents = JSON.stringify({
+        dependencies: {
+          'the-package-itself': "@declapract{check.minVersion('1.0.0')}",
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'the-package-itself',
+        dependencies: {
+          'the-package-itself': 'link:.',
+        },
+      });
+
+      // fix them
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+        } as FileCheckContext);
+
+      // parse the fixed contents
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+      expect(fixedPackageJSON.dependencies['the-package-itself']).toEqual(
+        'link:.',
+      );
+    });
+    it('should preserve linked version with relative path (link:../path) for minVersion check expression', async () => {
+      const declaredContents = JSON.stringify({
+        devDependencies: {
+          'shared-utils': "@declapract{check.minVersion('2.0.0')}",
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'monorepo-package',
+        devDependencies: {
+          'shared-utils': 'link:../shared-utils',
+        },
+      });
+
+      // fix them
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+        } as FileCheckContext);
+
+      // parse the fixed contents
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+      expect(fixedPackageJSON.devDependencies['shared-utils']).toEqual(
+        'link:../shared-utils',
+      );
+    });
   });
 });
