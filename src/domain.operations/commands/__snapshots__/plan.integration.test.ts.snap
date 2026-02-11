@@ -9,10 +9,10 @@ exports[`plan should be able to plan for an example project 1`] = `
     "🔬️ evaluating project...",
   ],
   [
-    "[90m  ✓ evaluated practice:util-sleep[39m",
+    "[90m  ✓ evaluated practice:npmrc[39m",
   ],
   [
-    "[90m  ✓ evaluated practice:npmrc[39m",
+    "[90m  ✓ evaluated practice:util-sleep[39m",
   ],
   [
     "[90m  ✓ evaluated practice:serverless[39m",

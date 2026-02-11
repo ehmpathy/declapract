@@ -144,7 +144,7 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     });
     expect(
       evaluations.find(
-        (file) => file.path === 'src/access/sdks/coolServiceClient.ts',
+        (file) => file.path === 'src/data/clients/coolServiceClient.ts',
       ),
     ).toMatchObject({
       // should have found this file by wildcard _and_ failed it due to the contains check not being satisfied correctly
@@ -225,7 +225,7 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
       ]),
     });
     expect(
-      evaluations.find((file) => file.path === 'src/access/sdks/**/*.ts'), // did not find any files for this glob path -> glob path is kept
+      evaluations.find((file) => file.path === 'src/data/clients/**/*.ts'), // did not find any files for this glob path -> glob path is kept
     ).toMatchObject({
       result: FileEvaluationResult.PASS,
       checks: expect.arrayContaining([
@@ -292,8 +292,8 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     // sanity check a couple of important examples
     expect(
       evaluations.find(
-        (file) => file.path === 'src/access/sdks/svcAwesomeStuff.ts',
-      ), // did not find any files for this glob path -> glob path is kept
+        (file) => file.path === 'src/data/clients/svcAwesomeStuff.ts',
+      ), // found this file via wildcard glob path
     ).toMatchObject({
       result: FileEvaluationResult.PASS,
       checks: expect.arrayContaining([
@@ -306,10 +306,10 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     });
     expect(
       evaluations.find(
-        (file) => file.path === 'src/access/daos/superCoolThingDao/index.ts',
+        (file) => file.path === 'src/data/dao/superCoolThingDao/index.ts',
       ), // found this file by wildcard glob path
     ).toMatchObject({
-      result: FileEvaluationResult.PASS, // passed, due to existance
+      result: FileEvaluationResult.PASS, // passed, due to existence
       checks: expect.arrayContaining([
         expect.objectContaining({
           result: FileEvaluationResult.PASS,
@@ -539,7 +539,7 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
     expect(evaluations).toMatchSnapshot();
   });
 
-  it.only('should include the ".npmrc" file when evaluating glob paths', async () => {
+  it('should include the ".npmrc" file when evaluating glob paths', async () => {
     // lookup a practice
     const declarations = await readDeclarePracticesConfig({
       configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
@@ -592,6 +592,60 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
         }),
       ]),
     });
+
+    // now just save an example of the results
+    expect(evaluations).toMatchSnapshot();
+  });
+
+  it('should match files in nested hidden directories with globstar patterns', async () => {
+    // lookup the hidden-dirs practice
+    const declarations = await readDeclarePracticesConfig({
+      configPath: `${testAssetsDirectoryPath}/example-best-practices-repo/declapract.declare.yml`,
+    });
+    const practice = declarations.practices.find(
+      (thisPractice) => thisPractice.name === 'hidden-dirs',
+    );
+    if (!practice) fail('should have found the hidden-dirs practice');
+
+    // sanity check the practice we'll be using
+    expect(practice.bestPractice).toBeDefined();
+
+    // now evaluate it against a project with nested hidden directories
+    const projectRootDirectory = `${testAssetsDirectoryPath}/example-project-with-nested-hidden-dirs`;
+    const project = new ProjectCheckContext({
+      getProjectRootDirectory: () => projectRootDirectory,
+      projectVariables: {},
+      projectPractices: [],
+    });
+    const evaluations = await evaluteProjectAgainstPracticeDeclaration({
+      practice,
+      project,
+    });
+
+    // check that the evaluation found files in nested hidden directories
+    const paths = evaluations.map((e) => e.path);
+
+    // should find top-level file in hidden directory
+    expect(paths).toContain('.hidden/top-level.ts');
+
+    // should find file in nested hidden directory (the bug case)
+    expect(paths).toContain('.hidden/.nested/deep-file.ts');
+
+    // should find file in alternate hidden directory structure
+    expect(paths).toContain('.hidden/visible/.another-hidden/deep-file.ts');
+
+    // should NOT find files outside the .hidden/ directory
+    expect(paths).not.toContain('regular/file.ts');
+
+    // all files should pass (they exist)
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.FAIL)
+        .length,
+    ).toEqual(0);
+    expect(
+      evaluations.filter((file) => file.result === FileEvaluationResult.PASS)
+        .length,
+    ).toEqual(3); // 3 files in .hidden/ should be found
 
     // now just save an example of the results
     expect(evaluations).toMatchSnapshot();

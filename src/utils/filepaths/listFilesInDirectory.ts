@@ -1,10 +1,16 @@
-import glob from 'fast-glob';
+import { glob } from 'glob';
 
 /**
- * returns paths to all files inside this directory or its nested directories
+ * .what = returns paths to all files inside this directory or its nested directories
+ * .why = enables recursive file discovery for practice evaluation
  */
 export const listFilesInDirectory = async ({
   directory,
 }: {
   directory: string;
-}) => glob('**/*', { cwd: directory, dot: true, onlyFiles: true });
+}): Promise<string[]> =>
+  glob('**/*', {
+    cwd: directory,
+    dot: true,
+    nodir: true,
+  });
