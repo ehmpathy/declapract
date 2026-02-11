@@ -25,7 +25,7 @@ describe('apply', () => {
     const filesInDirectoryNow = await listFilesInDirectory({
       directory: targetDir,
     });
-    expect(filesInDirectoryNow).toEqual(expectedFilesInDirectory); // fail if the test environment is not correct
+    expect(filesInDirectoryNow.sort()).toEqual(expectedFilesInDirectory.sort()); // fail if the test environment is not correct
 
     // now apply
     await apply({

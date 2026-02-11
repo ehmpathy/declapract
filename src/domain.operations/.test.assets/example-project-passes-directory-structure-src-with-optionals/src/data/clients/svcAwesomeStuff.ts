@@ -1,1 +1,3 @@
-export const svcAwesomeStuff = {};
+import { invokeLambdaFunction } from 'simple-lambda-client';
+
+export const svcAwesomeStuff = { invokeLambdaFunction };

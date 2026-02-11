@@ -207,6 +207,25 @@ expect(b.toISOString()).not.toEqual(a.toISOString()); // this will fail, since m
         "checks": [
           FileCheckDeclaration {
             "check": [Function],
+            "contents": null,
+            "fix": null,
+            "pathGlob": ".hidden/**/*.ts",
+            "purpose": "BEST_PRACTICE",
+            "required": true,
+            "type": "EXISTS",
+          },
+        ],
+        "name": "hidden-dirs",
+        "readme": null,
+      },
+      "name": "hidden-dirs",
+    },
+    PracticeDeclaration {
+      "badPractices": [],
+      "bestPractice": ProjectCheckDeclaration {
+        "checks": [
+          FileCheckDeclaration {
+            "check": [Function],
             "contents": [Function],
             "fix": [Function],
             "pathGlob": ".npmrc",

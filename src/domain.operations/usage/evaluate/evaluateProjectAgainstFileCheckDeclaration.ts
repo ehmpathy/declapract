@@ -1,4 +1,4 @@
-import glob from 'fast-glob';
+import { glob } from 'glob';
 
 import {
   type Awaited,
@@ -52,15 +52,15 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
 }): Promise<FileCheckEvaluation[]> => {
   // lookup the gitignore file for the directory
 
-  // define the absolute file paths to check, dereferencing the check.path glob pattern
+  // define the absolute file paths to check, via the check.path glob pattern
   const pathsFoundByGlob = await withDurationReporting(
     `glob:${check.pathGlob}`,
     () =>
       glob(check.pathGlob, {
-        cwd: project.getProjectRootDirectory(), // relative to project root,
-        dot: true, // include dot files,
-        onlyFiles: true, // only files, no directories (these are file checks, directories are not files)
-        ignore: ['node_modules'], // ignore all files in these specific directories, too
+        cwd: project.getProjectRootDirectory(),
+        dot: true,
+        nodir: true,
+        ignore: ['node_modules/**'],
       }),
   )();
   const pathsToCheck = pathsFoundByGlob.length
