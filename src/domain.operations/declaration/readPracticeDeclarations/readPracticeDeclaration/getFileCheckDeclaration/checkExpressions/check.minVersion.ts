@@ -1,4 +1,4 @@
-import { defineMinPackageVersionRegex } from '@src/domain.operations/declaration/publicFileCheckFunctionUtilities/defineMinPackageVersionRegex';
+import { gte, valid } from 'semver';
 
 /**
  * .what = checks if a version string is a linked dependency version
@@ -25,7 +25,7 @@ export const getMinVersionFromCheckMinVersionExpression = (
   ) ?? [])[1] ?? null;
 
 /**
- * checks whether the string matches the form "@declapract{check.minVersion('x.y.z')}" (with nothing before and nothing after, too)
+ * checks whether the string matches the form "@declapract{check.minVersion('x.y.z')}" (exact match only)
  */
 export const isCheckMinVersionExpression = (value: string) =>
   !!getMinVersionFromCheckMinVersionExpression(value);
@@ -33,22 +33,28 @@ export const isCheckMinVersionExpression = (value: string) =>
 /**
  * .what = evaluates a foundValue against a minVersion, to check if it passes it or not
  * .why = enables validation of package versions against minimum requirements
+ *
+ * .note = uses semver library for correct version comparison instead of regex,
+ *         which failed for multi-digit version components (e.g., 1.27.12 vs 1.17.20)
  */
 export const checkDoesFoundValuePassesMinVersionCheck = ({
   foundValue,
   minVersion,
 }: {
-  foundValue: any;
+  foundValue: unknown;
   minVersion: string;
 }): boolean => {
   // linked versions always satisfy minVersion checks (the repo IS the package)
   const isLinked = isLinkedDependencyVersion({ value: foundValue });
   if (isLinked) return true;
 
-  // define the regex to check against
-  const minVersionRegexp = defineMinPackageVersionRegex(minVersion);
-
-  // if foundValue does not match it, return the error message
+  // foundValue must be a string
   if (typeof foundValue !== 'string') return false;
-  return minVersionRegexp.test(foundValue);
+
+  // foundValue must be a valid semver version
+  const foundVersionValid = valid(foundValue);
+  if (!foundVersionValid) return false;
+
+  // use semver comparison for correct multi-digit version handling
+  return gte(foundVersionValid, minVersion);
 };
