@@ -23,3 +23,4 @@ ignores:
   - rhachet-roles-bhuild
   - rhachet-roles-ehmpathy
   - rhachet-brains-anthropic
+  - rhachet-brains-xai
