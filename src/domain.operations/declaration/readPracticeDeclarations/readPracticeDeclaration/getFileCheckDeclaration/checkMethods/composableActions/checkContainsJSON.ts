@@ -7,6 +7,7 @@ import { UnexpectedCodePathError } from '@src/domain.operations/UnexpectedCodePa
 import { parseJSON } from '@src/utils/json/parseJSON';
 
 import { checkContainsSubstring } from './checkContainsSubstring';
+import { filterSelfDepsFromDeclared } from './filterSelfDepsFromDeclared';
 
 /**
  * the function that evaluates the "min version" json check expressions
@@ -161,23 +162,34 @@ const recursivelyFilterFoundContentsToCheckContains = ({
 export const checkContainsJSON = ({
   declaredContents,
   foundContents,
+  targetPackageName,
 }: {
   declaredContents: string;
   foundContents: string;
+  targetPackageName?: string | null;
 }) => {
   // json parse the contents
   const parsedDeclaredContents = parseJSON(declaredContents);
   const parsedFoundContents = parseJSON(foundContents);
 
+  // filter out self-deps from declared contents before comparison
+  // .why = self-deps are omitted in fix phase, so check phase must pass them
+  const filteredDeclaredContents = targetPackageName
+    ? filterSelfDepsFromDeclared({
+        declared: parsedDeclaredContents as Record<string, unknown>,
+        targetPackageName,
+      })
+    : parsedDeclaredContents;
+
   // define the "declaredContentsToCheckContains" and "foundContentsToCheckContains" by evaluating any "@declapract{check.}" expressions and excluding any irrelevant keys, recursively
   const declaredContentsToCheckContains =
     recursivelyEvaluateDeclaredContentsToCheckContains({
-      declared: parsedDeclaredContents,
+      declared: filteredDeclaredContents,
       found: parsedFoundContents,
     });
   const foundContentsToCheckContains =
     recursivelyFilterFoundContentsToCheckContains({
-      declared: parsedDeclaredContents,
+      declared: filteredDeclaredContents,
       found: parsedFoundContents,
     });
 

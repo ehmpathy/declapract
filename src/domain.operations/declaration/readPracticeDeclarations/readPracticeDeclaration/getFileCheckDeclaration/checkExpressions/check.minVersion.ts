@@ -2,14 +2,14 @@ import { gte, valid } from 'semver';
 
 /**
  * .what = checks if a version string is a linked dependency version
- * .why = linked versions (link:.) indicate the repo IS the package,
+ * .why = linked versions (link:. or file:.) indicate the repo IS the package,
  *        so they satisfy any minVersion check by definition
  */
 export const isLinkedDependencyVersion = (input: {
   value: unknown;
 }): boolean => {
   if (typeof input.value !== 'string') return false;
-  return input.value.startsWith('link:');
+  return input.value.startsWith('link:') || input.value.startsWith('file:');
 };
 
 /**

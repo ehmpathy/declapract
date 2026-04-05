@@ -41,10 +41,10 @@ exports[`displayPlan should show failing bad practice correctly 1`] = `
 exports[`displayPlan should show failing multiple practices on the same file correctly 1`] = `
 [
   [
-    "[90m  ✓ evaluated practice:prettier[39m",
+    "[90m  ✓ evaluated practice:dates-and-times[39m",
   ],
   [
-    "[90m  ✓ evaluated practice:dates-and-times[39m",
+    "[90m  ✓ evaluated practice:prettier[39m",
   ],
   [
     "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",

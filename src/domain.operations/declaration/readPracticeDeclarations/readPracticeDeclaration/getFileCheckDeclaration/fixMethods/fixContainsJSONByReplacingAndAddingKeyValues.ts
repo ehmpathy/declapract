@@ -1,11 +1,31 @@
-import type { FileFixFunction } from '@src/domain.objects';
+import path from 'path';
+
+import type { FileCheckContext, FileFixFunction } from '@src/domain.objects';
 import {
   checkDoesFoundValuePassesMinVersionCheck,
   getMinVersionFromCheckMinVersionExpression,
   isCheckMinVersionExpression,
 } from '@src/domain.operations/declaration/readPracticeDeclarations/readPracticeDeclaration/getFileCheckDeclaration/checkExpressions/check.minVersion';
 import { UnexpectedCodePathError } from '@src/domain.operations/UnexpectedCodePathError';
+import { readFileIfExistsAsync } from '@src/utils/fileio/readFileIfExistsAsync';
 import { parseJSON } from '@src/utils/json/parseJSON';
+
+import { processSelfDepsForFix } from './processSelfDepsForFix';
+
+/**
+ * .what = gets the target package name from the project root package.json
+ * .why = needed to detect and filter self-deps in fix phase
+ */
+const getTargetPackageName = async (
+  context: FileCheckContext,
+): Promise<string | null> => {
+  const projectRoot = context.getProjectRootDirectory();
+  const packageJsonPath = path.join(projectRoot, 'package.json');
+  const contents = await readFileIfExistsAsync({ filePath: packageJsonPath });
+  if (!contents) return null;
+  const parsed = parseJSON<{ name?: unknown }>(contents);
+  return typeof parsed?.name === 'string' ? parsed.name : null;
+};
 
 /**
  * e.g., replace a `@declapract{check.minVersion('..')}` strings in the declared contents
@@ -89,39 +109,50 @@ const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
  * fix contains json by replacing and adding key values
  * - replaces keys in place (order not change)
  * - adds keys to the end (note: folks should specify a check that checks order if it matters, and have that check fix things)
+ * - omits self-deps to prevent circular dependency errors
  */
-export const fixContainsJSONByReplacingAndAddingKeyValues: FileFixFunction = (
-  contents,
-  context,
-) => {
-  // check that declared contents exist; if not, then nothing to do
-  const declaredContents = context.declaredFileContents;
-  if (!declaredContents) return {}; // if no declared file contents, then we cant change anything
+export const fixContainsJSONByReplacingAndAddingKeyValues: FileFixFunction =
+  async (contents, context) => {
+    // check that declared contents exist; if not, then we have no work to do
+    const declaredContents = context.declaredFileContents;
+    if (!declaredContents) return {}; // if no declared file contents, then we cant change anything
 
-  // check that the file exists; if not,
-  if (!contents)
+    // check that the file exists; if not, create from declared (with check expressions replaced)
+    if (!contents)
+      return {
+        contents: context.declaredFileContents
+          ? deepReplaceAllCheckExpressionsFromDeclaredContentsString({
+              declaredContents,
+            }) // replace the check expressions, if declaredFileContents
+          : context.declaredFileContents,
+      }; // if the file DNE
+
+    // parse the contents
+    const foundPackageJSON = parseJSON(contents);
+    const declaredPackageJSON = parseJSON(declaredContents);
+
+    // for package.json, process self-deps (omit or preserve link:./file:.)
+    const isPackageJson = context.relativeFilePath === 'package.json';
+    const targetPackageName = isPackageJson
+      ? await getTargetPackageName(context)
+      : null;
+    const processedDeclaredJSON = targetPackageName
+      ? processSelfDepsForFix({
+          declared: declaredPackageJSON as Record<string, unknown>,
+          found: foundPackageJSON as Record<string, unknown>,
+          targetPackageName,
+        })
+      : declaredPackageJSON;
+
+    // for each key in declared package json, replace the key if it exists in the found package
+    const fixedPackageJSON =
+      deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues({
+        currentObject: foundPackageJSON,
+        desiredObject: processedDeclaredJSON,
+      });
+
+    // and return the contents now
     return {
-      contents: context.declaredFileContents
-        ? deepReplaceAllCheckExpressionsFromDeclaredContentsString({
-            declaredContents,
-          }) // replace the check expressions, if declaredFileContents
-        : context.declaredFileContents,
-    }; // if the file DNE
-
-  // parse the contents
-  const foundPackageJSON = parseJSON(contents);
-  const declaredPackageJSON = parseJSON(declaredContents);
-
-  // for each key in declared package json, replace the key if it exists in the found package
-  const fixedPackageJSON = deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues(
-    {
-      currentObject: foundPackageJSON,
-      desiredObject: declaredPackageJSON,
-    },
-  );
-
-  // and return the contents now
-  return {
-    contents: JSON.stringify(fixedPackageJSON, null, 2),
+      contents: JSON.stringify(fixedPackageJSON, null, 2),
+    };
   };
-};

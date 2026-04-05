@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`emitSelfDepWarn action=omitted → correct format 1`] = `
+"[33m⚠️ warn: omit self-dependency sql-dao-generator@0.22.0[39m
+[33m   ├─ a package should not depend on itself[39m
+[33m   └─ if intentional, use link:. or file:. to self-reference[39m"
+`;
+
+exports[`emitSelfDepWarn action=preserved → correct format 1`] = `
+"[33m⚠️ warn: preserve self-dependency sql-dao-generator[39m
+[33m   ├─ extant self-ref was preserved[39m
+[33m   └─ practice declared version was skipped[39m"
+`;
