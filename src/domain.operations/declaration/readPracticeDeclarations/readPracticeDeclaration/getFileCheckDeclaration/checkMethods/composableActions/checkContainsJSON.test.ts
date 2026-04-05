@@ -125,4 +125,98 @@ describe('checkContainsJSON', () => {
     });
     expect(result).not.toBeDefined();
   });
+
+  // self-dep filtering tests
+  describe('self-dep filtering', () => {
+    it('should pass when self-dep is absent and targetPackageName is provided', () => {
+      // declared wants sql-dao-generator dep, but target IS sql-dao-generator
+      // so the self-dep should be filtered from comparison
+      const result = checkContainsJSON({
+        declaredContents: JSON.stringify({
+          name: 'sql-dao-generator',
+          dependencies: {
+            'sql-dao-generator': "@declapract{check.minVersion('0.22.0')}",
+            lodash: '^4.0.0',
+          },
+        }),
+        foundContents: JSON.stringify({
+          name: 'sql-dao-generator',
+          dependencies: {
+            lodash: '^4.0.0',
+          },
+        }),
+        targetPackageName: 'sql-dao-generator',
+      });
+      expect(result).not.toBeDefined();
+    });
+
+    it('should pass when self-dep exists with different version and targetPackageName is provided', () => {
+      // target has an older version of itself, but self-dep check should be skipped
+      const result = checkContainsJSON({
+        declaredContents: JSON.stringify({
+          name: 'my-package',
+          devDependencies: {
+            'my-package': "@declapract{check.minVersion('2.0.0')}",
+            jest: '^29.0.0',
+          },
+        }),
+        foundContents: JSON.stringify({
+          name: 'my-package',
+          devDependencies: {
+            'my-package': '1.0.0', // older than declared, but should pass
+            jest: '^29.0.0',
+          },
+        }),
+        targetPackageName: 'my-package',
+      });
+      expect(result).not.toBeDefined();
+    });
+
+    it('should still fail when different package is absent (self-dep filter does not affect others)', () => {
+      try {
+        checkContainsJSON({
+          declaredContents: JSON.stringify({
+            name: 'sql-dao-generator',
+            dependencies: {
+              'sql-dao-generator': "@declapract{check.minVersion('0.22.0')}",
+              'domain-objects': "@declapract{check.minVersion('1.0.0')}",
+            },
+          }),
+          foundContents: JSON.stringify({
+            name: 'sql-dao-generator',
+            dependencies: {
+              // domain-objects is absent!
+            },
+          }),
+          targetPackageName: 'sql-dao-generator',
+        });
+        fail('should not reach here');
+      } catch (error) {
+        expect((error as Error).message).toContain('toContain');
+        expect((error as Error).message).toContain('domain-objects');
+      }
+    });
+
+    it('should behave normally (fail) when targetPackageName is not provided', () => {
+      // without targetPackageName, self-dep is NOT filtered
+      try {
+        checkContainsJSON({
+          declaredContents: JSON.stringify({
+            name: 'sql-dao-generator',
+            dependencies: {
+              'sql-dao-generator': "@declapract{check.minVersion('0.22.0')}",
+            },
+          }),
+          foundContents: JSON.stringify({
+            name: 'sql-dao-generator',
+            dependencies: {},
+          }),
+          // no targetPackageName
+        });
+        fail('should not reach here');
+      } catch (error) {
+        expect((error as Error).message).toContain('toContain');
+      }
+    });
+  });
 });

@@ -23,6 +23,15 @@ const testCases = [
     description: 'link:./nested/path (nested relative)',
   },
 
+  // file: protocol (self-reference, like link:)
+  { value: 'file:.', expected: true, description: 'file:. (current dir)' },
+  { value: 'file:..', expected: true, description: 'file:.. (parent dir)' },
+  {
+    value: 'file:../peer-package',
+    expected: true,
+    description: 'file:../peer-package (relative path)',
+  },
+
   // semver versions should return false
   { value: '1.0.0', expected: false, description: 'semver 1.0.0' },
   { value: '^1.0.0', expected: false, description: 'caret semver ^1.0.0' },
@@ -30,7 +39,6 @@ const testCases = [
   { value: '>=1.0.0', expected: false, description: 'range semver >=1.0.0' },
 
   // other protocols should return false
-  { value: 'file:../path', expected: false, description: 'file: protocol' },
   { value: 'git://...', expected: false, description: 'git: protocol' },
   { value: 'npm:package', expected: false, description: 'npm: protocol' },
   { value: 'workspace:*', expected: false, description: 'workspace: protocol' },
@@ -80,6 +88,13 @@ describe('checkDoesFoundValuePassesMinVersionCheck', () => {
         foundValue: 'link:/absolute/path',
         minVersion: '5.0.0',
         description: 'link:/absolute/path',
+      },
+      { foundValue: 'file:.', minVersion: '1.0.0', description: 'file:.' },
+      { foundValue: 'file:..', minVersion: '2.0.0', description: 'file:..' },
+      {
+        foundValue: 'file:../other-pkg',
+        minVersion: '99.0.0',
+        description: 'file:../other-pkg',
       },
     ];
 

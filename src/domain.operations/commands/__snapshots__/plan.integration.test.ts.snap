@@ -21,10 +21,10 @@ exports[`plan should be able to plan for an example project 1`] = `
     "[90m  ✓ evaluated practice:terraform[39m",
   ],
   [
-    "[90m  ✓ evaluated practice:prettier[39m",
+    "[90m  ✓ evaluated practice:dates-and-times[39m",
   ],
   [
-    "[90m  ✓ evaluated practice:dates-and-times[39m",
+    "[90m  ✓ evaluated practice:prettier[39m",
   ],
   [
     "📖 displaying results...",

@@ -195,4 +195,124 @@ describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
       );
     });
   });
+
+  describe('self-dep detection (via processSelfDepsForFix)', () => {
+    // note: these tests verify integration with processSelfDepsForFix
+    // the detailed self-dep logic is tested in processSelfDepsForFix.test.ts
+
+    let consoleSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+    });
+
+    afterEach(() => {
+      consoleSpy.mockRestore();
+    });
+
+    it('should omit self-dep when target package name matches and dep is absent', async () => {
+      const declaredContents = JSON.stringify({
+        name: 'sql-dao-generator',
+        dependencies: {
+          'sql-dao-generator': "@declapract{check.minVersion('0.22.0')}",
+          lodash: '^4.0.0',
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'sql-dao-generator',
+        dependencies: {
+          lodash: '^4.0.0',
+        },
+      });
+
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+          relativeFilePath: 'package.json',
+          getProjectRootDirectory: () =>
+            __dirname + '/__fixtures__/sql-dao-generator',
+        } as FileCheckContext);
+
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+
+      // self-dep should NOT be added
+      expect(fixedPackageJSON.dependencies).not.toHaveProperty(
+        'sql-dao-generator',
+      );
+      // other dep should be present
+      expect(fixedPackageJSON.dependencies).toHaveProperty('lodash');
+
+      // warn should be emitted
+      expect(consoleSpy).toHaveBeenCalledTimes(1);
+      expect(consoleSpy.mock.calls[0][0]).toContain('omit self-dependency');
+    });
+
+    it('should preserve extant link:. self-dep and emit preserved warn', async () => {
+      const declaredContents = JSON.stringify({
+        name: 'sql-dao-generator',
+        dependencies: {
+          'sql-dao-generator': "@declapract{check.minVersion('0.22.0')}",
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'sql-dao-generator',
+        dependencies: {
+          'sql-dao-generator': 'link:.',
+        },
+      });
+
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+          relativeFilePath: 'package.json',
+          getProjectRootDirectory: () =>
+            __dirname + '/__fixtures__/sql-dao-generator',
+        } as FileCheckContext);
+
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+
+      // link:. should be preserved
+      expect(fixedPackageJSON.dependencies['sql-dao-generator']).toEqual(
+        'link:.',
+      );
+
+      // preserved warn should be emitted
+      expect(consoleSpy).toHaveBeenCalledTimes(1);
+      expect(consoleSpy.mock.calls[0][0]).toContain('preserve self-dependency');
+    });
+
+    it('should not filter when relativeFilePath is not package.json', async () => {
+      const declaredContents = JSON.stringify({
+        name: 'my-config',
+        dependencies: {
+          'my-config': '1.0.0',
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'my-config',
+        dependencies: {},
+      });
+
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+          relativeFilePath: 'some-config.json', // not package.json
+          getProjectRootDirectory: () => __dirname,
+        } as FileCheckContext);
+
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+
+      // dep should be added (no self-dep filter for non-package.json)
+      expect(fixedPackageJSON.dependencies).toHaveProperty(
+        'my-config',
+        '1.0.0',
+      );
+
+      // no warns
+      expect(consoleSpy).not.toHaveBeenCalled();
+    });
+  });
 });
