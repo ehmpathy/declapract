@@ -333,6 +333,9 @@ Declapract supports referencing project variables in declaration files.
     variables:
       serviceName: 'svc-awesomeness'
       organizationName: 'all-the-things-corp'
+      maintainers:
+        - alice
+        - bob
     ```
 
 - and declare a file check that references these variables, `practices/npm/best-practice/README.md`
@@ -343,6 +346,8 @@ Declapract supports referencing project variables in declaration files.
     this is the repo for `@declapract{variable.serviceName}` of org `@declapract{variable.organizationName}`
 
     this readme contains all of the relevant details needed to be known about @declapract{variable.serviceName}
+
+    maintainers: @declapract{variable.maintainers}
     ```
 
 - to check that:
@@ -353,7 +358,9 @@ Declapract supports referencing project variables in declaration files.
 
     this is the repo for `svc-awesomeness` of org `all-the-things-corp`
 
-    this readme contains all of the relevant details that are needed to be known about svc-awesomeness
+    this readme contains all of the relevant details needed to be known about svc-awesomeness
+
+    maintainers: ["alice","bob"]
     ```
 
 ### `FileCheckType.CONTAINS` on a `.json` file
