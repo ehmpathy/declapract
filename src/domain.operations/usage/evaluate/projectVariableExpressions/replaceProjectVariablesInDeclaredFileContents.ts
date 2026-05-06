@@ -23,8 +23,10 @@ export const replaceProjectVariablesInDeclaredFileContents = ({
   ];
 
   // flatten the project variables so we can dereference by nested keys (e.g., `variable.databaseUserName.serviceUser`)
-  const flattenedProjectVariables: Record<string, string> =
-    flatten(projectVariables);
+  const flattenedProjectVariables: Record<string, string | string[]> = flatten(
+    projectVariables,
+    { safe: true },
+  );
 
   // lookup each one and replace it (or throw an error if the variable was not defined)
   const replacedFileContents = uniqueDeclaredVariableExpressions.reduce(
@@ -45,7 +47,10 @@ export const replaceProjectVariablesInDeclaredFileContents = ({
               'Please either remove the reference to this variable or define its value in your projects variables (e.g., in `declapract.use.yml`)',
           },
         );
-      return replaceAll(contents, thisVariableExpression, variableValue);
+      const replacement = Array.isArray(variableValue)
+        ? JSON.stringify(variableValue)
+        : variableValue;
+      return replaceAll(contents, thisVariableExpression, replacement);
     },
     fileContents,
   );

@@ -1,3 +1,5 @@
+import YAML from 'yaml';
+
 import {
   type FileCheckContext,
   FileCheckPurpose,
@@ -762,7 +764,7 @@ export const anything = 'should not exist';
       context,
     );
     expect(fixResultFileDefined.contents).toEqual(
-      // should fix all of the existing keys and replace them with their values
+      // should fix all of the extant keys and replace them with their values
       JSON.stringify(
         {
           scripts: {
@@ -774,6 +776,55 @@ export const anything = 'should not exist';
         null,
         2,
       ),
+    );
+  });
+
+  it('should replace array variables with JSON array literals through the full yaml-to-output pipeline', async () => {
+    // step 1: yaml string (as it would appear in declapract.use.yml)
+    const yamlString = `
+variables:
+  serviceName: 'my-service'
+  productionApprovers:
+    - alice
+    - bob
+    - charlie
+  allowedOrigins:
+    - https://example.com
+    - https://api.example.com
+    `.trim();
+
+    // step 2: parse yaml (same as readYmlFile does)
+    const parsedConfig = YAML.parse(yamlString);
+    const projectVariables = parsedConfig.variables;
+
+    // verify yaml parser produced arrays
+    expect(Array.isArray(projectVariables.productionApprovers)).toBe(true);
+    expect(Array.isArray(projectVariables.allowedOrigins)).toBe(true);
+
+    // step 3: declared file template with variable references
+    const declaredFileContents = `
+export const config = {
+  approvers: @declapract{variable.productionApprovers},
+  origins: @declapract{variable.allowedOrigins},
+  name: '@declapract{variable.serviceName}',
+};
+    `.trim();
+
+    // step 4: run through variable replacement
+    const replacedContents = replaceProjectVariablesInDeclaredFileContents({
+      projectVariables,
+      fileContents: declaredFileContents,
+    });
+
+    // step 5: verify arrays serialized to JSON array literals
+    expect(replacedContents).toEqual(
+      `
+export const config = {
+  approvers: ["alice","bob","charlie"],
+  origins: ["https://example.com","https://api.example.com"],
+  name: 'my-service',
+};
+      `.trim(),
     );
   });
 });
