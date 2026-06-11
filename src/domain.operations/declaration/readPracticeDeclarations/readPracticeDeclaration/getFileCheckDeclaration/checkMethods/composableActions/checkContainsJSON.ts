@@ -1,6 +1,7 @@
 import {
   checkDoesFoundValuePassesMinVersionCheck,
   getMinVersionFromCheckMinVersionExpression,
+  hasIfInstalledModifier,
   isCheckMinVersionExpression,
 } from '@src/domain.operations/declaration/readPracticeDeclarations/readPracticeDeclaration/getFileCheckDeclaration/checkExpressions/check.minVersion';
 import { UnexpectedCodePathError } from '@src/domain.operations/UnexpectedCodePathError';
@@ -12,7 +13,8 @@ import { filterSelfDepsFromDeclared } from './filterSelfDepsFromDeclared';
 /**
  * the function that evaluates the "min version" json check expressions
  *
- * e.g., `@declapract{check.minVersion('4.0.0')}` => apply the regexp checking min version of '4.0.0'
+ * e.g., `@declapract{check.minVersion('4.0.0')}` => apply the regexp that checks min version of '4.0.0'
+ * e.g., `@declapract{check.minVersion('4.0.0').ifInstalled()}` => same, but skip if dep is absent
  */
 const evaluateSupportedJSONCheckExpressionMinimumVersion = ({
   declaredValue,
@@ -29,10 +31,15 @@ const evaluateSupportedJSONCheckExpressionMinimumVersion = ({
       { declaredValue },
     );
 
+  // check if .ifInstalled() modifier is present
+  const ifInstalled = hasIfInstalledModifier(declaredValue);
+
   // check whether it passes
+  // .note = checkDoesFoundValuePassesMinVersionCheck handles ifInstalled + absent case
   const passesMinVersionCheck = checkDoesFoundValuePassesMinVersionCheck({
     foundValue,
     minVersion,
+    ifInstalled,
   });
 
   // if foundValue does not match it, return the error message

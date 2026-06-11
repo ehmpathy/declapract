@@ -196,6 +196,166 @@ describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
     });
   });
 
+  describe('.ifInstalled() modifier', () => {
+    it('should NOT add absent dep when .ifInstalled() is used', async () => {
+      const declaredContents = JSON.stringify({
+        devDependencies: {
+          'optional-cache':
+            "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'my-package',
+        devDependencies: {
+          // optional-cache is absent
+        },
+      });
+
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+        } as FileCheckContext);
+
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+      // dep should NOT be added
+      expect(fixedPackageJSON.devDependencies).not.toHaveProperty(
+        'optional-cache',
+      );
+    });
+
+    it('should bump dep when .ifInstalled() is used and dep is below minimum', async () => {
+      const declaredContents = JSON.stringify({
+        devDependencies: {
+          'optional-cache':
+            "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'my-package',
+        devDependencies: {
+          'optional-cache': '0.15.0', // below minimum
+        },
+      });
+
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+        } as FileCheckContext);
+
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+      // dep should be bumped to minimum
+      expect(fixedPackageJSON.devDependencies['optional-cache']).toEqual(
+        '0.16.2',
+      );
+    });
+
+    it('should preserve dep when .ifInstalled() is used and dep meets minimum', async () => {
+      const declaredContents = JSON.stringify({
+        devDependencies: {
+          'optional-cache':
+            "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'my-package',
+        devDependencies: {
+          'optional-cache': '0.17.0', // meets minimum
+        },
+      });
+
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+        } as FileCheckContext);
+
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+      // dep should be preserved as-is
+      expect(fixedPackageJSON.devDependencies['optional-cache']).toEqual(
+        '0.17.0',
+      );
+    });
+
+    it('should preserve link:. when .ifInstalled() is used', async () => {
+      const declaredContents = JSON.stringify({
+        devDependencies: {
+          'optional-cache':
+            "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'my-package',
+        devDependencies: {
+          'optional-cache': 'link:.',
+        },
+      });
+
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+        } as FileCheckContext);
+
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+      // link should be preserved
+      expect(fixedPackageJSON.devDependencies['optional-cache']).toEqual(
+        'link:.',
+      );
+    });
+
+    it('should NOT add .ifInstalled() deps when creating a new file (contents = null)', async () => {
+      const declaredContents = JSON.stringify({
+        name: 'my-package',
+        dependencies: {
+          'required-cache': "@declapract{check.minVersion('0.16.2')}",
+          'optional-cache':
+            "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+        },
+      });
+
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(null, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+        } as FileCheckContext);
+
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+      // required dep should be added with version
+      expect(fixedPackageJSON.dependencies['required-cache']).toEqual('0.16.2');
+      // optional dep should NOT be added
+      expect(fixedPackageJSON.dependencies).not.toHaveProperty('optional-cache');
+    });
+
+    it('should NOT add dep when .ifInstalled() is used and dep value is null', async () => {
+      const declaredContents = JSON.stringify({
+        devDependencies: {
+          'optional-cache':
+            "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+        },
+      });
+      const foundContents = JSON.stringify({
+        name: 'my-package',
+        devDependencies: {
+          'optional-cache': null, // explicitly null
+        },
+      });
+
+      const { contents: fixedContents } =
+        await fixContainsJSONByReplacingAndAddingKeyValues(foundContents, {
+          declaredFileContents: declaredContents,
+          projectVariables: {},
+        } as FileCheckContext);
+
+      const fixedPackageJSON = JSON.parse(fixedContents!);
+      // null dep with .ifInstalled() should be skipped (not added/bumped)
+      expect(fixedPackageJSON.devDependencies).not.toHaveProperty(
+        'optional-cache',
+      );
+    });
+  });
+
   describe('self-dep detection (via processSelfDepsForFix)', () => {
     // note: these tests verify integration with processSelfDepsForFix
     // the detailed self-dep logic is tested in processSelfDepsForFix.test.ts

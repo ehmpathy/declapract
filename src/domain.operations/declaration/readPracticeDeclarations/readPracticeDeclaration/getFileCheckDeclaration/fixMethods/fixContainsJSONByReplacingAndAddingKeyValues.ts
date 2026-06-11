@@ -2,8 +2,10 @@ import path from 'path';
 
 import type { FileCheckContext, FileFixFunction } from '@src/domain.objects';
 import {
+  CHECK_MIN_VERSION_REGEX_GLOBAL,
   checkDoesFoundValuePassesMinVersionCheck,
   getMinVersionFromCheckMinVersionExpression,
+  hasIfInstalledModifier,
   isCheckMinVersionExpression,
 } from '@src/domain.operations/declaration/readPracticeDeclarations/readPracticeDeclaration/getFileCheckDeclaration/checkExpressions/check.minVersion';
 import { UnexpectedCodePathError } from '@src/domain.operations/UnexpectedCodePathError';
@@ -28,19 +30,46 @@ const getTargetPackageName = async (
 };
 
 /**
+ * recursively filters out keys with .ifInstalled() modifier from an object
+ *
+ * .why = when creating a new file, deps with .ifInstalled() should be omitted
+ *        since they're optional and the file doesn't exist yet
+ */
+const deepFilterIfInstalledKeys = (obj: unknown): unknown => {
+  if (obj === null || typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) return obj.map(deepFilterIfInstalledKeys);
+
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
+    // skip keys with .ifInstalled() modifier
+    if (typeof value === 'string' && hasIfInstalledModifier(value)) continue;
+
+    // recurse into nested objects
+    result[key] = deepFilterIfInstalledKeys(value);
+  }
+  return result;
+};
+
+/**
  * e.g., replace a `@declapract{check.minVersion('..')}` strings in the declared contents
  *
  * typically used to create a new file from declarations
+ *
+ * .note = omits keys with .ifInstalled() modifier since the file doesn't exist yet
  */
 const deepReplaceAllCheckExpressionsFromDeclaredContentsString = ({
   declaredContents,
 }: {
   declaredContents: string;
 }) => {
-  return declaredContents.replace(
-    /@declapract\{check\.minVersion\('([0-9.]+)'\)\}/g,
-    '$1',
-  ); // using regexp capture groups to simplify this for now since we only have the minVersion expression; // TODO: make this more generic to handle other check expression types
+  // parse, filter out .ifInstalled() keys, then stringify
+  const parsed = parseJSON(declaredContents);
+  const filtered = deepFilterIfInstalledKeys(parsed);
+  const filteredString = JSON.stringify(filtered, null, 2);
+
+  // reset global regex state and replace remaining check expressions
+  CHECK_MIN_VERSION_REGEX_GLOBAL.lastIndex = 0;
+  return filteredString.replace(CHECK_MIN_VERSION_REGEX_GLOBAL, '$1');
 };
 
 /**
@@ -74,7 +103,16 @@ const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
     const currentValue = currentObject[thisKey];
     const desiredValue = desiredObject[thisKey];
     const newValue = (() => {
-      if (currentValue === undefined) return desiredValue; // if current value is not defined at all, then we should add it to be the desired value
+      // if current value is absent (undefined or null), we may add it to be the desired value
+      if (currentValue === undefined || currentValue === null) {
+        // but if .ifInstalled() modifier is present, skip absent deps (don't add them)
+        if (
+          typeof desiredValue === 'string' &&
+          hasIfInstalledModifier(desiredValue)
+        )
+          return undefined;
+        return desiredValue;
+      }
       if (desiredValue === undefined) return currentValue; // if there is no value defined in the desired object for this key, then keep the current value
       if (Array.isArray(desiredValue)) return desiredValue; // TODO: think through if we should do something special here
       if (isCheckMinVersionExpression(desiredValue)) {
@@ -84,9 +122,11 @@ const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
           throw new UnexpectedCodePathError(
             "checked that its a min version expression but couldn't extract a min version",
           ); // fail fast if weird error occurs
+        const ifInstalled = hasIfInstalledModifier(desiredValue);
         const passesMinVersion = checkDoesFoundValuePassesMinVersionCheck({
           foundValue: currentValue,
           minVersion,
+          ifInstalled,
         });
         if (passesMinVersion) return currentValue; // dont change the current version if it passes the check
         return minVersion; // return the minimum version if it doesn't pass the check
@@ -98,7 +138,8 @@ const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
         desiredObject: desiredValue,
       });
     })();
-    newObject[thisKey] = newValue;
+    // skip keys that return undefined (e.g., .ifInstalled() with absent dep)
+    if (newValue !== undefined) newObject[thisKey] = newValue;
   }
 
   // return the new object
