@@ -325,7 +325,9 @@ describe('fixContainsJSONByReplacingAndAddingKeyValues', () => {
       // required dep should be added with version
       expect(fixedPackageJSON.dependencies['required-cache']).toEqual('0.16.2');
       // optional dep should NOT be added
-      expect(fixedPackageJSON.dependencies).not.toHaveProperty('optional-cache');
+      expect(fixedPackageJSON.dependencies).not.toHaveProperty(
+        'optional-cache',
+      );
     });
 
     it('should NOT add dep when .ifInstalled() is used and dep value is null', async () => {
