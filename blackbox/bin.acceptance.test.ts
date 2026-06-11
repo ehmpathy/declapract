@@ -65,7 +65,12 @@ describe('bin/run', () => {
       );
 
       // install dependencies via pnpm for speed
-      execSync('pnpm install', { cwd: tmpDir, stdio: 'pipe' });
+      // note: COREPACK_ENABLE_DOWNLOAD_PROMPT=0 allows corepack to auto-download pnpm in CI
+      execSync('pnpm install', {
+        cwd: tmpDir,
+        stdio: 'pipe',
+        env: { ...process.env, COREPACK_ENABLE_DOWNLOAD_PROMPT: '0' },
+      });
     });
 
     afterAll(() => {
