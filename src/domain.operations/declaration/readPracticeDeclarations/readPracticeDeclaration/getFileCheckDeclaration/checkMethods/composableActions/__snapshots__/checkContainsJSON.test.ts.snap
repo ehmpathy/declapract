@@ -1,5 +1,31 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`checkContainsJSON .ifInstalled() modifier should fail when dep is a semver range and .ifInstalled() is used (extant range behavior) 1`] = `
+"[32m- Expected toContain[39m
+[31m+ Received relevantKeys[39m
+
+[2m  {[22m
+[2m    "name": "my-package",[22m
+[2m    "dependencies": {[22m
+[32m-     "optional-cache": "a version greater than or equal to '0.16.2'"[39m
+[31m+     "optional-cache": "^0.16.2"[39m
+[2m    }[22m
+[2m  }[22m"
+`;
+
+exports[`checkContainsJSON .ifInstalled() modifier should fail when dep is below minimum version and .ifInstalled() is used 1`] = `
+"[32m- Expected toContain[39m
+[31m+ Received relevantKeys[39m
+
+[2m  {[22m
+[2m    "name": "my-package",[22m
+[2m    "dependencies": {[22m
+[32m-     "optional-cache": "a version greater than or equal to '0.16.2'"[39m
+[31m+     "optional-cache": "0.15.0"[39m
+[2m    }[22m
+[2m  }[22m"
+`;
+
 exports[`checkContainsJSON should throw an error with a good looking diff when found json does not contain the declared json 1`] = `
 "[32m- Expected toContain[39m
 [31m+ Received relevantKeys[39m

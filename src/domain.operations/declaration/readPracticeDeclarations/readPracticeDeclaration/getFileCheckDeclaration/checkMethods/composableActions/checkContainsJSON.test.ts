@@ -219,4 +219,153 @@ describe('checkContainsJSON', () => {
       }
     });
   });
+
+  describe('.ifInstalled() modifier', () => {
+    it('should pass when dep is absent and .ifInstalled() is used', () => {
+      const result = checkContainsJSON({
+        declaredContents: JSON.stringify({
+          name: 'my-package',
+          dependencies: {
+            'optional-cache':
+              "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+          },
+        }),
+        foundContents: JSON.stringify({
+          name: 'my-package',
+          dependencies: {
+            // optional-cache is absent
+          },
+        }),
+      });
+      expect(result).not.toBeDefined();
+    });
+
+    it('should pass when dep meets minimum version and .ifInstalled() is used', () => {
+      const result = checkContainsJSON({
+        declaredContents: JSON.stringify({
+          name: 'my-package',
+          dependencies: {
+            'optional-cache':
+              "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+          },
+        }),
+        foundContents: JSON.stringify({
+          name: 'my-package',
+          dependencies: {
+            'optional-cache': '0.17.0',
+          },
+        }),
+      });
+      expect(result).not.toBeDefined();
+    });
+
+    it('should fail when dep is below minimum version and .ifInstalled() is used', () => {
+      try {
+        checkContainsJSON({
+          declaredContents: JSON.stringify({
+            name: 'my-package',
+            dependencies: {
+              'optional-cache':
+                "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+            },
+          }),
+          foundContents: JSON.stringify({
+            name: 'my-package',
+            dependencies: {
+              'optional-cache': '0.15.0',
+            },
+          }),
+        });
+        fail('should not reach here');
+      } catch (error) {
+        expect((error as Error).message).toContain('toContain');
+        expect((error as Error).message).toContain('0.16.2');
+        expect((error as Error).message).toMatchSnapshot();
+      }
+    });
+
+    it('should pass when dep value is null and .ifInstalled() is used', () => {
+      const result = checkContainsJSON({
+        declaredContents: JSON.stringify({
+          name: 'my-package',
+          dependencies: {
+            'optional-cache':
+              "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+          },
+        }),
+        foundContents: JSON.stringify({
+          name: 'my-package',
+          dependencies: {
+            'optional-cache': null,
+          },
+        }),
+      });
+      expect(result).not.toBeDefined();
+    });
+
+    it('should pass when dep is link:. and .ifInstalled() is used (extant linked dep behavior)', () => {
+      const result = checkContainsJSON({
+        declaredContents: JSON.stringify({
+          name: 'my-package',
+          dependencies: {
+            'optional-cache':
+              "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+          },
+        }),
+        foundContents: JSON.stringify({
+          name: 'my-package',
+          dependencies: {
+            'optional-cache': 'link:.',
+          },
+        }),
+      });
+      expect(result).not.toBeDefined();
+    });
+
+    it('should fail when dep is a semver range and .ifInstalled() is used (extant range behavior)', () => {
+      try {
+        checkContainsJSON({
+          declaredContents: JSON.stringify({
+            name: 'my-package',
+            dependencies: {
+              'optional-cache':
+                "@declapract{check.minVersion('0.16.2').ifInstalled()}",
+            },
+          }),
+          foundContents: JSON.stringify({
+            name: 'my-package',
+            dependencies: {
+              'optional-cache': '^0.16.2',
+            },
+          }),
+        });
+        fail('should not reach here');
+      } catch (error) {
+        expect((error as Error).message).toContain('toContain');
+        expect((error as Error).message).toMatchSnapshot();
+      }
+    });
+
+    it('should still fail without .ifInstalled() when dep is absent (baseline behavior)', () => {
+      try {
+        checkContainsJSON({
+          declaredContents: JSON.stringify({
+            name: 'my-package',
+            dependencies: {
+              'required-cache': "@declapract{check.minVersion('0.16.2')}",
+            },
+          }),
+          foundContents: JSON.stringify({
+            name: 'my-package',
+            dependencies: {
+              // required-cache is absent
+            },
+          }),
+        });
+        fail('should not reach here');
+      } catch (error) {
+        expect((error as Error).message).toContain('toContain');
+      }
+    });
+  });
 });

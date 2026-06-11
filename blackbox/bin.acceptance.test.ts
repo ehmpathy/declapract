@@ -64,8 +64,8 @@ describe('bin/run', () => {
         ].join('\n'),
       );
 
-      // install dependencies via pnpm for speed
-      execSync('pnpm install', { cwd: tmpDir, stdio: 'pipe' });
+      // install dependencies via npm (pnpm has corepack issues in tmp dirs)
+      execSync('npm install', { cwd: tmpDir, stdio: 'pipe' });
     });
 
     afterAll(() => {

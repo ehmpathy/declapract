@@ -1,5 +1,7 @@
 import {
   checkDoesFoundValuePassesMinVersionCheck,
+  getMinVersionFromCheckMinVersionExpression,
+  hasIfInstalledModifier,
   isLinkedDependencyVersion,
 } from './check.minVersion';
 
@@ -406,5 +408,105 @@ describe('checkDoesFoundValuePassesMinVersionCheck', () => {
         expect(result).toEqual(testCase.expected);
       }),
     );
+  });
+
+  describe('ifInstalled modifier', () => {
+    it('should return true for undefined foundValue when ifInstalled is true', () => {
+      const result = checkDoesFoundValuePassesMinVersionCheck({
+        foundValue: undefined,
+        minVersion: '1.0.0',
+        ifInstalled: true,
+      });
+      expect(result).toEqual(true);
+    });
+
+    it('should return true for null foundValue when ifInstalled is true', () => {
+      const result = checkDoesFoundValuePassesMinVersionCheck({
+        foundValue: null,
+        minVersion: '1.0.0',
+        ifInstalled: true,
+      });
+      expect(result).toEqual(true);
+    });
+
+    it('should return false for undefined foundValue when ifInstalled is false', () => {
+      const result = checkDoesFoundValuePassesMinVersionCheck({
+        foundValue: undefined,
+        minVersion: '1.0.0',
+        ifInstalled: false,
+      });
+      expect(result).toEqual(false);
+    });
+
+    it('should return false for undefined foundValue when ifInstalled is not provided', () => {
+      const result = checkDoesFoundValuePassesMinVersionCheck({
+        foundValue: undefined,
+        minVersion: '1.0.0',
+      });
+      expect(result).toEqual(false);
+    });
+
+    it('should still check version when ifInstalled is true and foundValue exists', () => {
+      // version meets minimum
+      expect(
+        checkDoesFoundValuePassesMinVersionCheck({
+          foundValue: '2.0.0',
+          minVersion: '1.0.0',
+          ifInstalled: true,
+        }),
+      ).toEqual(true);
+
+      // version below minimum
+      expect(
+        checkDoesFoundValuePassesMinVersionCheck({
+          foundValue: '0.5.0',
+          minVersion: '1.0.0',
+          ifInstalled: true,
+        }),
+      ).toEqual(false);
+    });
+  });
+});
+
+describe('getMinVersionFromCheckMinVersionExpression', () => {
+  it('should extract version from basic expression', () => {
+    const result = getMinVersionFromCheckMinVersionExpression(
+      "@declapract{check.minVersion('1.2.3')}",
+    );
+    expect(result).toEqual('1.2.3');
+  });
+
+  it('should extract version from expression with .ifInstalled() modifier', () => {
+    const result = getMinVersionFromCheckMinVersionExpression(
+      "@declapract{check.minVersion('4.5.6').ifInstalled()}",
+    );
+    expect(result).toEqual('4.5.6');
+  });
+
+  it('should return null for non-match', () => {
+    const result =
+      getMinVersionFromCheckMinVersionExpression('not-an-expression');
+    expect(result).toEqual(null);
+  });
+});
+
+describe('hasIfInstalledModifier', () => {
+  it('should return true when .ifInstalled() is present', () => {
+    const result = hasIfInstalledModifier(
+      "@declapract{check.minVersion('1.0.0').ifInstalled()}",
+    );
+    expect(result).toEqual(true);
+  });
+
+  it('should return false when .ifInstalled() is absent', () => {
+    const result = hasIfInstalledModifier(
+      "@declapract{check.minVersion('1.0.0')}",
+    );
+    expect(result).toEqual(false);
+  });
+
+  it('should return false for non-match', () => {
+    const result = hasIfInstalledModifier('not-an-expression');
+    expect(result).toEqual(false);
   });
 });
