@@ -1,4 +1,4 @@
-import { glob } from 'glob';
+import globby from 'globby';
 
 import {
   type Awaited,
@@ -50,17 +50,16 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
   check: FileCheckDeclaration;
   project: ProjectCheckContext;
 }): Promise<FileCheckEvaluation[]> => {
-  // lookup the gitignore file for the directory
-
   // define the absolute file paths to check, via the check.path glob pattern
+  // note: respects .gitignore patterns automatically via globby
   const pathsFoundByGlob = await withDurationReporting(
     `glob:${check.pathGlob}`,
     () =>
-      glob(check.pathGlob, {
+      globby(check.pathGlob, {
         cwd: project.getProjectRootDirectory(),
         dot: true,
-        nodir: true,
-        ignore: ['node_modules/**'],
+        onlyFiles: true,
+        gitignore: true,
       }),
   )();
   const pathsToCheck = pathsFoundByGlob.length
