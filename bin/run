@@ -1,3 +1,21 @@
 #!/usr/bin/env node
+
+/**
+ * .what = re-exec with tsx/esm loader if not already present
+ * .why = node v22's native type strip conflicts with tsx for .ts files in node_modules
+ *        this causes ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING when .declapract.ts files load
+ *        tsx/esm loader must be registered via --import flag at process start
+ */
+const hasTsxLoader = process.execArgv.some((arg) => arg.includes('tsx'));
+if (!hasTsxLoader) {
+  const { spawnSync } = require('child_process');
+  const result = spawnSync(
+    process.execPath,
+    ['--import', 'tsx/esm', ...process.execArgv, __filename, ...process.argv.slice(2)],
+    { stdio: 'inherit' },
+  );
+  process.exit(result.status ?? 1);
+}
+
 require('tsx/cjs');
 require('../dist/contract/cli/invoke').invoke({ args: process.argv.slice(2) });
