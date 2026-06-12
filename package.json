@@ -75,7 +75,6 @@
     "expect": "29.4.3",
     "find-nearest-package-json": "2.0.1",
     "flat": "5.0.2",
-    "glob": "11.0.1",
     "globby": "11.1.0",
     "helpful-errors": "1.7.3",
     "indent-string": "4.0.0",

@@ -29,9 +29,6 @@ importers:
       flat:
         specifier: 5.0.2
         version: 5.0.2
-      glob:
-        specifier: 11.0.1
-        version: 11.0.1
       globby:
         specifier: 11.1.0
         version: 11.1.0
