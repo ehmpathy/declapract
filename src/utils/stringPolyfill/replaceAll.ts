@@ -4,10 +4,10 @@ const escapeRegExp = (string: string) => {
 export const replaceAll = (
   inString: string,
   matchingString: string,
-  toString: string,
+  replacement: string,
 ) => {
   return inString.replace(
     new RegExp(escapeRegExp(matchingString), 'g'),
-    () => toString,
+    () => replacement,
   );
 };

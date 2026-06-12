@@ -1,6 +1,6 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
 import { createIsOfEnum } from 'type-fns';
+import { z } from 'zod';
 
 import type { FileCheckContext } from './FileCheckContext';
 import type { ProjectCheckContext } from './ProjectCheckContext';
@@ -90,18 +90,14 @@ export type FileContentsFunction = (
   context: ProjectCheckContext,
 ) => Promise<string> | string;
 
-const schema = Joi.object().keys({
-  pathGlob: Joi.string().required(),
-  purpose: Joi.string()
-    .valid(...Object.values(FileCheckPurpose))
-    .required(),
-  type: Joi.string()
-    .valid(...Object.values(FileCheckType))
-    .required(),
-  required: Joi.boolean().required(),
-  check: Joi.function().required(),
-  fix: Joi.function().required().allow(null),
-  contents: Joi.function().required().allow(null),
+const schema = z.object({
+  pathGlob: z.string(),
+  purpose: z.nativeEnum(FileCheckPurpose),
+  type: z.nativeEnum(FileCheckType),
+  required: z.boolean(),
+  check: z.function(),
+  fix: z.function().nullable(),
+  contents: z.function().nullable(),
 });
 
 /**

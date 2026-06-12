@@ -1,13 +1,13 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
-const schema = Joi.object().keys({
-  'use-cases': Joi.object().pattern(
-    /.*/,
-    Joi.object().keys({
-      example: Joi.string().optional(),
-      extends: Joi.array().items(Joi.string().required()).optional(),
-      practices: Joi.array().items(Joi.string().required()).min(1),
+const schema = z.object({
+  'use-cases': z.record(
+    z.string(),
+    z.object({
+      example: z.string().optional(),
+      extends: z.array(z.string()).optional(),
+      practices: z.array(z.string()).min(1),
     }),
   ),
 });

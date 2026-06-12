@@ -3,78 +3,6 @@
 exports[`plan should be able to plan for an example project 1`] = `
 [
   [
-    "🔎 reading configs and declarations...",
-  ],
-  [
-    "🔬️ evaluating project...",
-  ],
-  [
-    "[90m  ✓ evaluated practice:npmrc[39m",
-  ],
-  [
-    "[90m  ✓ evaluated practice:util-sleep[39m",
-  ],
-  [
-    "[90m  ✓ evaluated practice:serverless[39m",
-  ],
-  [
-    "[90m  ✓ evaluated practice:terraform[39m",
-  ],
-  [
-    "[90m  ✓ evaluated practice:prettier[39m",
-  ],
-  [
-    "[90m  ✓ evaluated practice:dates-and-times[39m",
-  ],
-  [
-    "📖 displaying results...",
-  ],
-  [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/dev/main.tf[22m",
-  ],
-  [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/dev/versions.tf[22m",
-  ],
-  [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/prod/main.tf[22m",
-  ],
-  [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/prod/versions.tf[22m",
-  ],
-  [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/product/variables.tf[22m",
-  ],
-  [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m src/**/sleep.ts[22m",
-  ],
-  [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m .gitignore[22m",
-  ],
-  [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .npmrc[22m",
-  ],
-  [
-    "    [33m✕[39m practice:npmrc.best-practice [90m(fix:appliable)[39m",
-  ],
-  [
-    "      [32m- Expected file to exist[39m
-      [31m+ Received file does not exist[39m",
-    "
-",
-  ],
-  [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m .prettierignore[22m",
-  ],
-  [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m .terraform-version[22m",
-  ],
-  [
-    "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
-  ],
-  [
-    "    [31m✕[39m practice:dates-and-times.best-practice ",
-  ],
-  [
     "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
 
       [32m- Expected  -  3[39m
@@ -135,9 +63,6 @@ exports[`plan should be able to plan for an example project 1`] = `
       [2m  }[22m",
     "
 ",
-  ],
-  [
-    "    [31m✕[39m practice:serverless.best-practice ",
   ],
   [
     "      [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
@@ -208,13 +133,10 @@ exports[`plan should be able to plan for an example project 1`] = `
 ",
   ],
   [
-    "  * [1m[1m[90m[NO_CHANGE][39m[1m prettier.config.js[22m",
-  ],
-  [
-    "  * [1m[1m[31m[FIX_MANUAL][39m[1m serverless.yml[22m",
-  ],
-  [
-    "    [31m✕[39m practice:serverless.best-practice ",
+    "      [32m- Expected file to exist[39m
+      [31m+ Received file does not exist[39m",
+    "
+",
   ],
   [
     "      [32m- Expected toContain[39m
@@ -272,6 +194,84 @@ exports[`plan should be able to plan for an example project 1`] = `
 ",
     "
 ",
+  ],
+  [
+    "    [31m✕[39m practice:dates-and-times.best-practice ",
+  ],
+  [
+    "    [31m✕[39m practice:serverless.best-practice ",
+  ],
+  [
+    "    [31m✕[39m practice:serverless.best-practice ",
+  ],
+  [
+    "    [33m✕[39m practice:npmrc.best-practice [90m(fix:appliable)[39m",
+  ],
+  [
+    "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
+  ],
+  [
+    "  * [1m[1m[31m[FIX_MANUAL][39m[1m serverless.yml[22m",
+  ],
+  [
+    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .npmrc[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m .gitignore[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m .prettierignore[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m .terraform-version[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m prettier.config.js[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/dev/main.tf[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/dev/versions.tf[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/prod/main.tf[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/environments/prod/versions.tf[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m provision/terraform/product/variables.tf[22m",
+  ],
+  [
+    "  * [1m[1m[90m[NO_CHANGE][39m[1m src/**/sleep.ts[22m",
+  ],
+  [
+    "[90m  ✓ evaluated practice:dates-and-times[39m",
+  ],
+  [
+    "[90m  ✓ evaluated practice:npmrc[39m",
+  ],
+  [
+    "[90m  ✓ evaluated practice:prettier[39m",
+  ],
+  [
+    "[90m  ✓ evaluated practice:serverless[39m",
+  ],
+  [
+    "[90m  ✓ evaluated practice:terraform[39m",
+  ],
+  [
+    "[90m  ✓ evaluated practice:util-sleep[39m",
+  ],
+  [
+    "📖 displaying results...",
+  ],
+  [
+    "🔎 reading configs and declarations...",
+  ],
+  [
+    "🔬️ evaluating project...",
   ],
 ]
 `;

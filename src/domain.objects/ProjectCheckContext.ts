@@ -1,12 +1,12 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import type { ProjectVariablesImplementation } from '@src/domain.objects/constants';
 
-const schema = Joi.object().keys({
-  projectVariables: Joi.object().required(),
-  projectPractices: Joi.array().items(Joi.string()).required(),
-  getProjectRootDirectory: Joi.function().required(),
+const schema = z.object({
+  projectVariables: z.record(z.string(), z.unknown()),
+  projectPractices: z.array(z.string()),
+  getProjectRootDirectory: z.function(),
 });
 
 /**

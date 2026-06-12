@@ -1,4 +1,4 @@
-import { isSelfDependency } from '../../fixMethods/isSelfDependency';
+import { isSelfDependency } from '@src/domain.operations/declaration/readPracticeDeclarations/readPracticeDeclaration/getFileCheckDeclaration/fixMethods/isSelfDependency';
 
 const DEP_KEYS = [
   'dependencies',

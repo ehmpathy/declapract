@@ -1,14 +1,12 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
-import { type FileCheckFunction, FileCheckType } from '.';
+import { type FileCheckFunction, FileCheckType } from './FileCheckDeclaration';
 
-const schema = Joi.object().keys({
-  type: Joi.string()
-    .valid(...Object.values(FileCheckType))
-    .optional(),
-  optional: Joi.boolean().optional(),
-  function: Joi.function().optional(),
+const schema = z.object({
+  type: z.nativeEnum(FileCheckType).optional(),
+  optional: z.boolean().optional(),
+  function: z.function().optional(),
 });
 
 /**

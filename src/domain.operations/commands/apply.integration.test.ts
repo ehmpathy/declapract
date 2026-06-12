@@ -31,6 +31,10 @@ describe('apply', () => {
     await apply({
       usePracticesConfigPath: `${targetDir}/declapract.use.yml`,
     });
-    expect(logSpy.mock.calls).toMatchSnapshot();
+    // sort log calls to ensure deterministic snapshot (practice evaluation order is non-deterministic)
+    const sortedCalls = [...logSpy.mock.calls].sort((a, b) =>
+      String(a[0]).localeCompare(String(b[0])),
+    );
+    expect(sortedCalls).toMatchSnapshot();
   });
 });

@@ -36,6 +36,7 @@ describe('bin/run', () => {
 
     beforeAll(() => {
       // setup package.json with declapract peer dep linked to local build
+      // tsx is needed for NODE_OPTIONS --import to find it in temp dir
       fs.writeFileSync(
         path.join(tmpDir, 'package.json'),
         JSON.stringify(
@@ -45,6 +46,7 @@ describe('bin/run', () => {
             devDependencies: {
               declapract: `file:${rootDir}`,
               'declapract-typescript-ehmpathy': '0.47.7',
+              tsx: '^4.19.4',
             },
           },
           null,
@@ -74,7 +76,9 @@ describe('bin/run', () => {
 
     when('invoked with plan', () => {
       then('it should load practices from the npm module', () => {
-        const output = execSync(`node ${binPath} plan`, {
+        // use tsx/esm loader to handle .declapract.ts files in node_modules
+        // tsx is installed in tmpDir and tsx/esm handles dynamic import() properly
+        const output = execSync(`node --import tsx/esm ${binPath} plan`, {
           cwd: tmpDir,
           encoding: 'utf-8',
         });

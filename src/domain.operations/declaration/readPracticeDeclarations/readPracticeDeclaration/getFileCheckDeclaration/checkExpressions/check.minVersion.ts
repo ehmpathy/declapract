@@ -1,4 +1,72 @@
-import { gte, valid } from 'semver';
+/**
+ * .what = parses a semver version string into components
+ * .why = enables proper version comparison with prerelease support
+ *
+ * .note = replaces semver.valid() to avoid semver package which has internal cycles
+ */
+const parseVersion = (
+  version: string,
+): {
+  major: number;
+  minor: number;
+  patch: number;
+  prerelease: string | null;
+} | null => {
+  // match x.y.z with optional prerelease (-alpha, -beta.1) and build metadata (+build.123)
+  // must be exactly 3 parts (no 1.2.3.4), but prerelease/build metadata allowed
+  const match =
+    /^v?(\d+)\.(\d+)\.(\d+)(?:-([a-zA-Z0-9.]+))?(?:\+[a-zA-Z0-9.]+)?$/.exec(
+      version,
+    );
+  if (!match) return null;
+  return {
+    major: Number(match[1]),
+    minor: Number(match[2]),
+    patch: Number(match[3]),
+    prerelease: match[4] ?? null,
+  };
+};
+
+/**
+ * .what = validates and normalizes a semver version string
+ * .why = ensures the version is a valid x.y.z format before comparison
+ *
+ * .note = replaces semver.valid() to avoid semver package which has internal cycles
+ *         preserves prerelease suffix for proper comparison
+ */
+const valid = (version: string): string | null => {
+  const parsed = parseVersion(version);
+  if (!parsed) return null;
+  const base = `${parsed.major}.${parsed.minor}.${parsed.patch}`;
+  return parsed.prerelease ? `${base}-${parsed.prerelease}` : base;
+};
+
+/**
+ * .what = compares two semver versions for greater-than-or-equal
+ * .why = enables version comparison without external dependency
+ *
+ * .note = replaces semver.gte() to avoid semver package which has internal cycles
+ *         handles prerelease per semver spec: 1.0.0-alpha < 1.0.0
+ */
+const gte = (version1: string, version2: string): boolean => {
+  const v1 = parseVersion(version1);
+  const v2 = parseVersion(version2);
+  if (!v1 || !v2) return false;
+
+  // compare major.minor.patch
+  if (v1.major !== v2.major) return v1.major > v2.major;
+  if (v1.minor !== v2.minor) return v1.minor > v2.minor;
+  if (v1.patch !== v2.patch) return v1.patch > v2.patch;
+
+  // equal major.minor.patch: prerelease compare
+  // per semver: release > prerelease (1.0.0 > 1.0.0-alpha)
+  if (v1.prerelease === null && v2.prerelease === null) return true; // both release, equal
+  if (v1.prerelease === null && v2.prerelease !== null) return true; // v1 release > v2 prerelease
+  if (v1.prerelease !== null && v2.prerelease === null) return false; // v1 prerelease < v2 release
+
+  // both prerelease: lexicographic comparison (simplified; beta > alpha)
+  return v1.prerelease! >= v2.prerelease!;
+};
 
 /**
  * .what = checks if a version string is a linked dependency version

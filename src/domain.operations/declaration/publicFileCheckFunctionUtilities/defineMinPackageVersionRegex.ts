@@ -1,15 +1,15 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { UserInputError } from '@src/domain.operations/UserInputError';
 
 export const defineRegexPartForNumberGreaterThan = (greaterThan: string) => {
   // check that its an integer
-  const validationResult = Joi.number()
-    .integer()
-    .positive()
-    .allow(0)
-    .validate(greaterThan);
-  if (validationResult.error)
+  const validationResult = z.coerce
+    .number()
+    .int()
+    .nonnegative()
+    .safeParse(greaterThan);
+  if (!validationResult.success)
     throw new Error(`not a positive integer: '${greaterThan}'`);
 
   // build the regex string

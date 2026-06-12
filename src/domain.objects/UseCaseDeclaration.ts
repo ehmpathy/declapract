@@ -1,13 +1,13 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { ExampleDeclaration } from './ExampleDeclaration';
 import { PracticeDeclaration } from './PracticeDeclaration';
 
-const schema = Joi.object().keys({
-  name: Joi.string().required(),
-  practices: Joi.array().items(PracticeDeclaration.schema).required(),
-  example: ExampleDeclaration.schema.allow(null),
+const schema = z.object({
+  name: z.string(),
+  practices: z.array(PracticeDeclaration.schema),
+  example: ExampleDeclaration.schema.nullable(),
 });
 
 export interface UseCaseDeclaration {

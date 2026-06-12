@@ -1,15 +1,15 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import type { ProjectVariablesImplementation } from '@src/domain.objects/constants';
 
-const schema = Joi.object().keys({
-  relativeFilePath: Joi.string().required(),
-  projectPractices: Joi.array().items(Joi.string()).required(),
-  projectVariables: Joi.object().required(), // specifies which variables to use
-  declaredFileContents: Joi.string().allow(null).required(),
-  getProjectRootDirectory: Joi.function().required(),
-  required: Joi.boolean().required(),
+const schema = z.object({
+  relativeFilePath: z.string(),
+  projectPractices: z.array(z.string()),
+  projectVariables: z.record(z.string(), z.unknown()), // specifies which variables to use
+  declaredFileContents: z.string().nullable(),
+  getProjectRootDirectory: z.function(),
+  required: z.boolean(),
 });
 
 /**
