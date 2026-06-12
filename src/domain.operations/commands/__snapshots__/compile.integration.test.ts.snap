@@ -7,7 +7,7 @@ exports[`compile should be able to correctly compile declarations, with '*' subs
   "examples/examples/typescript/declapract.use.yml",
   "examples/examples/typescript/package.json",
   "examples/examples/typescript/prettier.config.js",
-  "examples/typescript/src/domain/index.ts",
+  "examples/typescript/src/domain.objects/index.ts",
   "getVariables.ts",
   "practices/directory-structure-src/bad-practices/model-dir/.declapract.readme.md",
   "practices/directory-structure-src/bad-practices/model-dir/src/model/<star><star>/<star>.ts.declapract.ts",
