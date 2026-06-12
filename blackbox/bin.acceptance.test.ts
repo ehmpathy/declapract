@@ -77,6 +77,12 @@ describe('bin/run', () => {
         const output = execSync(`node ${binPath} plan`, {
           cwd: tmpDir,
           encoding: 'utf-8',
+          env: {
+            ...process.env,
+            // disable node.js native type strip to prevent conflict with tsx
+            // for .declapract.ts files in node_modules
+            NODE_OPTIONS: '--no-experimental-strip-types',
+          },
         });
         expect(output).toContain('declapract');
       });
