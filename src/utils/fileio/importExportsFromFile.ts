@@ -9,5 +9,10 @@ export const importExportsFromFile = async ({
 }: {
   filePath: string;
 }) => {
-  return import(filePath);
+  const mod = await import(filePath);
+  // handle esm/cjs interop - check if exports are on default or direct
+  if (mod.default && typeof mod.default === 'object' && mod.default.check) {
+    return mod.default;
+  }
+  return mod;
 };
