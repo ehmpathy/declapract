@@ -147,7 +147,7 @@ describe('evaluteProjectAgainstPracticeDeclaration', () => {
         (file) => file.path === 'src/data/clients/coolServiceClient.ts',
       ),
     ).toMatchObject({
-      // should have found this file by wildcard _and_ failed it due to the contains check not being satisfied correctly
+      // should have found this file by wildcard _and_ failed it due to the contains check not satisfied correctly
       result: FileEvaluationResult.FAIL,
       checks: expect.arrayContaining([
         expect.objectContaining({

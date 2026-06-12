@@ -1,19 +1,14 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { RequiredAction } from '@src/domain.objects/constants';
 
 import { FilePracticeEvaluation } from './FilePracticeEvaluation';
 
-const schema = Joi.object().keys({
-  path: Joi.string().required(),
-  action: Joi.string()
-    .valid(...Object.values(RequiredAction))
-    .required(),
-  evaluations: Joi.array()
-    .items(FilePracticeEvaluation.schema)
-    .required()
-    .min(1),
+const schema = z.object({
+  path: z.string(),
+  action: z.nativeEnum(RequiredAction),
+  evaluations: z.array(FilePracticeEvaluation.schema).min(1),
 });
 
 /**

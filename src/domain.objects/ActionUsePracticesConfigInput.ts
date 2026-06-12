@@ -1,17 +1,17 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
 import type { PickAny } from 'type-fns';
+import { z } from 'zod';
 
-const schema = Joi.object().keys({
-  declarations: Joi.string().required(), // either an ssh path to a git repo - or a file path to a local directory
-  useCase: Joi.string().required().optional(), // specifies which use case to use
-  scope: Joi.object()
-    .keys({
-      usecase: Joi.string().required().optional(),
-      practices: Joi.array().items(Joi.string().required()),
+const schema = z.object({
+  declarations: z.string(), // either an ssh path to a git repo - or a file path to a local directory
+  useCase: z.string().optional(), // specifies which use case to use
+  scope: z
+    .object({
+      usecase: z.string().optional(),
+      practices: z.array(z.string()).optional(),
     })
     .optional(),
-  variables: Joi.object().optional(), // specifies which variables to use
+  variables: z.record(z.string(), z.unknown()).optional(), // specifies which variables to use
 });
 
 export interface ActionUsePracticesConfigInput {

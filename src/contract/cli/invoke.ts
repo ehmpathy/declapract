@@ -1,11 +1,12 @@
 import { Command } from 'commander';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 
 import { executeApply } from '@src/contract/sdk/apply';
 import { executeCompile } from '@src/contract/sdk/compile';
 import { executePlan } from '@src/contract/sdk/plan';
 import { executeValidate } from '@src/contract/sdk/validate';
+
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 const getVersion = (): string => {
   const packageJson = JSON.parse(

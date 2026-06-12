@@ -1,12 +1,12 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { FileCheckDeclaration } from './FileCheckDeclaration';
 
-const schema = Joi.object().keys({
-  name: Joi.string().required(),
-  readme: Joi.string().required().allow(null),
-  checks: Joi.array().items(FileCheckDeclaration.schema).required().min(1),
+const schema = z.object({
+  name: z.string(),
+  readme: z.string().nullable(),
+  checks: z.array(FileCheckDeclaration.schema).min(1),
 });
 
 export interface ProjectCheckDeclaration {

@@ -1,9 +1,9 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
-const schema = Joi.object().keys({
-  name: Joi.string().required(),
-  exampleRootDirectory: Joi.string().required(),
+const schema = z.object({
+  name: z.string(),
+  exampleRootDirectory: z.string(),
 });
 
 /**

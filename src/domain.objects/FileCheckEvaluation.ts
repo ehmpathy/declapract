@@ -1,5 +1,5 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { FileCheckContext } from './FileCheckContext';
 import {
@@ -23,22 +23,16 @@ export const hasPassed = (evaluation: {
 export const isFixableCheck = (evaluation: FileCheckEvaluation): boolean =>
   !!evaluation.fix;
 
-const schema = Joi.object().keys({
-  practiceRef: Joi.string().required(),
-  purpose: Joi.string()
-    .valid(...Object.values(FileCheckPurpose))
-    .required(),
-  type: Joi.string()
-    .valid(...Object.values(FileCheckType))
-    .required(),
-  required: Joi.boolean().required(),
-  path: Joi.string().required(),
-  result: Joi.string()
-    .valid(...Object.values(FileEvaluationResult))
-    .required(),
-  reason: Joi.string().required().allow(null),
-  fix: Joi.function().allow(null).required(),
-  context: FileCheckContext.schema.required(),
+const schema = z.object({
+  practiceRef: z.string(),
+  purpose: z.nativeEnum(FileCheckPurpose),
+  type: z.nativeEnum(FileCheckType),
+  required: z.boolean(),
+  path: z.string(),
+  result: z.nativeEnum(FileEvaluationResult),
+  reason: z.string().nullable(),
+  fix: z.function().nullable(),
+  context: FileCheckContext.schema,
 });
 
 /**

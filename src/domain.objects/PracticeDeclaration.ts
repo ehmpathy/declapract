@@ -1,12 +1,12 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { ProjectCheckDeclaration } from './ProjectCheckDeclaration';
 
-const schema = Joi.object().keys({
-  name: Joi.string().required(),
-  bestPractice: ProjectCheckDeclaration.schema.allow(null).required(),
-  badPractices: Joi.array().items(ProjectCheckDeclaration.schema).required(),
+const schema = z.object({
+  name: z.string(),
+  bestPractice: ProjectCheckDeclaration.schema.nullable(),
+  badPractices: z.array(ProjectCheckDeclaration.schema),
 });
 
 /**

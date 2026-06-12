@@ -1,5 +1,5 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import {
   FileCheckEvaluation,
@@ -16,13 +16,11 @@ export const isFixablePractice = (
   evaluation: FilePracticeEvaluation,
 ): boolean => evaluation.checks.filter(hasFailed).some(isFixableCheck); // if every check that failed is fixable, then fixable
 
-const schema = Joi.object().keys({
-  path: Joi.string().required(),
-  result: Joi.string()
-    .valid(...Object.values(FileEvaluationResult))
-    .required(),
-  checks: Joi.array().items(FileCheckEvaluation.schema),
-  practice: PracticeDeclaration.schema.required(),
+const schema = z.object({
+  path: z.string(),
+  result: z.nativeEnum(FileEvaluationResult),
+  checks: z.array(FileCheckEvaluation.schema),
+  practice: PracticeDeclaration.schema,
 });
 
 /**

@@ -1,15 +1,15 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { ExampleDeclaration } from './ExampleDeclaration';
 import { PracticeDeclaration } from './PracticeDeclaration';
 import { UseCaseDeclaration } from './UseCaseDeclaration';
 
-const schema = Joi.object().keys({
-  rootDir: Joi.string().required(), // dir of config file, to which all config paths are relative
-  examples: Joi.array().items(ExampleDeclaration.schema).required(),
-  useCases: Joi.array().items(UseCaseDeclaration.schema).required(),
-  practices: Joi.array().items(PracticeDeclaration.schema).min(1),
+const schema = z.object({
+  rootDir: z.string(), // dir of config file, to which all config paths are relative
+  examples: z.array(ExampleDeclaration.schema),
+  useCases: z.array(UseCaseDeclaration.schema),
+  practices: z.array(PracticeDeclaration.schema).min(1),
 });
 
 export interface DeclaredPractices {

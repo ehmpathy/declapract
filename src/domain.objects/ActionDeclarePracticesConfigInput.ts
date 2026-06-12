@@ -1,14 +1,12 @@
 import { DomainObject } from 'domain-objects';
-import Joi from 'joi';
+import { z } from 'zod';
 
-const schema = Joi.object().keys({
-  declare: Joi.object()
-    .keys({
-      examples: Joi.string().optional(),
-      'use-cases': Joi.string().required(),
-      practices: Joi.string().required(),
-    })
-    .required(),
+const schema = z.object({
+  declare: z.object({
+    examples: z.string().optional(),
+    'use-cases': z.string(),
+    practices: z.string(),
+  }),
 });
 
 export interface ActionDeclarePracticesConfigInput {
