@@ -16,6 +16,19 @@ import { withDurationReporting } from '@src/utils/wrappers/withDurationReporting
 
 import { replaceProjectVariablesInDeclaredFileContents } from './projectVariableExpressions/replaceProjectVariablesInDeclaredFileContents';
 
+/**
+ * common directories to always exclude, regardless of .gitignore presence
+ *
+ * .why = gitignore: true only works if .gitignore exists; these provide fallback
+ */
+const DEFAULT_IGNORE_PATTERNS = [
+  '**/node_modules/**',
+  '**/.git/**',
+  '**/dist/**',
+  '**/build/**',
+  '**/coverage/**',
+];
+
 const checkApplyingFixWouldChangeSomething = ({
   fixResults,
   foundContents,
@@ -51,7 +64,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
   project: ProjectCheckContext;
 }): Promise<FileCheckEvaluation[]> => {
   // define the absolute file paths to check, via the check.path glob pattern
-  // note: respects .gitignore patterns automatically via globby
+  // note: respects .gitignore patterns automatically via globby, with fallback ignores
   const pathsFoundByGlob = await withDurationReporting(
     `glob:${check.pathGlob}`,
     () =>
@@ -60,6 +73,7 @@ export const evaluateProjectAgainstFileCheckDeclaration = async ({
         dot: true,
         onlyFiles: true,
         gitignore: true,
+        ignore: DEFAULT_IGNORE_PATTERNS,
       }),
   )();
   const pathsToCheck = pathsFoundByGlob.length
