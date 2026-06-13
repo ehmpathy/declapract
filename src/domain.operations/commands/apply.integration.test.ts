@@ -38,7 +38,9 @@ describe('apply', () => {
     // sort log calls and strip ANSI codes to ensure deterministic snapshot
     // (practice evaluation order is non-deterministic, ANSI codes vary by environment)
     const sortedCalls = [...logSpy.mock.calls]
-      .map((call) => call.map((arg) => (typeof arg === 'string' ? stripAnsi(arg) : arg)))
+      .map((call) =>
+        call.map((arg) => (typeof arg === 'string' ? stripAnsi(arg) : arg)),
+      )
       .sort((a, b) => String(a[0]).localeCompare(String(b[0])));
     expect(sortedCalls).toMatchSnapshot();
   });
