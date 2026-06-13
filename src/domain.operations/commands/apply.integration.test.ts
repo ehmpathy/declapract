@@ -8,7 +8,7 @@ import { apply } from './apply';
 const logSpy = jest.spyOn(console, 'log').mockImplementation(() => log.debug); // swap to log debug so its not displaying during tests by default
 
 // strip ANSI codes for deterministic snapshots across environments
-// eslint-disable-next-line no-control-regex
+// biome-ignore lint/suspicious/noControlCharactersInRegex: intentional - ANSI escape codes require control char
 const stripAnsi = (str: string): string => str.replace(/\x1b\[[0-9;]*m/g, '');
 
 describe('apply', () => {
