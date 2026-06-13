@@ -1,0 +1,4 @@
+use-cases:
+  test-project:
+    practices:
+      - cache

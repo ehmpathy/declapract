@@ -1,0 +1,3 @@
+declare:
+  practices: src/practices
+  use-cases: src/useCases.yml

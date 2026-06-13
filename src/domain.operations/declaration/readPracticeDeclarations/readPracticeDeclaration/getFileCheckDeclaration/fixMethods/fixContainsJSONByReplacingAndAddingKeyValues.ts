@@ -2,6 +2,7 @@ import path from 'path';
 
 import type { FileCheckContext, FileFixFunction } from '@src/domain.objects';
 import {
+  assertNoUnsupportedModifiers,
   CHECK_MIN_VERSION_REGEX_GLOBAL,
   checkDoesFoundValuePassesMinVersionCheck,
   getMinVersionFromCheckMinVersionExpression,
@@ -114,7 +115,12 @@ const deepReplaceOrAddCurrentKeyValuesWithDesiredKeyValues = ({
         return desiredValue;
       }
       if (desiredValue === undefined) return currentValue; // if there is no value defined in the desired object for this key, then keep the current value
-      if (Array.isArray(desiredValue)) return desiredValue; // TODO: think through if we should do something special here
+      if (Array.isArray(desiredValue)) return desiredValue; // TODO: think through if we should do this differently for arrays
+
+      // fail fast if expression uses unsupported modifier (e.g., .ifPresent())
+      if (typeof desiredValue === 'string')
+        assertNoUnsupportedModifiers(desiredValue);
+
       if (isCheckMinVersionExpression(desiredValue)) {
         const minVersion =
           getMinVersionFromCheckMinVersionExpression(desiredValue);

@@ -1,4 +1,5 @@
 import {
+  assertNoUnsupportedModifiers,
   checkDoesFoundValuePassesMinVersionCheck,
   getMinVersionFromCheckMinVersionExpression,
   hasIfInstalledModifier,
@@ -508,5 +509,60 @@ describe('hasIfInstalledModifier', () => {
   it('should return false for non-match', () => {
     const result = hasIfInstalledModifier('not-an-expression');
     expect(result).toEqual(false);
+  });
+});
+
+describe('assertNoUnsupportedModifiers', () => {
+  it('should not throw for valid expression without modifier', () => {
+    expect(() =>
+      assertNoUnsupportedModifiers("@declapract{check.minVersion('1.0.0')}"),
+    ).not.toThrow();
+  });
+
+  it('should not throw for valid expression with .ifInstalled() modifier', () => {
+    expect(() =>
+      assertNoUnsupportedModifiers(
+        "@declapract{check.minVersion('1.0.0').ifInstalled()}",
+      ),
+    ).not.toThrow();
+  });
+
+  it('should not throw for non-declapract strings', () => {
+    expect(() => assertNoUnsupportedModifiers('1.0.0')).not.toThrow();
+    expect(() =>
+      assertNoUnsupportedModifiers('not-an-expression'),
+    ).not.toThrow();
+  });
+
+  it('should throw for .ifPresent() modifier', () => {
+    expect(() =>
+      assertNoUnsupportedModifiers(
+        "@declapract{check.minVersion('1.0.0').ifPresent()}",
+      ),
+    ).toThrow(/unsupported declapract modifier '.ifPresent\(\)'/);
+  });
+
+  it('should throw for .optional() modifier', () => {
+    expect(() =>
+      assertNoUnsupportedModifiers(
+        "@declapract{check.minVersion('1.0.0').optional()}",
+      ),
+    ).toThrow(/unsupported declapract modifier '.optional\(\)'/);
+  });
+
+  it('should throw for any unknown modifier', () => {
+    expect(() =>
+      assertNoUnsupportedModifiers(
+        "@declapract{check.minVersion('1.0.0').someNewModifier()}",
+      ),
+    ).toThrow(/unsupported declapract modifier '.someNewModifier\(\)'/);
+  });
+
+  it('should include helpful hint in error message', () => {
+    expect(() =>
+      assertNoUnsupportedModifiers(
+        "@declapract{check.minVersion('1.0.0').ifPresent()}",
+      ),
+    ).toThrow(/hint: upgrade declapract or fix the declarations package/);
   });
 });

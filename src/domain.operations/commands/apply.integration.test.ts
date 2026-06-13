@@ -7,6 +7,10 @@ import { apply } from './apply';
 
 const logSpy = jest.spyOn(console, 'log').mockImplementation(() => log.debug); // swap to log debug so its not displaying during tests by default
 
+// strip ANSI codes for deterministic snapshots across environments
+// biome-ignore lint/suspicious/noControlCharactersInRegex: intentional - ANSI escape codes require control char
+const stripAnsi = (str: string): string => str.replace(/\x1b\[[0-9;]*m/g, '');
+
 describe('apply', () => {
   beforeEach(() => jest.clearAllMocks());
   it('should be able to apply for an example project', async () => {
@@ -31,10 +35,13 @@ describe('apply', () => {
     await apply({
       usePracticesConfigPath: `${targetDir}/declapract.use.yml`,
     });
-    // sort log calls to ensure deterministic snapshot (practice evaluation order is non-deterministic)
-    const sortedCalls = [...logSpy.mock.calls].sort((a, b) =>
-      String(a[0]).localeCompare(String(b[0])),
-    );
+    // sort log calls and strip ANSI codes to ensure deterministic snapshot
+    // (practice evaluation order is non-deterministic, ANSI codes vary by environment)
+    const sortedCalls = [...logSpy.mock.calls]
+      .map((call) =>
+        call.map((arg) => (typeof arg === 'string' ? stripAnsi(arg) : arg)),
+      )
+      .sort((a, b) => String(a[0]).localeCompare(String(b[0])));
     expect(sortedCalls).toMatchSnapshot();
   });
 });

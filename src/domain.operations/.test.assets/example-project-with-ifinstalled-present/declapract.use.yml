@@ -1,0 +1,5 @@
+declarations: ../example-declarations-with-ifinstalled
+useCase: test-project
+variables:
+  organizationName: test-org
+  projectName: test-project

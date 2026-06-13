@@ -101,6 +101,32 @@ export const CHECK_MIN_VERSION_REGEX_GLOBAL =
   /@declapract\{check\.minVersion\('([0-9.]+)'\)(\.ifInstalled\(\))?\}/g;
 
 /**
+ * regex to detect @declapract expressions with unsupported modifiers
+ *
+ * matches expressions that look like check.minVersion but have unknown modifiers
+ *
+ * .note = the negative lookahead includes \} to account for the closing brace
+ */
+export const CHECK_MIN_VERSION_UNSUPPORTED_MODIFIER_REGEX =
+  /^@declapract\{check\.minVersion\('[0-9.]+'\)\.(?!ifInstalled\(\)\}$)(\w+)\(/;
+
+/**
+ * .what = throws if expression contains unsupported modifier
+ * .why = fail fast when declarations use modifiers this version cannot handle,
+ *        rather than silently writing raw expressions to output files
+ */
+export const assertNoUnsupportedModifiers = (value: string): void => {
+  const match = CHECK_MIN_VERSION_UNSUPPORTED_MODIFIER_REGEX.exec(value);
+  if (!match) return;
+  const modifier = match[1];
+  throw new Error(
+    `unsupported declapract modifier '.${modifier}()' in expression: ${value}. ` +
+      `supported modifiers: .ifInstalled(). ` +
+      `hint: upgrade declapract or fix the declarations package.`,
+  );
+};
+
+/**
  * grabs the `x.y.z` part from strings that match the shape `@declapract{check.minVersion('x.y.z')}` or `@declapract{check.minVersion('x.y.z').ifInstalled()}`
  *
  * returns null if no match
