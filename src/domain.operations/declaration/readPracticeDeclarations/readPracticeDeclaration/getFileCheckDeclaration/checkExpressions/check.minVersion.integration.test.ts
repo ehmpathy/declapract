@@ -1,10 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-
 import { given, then, when } from 'test-fns';
 
-import { apply } from '@src/domain.operations/commands/apply';
 import { testAssetsDirectoryPath } from '@src/domain.operations/.test.assets/dirPath';
+import { apply } from '@src/domain.operations/commands/apply';
 
 describe('check.minVersion integration', () => {
   given('declarations with normal check.minVersion expressions', () => {
@@ -101,9 +100,7 @@ describe('check.minVersion integration', () => {
           expect(
             packageJson.dependencies['simple-on-disk-cache'],
           ).toBeUndefined();
-          expect(
-            packageJson.dependencies['with-simple-cache'],
-          ).toBeUndefined();
+          expect(packageJson.dependencies['with-simple-cache']).toBeUndefined();
 
           // unrelated dep should be preserved
           expect(packageJson.dependencies.lodash).toEqual('4.17.21');
@@ -156,9 +153,7 @@ describe('check.minVersion integration', () => {
           expect(
             packageJson.dependencies['simple-on-disk-cache'],
           ).toBeUndefined();
-          expect(
-            packageJson.dependencies['with-simple-cache'],
-          ).toBeUndefined();
+          expect(packageJson.dependencies['with-simple-cache']).toBeUndefined();
 
           // unrelated dep should be preserved
           expect(packageJson.dependencies.lodash).toEqual('4.17.21');
