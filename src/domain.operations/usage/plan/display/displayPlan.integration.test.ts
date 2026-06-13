@@ -163,7 +163,11 @@ describe('displayPlan', () => {
     expect(logSpy).toHaveBeenCalledWith(
       expect.stringContaining('package.json'),
     );
-    expect(logSpy.mock.calls).toMatchSnapshot();
+    // sort calls to ensure deterministic snapshot (practice evaluation order is non-deterministic)
+    const sortedCalls = [...logSpy.mock.calls].sort((a, b) =>
+      String(a[0]).localeCompare(String(b[0])),
+    );
+    expect(sortedCalls).toMatchSnapshot();
   });
   it.todo('should show failing both manually and automatically correctly');
 });

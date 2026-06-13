@@ -41,21 +41,6 @@ exports[`displayPlan should show failing bad practice correctly 1`] = `
 exports[`displayPlan should show failing multiple practices on the same file correctly 1`] = `
 [
   [
-    "[90m  ✓ evaluated practice:prettier[39m",
-  ],
-  [
-    "[90m  ✓ evaluated practice:dates-and-times[39m",
-  ],
-  [
-    "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
-  ],
-  [
-    "    [31m✕[39m practice:dates-and-times.bad-practice.moment ",
-  ],
-  [
-    "    [33m✕[39m practice:prettier.best-practice [90m(fix:appliable)[39m",
-  ],
-  [
     "      [32m- Expected toContain[39m
       [31m+ Received relevantKeys[39m
 
@@ -70,6 +55,21 @@ exports[`displayPlan should show failing multiple practices on the same file cor
       [31m+ {}[39m",
     "
 ",
+  ],
+  [
+    "    [31m✕[39m practice:dates-and-times.bad-practice.moment ",
+  ],
+  [
+    "    [33m✕[39m practice:prettier.best-practice [90m(fix:appliable)[39m",
+  ],
+  [
+    "  * [1m[1m[31m[FIX_MANUAL][39m[1m package.json[22m",
+  ],
+  [
+    "[90m  ✓ evaluated practice:dates-and-times[39m",
+  ],
+  [
+    "[90m  ✓ evaluated practice:prettier[39m",
   ],
 ]
 `;
