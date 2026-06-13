@@ -31,6 +31,9 @@
   ],
   "license": "MIT",
   "main": "dist/contract/index.js",
+  "exports": {
+    ".": "./dist/contract/index.js"
+  },
   "scripts": {
     "generate:cli-readme": "echo 'no oclif readme generation'",
     "build:ts": "tsc -p ./tsconfig.build.json",
