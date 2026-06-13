@@ -3,88 +3,88 @@
 exports[`apply should be able to apply for an example project 1`] = `
 [
   [
-    "    [32m✓[39m practice:npmrc.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:npmrc.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:prettier.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:prettier.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:prettier.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:prettier.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:serverless.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:serverless.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:terraform.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:terraform.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:terraform.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:terraform.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:terraform.best-practice (fix:applied)",
   ],
   [
-    "    [32m✓[39m practice:terraform.best-practice [90m(fix:applied)[39m",
+    "    ✓ practice:terraform.best-practice (fix:applied)",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .npmrc[22m",
+    "  * [FIX_AUTOMATIC] .npmrc",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .prettierignore[22m",
+    "  * [FIX_AUTOMATIC] .prettierignore",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m .terraform-version[22m",
+    "  * [FIX_AUTOMATIC] .terraform-version",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m package.json[22m",
+    "  * [FIX_AUTOMATIC] package.json",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m prettier.config.js[22m",
+    "  * [FIX_AUTOMATIC] prettier.config.js",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/dev/main.tf[22m",
+    "  * [FIX_AUTOMATIC] provision/terraform/environments/dev/main.tf",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/dev/versions.tf[22m",
+    "  * [FIX_AUTOMATIC] provision/terraform/environments/dev/versions.tf",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/prod/main.tf[22m",
+    "  * [FIX_AUTOMATIC] provision/terraform/environments/prod/main.tf",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/environments/prod/versions.tf[22m",
+    "  * [FIX_AUTOMATIC] provision/terraform/environments/prod/versions.tf",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m provision/terraform/product/variables.tf[22m",
+    "  * [FIX_AUTOMATIC] provision/terraform/product/variables.tf",
   ],
   [
-    "  * [1m[1m[33m[FIX_AUTOMATIC][39m[1m serverless.yml[22m",
+    "  * [FIX_AUTOMATIC] serverless.yml",
   ],
   [
-    "[90m  ✓ evaluated practice:dates-and-times[39m",
+    "  ✓ evaluated practice:dates-and-times",
   ],
   [
-    "[90m  ✓ evaluated practice:npmrc[39m",
+    "  ✓ evaluated practice:npmrc",
   ],
   [
-    "[90m  ✓ evaluated practice:prettier[39m",
+    "  ✓ evaluated practice:prettier",
   ],
   [
-    "[90m  ✓ evaluated practice:serverless[39m",
+    "  ✓ evaluated practice:serverless",
   ],
   [
-    "[90m  ✓ evaluated practice:terraform[39m",
+    "  ✓ evaluated practice:terraform",
   ],
   [
-    "[90m  ✓ evaluated practice:util-sleep[39m",
+    "  ✓ evaluated practice:util-sleep",
   ],
   [
     "🔎 reading configs and declarations...",
